@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>📈 午盘快报 · 2026-07-08（11:30）</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+  * { box-sizing: border-box; }
+  body { font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif; max-width: 1080px; margin: 0 auto; padding: 20px; background: #f4f6f9; color: #1f2937; }
+  .header { background: linear-gradient(135deg, #0f766e, #10b981); color: white; padding: 28px 32px; border-radius: 16px; margin-bottom: 20px; }
+  .header h1 { margin: 0; font-size: 28px; }
+  .header .sub { opacity: 0.92; margin-top: 6px; font-size: 14px; }
+  .mood-chip { display: inline-block; background: rgba(255,255,255,0.2); padding: 4px 12px; border-radius: 999px; font-size: 13px; margin-top: 12px; }
+  .card { background: white; padding: 22px 24px; border-radius: 14px; margin-bottom: 18px; box-shadow: 0 1px 4px rgba(0,0,0,0.05); }
+  .card h2 { margin: 0 0 16px; font-size: 19px; border-left: 4px solid #10b981; padding-left: 10px; }
+  table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  th, td { padding: 9px 8px; text-align: left; border-bottom: 1px solid #eef0f3; }
+  th { background: #f8fafc; color: #64748b; font-weight: 600; }
+  .down { color: #dc2626; font-weight: 600; }
+  .up { color: #16a34a; font-weight: 600; }
+  .flat { color: #6b7280; }
+  .tag-t0 { background: #dcfce7; color: #15803d; padding: 1px 7px; border-radius: 6px; font-size: 12px; }
+  .tag-t2 { background: #fef9c3; color: #a16207; padding: 1px 7px; border-radius: 6px; font-size: 12px; }
+  .tag-ok { background: #d1fae5; color: #047857; padding: 1px 7px; border-radius: 6px; font-size: 12px; }
+  .tag-warn { background: #fee2e2; color: #b91c1c; padding: 1px 7px; border-radius: 6px; font-size: 12px; }
+  .signal-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; }
+  .signal { border: 1px solid #e5e7eb; border-radius: 10px; padding: 12px 14px; }
+  .signal .name { font-weight: 600; font-size: 14px; }
+  .signal .act { font-size: 13px; margin-top: 6px; line-height: 1.5; }
+  .alert { background: #ecfdf5; border: 1px solid #a7f3d0; border-radius: 10px; padding: 14px 16px; margin-top: 14px; }
+  .alert b { color: #047857; }
+  .alert-red { background: #fef2f2; border: 1px solid #fecaca; border-radius: 10px; padding: 14px 16px; margin-top: 14px; }
+  .alert-red b { color: #b91c1c; }
+  .logic { font-size: 14px; line-height: 1.75; }
+  .logic li { margin-bottom: 8px; }
+  .disclaimer { color: #94a3b8; font-size: 12px; margin-top: 24px; padding-top: 14px; border-top: 1px solid #e5e7eb; line-height: 1.6; }
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  @media (max-width: 720px){ .two-col{ grid-template-columns:1fr; } }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>📈 午盘快报（Morning Close）</h1>
+  <div class="sub">2026-07-08 11:30 · A股上午收盘 · 数据快照 11:30（通达信实时行情 T2）</div>
+  <div class="mood-chip">📊 大盘情绪：偏多(64) ｜ 🔴→🟢 半导体情绪：修复(72) ｜ 成交额：上证≈7892亿 / 创业板≈4356亿</div>
+</div>
+
+<!-- 上午大盘与板块速览 -->
+<div class="card">
+  <h2>一、上午大盘与板块速览（11:30 快照）</h2>
+  <table>
+    <tr><th>标的 / 板块</th><th>午盘涨跌</th><th>成交额</th><th>时间</th><th>来源 / 置信</th></tr>
+    <tr><td>上证指数</td><td class="up">+0.52%</td><td>7891.6亿</td><td>11:30</td><td><span class="tag-t2">tdx T2</span> <span class="tag-ok">✅✅</span></td></tr>
+    <tr><td>创业板指</td><td class="up">+0.95%</td><td>4355.8亿</td><td>11:30</td><td><span class="tag-t2">tdx T2</span> <span class="tag-ok">✅✅</span></td></tr>
+    <tr><td>半导体（整体）</td><td class="up">+2.82%</td><td>3519.3亿</td><td>11:30</td><td><span class="tag-t2">tdx T2</span> <span class="tag-t2">✅</span></td></tr>
+    <tr><td>半导体设备</td><td class="up">+4.12%</td><td>499.2亿</td><td>11:30</td><td><span class="tag-t2">tdx T2</span> <span class="tag-t2">✅</span></td></tr>
+    <tr><td>半导体制造</td><td class="up">+5.98%</td><td>264.4亿</td><td>11:30</td><td><span class="tag-t2">tdx T2</span> <span class="tag-t2">✅</span></td></tr>
+    <tr><td>存储芯片</td><td class="up">+0.59%</td><td>3624.3亿</td><td>11:30</td><td><span class="tag-t2">tdx T2</span> <span class="tag-t2">✅</span></td></tr>
+    <tr><td>通信设备 / CPO</td><td class="up">+3.00%</td><td>1181.6亿</td><td>11:30</td><td><span class="tag-t2">tdx T2</span> <span class="tag-t2">✅</span></td></tr>
+    <tr><td>PCB 概念</td><td class="down">-0.57%</td><td>1688.7亿</td><td>11:30</td><td><span class="tag-t2">tdx T2</span> <span class="tag-t2">✅</span></td></tr>
+    <tr><td>中证煤炭</td><td class="up">+0.46%</td><td>83.1亿</td><td>11:30</td><td><span class="tag-t2">tdx T2</span> <span class="tag-t2">✅</span></td></tr>
+    <tr><td>中证主要消费</td><td class="down">-1.16%</td><td>107.7亿</td><td>12:41(最新)</td><td><span class="tag-t2">tdx T2</span> <span class="tag-t2">✅</span></td></tr>
+    <tr><td>香港创新药ETF</td><td class="down">-3.68%</td><td>—</td><td>07-07收盘</td><td><span class="tag-t2">tdx T2</span> <span class="tag-warn">⚠待验证</span></td></tr>
+    <tr><td>纳指100ETF</td><td class="up">+1.30%</td><td>—</td><td>07-06(最新可得)</td><td><span class="tag-t2">tdx T2</span> <span class="tag-warn">⚠待验证</span></td></tr>
+  </table>
+  <p style="font-size:12px;color:#94a3b8;margin-top:10px;">✅✅ = 双源验证：tdx 今日"昨收" 上证 3990.24 / 创业板 3911.91，与雪球、百度百家号 07-07 收评完全一致。板块为单源 T2 实时（tdx），盘后待回填交叉验证。香港创新药 / 纳指100 为跨境内 ETF，tdx 无 07-08 盘中更新，标注 ⚠ 不进硬决策。</p>
+</div>
+
+<!-- 上午信号表 -->
+<div class="card">
+  <h2>二、各持仓上午信号表</h2>
+  <table>
+    <tr><th>基金（权重）</th><th>关联指数 / 上午表现</th><th>上午信号</th><th>建议动作</th></tr>
+    <tr><td>东方人工智能(36.62%)</td><td>半导体设备 +4.12% / 材料 -0.05%</td><td>持有</td><td>半导体强势反弹，持有；设备强于材料，观察午后承接</td></tr>
+    <tr><td>东方阿尔法科技(21.80%)</td><td>半导体设备 +4.12% / 材料 -0.05%</td><td>持有</td><td>同东方AI，跟随半导体反弹</td></tr>
+    <tr><td>永赢先锋半导体(12.51%)</td><td>存储 +0.59% / 制造 +5.98%</td><td class="up">持有·风险解除</td><td>隔夜 -8% 止损警报未触发，强势反弹，持有</td></tr>
+    <tr><td>广发港股创新药(16.19%)</td><td>香港创新药 -3.68%(昨)</td><td class="flat">观望·⚠滞后</td><td>无 07-08 盘中数据，延续弱势概率；待午后/收盘确认</td></tr>
+    <tr><td>富国中证煤炭(7.30%)</td><td>中证煤炭 +0.46%</td><td>持有·残仓</td><td>转债券进行中，煤炭平稳，防御端稳健</td></tr>
+    <tr><td>嘉实消费ETF(3.60%)</td><td>中证主要消费 -1.16%</td><td>持有·低位</td><td>新建仓，消费走弱不改定投式持有</td></tr>
+    <tr><td>财通集成电路(0.72%)</td><td>PCB -0.57%</td><td>加仓观察·小额</td><td>PCB 微跌但 CPO 强，试探仓持有</td></tr>
+    <tr><td>财通成长优选(0.72%)</td><td>科创成长层 +0.50%</td><td>持有·小额</td><td>成长风格平稳</td></tr>
+    <tr><td>天弘通信设备(0.07%)</td><td>通信设备 +3.00%</td><td class="up">持有·CPO领涨</td><td>CPO 主线强，试探仓持有</td></tr>
+    <tr><td>广发纳指100(0.43%)</td><td>纳指 +1.30%(07-06)</td><td>定投持有</td><td>极小仓，数据滞后</td></tr>
+    <tr><td>国泰半导体制造(已清)</td><td>半导体制造 +5.98%</td><td class="flat">—</td><td>已清仓，仅供参考</td></tr>
+  </table>
+  <div class="alert">
+    <b>✅ 关键风险解除：永赢先锋半导体（¥1,736.30）</b><br>
+    早间报告曾预警"隔夜美存储暴跌或触发 -8% 硬止损"。但上午半导体强势反弹（制造 +5.98% / 设备 +4.12% / 整体 +2.82%），存储芯片亦 +0.59%，永赢远离止损线、上午大概率收红。<b>无需减仓，原止损预案暂不触发。</b>
+  </div>
+</div>
+
+<!-- 逻辑推导 -->
+<div class="card">
+  <h2>三、逻辑推导：上午发生了什么</h2>
+  <ul class="logic">
+    <li><b>核心反转 — 半导体恐惧叙事未兑现。</b>隔夜美存储暴跌（美光 -9% / 闪迪 -14%）曾引发"半导体开盘承压、永赢触 -8% 止损"的担忧；但 A 股半导体上午强势反弹（设备 +4.12% / 制造 +5.98%）。原因：① A 股半导体以国产设备/制造为主，受美存储拖累有限；② CPO/AI 算力需求驱动（支付宝热点"光模块量产实锤"）；③ 昨日获利了结后资金回流科技。</li>
+    <li><b>CPO 主线确认。</b>通信设备 +3.00%，与昨日"光模块量产实锤 / CPO 技术突破"热点一致，天弘通信、财通集成受益，且强于 PCB（-0.57%）——资金更偏向"光模块/系统设备"而非传统 PCB。</li>
+    <li><b>港股创新药仍弱。</b>香港创新药 ETF 昨日 -3.68%，延续承压；但为跨境内 ETF，tdx 无 07-08 盘中更新，广发港股创新药需待午后/收盘确认，暂按"观望"。</li>
+    <li><b>防御端稳健。</b>中证煤炭 +0.46% 小幅反弹，叠加"煤炭→鹏华丰诚债"转换进行中，组合风险敞口进一步下降；消费 -1.16% 走弱，但嘉实消费为低位新建仓，不影响定投逻辑。</li>
+    <li><b>大盘风险偏好回升。</b>上证 +0.52% / 创业板 +0.95%，上午成交上证≈7892亿、创业板≈4356亿，量能温和，科技主线领涨。</li>
+  </ul>
+</div>
+
+<!-- 尾盘前瞻 -->
+<div class="card">
+  <h2>四、尾盘前瞻（午后关注）</h2>
+  <div class="signal-grid">
+    <div class="signal"><div class="name">🔍 半导体续航</div><div class="act">设备 +4% / 制造 +6% 已处高位，防午后获利回吐；若守住涨幅，确认反弹有效性。</div></div>
+    <div class="signal"><div class="name">🟢 CPO 持续性</div><div class="act">通信设备 +3% 能否继续领涨，决定财通集成/天弘通信试探仓的去留。</div></div>
+    <div class="signal"><div class="name">🟡 港股创新药</div><div class="act">午后（若为交易时段）是否企稳；延续弱势则广发港股创新药观望、不急于加仓。</div></div>
+    <div class="signal"><div class="name">📊 大盘量能</div><div class="act">上证上午≈7892亿，午后若放量则反弹确认；缩量则需防冲高回落。</div></div>
+  </div>
+  <div class="alert-red">
+    <b>⚠️ 午后风险点</b><br>
+    ① 半导体单日涨幅较大，警惕午后/明日获利回吐；② 隔夜美股科技若再走弱，或影响明日开盘；③ 广发港股创新药数据滞后，硬决策待收盘确认。当前无新减仓信号，整体以"持有 + 观察"为主。
+  </div>
+</div>
+
+<!-- 数据来源与可信度 -->
+<div class="card">
+  <h2>五、数据来源与可信度（按 Data Credibility Protocol）</h2>
+  <table>
+    <tr><th>层级</th><th>内容</th><th>说明</th></tr>
+    <tr><td><span class="tag-t0">T0</span></td><td>账户资产/收益/持仓（08:52 截图）</td><td>用户实盘，不可改；账户总资产 ¥13,873.99（昨日日亏 -16.85）</td></tr>
+    <tr><td><span class="tag-t2">T2</span></td><td>通达信实时行情 tdx-connector</td><td>11:30 快照，板块/指数涨跌与成交额；单源实时</td></tr>
+    <tr><td><span class="tag-ok">✅✅</span></td><td>上证/创业板双源验证</td><td>tdx 昨收 3990.24/3911.91 = 雪球/百家号 07-07 收评，完全一致</td></tr>
+    <tr><td><span class="tag-warn">⚠</span></td><td>香港创新药 / 纳指100</td><td>跨境内 ETF 无 07-08 盘中更新，标注待验证，不进硬决策</td></tr>
+  </table>
+</div>
+
+<div class="disclaimer">
+  ⚠️ 本午盘快报基于通达信实时行情（T2，快照 11:30）与用户持仓截图（T0，08:52）整理。板块涨跌幅为单源 T2 实时数据，盘后将以收盘数据回填交叉验证。
+  基金当日收益以用户账户 T0 截图为准，本报告不预测个股/基金具体净值。信号与建议为模型逻辑推导，非买卖指令。
+  市场有风险，投资需谨慎。本报告仅供参考，不构成任何投资建议或个股推荐。
+</div>
+
+</body>
+</html>
