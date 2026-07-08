@@ -2,18 +2,62 @@
   "meta": {
     "description": "每日尾盘市场情绪恐惧贪婪指数记录库",
     "protocol": "data/sentiment-protocol.md",
-    "factors": ["breadth", "limit_up_down", "main_flow", "northbound", "margin", "volume", "vix", "erp"],
+    "factors": [
+      "breadth",
+      "limit_up_down",
+      "main_flow",
+      "northbound",
+      "margin",
+      "volume",
+      "vix",
+      "erp"
+    ],
     "weights": {
       "breadth": 0.15,
-      "limit_up_down": 0.10,
+      "limit_up_down": 0.1,
       "main_flow": 0.15,
       "northbound": 0.12,
       "margin": 0.08,
-      "volume": 0.10,
+      "volume": 0.1,
       "vix": 0.15,
       "erp": 0.15
     },
     "created_at": "2026-07-08T08:57:00+08:00"
   },
-  "records": []
+  "records": [
+    {
+      "date": "2026-07-08",
+      "fear_greed_index": 41.5,
+      "level": "中性",
+      "factors": {
+        "breadth": 12,
+        "limit_up_down": 50,
+        "main_flow": 35,
+        "northbound": 50,
+        "margin": 50,
+        "volume": 45,
+        "vix": 50,
+        "erp": 50
+      },
+      "factor_weights": {
+        "breadth": 0.15,
+        "limit_up_down": 0.1,
+        "main_flow": 0.15,
+        "northbound": 0.12,
+        "margin": 0.08,
+        "volume": 0.1,
+        "vix": 0.15,
+        "erp": 0.15
+      },
+      "missing_factors": [
+        "limit_up_down",
+        "northbound",
+        "margin",
+        "vix",
+        "erp"
+      ],
+      "sentiment_action": "中性偏恐惧。8因子中5项（涨跌停/北向/融资/VIX/ERP）数据源未返回，按协议以中性50计入，致综合指数被拉向中性；但广度(涨跌比约1:7)显示真实情绪偏恐惧。当前账户半导体集中度过高(约71%)，情绪恐惧+高集中度下不宜加仓，维持防御，严守单基-8%硬止损。",
+      "note": "收盘校准：基于可得因子(广度/主力资金/量能)估算；北向/融资/VIX/ERP未返回按中性计。⚠️ 模型研判，非交易建议。"
+    }
+  ]
 }

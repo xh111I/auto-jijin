@@ -1,0 +1,536 @@
+{
+  "date": "2026-07-08",
+  "indices": {
+    "上证指数": {
+      "close": 3970.88,
+      "change_pct": -0.49,
+      "date": "2026-07-08"
+    },
+    "创业板指": {
+      "close": 3845.35,
+      "change_pct": -1.7,
+      "date": "2026-07-08"
+    },
+    "沪深300": {
+      "close": 4755.53,
+      "change_pct": -0.77,
+      "date": "2026-07-08"
+    }
+  },
+  "sectors_0708": {
+    "半导体": -0.09,
+    "人工智能": -0.34,
+    "CPO通信": -0.39,
+    "煤炭": 1.2,
+    "中证主要消费": -0.01,
+    "港股创新药": -1.39,
+    "纳斯达克100": -0.44
+  },
+  "benchmarks_0707": {
+    "半导体": -0.12,
+    "人工智能": -2.74,
+    "港股创新药": -3.72,
+    "煤炭": -2.11,
+    "中证主要消费": -1.89,
+    "通信设备": -2.03,
+    "纳斯达克100": -1.77,
+    "上证指数": -1.26,
+    "创业板指": -0.94
+  },
+  "funds": [
+    {
+      "name": "东方人工智能主题混合C",
+      "short": "dfaic",
+      "sector": "半导体/AI",
+      "proxy_sector": "半导体",
+      "mv": 5082.23,
+      "weight_pct": 36.62,
+      "risk_flag": null,
+      "status": "active",
+      "nav": 3.8566,
+      "nav_date": "2026-07-07 00:00:00",
+      "daily_0707": 2.03,
+      "ytd_pct": 140.107085045449,
+      "proxy_0708": -0.09,
+      "benchmark_0707": -0.12,
+      "alpha": 2.15,
+      "ranking": {
+        "rank": 2357.0,
+        "total": 5052.0,
+        "period": "2024年"
+      },
+      "top10": [
+        {
+          "name": "富创精密",
+          "code": "688409.SH",
+          "weight": 0.0934,
+          "trend": "上升"
+        },
+        {
+          "name": "华海清科",
+          "code": "688120.SH",
+          "weight": 0.0922,
+          "trend": "上升"
+        },
+        {
+          "name": "中微公司",
+          "code": "688012.SH",
+          "weight": 0.0906,
+          "trend": "下降"
+        },
+        {
+          "name": "北方华创",
+          "code": "002371.SZ",
+          "weight": 0.0903,
+          "trend": "下降"
+        },
+        {
+          "name": "拓荆科技",
+          "code": "688072.SH",
+          "weight": 0.089,
+          "trend": "上升"
+        },
+        {
+          "name": "中科飞测",
+          "code": "688361.SH",
+          "weight": 0.089,
+          "trend": "上升"
+        },
+        {
+          "name": "芯源微",
+          "code": "688037.SH",
+          "weight": 0.0889,
+          "trend": "下降"
+        },
+        {
+          "name": "精测电子",
+          "code": "300567.SZ",
+          "weight": 0.0887,
+          "trend": "下降"
+        },
+        {
+          "name": "京仪装备",
+          "code": "688652.SH",
+          "weight": 0.0759,
+          "trend": "下降"
+        },
+        {
+          "name": "盛美上海",
+          "code": "688082.SH",
+          "weight": 0.063,
+          "trend": "新增"
+        }
+      ],
+      "industry": []
+    },
+    {
+      "name": "东方阿尔法科技优选混合C",
+      "short": "dfa",
+      "sector": "半导体/科技优选",
+      "proxy_sector": "半导体",
+      "mv": 3026.05,
+      "weight_pct": 21.8,
+      "risk_flag": null,
+      "status": "active",
+      "nav": 0.9461,
+      "nav_date": "2026-07-07 00:00:00",
+      "daily_0707": -3.7,
+      "ytd_pct": -16.021658086277,
+      "proxy_0708": -0.09,
+      "benchmark_0707": -0.12,
+      "alpha": -3.58,
+      "ranking": {
+        "rank": 3746.0,
+        "total": 5052.0,
+        "period": "2024年"
+      },
+      "top10": [
+        {
+          "name": "震裕科技",
+          "code": "300953.SZ",
+          "weight": 0.0649,
+          "trend": "上升"
+        },
+        {
+          "name": "科达利",
+          "code": "002850.SZ",
+          "weight": 0.0578,
+          "trend": "新增"
+        },
+        {
+          "name": "新锐股份",
+          "code": "688257.SH",
+          "weight": 0.057,
+          "trend": "新增"
+        },
+        {
+          "name": "斯菱智驱",
+          "code": "301550.SZ",
+          "weight": 0.0561,
+          "trend": "下降"
+        },
+        {
+          "name": "五洲新春",
+          "code": "603667.SH",
+          "weight": 0.0483,
+          "trend": "上升"
+        },
+        {
+          "name": "模塑科技",
+          "code": "000700.SZ",
+          "weight": 0.0442,
+          "trend": "新增"
+        },
+        {
+          "name": "福赛科技",
+          "code": "301529.SZ",
+          "weight": 0.04,
+          "trend": "新增"
+        },
+        {
+          "name": "上海沿浦",
+          "code": "605128.SH",
+          "weight": 0.0394,
+          "trend": "新增"
+        },
+        {
+          "name": "隆盛科技",
+          "code": "300680.SZ",
+          "weight": 0.0392,
+          "trend": "新增"
+        },
+        {
+          "name": "福莱新材",
+          "code": "605488.SH",
+          "weight": 0.0352,
+          "trend": "下降"
+        }
+      ],
+      "industry": []
+    },
+    {
+      "name": "广发港股创新药ETF联接(QDII)C",
+      "short": "gfhd",
+      "sector": "港股创新药/QDII",
+      "proxy_sector": "港股创新药",
+      "mv": 2246.74,
+      "weight_pct": 16.19,
+      "risk_flag": null,
+      "status": "active",
+      "nav": null,
+      "nav_date": "2026-07-07(T0截图)",
+      "daily_0707": -2.56,
+      "ytd_pct": null,
+      "proxy_0708": -1.39,
+      "benchmark_0707": -3.72,
+      "alpha": 1.16,
+      "ranking": null,
+      "top10": [],
+      "industry": []
+    },
+    {
+      "name": "永赢先锋半导体智选混合C",
+      "short": "yw",
+      "sector": "半导体/存储芯片",
+      "proxy_sector": "半导体",
+      "mv": 1736.3,
+      "weight_pct": 12.51,
+      "risk_flag": "HIGH",
+      "status": "active",
+      "nav": 3.0265,
+      "nav_date": "2026-07-07 00:00:00",
+      "daily_0707": -3.84,
+      "ytd_pct": 127.300037551634,
+      "proxy_0708": -0.09,
+      "benchmark_0707": -0.12,
+      "alpha": -3.72,
+      "ranking": null,
+      "top10": [
+        {
+          "name": "德明利",
+          "code": "001309.SZ",
+          "weight": 0.0951,
+          "trend": "下降"
+        },
+        {
+          "name": "江波龙",
+          "code": "301308.SZ",
+          "weight": 0.0825,
+          "trend": "下降"
+        },
+        {
+          "name": "佰维存储",
+          "code": "688525.SH",
+          "weight": 0.0825,
+          "trend": "下降"
+        },
+        {
+          "name": "兆易创新",
+          "code": "603986.SH",
+          "weight": 0.0768,
+          "trend": "上升"
+        },
+        {
+          "name": "香农芯创",
+          "code": "300475.SZ",
+          "weight": 0.0635,
+          "trend": "下降"
+        },
+        {
+          "name": "北京君正",
+          "code": "300223.SZ",
+          "weight": 0.058,
+          "trend": "下降"
+        },
+        {
+          "name": "澜起科技",
+          "code": "688008.SH",
+          "weight": 0.0473,
+          "trend": "下降"
+        },
+        {
+          "name": "普冉股份",
+          "code": "688766.SH",
+          "weight": 0.0438,
+          "trend": "新增"
+        },
+        {
+          "name": "神工股份",
+          "code": "688233.SH",
+          "weight": 0.0292,
+          "trend": "下降"
+        },
+        {
+          "name": "聚辰股份",
+          "code": "688123.SH",
+          "weight": 0.0258,
+          "trend": "新增"
+        }
+      ],
+      "industry": []
+    },
+    {
+      "name": "富国中证煤炭指数C",
+      "short": "fgcoal",
+      "sector": "中证煤炭/高股息防御",
+      "proxy_sector": "煤炭",
+      "mv": 1012.88,
+      "weight_pct": 7.3,
+      "risk_flag": null,
+      "status": "active",
+      "nav": 2.044,
+      "nav_date": "2026-07-07 00:00:00",
+      "daily_0707": -2.48,
+      "ytd_pct": 8.665603402446,
+      "proxy_0708": 1.2,
+      "benchmark_0707": -2.11,
+      "alpha": -0.37,
+      "ranking": {
+        "rank": 2128.0,
+        "total": 2974.0,
+        "period": "2024年"
+      },
+      "top10": [],
+      "industry": []
+    },
+    {
+      "name": "嘉实中证主要消费ETF发起联接C",
+      "short": "jsxf",
+      "sector": "中证主要消费",
+      "proxy_sector": "中证主要消费",
+      "mv": 500.0,
+      "weight_pct": 3.6,
+      "risk_flag": null,
+      "status": "dormant",
+      "nav": 0.8008,
+      "nav_date": "2026-07-07 00:00:00",
+      "daily_0707": -1.43,
+      "ytd_pct": -19.387960539561,
+      "proxy_0708": -0.01,
+      "benchmark_0707": -1.89,
+      "alpha": 0.46,
+      "ranking": {
+        "rank": null,
+        "total": null,
+        "period": null
+      },
+      "top10": [
+        {
+          "name": "贵州茅台",
+          "code": "600519.SH",
+          "weight": 0.0018,
+          "trend": "上升"
+        },
+        {
+          "name": "五粮液",
+          "code": "000858.SZ",
+          "weight": 0.0016,
+          "trend": "上升"
+        },
+        {
+          "name": "伊利股份",
+          "code": "600887.SH",
+          "weight": 0.0016,
+          "trend": "上升"
+        },
+        {
+          "name": "牧原股份",
+          "code": "002714.SZ",
+          "weight": 0.0014,
+          "trend": "上升"
+        },
+        {
+          "name": "温氏股份",
+          "code": "300498.SZ",
+          "weight": 0.0011,
+          "trend": "上升"
+        },
+        {
+          "name": "泸州老窖",
+          "code": "000568.SZ",
+          "weight": 0.0009,
+          "trend": "上升"
+        },
+        {
+          "name": "山西汾酒",
+          "code": "600809.SH",
+          "weight": 0.0008,
+          "trend": "上升"
+        },
+        {
+          "name": "海天味业",
+          "code": "603288.SH",
+          "weight": 0.0008,
+          "trend": "上升"
+        },
+        {
+          "name": "海大集团",
+          "code": "002311.SZ",
+          "weight": 0.0005,
+          "trend": "上升"
+        },
+        {
+          "name": "东鹏饮料",
+          "code": "605499.SH",
+          "weight": 0.0005,
+          "trend": "不变"
+        }
+      ],
+      "industry": []
+    },
+    {
+      "name": "财通集成电路产业股票C",
+      "short": "ctic",
+      "sector": "集成电路",
+      "proxy_sector": "半导体",
+      "mv": 100.0,
+      "weight_pct": 0.72,
+      "risk_flag": null,
+      "status": "dormant",
+      "nav": 8.0785,
+      "nav_date": "2026-07-07 00:00:00",
+      "daily_0707": -0.44,
+      "ytd_pct": 116.118245050829,
+      "proxy_0708": -0.09,
+      "benchmark_0707": -0.12,
+      "alpha": -0.32,
+      "ranking": null,
+      "top10": [],
+      "industry": []
+    },
+    {
+      "name": "财通成长优选混合C",
+      "short": "ctcz",
+      "sector": "成长优选",
+      "proxy_sector": "人工智能",
+      "mv": 100.0,
+      "weight_pct": 0.72,
+      "risk_flag": null,
+      "status": "dormant",
+      "nav": 4.995,
+      "nav_date": "2026-07-07 00:00:00",
+      "daily_0707": -0.24,
+      "ytd_pct": 118.599562363239,
+      "proxy_0708": -0.34,
+      "benchmark_0707": -2.74,
+      "alpha": 2.5,
+      "ranking": {
+        "rank": 5.0,
+        "total": 481.0,
+        "period": "2024年"
+      },
+      "top10": [],
+      "industry": []
+    },
+    {
+      "name": "天弘中证全指通信设备指数C",
+      "short": "thcpo",
+      "sector": "通信设备/CPO",
+      "proxy_sector": "CPO通信",
+      "mv": 10.0,
+      "weight_pct": 0.07,
+      "risk_flag": null,
+      "status": "dormant",
+      "nav": 3.8524,
+      "nav_date": "2026-07-07 00:00:00",
+      "daily_0707": -0.02,
+      "ytd_pct": 47.573261827236,
+      "proxy_0708": -0.39,
+      "benchmark_0707": -2.03,
+      "alpha": 2.01,
+      "ranking": {
+        "rank": 649.0,
+        "total": 2974.0,
+        "period": "2024年"
+      },
+      "top10": [],
+      "industry": []
+    },
+    {
+      "name": "广发纳斯达克100ETF联接",
+      "short": "gfnas",
+      "sector": "纳斯达克100/美股QDII",
+      "proxy_sector": "纳斯达克100",
+      "mv": 59.79,
+      "weight_pct": 0.43,
+      "risk_flag": null,
+      "status": "active",
+      "nav": 8.2891,
+      "nav_date": "2026-07-06 00:00:00",
+      "daily_0707": 1.29,
+      "ytd_pct": 13.290144464035,
+      "proxy_0708": -0.44,
+      "benchmark_0707": -1.77,
+      "alpha": 3.06,
+      "ranking": {
+        "rank": 73.0,
+        "total": 394.0,
+        "period": "2024年"
+      },
+      "top10": [],
+      "industry": []
+    }
+  ],
+  "account_est_return_0708_pct": -0.207,
+  "account_est_pnl_0708": -28.72,
+  "total_mv": 13873.99,
+  "news": [
+    "【研报】半导体行业2026年下半年投资策略：人工智能持续演进 多重环节有望受益",
+    "2026年6月半导体市场强劲上涨，资金净流入1251亿元，景气持续与涨价共振",
+    "五洲医疗拟跨界半导体“谋变”",
+    "A股半导体板块结构调整信号：全球需求强劲与高估值风险并存",
+    "越亚半导体IPO披露审核中心意见落实函回复，业绩稳定性被追问",
+    "【研报】电子周报：半导体国产替代深化；3C数码补贴政策带动需求回暖",
+    "港股创新药ETF银华等多只港股创新药ETF已连涨三日，机构认为创新药有望迎来产业重估",
+    "国家药监局：支持以临床价值为导向的细胞与基因治疗药品研发创新，港股创新药ETF银华等多只港股创新药ETF均涨超3%",
+    "港股创新药ETF涨超3%，政策利好助力行业基本面向好",
+    "创新药政策与产业催化共振，港股创新药ETF银华等多只港股创新药ETF盘中大涨超4%",
+    "港股创新药概念反弹强于大市 多只ETF获资金抢筹近两周累涨逾10%",
+    "A股8日回调，沪指跌0.49%，科技股受韩国市场影响显著",
+    "A股风格月报-波动增加，高盈利主线下的扩散行情",
+    "机构看好小盘风格反弹机遇 低费率的中证1000ETF广发持续“吸金”",
+    "7月7日A股市场低开低走，上证指数失守4000点，成交额骤降超5100亿",
+    "A股7月7日缩量普跌，市场筑底信号显现但未确认底部",
+    "科创50逆势翻红！"
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "msg": "操作成功",
+  "suc": true,
+  "traceId": "b7ac2e41d26962d8607a1dda9102054d",
+  "code": "200",
+  "data": {
+    "seParams": {},
+    "requestId": "2112b58786404ecc84845d8c2b64f909",
+    "apiData": {
+      "apiRecall": [],
+      "entity": []
+    },
+    "extraParams": {}
+  }
+}
