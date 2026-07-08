@@ -83,6 +83,13 @@ CSS
     done
   fi
 
+  echo '<div class="viewbox">'
+  echo '<b>📂 如何查看报告（重要）</b><br>'
+  echo '请用 <b>真实浏览器（Chrome / Edge）</b> 打开，<b>不要</b>用 WorkBuddy App 内置预览面板（沙箱 webview 解析不了相对路径、连不上 github.io，会显示空白）。三种方式任选：<br>'
+  echo '① <b>本地文件（最稳）</b>：直接双击 <code>C:/Users/LEGION/Nutstore/1/daily-report/index.html</code><br>'
+  echo '② <b>本机服务</b>：若已运行本地 HTTP 服务则访问 <code>http://localhost:8123</code>（启动：<code>python -m http.server 8123 --directory "C:/Users/LEGION/Nutstore/1/daily-report"</code>）<br>'
+  echo '③ <b>网页端</b>：GitHub Pages <code>https://xh111i.github.io/auto-jijin/</code>（真实浏览器 + 硬刷新 Ctrl+F5）'
+  echo '</div>'
   echo '<div class="footer">由每日基金自动报告系统生成 · 数据来源 NeoData · 仅供参考，不构成投资建议</div>'
   echo '</body></html>'
 } > "$OUT"
