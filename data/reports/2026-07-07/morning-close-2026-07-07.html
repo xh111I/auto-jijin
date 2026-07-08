@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🌅 午盘快报·增强版 2026-07-07（具体逻辑）</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif; max-width:1120px; margin:0 auto; padding:18px; background:linear-gradient(135deg,#f5f7fa,#e4e8ec); color:#1f2937; line-height:1.6; }
+  .header { background:linear-gradient(135deg,#0e7490,#155e75); color:white; padding:22px 26px; border-radius:16px; margin-bottom:16px; box-shadow:0 8px 30px rgba(14,116,144,.25); }
+  .header h1 { font-size:22px; display:flex; align-items:center; gap:10px; }
+  .header .sub { opacity:.88; font-size:14px; margin-top:6px; }
+  .trial { display:inline-block; background:#f59e0b; color:#1f2937; padding:4px 12px; border-radius:20px; font-size:12px; font-weight:700; margin-top:10px; }
+  .card { background:white; padding:20px; border-radius:12px; margin-bottom:14px; box-shadow:0 2px 12px rgba(0,0,0,.06); }
+  .card h2 { font-size:17px; margin:0 0 12px; padding-bottom:8px; border-bottom:2px solid #e5e7eb; }
+  .card h3 { font-size:14px; color:#374151; margin:12px 0 6px; }
+  .log-box { background:#0f172a; color:#e2e8f0; padding:14px; border-radius:10px; font-family:'Courier New',monospace; font-size:12px; line-height:1.7; white-space:pre-wrap; }
+  .engine { background:#082f49; color:#bae6fd; padding:16px; border-radius:10px; font-family:'Courier New',monospace; font-size:12.5px; line-height:1.8; white-space:pre-wrap; }
+  table { width:100%; border-collapse:collapse; font-size:13px; }
+  th { background:#f8fafc; padding:8px; text-align:left; color:#6b7280; font-weight:600; border-bottom:2px solid #e5e7eb; }
+  td { padding:8px; border-bottom:1px solid #f3f4f6; vertical-align:top; }
+  tr:hover { background:#f9fafb; }
+  .pos { color:#ef4444; font-weight:600; } .neg { color:#22c55e; font-weight:600; } .neu { color:#6b7280; }
+  .fund-card { border:1px solid #e5e7eb; border-radius:10px; padding:13px 15px; margin:10px 0; }
+  .fund-card .name { font-size:15px; font-weight:700; }
+  .sig { display:inline-block; padding:2px 9px; border-radius:6px; font-size:12px; font-weight:700; margin-left:6px; }
+  .s-buy { background:#fef2f2; color:#dc2626; } .s-sell { background:#f0fdf4; color:#16a34a; } .s-hold { background:#fefce8; color:#ca8a04; }
+  .logic { background:#ecfeff; border-left:4px solid #0e7490; padding:8px 12px; margin:7px 0; border-radius:0 8px 8px 0; font-size:13px; }
+  .rule-ok { color:#16a34a; font-weight:600; } .rule-no { color:#dc2626; font-weight:600; }
+  .key-point { background:#fffbeb; border-left:4px solid #f59e0b; padding:10px 14px; margin:8px 0; border-radius:0 8px 8px 0; font-size:14px; }
+  .sim { background:#fefce8; border-left:4px solid #f59e0b; padding:8px 12px; margin:8px 0; border-radius:0 8px 8px 0; font-size:13px; }
+  .disclaimer { color:#6b7280; font-size:12px; padding:14px 18px; background:#f9fafb; border-radius:10px; margin-top:16px; border:1px solid #e5e7eb; }
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>🌅 午盘快报 · 增强版</h1>
+  <div class="sub">每日基金报告系统 · 段一(11:30) · 含具体决策逻辑</div>
+  <div class="trial">🧪 试行 · 数据日 2026-07-07 · 进攻型</div>
+</div>
+
+<div class="card">
+  <h2>🤖 自动化任务执行日志（模拟 11:30 触发）</h2>
+  <div class="log-box">
+<span style="color:#93c5fd">[11:30:00] 任务触发：每日基金午盘快报(11:30) ID=2281409 [增强版]</span>
+<span style="color:#4ade80">[11:30:01] ✅ 读取 watchlist.json → T0持仓10只 + strategy(进攻型)</span>
+<span style="color:#4ade80">[11:30:02] ✅ 获取上午行情 + 板块资金流向(半导体午间净流入+21.63亿居首)</span>
+<span style="color:#4ade80">[11:30:03] ✅ 加载午盘逻辑引擎 → 逐只推演</span>
+<span style="color:#fbbf24">[11:30:04] ⚠️ 昨日分时未留存，上午点位为收盘还原值(标注)</span>
+<span style="color:#4ade80">[11:30:05] ✅ 输出10只基金午盘信号 + 逻辑推导 + 下午预案</span>
+<span style="color:#4ade80">[11:30:06] ✅ 生成 morning-close-2026-07-07.html（增强版·含逻辑）</span>
+  </div>
+</div>
+
+<div class="card">
+  <h2>🧠 午盘逻辑引擎（具体规则）</h2>
+  <div class="engine">【午盘信号 BUY】需同时满足：
+  ① 关联指数上午收红（或板块由弱转强）
+  ② 基金未触发止损（当日亏损 < -8%）
+  ③ 大盘未破位（上证在5日线上且未放量下跌）
+
+【午盘信号 SELL】满足任一即预警：
+  ① 单基金当日亏损 ≥ -8% → 强制止损
+  ② 板块过热（上午单板块涨 > 5% 且缩量）
+  ③ 大盘破位（上证跌破5日线且放量）
+
+【HOLD】上述均不满足 → 持仓观望，等下午确认</div>
+  <div class="key-point" style="margin-top:10px;">
+    📌 <strong>本日午盘判定</strong>：上午指数分化（上证微红、深证弱），半导体链相对强（午间资金净流入居首）。<strong>无基金触-8%止损、无板块过热、大盘未破位</strong> → 全部 HOLD，下午14:00为关键确认窗口。
+  </div>
+</div>
+
+<div class="card">
+  <h2>📊 上午行情快照（11:30，日内还原⚠️）</h2>
+  <div class="sim">⚠️ 昨日(07-07)盘中分时未留存，以下上午点位为基于收盘的合理日内还原，<strong>非真实分时</strong>，仅验证系统流程。</div>
+  <table>
+    <tr><th>指数</th><th>上午点位</th><th>涨跌幅</th><th>板块资金(上午)</th></tr>
+    <tr><td>上证指数</td><td>3471.2</td><td class="pos">+0.01%</td><td rowspan="3">半导体材料设备 <span class="pos">+21.63亿(居首)</span><br>存储/PCB <span class="neg">净流出</span></td></tr>
+    <tr><td>深证成指</td><td>15260.3</td><td class="neg">-0.42%</td></tr>
+    <tr><td>创业板指</td><td>—</td><td class="neg">-0.65%</td></tr>
+  </table>
+</div>
+
+<div class="card">
+  <h2>🔍 持仓午盘信号（逐只逻辑推导）</h2>
+
+  <div class="fund-card">
+    <div class="name">① 东方人工智能 <span class="sig s-hold">HOLD</span></div>
+    <div class="logic"><span class="rule-ok">规则①</span> 半导体上午强(资金+21.63亿) ✅ &nbsp; <span class="rule-ok">规则②</span> 未触止损 ✅ &nbsp; <span class="rule-ok">规则③</span> 大盘未破位 ✅<br>→ 均满足但不构成BUY（BUY需明确加仓信号，上午为观察期）→ <strong>HOLD</strong></div>
+  </div>
+  <div class="fund-card">
+    <div class="name">② 东方阿尔法科 <span class="sig s-hold">HOLD</span></div>
+    <div class="logic">同①，半导体材料双核，上午强势 → <strong>HOLD</strong> 观察</div>
+  </div>
+  <div class="fund-card">
+    <div class="name">③ 永赢先锋半导体 <span class="sig s-hold">HOLD</span></div>
+    <div class="logic"><span class="rule-no">规则②</span> 上午-2.0%(还原) ≥ -8%? <span class="rule-no">否</span> &nbsp; <span class="rule-no">规则③</span> 存储链弱但非破位<br>→ 未触卖出 → <strong>HOLD</strong>（等三星财报定夺，胜负手）</div>
+  </div>
+  <div class="fund-card">
+    <div class="name">④ 广发港股创新药 <span class="sig s-hold">HOLD</span></div>
+    <div class="logic">上午-1.9%(还原)，中期强(南向>200亿)但短期回调 → <strong>HOLD</strong>，列为下午低吸候选</div>
+  </div>
+  <div class="fund-card">
+    <div class="name">⑤ 广发纳斯达克100 <span class="sig s-hold">HOLD</span></div>
+    <div class="logic">隔夜纳指+1.12%新高，对冲仓 → <strong>HOLD</strong></div>
+  </div>
+  <div class="fund-card">
+    <div class="name">⑥ 天弘通信 / ⑦ 嘉实消费 / ⑧ 富国煤炭 / ⑨⑩ 财通PCB×2 <span class="sig s-hold">HOLD</span></div>
+    <div class="logic">均无卖出条件触发（无-8%、无过热、未破位）→ <strong>HOLD</strong>。进攻型复盘计划清仓转核心，午盘不急。</div>
+  </div>
+</div>
+
+<div class="card">
+  <h2>📋 午盘信号汇总表</h2>
+  <table>
+    <tr><th>基金</th><th>上午收益(还原)</th><th>信号</th><th>逻辑简述</th></tr>
+    <tr><td>东方人工智能</td><td class="pos">+1.8%</td><td><span class="sig s-hold">HOLD</span></td><td>半导体强，观察</td></tr>
+    <tr><td>东方阿尔法科</td><td class="pos">+2.0%</td><td><span class="sig s-hold">HOLD</span></td><td>双核强势</td></tr>
+    <tr><td>永赢先锋半导体</td><td class="neg">-2.0%</td><td><span class="sig s-hold">HOLD</span></td><td>等三星，未触止损</td></tr>
+    <tr><td>广发港股创新药</td><td class="neg">-1.9%</td><td><span class="sig s-hold">HOLD</span></td><td>低吸候选</td></tr>
+    <tr><td>广发纳斯达克100</td><td class="pos">+0.9%</td><td><span class="sig s-hold">HOLD</span></td><td>对冲持有</td></tr>
+    <tr><td>天弘中证通信</td><td class="neu">-0.05%</td><td><span class="sig s-hold">HOLD</span></td><td>待清仓</td></tr>
+    <tr><td>嘉实主要消费</td><td class="neg">-0.8%</td><td><span class="sig s-hold">HOLD</span></td><td>待清仓</td></tr>
+    <tr><td>富国中证煤炭</td><td class="neg">-1.2%</td><td><span class="sig s-hold">HOLD</span></td><td>待清仓</td></tr>
+    <tr><td>财通PCB×2</td><td class="neg">-0.3%</td><td><span class="sig s-hold">HOLD</span></td><td>待清仓</td></tr>
+  </table>
+</div>
+
+<div class="card">
+  <h2>📋 下午操作预案</h2>
+  <div class="key-point">
+    <strong>下午关注</strong>：①13:00开盘半小时资金流向 ②<strong>14:00板块轮动确认窗口</strong>（决定尾盘买卖）③三星财报盘后公布→影响半导体链 ④若上证跌破3460且放量→触发减仓信号。
+  </div>
+  <div class="key-point">
+    <strong>尾盘决策预览</strong>：当前仓位≈92%已超进攻上限90%，且三星待落地→<strong>尾盘大概率全面HOLD</strong>，仅永赢根据三星结果做胜负手调整。具体以14:30尾盘报告为准。
+  </div>
+</div>
+
+<div class="disclaimer">
+  ⚠️ 免责声明：本午盘快报为增强版试行产出。上午点位为基于收盘的日内还原(非真实分时)，仅验证流程。持仓以T0实盘为准。市场有风险，投资需谨慎。生成时间：模拟 2026-07-07 11:30。
+</div>
+</body>
+</html>

@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>🌍 早间全球股市分析 · 2026-07-08（09:13）</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+  * { box-sizing: border-box; }
+  body { font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif; max-width: 1080px; margin: 0 auto; padding: 20px; background: #f4f6f9; color: #1f2937; }
+  .header { background: linear-gradient(135deg, #1e3a8a, #3b82f6); color: white; padding: 28px 32px; border-radius: 16px; margin-bottom: 20px; }
+  .header h1 { margin: 0; font-size: 28px; }
+  .header .sub { opacity: 0.9; margin-top: 6px; font-size: 14px; }
+  .mood-chip { display: inline-block; background: rgba(255,255,255,0.2); padding: 4px 12px; border-radius: 999px; font-size: 13px; margin-top: 12px; }
+  .card { background: white; padding: 22px 24px; border-radius: 14px; margin-bottom: 18px; box-shadow: 0 1px 4px rgba(0,0,0,0.05); }
+  .card h2 { margin: 0 0 16px; font-size: 19px; border-left: 4px solid #3b82f6; padding-left: 10px; }
+  table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  th, td { padding: 10px 8px; text-align: left; border-bottom: 1px solid #eef0f3; }
+  th { background: #f8fafc; color: #64748b; font-weight: 600; }
+  .down { color: #dc2626; font-weight: 600; }
+  .up { color: #16a34a; font-weight: 600; }
+  .flat { color: #6b7280; }
+  .tag-t0 { background: #dcfce7; color: #15803d; padding: 1px 7px; border-radius: 6px; font-size: 12px; }
+  .tag-t2 { background: #fef9c3; color: #a16207; padding: 1px 7px; border-radius: 6px; font-size: 12px; }
+  .tag-warn { background: #fee2e2; color: #b91c1c; padding: 1px 7px; border-radius: 6px; font-size: 12px; }
+  .gauge-row { display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; }
+  .gauge-box { width: 300px; text-align: center; }
+  .signal-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; }
+  .signal { border: 1px solid #e5e7eb; border-radius: 10px; padding: 12px 14px; }
+  .signal .name { font-weight: 600; font-size: 14px; }
+  .signal .act { font-size: 13px; margin-top: 6px; }
+  .alert { background: #fef2f2; border: 1px solid #fecaca; border-radius: 10px; padding: 14px 16px; margin-top: 14px; }
+  .alert b { color: #b91c1c; }
+  .disclaimer { color: #94a3b8; font-size: 12px; margin-top: 24px; padding-top: 14px; border-top: 1px solid #e5e7eb; line-height: 1.6; }
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  @media (max-width: 720px){ .two-col{ grid-template-columns:1fr; } }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>🌍 早间全球股市分析</h1>
+  <div class="sub">2026-07-08 09:13 · A股开盘前盘前推送 · 数据截至隔夜美股收盘（美东 07-07）</div>
+  <div class="mood-chip">📊 大盘情绪：中性(52) ｜ 🔴 半导体情绪：极度恐惧(18)</div>
+</div>
+
+<!-- 全球行情速览 -->
+<div class="card">
+  <h2>一、全球行情速览（隔夜）</h2>
+  <table>
+    <tr><th>市场/标的</th><th>收盘/最新</th><th>涨跌</th><th>来源/置信</th><th>信号</th></tr>
+    <tr><td>道指 Dow</td><td>52,925.15</td><td class="down">-0.25%</td><td><span class="tag-t2">CNBC T2</span></td><td>微跌</td></tr>
+    <tr><td>标普500</td><td>—</td><td class="down">-0.50%</td><td><span class="tag-t2">Investopedia T2</span></td><td>科技拖累</td></tr>
+    <tr><td>纳指 Nasdaq</td><td>25,818.69</td><td class="down">-1.16%</td><td><span class="tag-t2">CNBC T2</span></td><td>领跌</td></tr>
+    <tr><td>费城半导体 SOX</td><td>—</td><td class="down">-5%~-7%</td><td><span class="tag-t2">Barron's T2</span> <span class="tag-warn">⚠</span></td><td>芯片 rally 崩塌</td></tr>
+    <tr><td>美光 Micron</td><td>—</td><td class="down">-8%~-9%</td><td><span class="tag-t2">Invezz T2</span></td><td>存储重挫</td></tr>
+    <tr><td>闪迪 SanDisk</td><td>—</td><td class="down">-14%</td><td><span class="tag-t2">MoneyMorning T2</span></td><td>NAND 重挫</td></tr>
+    <tr><td>英特尔 Intel</td><td>—</td><td class="down">-11%</td><td><span class="tag-t2">context T2</span></td><td>弱势</td></tr>
+    <tr><td>VIX 恐慌指数</td><td>16.07</td><td class="up">+2.82%</td><td><span class="tag-t2">Sigmanomics/FRED T2</span></td><td>低恐惧(系统平稳)</td></tr>
+    <tr><td>Brent 原油</td><td>$75.90</td><td class="up">+3.7%~+6%</td><td><span class="tag-t2">Reuters T2</span> <span class="tag-warn">⚠</span></td><td>伊朗豁免撤销飙升</td></tr>
+    <tr><td>黄金</td><td>&lt;4100</td><td class="flat">偏弱</td><td><span class="tag-t2">context T2</span> <span class="tag-warn">⚠待验证</span></td><td>避险降温</td></tr>
+    <tr><td>港股/亚太</td><td>盘前未开</td><td class="flat">待观察</td><td><span class="tag-t2">T2 推断</span></td><td>受美股科技拖累预期承压</td></tr>
+  </table>
+  <p style="font-size:12px;color:#94a3b8;margin-top:10px;">⚠️ 数据冲突说明：Zacks 报道标普 +0.7%，与 Investopedia/CNBC/Barron's 一致下跌相矛盾，按可信度协议以多数源（下跌）为准，Zacks 标记[⚠存疑]。</p>
+</div>
+
+<!-- 早间恐惧贪婪指数 -->
+<div class="card">
+  <h2>二、早间全球恐惧贪婪指数（盘前情绪锚点）</h2>
+  <div class="gauge-row">
+    <div class="gauge-box"><canvas id="gaugeBroad" width="260" height="180"></canvas><div style="font-weight:600;margin-top:6px;">大盘情绪 · 52 中性</div></div>
+    <div class="gauge-box"><canvas id="gaugeSemi" width="260" height="180"></canvas><div style="font-weight:600;margin-top:6px;color:#dc2626;">半导体情绪 · 18 极度恐惧</div></div>
+  </div>
+  <p style="font-size:13px;line-height:1.7;margin-top:14px;">
+  <b>关键矛盾信号</b>：VIX 仅 16（低波动=系统性不恐慌），但<b>半导体板块处于极度恐惧</b>（SOX -5~7%、美光-9%、闪迪-14%、英特尔-11%、三星Q2业绩担忧）。
+  这说明当前是<b>结构性科技恐慌，而非全面系统性风险</b>。你的组合 <b>半导体暴露约 71%</b>，今日核心风险集中在半导体开盘，需重点盯防。
+  </p>
+</div>
+
+<!-- 对A股开盘影响 -->
+<div class="card">
+  <h2>三、对 A 股开盘影响研判</h2>
+  <div class="signal-grid">
+    <div class="signal"><div class="name">🔴 半导体（最强冲击）</div><div class="act">SOX 暴跌 + 三星业绩担忧 → 永赢先锋半导体、东方AI、东方阿尔法开盘承压。关注永赢是否逼近 -8% 硬止损线（当前距止损仅约 4% 空间）。</div></div>
+    <div class="signal"><div class="name">🟡 CPO/光模块（分化）</div><div class="act">支付宝热点"光模块量产实锤/CPO技术突破"，AI算力需求仍在；但存储暴跌或拖累整体科技风险偏好。预计分化，强票抗跌。</div></div>
+    <div class="signal"><div class="name">🟡 港股创新药</div><div class="act">恒生科技受美股科技走弱预期拖累，广发港股创新药(持-2.56%)延续弱势概率大。</div></div>
+    <div class="signal"><div class="name">🟢 煤炭/能源（偏强）</div><div class="act">油价+6% 提振周期/能源情绪，富国煤炭残仓或补涨；且你已将部分煤炭转债券降风险，缓冲更足。</div></div>
+    <div class="signal"><div class="name">🟢 债券（安全垫）</div><div class="act">鹏华丰诚债券C（由煤炭转换）提供避险属性，今日为组合托底。</div></div>
+    <div class="signal"><div class="name">⚪ 消费（独立）</div><div class="act">嘉实消费ETF新建仓500元，处低位独立逻辑，受外围影响小。</div></div>
+  </div>
+  <div class="alert">
+    <b>⚠️ 今日最高优先级：永赢先锋半导体（¥1,736.30，持-69.42）</b><br>
+    隔夜美存储暴跌直接冲击"等三星Q2业绩"的胜负手逻辑。若今日再跌 &gt;4% 触发 -8% 硬止损线，按进攻型策略需减半/清仓。开盘第一件事：盯这只的开盘价与分时。
+  </div>
+</div>
+
+<!-- 持仓盘前提示 -->
+<div class="card">
+  <h2>四、持仓盘前提示（基于 T0 持仓 + 隔夜情绪）</h2>
+  <table>
+    <tr><th>基金</th><th>市值</th><th>昨日</th><th>盘前信号</th><th>建议动作</th></tr>
+    <tr><td>东方人工智能</td><td>5,082</td><td class="up">+1.64%</td><td>半导体情绪恐惧，或低开</td><td>持有，不追；观察开盘承接</td></tr>
+    <tr><td>东方阿尔法科技</td><td>3,026</td><td class="up">+0.87%</td><td>同上，跟随半导体</td><td>持有，警惕低开破位</td></tr>
+    <tr><td>广发港股创新药</td><td>2,247</td><td class="down">-2.56%</td><td>恒科预期承压</td><td>持有，勿加；等企稳</td></tr>
+    <tr><td>永赢先锋半导体</td><td>1,736</td><td class="down">-3.84%</td><td class="down">🔴 极度恐惧+逼近止损</td><td><b>重点盯盘</b>，触-8%减半</td></tr>
+    <tr><td>富国中证煤炭</td><td>1,013</td><td class="up">+1.29%</td><td>油价+6%偏强</td><td>持有；残仓或补涨</td></tr>
+    <tr><td>嘉实消费ETF</td><td>500</td><td class="flat">0.00%</td><td>独立低位逻辑</td><td>新建仓，定投式持有</td></tr>
+    <tr><td>鹏华丰诚债券C</td><td>(转换中)</td><td class="flat">—</td><td>避险安全垫</td><td>持有，降风险生效</td></tr>
+    <tr><td>广发纳指100</td><td>60</td><td class="down">-0.53%</td><td>纳指-1.16%承压</td><td>定投持有，极小仓</td></tr>
+  </table>
+  <p style="font-size:12px;color:#94a3b8;margin-top:10px;">待确认买入：消费500+财通成长100+财通集成100+天弘通信10+纳指定投10 = ¥720；煤炭→债券转换247.77份（均交易进行中，份额09:00后确认）。</p>
+</div>
+
+<!-- 今日关键事件 -->
+<div class="card">
+  <h2>五、今日关键事件日历</h2>
+  <table>
+    <tr><th>时间</th><th>事件</th><th>影响</th></tr>
+    <tr><td>09:30</td><td>A股开盘</td><td>半导体低开压力测试</td></tr>
+    <tr><td>全天</td><td>三星Q2业绩指引预期</td><td>半导体核心变量（永赢逻辑锚）</td></tr>
+    <tr><td>全天</td><td>油价受伊朗豁免撤销持续发酵</td><td>利好煤炭/能源，利空通胀预期</td></tr>
+    <tr><td>11:30</td><td>午盘快报（自动）</td><td>上午信号+情绪</td></tr>
+    <tr><td>14:30</td><td>尾盘决策（自动）</td><td>买卖指令+情绪+板块日K量化</td></tr>
+    <tr><td>21:30</td><td>晚间复盘（自动）</td><td>收盘情绪校准+命中率</td></tr>
+  </table>
+</div>
+
+<div class="disclaimer">
+  ⚠️ 本早间报告为盘前推送，基于隔夜全球市场数据(T2)与用户持仓截图(T0)整理。9:00 A股未开盘，不做A股当日涨跌预测（留待午盘/尾盘任务）。
+  早间恐惧贪婪指数为基于可得因子的估算盘前锚点，非买卖指令。形态/主力行为判定为模型推断，资金流向为估算值。
+  市场有风险，投资需谨慎。本报告仅供参考，不构成任何投资建议或个股推荐。数据来源：CNBC / Investopedia / Barron's / Reuters / Sigmanomics(FRED) / 用户支付宝持仓(T0)。
+</div>
+
+<script>
+  function gauge(ctx, score, color){
+    new Chart(ctx, {
+      type: 'doughnut',
+      data: { datasets: [
+        { data: [score, 100-score], backgroundColor: [color, '#eef0f3'], borderWidth: 0 }
+      ]},
+      options: {
+        rotation: -90, circumference: 180, cutout: '72%',
+        plugins: { tooltip: {enabled:false}, legend:{display:false} },
+        animation: false
+      }
+    });
+    // 中心文字
+    const c = ctx.getContext ? null : null;
+  }
+  // 中心数字
+  function centerText(canvasId, val){
+    const cv = document.getElementById(canvasId);
+    const ctx = cv.getContext('2d');
+    ctx.save();
+    ctx.textAlign='center'; ctx.textBaseline='middle';
+    ctx.font='bold 30px sans-serif';
+    ctx.fillStyle='#1f2937';
+    ctx.fillText(val, cv.width/2, cv.height/2 + 6);
+    ctx.restore();
+  }
+  gauge(document.getElementById('gaugeBroad'), 52, '#3b82f6');
+  gauge(document.getElementById('gaugeSemi'), 18, '#dc2626');
+  centerText('gaugeBroad', '52');
+  centerText('gaugeSemi', '18');
+</script>
+</body>
+</html>

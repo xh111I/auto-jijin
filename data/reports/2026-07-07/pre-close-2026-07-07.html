@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>⏰ 尾盘决策·增强版 2026-07-07（具体逻辑）</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif; max-width:1120px; margin:0 auto; padding:18px; background:linear-gradient(135deg,#f5f7fa,#e4e8ec); color:#1f2937; line-height:1.6; }
+  .header { background:linear-gradient(135deg,#7c3aed,#6d28d9); color:white; padding:22px 26px; border-radius:16px; margin-bottom:16px; box-shadow:0 8px 30px rgba(124,58,237,.25); }
+  .header h1 { font-size:22px; display:flex; align-items:center; gap:10px; }
+  .header .sub { opacity:.88; font-size:14px; margin-top:6px; }
+  .trial { display:inline-block; background:#f59e0b; color:#1f2937; padding:4px 12px; border-radius:20px; font-size:12px; font-weight:700; margin-top:10px; }
+  .card { background:white; padding:20px; border-radius:12px; margin-bottom:14px; box-shadow:0 2px 12px rgba(0,0,0,.06); }
+  .card h2 { font-size:17px; margin:0 0 12px; padding-bottom:8px; border-bottom:2px solid #e5e7eb; }
+  .card h3 { font-size:14px; color:#374151; margin:12px 0 6px; }
+  .log-box { background:#0f172a; color:#e2e8f0; padding:14px; border-radius:10px; font-family:'Courier New',monospace; font-size:12px; line-height:1.7; white-space:pre-wrap; }
+  .engine { background:#1e1b4b; color:#ddd6fe; padding:16px; border-radius:10px; font-family:'Courier New',monospace; font-size:12.5px; line-height:1.8; white-space:pre-wrap; }
+  table { width:100%; border-collapse:collapse; font-size:13px; }
+  th { background:#f8fafc; padding:8px; text-align:left; color:#6b7280; font-weight:600; border-bottom:2px solid #e5e7eb; }
+  td { padding:8px; border-bottom:1px solid #f3f4f6; vertical-align:top; }
+  tr:hover { background:#f9fafb; }
+  .pos { color:#ef4444; font-weight:600; } .neg { color:#22c55e; font-weight:600; } .neu { color:#6b7280; }
+  .fund-card { border:1px solid #e5e7eb; border-radius:10px; padding:14px 16px; margin:12px 0; }
+  .fund-card .name { font-size:15px; font-weight:700; }
+  .sig { display:inline-block; padding:2px 9px; border-radius:6px; font-size:12px; font-weight:700; margin-left:6px; }
+  .s-buy { background:#fef2f2; color:#dc2626; } .s-sell { background:#f0fdf4; color:#16a34a; } .s-hold { background:#fefce8; color:#ca8a04; }
+  .logic { background:#f5f3ff; border-left:4px solid #7c3aed; padding:9px 13px; margin:8px 0; border-radius:0 8px 8px 0; font-size:13px; }
+  .rule-ok { color:#16a34a; font-weight:600; } .rule-no { color:#dc2626; font-weight:600; }
+  .action { background:#eff6ff; border-left:4px solid #3b82f6; padding:10px 14px; margin:8px 0; border-radius:0 8px 8px 0; font-size:13.5px; }
+  .key-point { background:#fffbeb; border-left:4px solid #f59e0b; padding:10px 14px; margin:8px 0; border-radius:0 8px 8px 0; font-size:14px; }
+  .risk-point { background:#fef2f2; border-left:4px solid #ef4444; padding:10px 14px; margin:8px 0; border-radius:0 8px 8px 0; font-size:14px; }
+  .disclaimer { color:#6b7280; font-size:12px; padding:14px 18px; background:#f9fafb; border-radius:10px; margin-top:16px; border:1px solid #e5e7eb; }
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>⏰ 尾盘决策 · 增强版</h1>
+  <div class="sub">每日基金报告系统 · 段二(14:30) · 含具体决策逻辑</div>
+  <div class="trial">🧪 试行 · 数据日 2026-07-07 · 进攻型</div>
+</div>
+
+<div class="card">
+  <h2>🤖 自动化任务执行日志（模拟 14:30 触发）</h2>
+  <div class="log-box">
+<span style="color:#93c5fd">[14:30:00] 任务触发：每日基金尾盘决策(14:30) ID=2281411 [增强版]</span>
+<span style="color:#4ade80">[14:30:01] ✅ 读取 watchlist.json → T0持仓10只 + strategy(本金15000/进攻型/止损-8%)</span>
+<span style="color:#4ade80">[14:30:02] ✅ 获取实时行情：上证3473.1(+0.02%) | 深证15225(-1.24%) | 创业板-1.21%</span>
+<span style="color:#4ade80">[14:30:03] ✅ 加载尾盘逻辑引擎 → 逐只基金推演</span>
+<span style="color:#4ade80">[14:30:04] ✅ 仓位诊断：当前≈92% (>90%上限，禁止新增买入)</span>
+<span style="color:#fbbf24">[14:30:05] ⚠️ 禁止重仓：三星Q2财报今晚待落地(未知事件)</span>
+<span style="color:#4ade80">[14:30:06] ✅ 输出10只基金具体决策 + 逻辑推导</span>
+<span style="color:#4ade80">[14:30:07] ✅ 生成 pre-close-2026-07-07.html（增强版·含逻辑）</span>
+  </div>
+</div>
+
+<div class="card">
+  <h2>🧠 尾盘逻辑引擎（具体规则）</h2>
+  <div class="engine">【尾盘买入 BUY】需同时满足：
+  ① 午盘信号 ∈ {HOLD, BUY} 且 下午未转弱
+  ② 关联指数14:00后企稳回升（未跌破上午低点）
+  ③ 加仓后 单基金 ≤ 30% 且 总仓位 ≤ strategy.target_total(90%)
+  ④ 无未知重大事件待落地（财报/议息）
+
+【尾盘卖出 SELL】满足任一即执行：
+  ① 单基金当日亏损 ≥ -8% → 强制止损减半
+  ② 关联指数破位（跌破关键支撑）且放量
+  ③ 板块单日暴涨 > 5% 且放量滞涨（获利了结）
+
+【禁止买入】触发任一即全天不买：
+  ① 大盘14:00后跳水（上证跌幅扩大 > 0.5%）
+  ② 账户当日亏损 > -3%
+  ③ 未知事件待落地（如三星财报/美联储议息）
+
+【持仓 HOLD】上述均不满足时的默认状态</div>
+  <div class="key-point" style="margin-top:10px;">
+    📌 <strong>本日全局判定</strong>：①大盘14:00后微涨(+0.02%)未跳水 ✅ ②账户日亏-0.15%未>-3% ✅ ③<strong>三星财报今晚待落地→触发禁止重仓</strong> ⚠️。叠加当前仓位≈92%已超买入线 → <strong>今日尾盘结论：全面HOLD，等三星+今晚复盘</strong>。
+  </div>
+</div>
+
+<div class="card">
+  <h2>📊 全日行情定格（14:30，真实收盘）</h2>
+  <table>
+    <tr><th>指数</th><th>14:30点位</th><th>涨跌幅</th><th>情绪评分</th></tr>
+    <tr><td>上证指数</td><td>3473.1</td><td class="pos">+0.02%</td><td rowspan="3">3.5/10（恐慌）<br>3500+家待涨<br>中位数-1.27%</td></tr>
+    <tr><td>深证成指</td><td>15225.1</td><td class="neg">-1.24%</td></tr>
+    <tr><td>创业板指</td><td>—</td><td class="neg">-1.21%</td></tr>
+  </table>
+  <div class="key-point">📌 成交额12087亿（缩量2199亿），做多情绪降温。半导体国产链相对强，存储/PCB/创新药偏弱。</div>
+</div>
+
+<div class="card">
+  <h2>🔍 持仓尾盘决策（逐只逻辑推导）</h2>
+
+  <div class="fund-card">
+    <div class="name">① 东方人工智能 <span class="sig s-hold">HOLD</span></div>
+    <div class="logic"><span class="rule-ok">规则①</span> 午盘HOLD + 下午强势(+2.03%未转弱) ✅ &nbsp; <span class="rule-ok">规则②</span> 半导体指数企稳 ✅ &nbsp; <span class="rule-no">规则③</span> 当前仓位92%>90%上限 ❌ &nbsp; <span class="rule-no">规则④</span> 三星待落地 ❌<br>→ 买入条件③+④不满足 → <strong>HOLD</strong>（强势但不再加仓）</div>
+    <div class="action">⚡ 动作：持有不加。若明日三星超预期且仓位释放，可加至3000元（进攻核心）。</div>
+  </div>
+
+  <div class="fund-card">
+    <div class="name">② 东方阿尔法科 <span class="sig s-hold">HOLD</span></div>
+    <div class="logic"><span class="rule-ok">规则①</span> 午盘HOLD + 全天+2.47%最强α ✅ &nbsp; <span class="rule-no">规则③</span> 仓位超限 ❌ &nbsp; <span class="rule-no">规则④</span> 三星待落地 ❌<br>→ 同① → <strong>HOLD</strong></div>
+    <div class="action">⚡ 动作：持有。进攻双核之一，等复盘调仓后加至2000元。</div>
+  </div>
+
+  <div class="fund-card">
+    <div class="name">③ 永赢先锋半导体(存储芯片) <span class="sig s-hold">HOLD</span></div>
+    <div class="logic"><span class="rule-no">卖出①</span> 当日-3.84% ≥ -8%? <span class="rule-no">否</span>（未触强制止损）&nbsp; <span class="rule-no">卖出②</span> 存储芯片-4.66%弱但非"破位放量"定性 &nbsp; <span class="rule-no">卖出③</span> 板块暴跌非暴涨<br>→ 无卖出条件触发 → <strong>HOLD</strong>（等三星定夺，这是胜负手）</div>
+    <div class="action">⚡ 动作：<strong>关键</strong>。三星超预期→明早加仓博反弹；不及预期→-8%硬止损清仓。尾盘不动。</div>
+  </div>
+
+  <div class="fund-card">
+    <div class="name">④ 广发港股创新药 <span class="sig s-hold">HOLD（低吸候选）</span></div>
+    <div class="logic"><span class="rule-ok">中期</span> 南向净买>200亿+恒生创新药月涨15% ✅ &nbsp; <span class="rule-no">规则③</span> 仓位超限 ❌ &nbsp; <span class="rule-no">规则④</span> 三星无关但整体事件窗口<br>→ 买入条件不满足 → <strong>HOLD</strong>，但列为低吸候选</div>
+    <div class="action">⚡ 动作：尾盘不追。明日若继续回调且仓位有空间，分批低吸至3000元（高弹性仓）。</div>
+  </div>
+
+  <div class="fund-card">
+    <div class="name">⑤ 广发纳斯达克100 <span class="sig s-hold">HOLD</span></div>
+    <div class="logic">美股纳指新高(+1.12%)，与A股低相关作对冲。当日+1.29%未触任何买卖规则 → <strong>HOLD</strong></div>
+    <div class="action">⚡ 动作：持有作对冲仓。仓位释放后可加至1500元。</div>
+  </div>
+
+  <div class="fund-card">
+    <div class="name">⑥ 天弘中证通信 / ⑦ 嘉实消费 / ⑧ 富国煤炭 / ⑨⑩ 财通PCB×2 <span class="sig s-hold">HOLD</span></div>
+    <div class="logic">均未达到卖出条件（无单基金≥-8%，无破位放量，无暴涨滞涨）。但进攻型复盘计划将其清仓转核心 → <strong>尾盘不急清，等今晚复盘统一调仓</strong></div>
+    <div class="action">⚡ 动作：尾盘HOLD。今晚20:00复盘将下达清仓指令（回收~3821转半导体/创新药核心）。</div>
+  </div>
+</div>
+
+<div class="card">
+  <h2>📐 仓位诊断</h2>
+  <table>
+    <tr><th>指标</th><th>当前</th><th>阈值</th><th>状态</th></tr>
+    <tr><td>估算总仓位</td><td>~92%</td><td>进攻上限90%</td><td class="neg">超限2%</td></tr>
+    <tr><td>账户日收益</td><td>-0.15%</td><td>禁止买入线-3%</td><td class="pos">安全</td></tr>
+    <tr><td>最大单基金亏损</td><td>永赢-3.84%</td><td>强制止损-8%</td><td class="pos">未触</td></tr>
+    <tr><td>未知事件</td><td>三星财报待落地</td><td>禁止重仓</td><td class="neg">触发禁止</td></tr>
+  </table>
+  <div class="risk-point">🚫 <strong>尾盘禁止动作</strong>：因仓位超限+三星待落地，今日尾盘<strong>任何新增买入均不执行</strong>。永赢-3.84%未达-8%止损线，不恐慌割肉。保持HOLD等待事件落地。</div>
+</div>
+
+<div class="card">
+  <h2>📋 具体操作指令汇总表（单只基金买卖/持有）</h2>
+  <table>
+    <tr><th>基金</th><th>指令</th><th>价位参考</th><th>仓位动作</th><th>逻辑简述</th></tr>
+    <tr><td>东方人工智能</td><td><span class="sig s-hold">HOLD</span></td><td>—</td><td>不加仓</td><td>强势但仓位满(92%&gt;90%)+三星待落</td></tr>
+    <tr><td>东方阿尔法科</td><td><span class="sig s-hold">HOLD</span></td><td>—</td><td>不加仓</td><td>双核最强α，等复盘加至2000</td></tr>
+    <tr><td>永赢先锋半导体</td><td><span class="sig s-hold">HOLD</span></td><td>止损线-8%≈-150元</td><td>等三星结果</td><td>胜负手，未触止损，明早定夺</td></tr>
+    <tr><td>广发港股创新药</td><td><span class="sig s-hold">HOLD</span></td><td>每跌2%补一次</td><td>明日止损空间内低吸至3000</td><td>中期强+南向200亿，低吸候选</td></tr>
+    <tr><td>广发纳斯达克100</td><td><span class="sig s-hold">HOLD</span></td><td>—</td><td>对冲持有</td><td>纳指新高，仓位释放后加1500</td></tr>
+    <tr><td>天弘中证通信</td><td><span class="sig s-hold">HOLD</span>→待清</td><td>—</td><td>今晚复清空仓</td><td>进攻低效，回收~1250转核心</td></tr>
+    <tr><td>嘉实主要消费</td><td><span class="sig s-hold">HOLD</span>→待清</td><td>—</td><td>今晚复清空仓</td><td>消费疲软，回收~506</td></tr>
+    <tr><td>富国中证煤炭</td><td><span class="sig s-hold">HOLD</span>→待清</td><td>—</td><td>今晚复清空仓</td><td>防御不符进攻，回收~1065</td></tr>
+    <tr><td>财通PCB×2</td><td><span class="sig s-hold">HOLD</span>→待清</td><td>—</td><td>今晚复清空仓</td><td>板块弱资金撤离，回收~1000</td></tr>
+  </table>
+  <div class="key-point" style="margin-top:12px;">
+    📌 <strong>尾盘操作总览</strong>：今日尾盘<strong>无任何买入/卖出执行</strong>（全面HOLD）。原因：①仓位92%超上限 ②三星待落地触发禁止重仓 ③无基金触-8%止损。4只弱势/防御仓标记为"待清"，将于<strong>今晚20:00复盘</strong>统一下达清仓指令并调仓至半导体/创新药核心。
+  </div>
+  <div class="risk-point">
+    🚫 <strong>硬约束</strong>：单基金-8%强制止损（永赢当前-3.84%，若明日再跌&gt;4%即触发）；账户日亏&gt;-3%停止买入；未知事件(三星)落地前不重仓。
+  </div>
+</div>
+
+<div class="card">
+  <h2>📅 明日预案</h2>
+  <div class="key-point">
+    <strong>关键事件</strong>：三星Q2财报（今晚公布，预期利润563亿美元/+17倍）。<br>
+    <strong>若超预期</strong>：明日半导体链反攻 → 东方双基加仓、永赢加仓博反弹。<br>
+    <strong>若不及预期</strong>：科技再分歧 → 永赢-8%止损，其余持有。<br>
+    <strong>预警线</strong>：永赢若明日再跌>4%触及-8%止损区；上证跌破3460需减仓。
+  </div>
+</div>
+
+<div class="disclaimer">
+  ⚠️ 免责声明：本尾盘决策为增强版试行产出，基于07-07真实收盘数据与watchlist策略(进攻型)。具体逻辑推导依尾盘引擎规则，仅供参考。持仓以T0实盘为准。市场有风险，投资需谨慎。生成时间：模拟 2026-07-07 14:30。
+</div>
+</body>
+</html>

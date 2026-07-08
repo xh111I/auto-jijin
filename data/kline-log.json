@@ -1,0 +1,10 @@
+{
+  "meta": {
+    "description": "每日尾盘板块日K量化分析信号记录库",
+    "protocol": "data/kline-protocol.md",
+    "dimensions": ["trend", "volume_price", "pattern", "main_force", "close_signal"],
+    "main_force_types": ["建仓", "抢筹", "洗盘", "出货", "中性"],
+    "created_at": "2026-07-08T09:04:00+08:00"
+  },
+  "records": []
+}

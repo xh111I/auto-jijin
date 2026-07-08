@@ -1,0 +1,19 @@
+{
+  "meta": {
+    "description": "每日尾盘市场情绪恐惧贪婪指数记录库",
+    "protocol": "data/sentiment-protocol.md",
+    "factors": ["breadth", "limit_up_down", "main_flow", "northbound", "margin", "volume", "vix", "erp"],
+    "weights": {
+      "breadth": 0.15,
+      "limit_up_down": 0.10,
+      "main_flow": 0.15,
+      "northbound": 0.12,
+      "margin": 0.08,
+      "volume": 0.10,
+      "vix": 0.15,
+      "erp": 0.15
+    },
+    "created_at": "2026-07-08T08:57:00+08:00"
+  },
+  "records": []
+}
