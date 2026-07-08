@@ -1,0 +1,13 @@
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+libpng warning: iCCP: known incorrect sRGB profile
+To https://github.com/xh111I/auto-jijin.git
+ ! [remote rejected] main -> main (cannot lock ref 'refs/heads/main': reference already exists)
+error: failed to push some refs to 'https://github.com/xh111I/auto-jijin.git'
