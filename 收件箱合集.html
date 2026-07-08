@@ -1,0 +1,988 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8">
+<title>基金报告收件箱（合集·单文件）</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+body{font-family:-apple-system,"PingFang SC",sans-serif;max-width:920px;margin:0 auto;padding:20px;background:#f7f8fa;color:#1f2937}
+h1{font-size:22px;margin:0 0 4px}
+.sub{color:#9ca3af;font-size:13px;margin-bottom:14px}
+.viewbox{background:#fff7ed;border:1px solid #fed7aa;color:#9a3412;padding:12px 14px;border-radius:8px;font-size:13px;margin-bottom:16px;line-height:1.6}
+.rep{background:#fff;border-radius:8px;margin:8px 0;box-shadow:0 1px 3px rgba(0,0,0,.05);overflow:hidden}
+.rep>summary{cursor:pointer;padding:12px 14px;font-weight:600;font-size:15px;list-style:none}
+.rep>summary::-webkit-details-marker{display:none}
+.rep>summary::before{content:"▶ ";color:#9ca3af;font-size:11px}
+.rep[open]>summary::before{content:"▼ "}
+.repbody{padding:0 14px 14px;border-top:1px solid #f3f4f6}
+canvas{max-width:100%}
+.footer{margin-top:24px;color:#9ca3af;font-size:12px;text-align:center}
+</style></head><body>
+<h1>📱 基金报告收件箱（单文件合集）</h1>
+<div class="sub">所有报告已内联，无相对路径依赖 · 双击即可查看</div>
+<div class="viewbox"><b>📂 如何查看（重要）</b><br>请用 <b>真实浏览器（Chrome/Edge）</b> 打开本文件。本合集为单文件、已内联全部报告，即使在受限查看器里也不会因"找不到子文件"而空白；图表需联网加载 Chart.js（CDN），离线时文字内容仍完整可读。</div>
+<details class="rep"><summary>🌅 早间全球分析</summary><div class="repbody">
+
+<div class="header">
+  <h1>🌍 早间全球股市分析</h1>
+  <div class="sub">2026-07-08 09:13 · A股开盘前盘前推送 · 数据截至隔夜美股收盘（美东 07-07）</div>
+  <div class="mood-chip">📊 大盘情绪：中性(52) ｜ 🔴 半导体情绪：极度恐惧(18)</div>
+</div>
+
+<!-- 全球行情速览 -->
+<div class="card">
+  <h2>一、全球行情速览（隔夜）</h2>
+  <table>
+    <tr><th>市场/标的</th><th>收盘/最新</th><th>涨跌</th><th>来源/置信</th><th>信号</th></tr>
+    <tr><td>道指 Dow</td><td>52,925.15</td><td class="down">-0.25%</td><td><span class="tag-t2">CNBC T2</span></td><td>微跌</td></tr>
+    <tr><td>标普500</td><td>—</td><td class="down">-0.50%</td><td><span class="tag-t2">Investopedia T2</span></td><td>科技拖累</td></tr>
+    <tr><td>纳指 Nasdaq</td><td>25,818.69</td><td class="down">-1.16%</td><td><span class="tag-t2">CNBC T2</span></td><td>领跌</td></tr>
+    <tr><td>费城半导体 SOX</td><td>—</td><td class="down">-5%~-7%</td><td><span class="tag-t2">Barron's T2</span> <span class="tag-warn">⚠</span></td><td>芯片 rally 崩塌</td></tr>
+    <tr><td>美光 Micron</td><td>—</td><td class="down">-8%~-9%</td><td><span class="tag-t2">Invezz T2</span></td><td>存储重挫</td></tr>
+    <tr><td>闪迪 SanDisk</td><td>—</td><td class="down">-14%</td><td><span class="tag-t2">MoneyMorning T2</span></td><td>NAND 重挫</td></tr>
+    <tr><td>英特尔 Intel</td><td>—</td><td class="down">-11%</td><td><span class="tag-t2">context T2</span></td><td>弱势</td></tr>
+    <tr><td>VIX 恐慌指数</td><td>16.07</td><td class="up">+2.82%</td><td><span class="tag-t2">Sigmanomics/FRED T2</span></td><td>低恐惧(系统平稳)</td></tr>
+    <tr><td>Brent 原油</td><td>$75.90</td><td class="up">+3.7%~+6%</td><td><span class="tag-t2">Reuters T2</span> <span class="tag-warn">⚠</span></td><td>伊朗豁免撤销飙升</td></tr>
+    <tr><td>黄金</td><td>&lt;4100</td><td class="flat">偏弱</td><td><span class="tag-t2">context T2</span> <span class="tag-warn">⚠待验证</span></td><td>避险降温</td></tr>
+    <tr><td>港股/亚太</td><td>盘前未开</td><td class="flat">待观察</td><td><span class="tag-t2">T2 推断</span></td><td>受美股科技拖累预期承压</td></tr>
+  </table>
+  <p style="font-size:12px;color:#94a3b8;margin-top:10px;">⚠️ 数据冲突说明：Zacks 报道标普 +0.7%，与 Investopedia/CNBC/Barron's 一致下跌相矛盾，按可信度协议以多数源（下跌）为准，Zacks 标记[⚠存疑]。</p>
+</div>
+
+<!-- 早间恐惧贪婪指数 -->
+<div class="card">
+  <h2>二、早间全球恐惧贪婪指数（盘前情绪锚点）</h2>
+  <div class="gauge-row">
+    <div class="gauge-box"><canvas id="r01_gaugeBroad" width="260" height="180"></canvas><div style="font-weight:600;margin-top:6px;">大盘情绪 · 52 中性</div></div>
+    <div class="gauge-box"><canvas id="r01_gaugeSemi" width="260" height="180"></canvas><div style="font-weight:600;margin-top:6px;color:#dc2626;">半导体情绪 · 18 极度恐惧</div></div>
+  </div>
+  <p style="font-size:13px;line-height:1.7;margin-top:14px;">
+  <b>关键矛盾信号</b>：VIX 仅 16（低波动=系统性不恐慌），但<b>半导体板块处于极度恐惧</b>（SOX -5~7%、美光-9%、闪迪-14%、英特尔-11%、三星Q2业绩担忧）。
+  这说明当前是<b>结构性科技恐慌，而非全面系统性风险</b>。你的组合 <b>半导体暴露约 71%</b>，今日核心风险集中在半导体开盘，需重点盯防。
+  </p>
+</div>
+
+<!-- 对A股开盘影响 -->
+<div class="card">
+  <h2>三、对 A 股开盘影响研判</h2>
+  <div class="signal-grid">
+    <div class="signal"><div class="name">🔴 半导体（最强冲击）</div><div class="act">SOX 暴跌 + 三星业绩担忧 → 永赢先锋半导体、东方AI、东方阿尔法开盘承压。关注永赢是否逼近 -8% 硬止损线（当前距止损仅约 4% 空间）。</div></div>
+    <div class="signal"><div class="name">🟡 CPO/光模块（分化）</div><div class="act">支付宝热点"光模块量产实锤/CPO技术突破"，AI算力需求仍在；但存储暴跌或拖累整体科技风险偏好。预计分化，强票抗跌。</div></div>
+    <div class="signal"><div class="name">🟡 港股创新药</div><div class="act">恒生科技受美股科技走弱预期拖累，广发港股创新药(持-2.56%)延续弱势概率大。</div></div>
+    <div class="signal"><div class="name">🟢 煤炭/能源（偏强）</div><div class="act">油价+6% 提振周期/能源情绪，富国煤炭残仓或补涨；且你已将部分煤炭转债券降风险，缓冲更足。</div></div>
+    <div class="signal"><div class="name">🟢 债券（安全垫）</div><div class="act">鹏华丰诚债券C（由煤炭转换）提供避险属性，今日为组合托底。</div></div>
+    <div class="signal"><div class="name">⚪ 消费（独立）</div><div class="act">嘉实消费ETF新建仓500元，处低位独立逻辑，受外围影响小。</div></div>
+  </div>
+  <div class="alert">
+    <b>⚠️ 今日最高优先级：永赢先锋半导体（¥1,736.30，持-69.42）</b><br>
+    隔夜美存储暴跌直接冲击"等三星Q2业绩"的胜负手逻辑。若今日再跌 &gt;4% 触发 -8% 硬止损线，按进攻型策略需减半/清仓。开盘第一件事：盯这只的开盘价与分时。
+  </div>
+</div>
+
+<!-- 持仓盘前提示 -->
+<div class="card">
+  <h2>四、持仓盘前提示（基于 T0 持仓 + 隔夜情绪）</h2>
+  <table>
+    <tr><th>基金</th><th>市值</th><th>昨日</th><th>盘前信号</th><th>建议动作</th></tr>
+    <tr><td>东方人工智能</td><td>5,082</td><td class="up">+1.64%</td><td>半导体情绪恐惧，或低开</td><td>持有，不追；观察开盘承接</td></tr>
+    <tr><td>东方阿尔法科技</td><td>3,026</td><td class="up">+0.87%</td><td>同上，跟随半导体</td><td>持有，警惕低开破位</td></tr>
+    <tr><td>广发港股创新药</td><td>2,247</td><td class="down">-2.56%</td><td>恒科预期承压</td><td>持有，勿加；等企稳</td></tr>
+    <tr><td>永赢先锋半导体</td><td>1,736</td><td class="down">-3.84%</td><td class="down">🔴 极度恐惧+逼近止损</td><td><b>重点盯盘</b>，触-8%减半</td></tr>
+    <tr><td>富国中证煤炭</td><td>1,013</td><td class="up">+1.29%</td><td>油价+6%偏强</td><td>持有；残仓或补涨</td></tr>
+    <tr><td>嘉实消费ETF</td><td>500</td><td class="flat">0.00%</td><td>独立低位逻辑</td><td>新建仓，定投式持有</td></tr>
+    <tr><td>鹏华丰诚债券C</td><td>(转换中)</td><td class="flat">—</td><td>避险安全垫</td><td>持有，降风险生效</td></tr>
+    <tr><td>广发纳指100</td><td>60</td><td class="down">-0.53%</td><td>纳指-1.16%承压</td><td>定投持有，极小仓</td></tr>
+  </table>
+  <p style="font-size:12px;color:#94a3b8;margin-top:10px;">待确认买入：消费500+财通成长100+财通集成100+天弘通信10+纳指定投10 = ¥720；煤炭→债券转换247.77份（均交易进行中，份额09:00后确认）。</p>
+</div>
+
+<!-- 今日关键事件 -->
+<div class="card">
+  <h2>五、今日关键事件日历</h2>
+  <table>
+    <tr><th>时间</th><th>事件</th><th>影响</th></tr>
+    <tr><td>09:30</td><td>A股开盘</td><td>半导体低开压力测试</td></tr>
+    <tr><td>全天</td><td>三星Q2业绩指引预期</td><td>半导体核心变量（永赢逻辑锚）</td></tr>
+    <tr><td>全天</td><td>油价受伊朗豁免撤销持续发酵</td><td>利好煤炭/能源，利空通胀预期</td></tr>
+    <tr><td>11:30</td><td>午盘快报（自动）</td><td>上午信号+情绪</td></tr>
+    <tr><td>14:30</td><td>尾盘决策（自动）</td><td>买卖指令+情绪+板块日K量化</td></tr>
+    <tr><td>21:30</td><td>晚间复盘（自动）</td><td>收盘情绪校准+命中率</td></tr>
+  </table>
+</div>
+
+<div class="disclaimer">
+  ⚠️ 本早间报告为盘前推送，基于隔夜全球市场数据(T2)与用户持仓截图(T0)整理。9:00 A股未开盘，不做A股当日涨跌预测（留待午盘/尾盘任务）。
+  早间恐惧贪婪指数为基于可得因子的估算盘前锚点，非买卖指令。形态/主力行为判定为模型推断，资金流向为估算值。
+  市场有风险，投资需谨慎。本报告仅供参考，不构成任何投资建议或个股推荐。数据来源：CNBC / Investopedia / Barron's / Reuters / Sigmanomics(FRED) / 用户支付宝持仓(T0)。
+</div>
+
+<script>
+  function gauge(ctx, score, color){
+    new Chart(ctx, {
+      type: 'doughnut',
+      data: { datasets: [
+        { data: [score, 100-score], backgroundColor: [color, '#eef0f3'], borderWidth: 0 }
+      ]},
+      options: {
+        rotation: -90, circumference: 180, cutout: '72%',
+        plugins: { tooltip: {enabled:false}, legend:{display:false} },
+        animation: false
+      }
+    });
+    // 中心文字
+    const c = ctx.getContext ? null : null;
+  }
+  // 中心数字
+  function centerText(canvasId, val){
+    const cv = document.getElementById(canvasId);
+    const ctx = cv.getContext('2d');
+    ctx.save();
+    ctx.textAlign='center'; ctx.textBaseline='middle';
+    ctx.font='bold 30px sans-serif';
+    ctx.fillStyle='#1f2937';
+    ctx.fillText(val, cv.width/2, cv.height/2 + 6);
+    ctx.restore();
+  }
+  gauge(document.getElementById('r01_gaugeBroad'), 52, '#3b82f6');
+  gauge(document.getElementById('r01_gaugeSemi'), 18, '#dc2626');
+  centerText('gaugeBroad', '52');
+  centerText('gaugeSemi', '18');
+</script>
+</div></details><details class="rep"><summary>📊 午盘收盘分析</summary><div class="repbody">
+
+<div class="header">
+  <h1>📈 午盘快报（Morning Close）</h1>
+  <div class="sub">2026-07-08 11:30 · A股上午收盘 · 数据快照 11:30（通达信实时行情 T2）</div>
+  <div class="mood-chip">📊 大盘情绪：偏多(64) ｜ 🔴→🟢 半导体情绪：修复(72) ｜ 成交额：上证≈7892亿 / 创业板≈4356亿</div>
+</div>
+
+<!-- 上午大盘与板块速览 -->
+<div class="card">
+  <h2>一、上午大盘与板块速览（11:30 快照）</h2>
+  <table>
+    <tr><th>标的 / 板块</th><th>午盘涨跌</th><th>成交额</th><th>时间</th><th>来源 / 置信</th></tr>
+    <tr><td>上证指数</td><td class="up">+0.52%</td><td>7891.6亿</td><td>11:30</td><td><span class="tag-t2">tdx T2</span> <span class="tag-ok">✅✅</span></td></tr>
+    <tr><td>创业板指</td><td class="up">+0.95%</td><td>4355.8亿</td><td>11:30</td><td><span class="tag-t2">tdx T2</span> <span class="tag-ok">✅✅</span></td></tr>
+    <tr><td>半导体（整体）</td><td class="up">+2.82%</td><td>3519.3亿</td><td>11:30</td><td><span class="tag-t2">tdx T2</span> <span class="tag-t2">✅</span></td></tr>
+    <tr><td>半导体设备</td><td class="up">+4.12%</td><td>499.2亿</td><td>11:30</td><td><span class="tag-t2">tdx T2</span> <span class="tag-t2">✅</span></td></tr>
+    <tr><td>半导体制造</td><td class="up">+5.98%</td><td>264.4亿</td><td>11:30</td><td><span class="tag-t2">tdx T2</span> <span class="tag-t2">✅</span></td></tr>
+    <tr><td>存储芯片</td><td class="up">+0.59%</td><td>3624.3亿</td><td>11:30</td><td><span class="tag-t2">tdx T2</span> <span class="tag-t2">✅</span></td></tr>
+    <tr><td>通信设备 / CPO</td><td class="up">+3.00%</td><td>1181.6亿</td><td>11:30</td><td><span class="tag-t2">tdx T2</span> <span class="tag-t2">✅</span></td></tr>
+    <tr><td>PCB 概念</td><td class="down">-0.57%</td><td>1688.7亿</td><td>11:30</td><td><span class="tag-t2">tdx T2</span> <span class="tag-t2">✅</span></td></tr>
+    <tr><td>中证煤炭</td><td class="up">+0.46%</td><td>83.1亿</td><td>11:30</td><td><span class="tag-t2">tdx T2</span> <span class="tag-t2">✅</span></td></tr>
+    <tr><td>中证主要消费</td><td class="down">-1.16%</td><td>107.7亿</td><td>12:41(最新)</td><td><span class="tag-t2">tdx T2</span> <span class="tag-t2">✅</span></td></tr>
+    <tr><td>香港创新药ETF</td><td class="down">-3.68%</td><td>—</td><td>07-07收盘</td><td><span class="tag-t2">tdx T2</span> <span class="tag-warn">⚠待验证</span></td></tr>
+    <tr><td>纳指100ETF</td><td class="up">+1.30%</td><td>—</td><td>07-06(最新可得)</td><td><span class="tag-t2">tdx T2</span> <span class="tag-warn">⚠待验证</span></td></tr>
+  </table>
+  <p style="font-size:12px;color:#94a3b8;margin-top:10px;">✅✅ = 双源验证：tdx 今日"昨收" 上证 3990.24 / 创业板 3911.91，与雪球、百度百家号 07-07 收评完全一致。板块为单源 T2 实时（tdx），盘后待回填交叉验证。香港创新药 / 纳指100 为跨境内 ETF，tdx 无 07-08 盘中更新，标注 ⚠ 不进硬决策。</p>
+</div>
+
+<!-- 上午信号表 -->
+<div class="card">
+  <h2>二、各持仓上午信号表</h2>
+  <table>
+    <tr><th>基金（权重）</th><th>关联指数 / 上午表现</th><th>上午信号</th><th>建议动作</th></tr>
+    <tr><td>东方人工智能(36.62%)</td><td>半导体设备 +4.12% / 材料 -0.05%</td><td>持有</td><td>半导体强势反弹，持有；设备强于材料，观察午后承接</td></tr>
+    <tr><td>东方阿尔法科技(21.80%)</td><td>半导体设备 +4.12% / 材料 -0.05%</td><td>持有</td><td>同东方AI，跟随半导体反弹</td></tr>
+    <tr><td>永赢先锋半导体(12.51%)</td><td>存储 +0.59% / 制造 +5.98%</td><td class="up">持有·风险解除</td><td>隔夜 -8% 止损警报未触发，强势反弹，持有</td></tr>
+    <tr><td>广发港股创新药(16.19%)</td><td>香港创新药 -3.68%(昨)</td><td class="flat">观望·⚠滞后</td><td>无 07-08 盘中数据，延续弱势概率；待午后/收盘确认</td></tr>
+    <tr><td>富国中证煤炭(7.30%)</td><td>中证煤炭 +0.46%</td><td>持有·残仓</td><td>转债券进行中，煤炭平稳，防御端稳健</td></tr>
+    <tr><td>嘉实消费ETF(3.60%)</td><td>中证主要消费 -1.16%</td><td>持有·低位</td><td>新建仓，消费走弱不改定投式持有</td></tr>
+    <tr><td>财通集成电路(0.72%)</td><td>PCB -0.57%</td><td>加仓观察·小额</td><td>PCB 微跌但 CPO 强，试探仓持有</td></tr>
+    <tr><td>财通成长优选(0.72%)</td><td>科创成长层 +0.50%</td><td>持有·小额</td><td>成长风格平稳</td></tr>
+    <tr><td>天弘通信设备(0.07%)</td><td>通信设备 +3.00%</td><td class="up">持有·CPO领涨</td><td>CPO 主线强，试探仓持有</td></tr>
+    <tr><td>广发纳指100(0.43%)</td><td>纳指 +1.30%(07-06)</td><td>定投持有</td><td>极小仓，数据滞后</td></tr>
+    <tr><td>国泰半导体制造(已清)</td><td>半导体制造 +5.98%</td><td class="flat">—</td><td>已清仓，仅供参考</td></tr>
+  </table>
+  <div class="alert">
+    <b>✅ 关键风险解除：永赢先锋半导体（¥1,736.30）</b><br>
+    早间报告曾预警"隔夜美存储暴跌或触发 -8% 硬止损"。但上午半导体强势反弹（制造 +5.98% / 设备 +4.12% / 整体 +2.82%），存储芯片亦 +0.59%，永赢远离止损线、上午大概率收红。<b>无需减仓，原止损预案暂不触发。</b>
+  </div>
+</div>
+
+<!-- 逻辑推导 -->
+<div class="card">
+  <h2>三、逻辑推导：上午发生了什么</h2>
+  <ul class="logic">
+    <li><b>核心反转 — 半导体恐惧叙事未兑现。</b>隔夜美存储暴跌（美光 -9% / 闪迪 -14%）曾引发"半导体开盘承压、永赢触 -8% 止损"的担忧；但 A 股半导体上午强势反弹（设备 +4.12% / 制造 +5.98%）。原因：① A 股半导体以国产设备/制造为主，受美存储拖累有限；② CPO/AI 算力需求驱动（支付宝热点"光模块量产实锤"）；③ 昨日获利了结后资金回流科技。</li>
+    <li><b>CPO 主线确认。</b>通信设备 +3.00%，与昨日"光模块量产实锤 / CPO 技术突破"热点一致，天弘通信、财通集成受益，且强于 PCB（-0.57%）——资金更偏向"光模块/系统设备"而非传统 PCB。</li>
+    <li><b>港股创新药仍弱。</b>香港创新药 ETF 昨日 -3.68%，延续承压；但为跨境内 ETF，tdx 无 07-08 盘中更新，广发港股创新药需待午后/收盘确认，暂按"观望"。</li>
+    <li><b>防御端稳健。</b>中证煤炭 +0.46% 小幅反弹，叠加"煤炭→鹏华丰诚债"转换进行中，组合风险敞口进一步下降；消费 -1.16% 走弱，但嘉实消费为低位新建仓，不影响定投逻辑。</li>
+    <li><b>大盘风险偏好回升。</b>上证 +0.52% / 创业板 +0.95%，上午成交上证≈7892亿、创业板≈4356亿，量能温和，科技主线领涨。</li>
+  </ul>
+</div>
+
+<!-- 尾盘前瞻 -->
+<div class="card">
+  <h2>四、尾盘前瞻（午后关注）</h2>
+  <div class="signal-grid">
+    <div class="signal"><div class="name">🔍 半导体续航</div><div class="act">设备 +4% / 制造 +6% 已处高位，防午后获利回吐；若守住涨幅，确认反弹有效性。</div></div>
+    <div class="signal"><div class="name">🟢 CPO 持续性</div><div class="act">通信设备 +3% 能否继续领涨，决定财通集成/天弘通信试探仓的去留。</div></div>
+    <div class="signal"><div class="name">🟡 港股创新药</div><div class="act">午后（若为交易时段）是否企稳；延续弱势则广发港股创新药观望、不急于加仓。</div></div>
+    <div class="signal"><div class="name">📊 大盘量能</div><div class="act">上证上午≈7892亿，午后若放量则反弹确认；缩量则需防冲高回落。</div></div>
+  </div>
+  <div class="alert-red">
+    <b>⚠️ 午后风险点</b><br>
+    ① 半导体单日涨幅较大，警惕午后/明日获利回吐；② 隔夜美股科技若再走弱，或影响明日开盘；③ 广发港股创新药数据滞后，硬决策待收盘确认。当前无新减仓信号，整体以"持有 + 观察"为主。
+  </div>
+</div>
+
+<!-- 数据来源与可信度 -->
+<div class="card">
+  <h2>五、数据来源与可信度（按 Data Credibility Protocol）</h2>
+  <table>
+    <tr><th>层级</th><th>内容</th><th>说明</th></tr>
+    <tr><td><span class="tag-t0">T0</span></td><td>账户资产/收益/持仓（08:52 截图）</td><td>用户实盘，不可改；账户总资产 ¥13,873.99（昨日日亏 -16.85）</td></tr>
+    <tr><td><span class="tag-t2">T2</span></td><td>通达信实时行情 tdx-connector</td><td>11:30 快照，板块/指数涨跌与成交额；单源实时</td></tr>
+    <tr><td><span class="tag-ok">✅✅</span></td><td>上证/创业板双源验证</td><td>tdx 昨收 3990.24/3911.91 = 雪球/百家号 07-07 收评，完全一致</td></tr>
+    <tr><td><span class="tag-warn">⚠</span></td><td>香港创新药 / 纳指100</td><td>跨境内 ETF 无 07-08 盘中更新，标注待验证，不进硬决策</td></tr>
+  </table>
+</div>
+
+<div class="disclaimer">
+  ⚠️ 本午盘快报基于通达信实时行情（T2，快照 11:30）与用户持仓截图（T0，08:52）整理。板块涨跌幅为单源 T2 实时数据，盘后将以收盘数据回填交叉验证。
+  基金当日收益以用户账户 T0 截图为准，本报告不预测个股/基金具体净值。信号与建议为模型逻辑推导，非买卖指令。
+  市场有风险，投资需谨慎。本报告仅供参考，不构成任何投资建议或个股推荐。
+</div>
+
+</div></details><details class="rep"><summary>⚡ 盘中预警 13:51</summary><div class="repbody">
+
+<div class="card head">
+  <h1>🛡️ 盘中预警 · 减仓预警</h1>
+  <div class="sub">每日基金自动报告系统 · 盘中监控（每小时触发）</div>
+  <div class="badges">
+    <div class="badge"><b>开始时间</b><span>2026-07-08 13:51:02</span></div>
+    <div class="badge"><b>生成时间</b><span>2026-07-08 13:56:27</span></div>
+    <div class="badge"><b>结束时间</b><span>2026-07-08 13:56:27</span></div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="sec-title">① 市场快照（实时 · T2 通达信）</div>
+  <div class="kv"><span class="k">上证指数</span><span class="v">3988.05　<span class="warn">−0.05%</span></span></div>
+  <div class="kv"><span class="k">深证成指</span><span class="v">15069.65　<span class="warn">−1.02%</span></span></div>
+  <div class="kv"><span class="k">上证 20 日线（MA20）</span><span class="v">≈ 4065.1</span></div>
+  <div class="kv"><span class="k">上证距 20 日线</span><span class="v"><span class="warn">下方 1.89%</span></span></div>
+  <div class="kv"><span class="k">上证距 3460 减仓线</span><span class="v" style="color:#2e9b5b">上方 +15.3%（未破）</span></div>
+  <div class="kv"><span class="k">涨跌家数（沪市）</span><span class="v">697 ↑ / 1579 ↓</span></div>
+  <div class="kv"><span class="k">数据时间</span><span class="v muted">2026-07-08 13:55 盘中</span></div>
+</div>
+
+<div class="card">
+  <div class="sec-title">② 触发条件判定（4 项门控）</div>
+  <table>
+    <thead><tr><th>触发项</th><th>条件</th><th>实测</th><th>状态</th></tr></thead>
+    <tbody>
+      <tr>
+        <td>减仓预警</td>
+        <td>上证破 3460 或 20 日线</td>
+        <td>3988 &lt; MA20 4065（破 20 日线；距 3460 仍 +15.3%）</td>
+        <td><span class="pill r">已触发</span></td>
+      </tr>
+      <tr>
+        <td>止损预警</td>
+        <td>单基金跌 &gt; 5%</td>
+        <td>板块代理最大跌幅 PCB −2.30% / 港股创新药 −3.68%（陈旧）</td>
+        <td><span class="pill g">未触发</span></td>
+      </tr>
+      <tr>
+        <td>止盈预警</td>
+        <td>单基金涨 &gt; 15%</td>
+        <td>板块代理最大涨幅 半导体 +1.46% / 通信设备 +1.51%</td>
+        <td><span class="pill g">未触发</span></td>
+      </tr>
+      <tr>
+        <td>禁止买入预警</td>
+        <td>大盘跳水 &gt; 0.5%</td>
+        <td>上证 −0.05%（深证 −1.02% 仅作参考）</td>
+        <td><span class="pill g">未触发</span></td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="note">注：场外基金无盘中实时净值，单基金涨跌幅以关联板块指数作估值代理，含跟踪误差；QDII 基金以 T+1 净值/隔夜参考，盘中不具实时性。</div>
+</div>
+
+<div class="card">
+  <div class="sec-title">③ 预警清单 + 建议动作</div>
+  <div class="alert">
+    <div class="t">⚠️ 减仓预警（趋势性）</div>
+    <div class="d">上证指数 3988.05 位于 20 日线（≈4065）下方 1.89%，属于「破 20 日线」减仓信号。该状态自上午已持续（非分钟级新破位），3460 关键减仓线尚远（上方 +15.3%），尚属温和破位而非急跌。</div>
+    <div class="act">建议动作（仅供参考，本监控不买卖）：<br>
+      1. 控仓为主，暂缓加仓；进攻型目标仓 90% 可下调观察。<br>
+      2. 重点盯半导体集中度（东方AI 36.6% + 东方阿尔法 21.8% + 永赢半导体 12.5% ≈ 71%）——破位若延续，尾盘决策任务将按规则评估减仓。<br>
+      3. 不触发硬止损（单基均未 &gt; −8%），情绪面亦未极端，无需恐慌性杀跌。<br>
+      4. 等待尾盘（14:30）决策任务结合技术/资金/情绪四因子给出最终加减仓指令。
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="sec-title gray">④ 持仓板块代理涨跌（截至 13:55）</div>
+  <table>
+    <thead><tr><th>板块代理</th><th>对应基金</th><th>涨跌</th></tr></thead>
+    <tbody>
+      <tr><td>半导体 881319</td><td>东方AI / 东方阿尔法 / 永赢半导体 / 国泰半导体</td><td class="ok">+1.46%</td></tr>
+      <tr><td>通信设备 880490</td><td>天弘通信(CPO)</td><td class="ok">+1.51%</td></tr>
+      <tr><td>PCB概念 880550</td><td>财通集成电路</td><td class="warn">−2.30%</td></tr>
+      <tr><td>创新药 880652</td><td>创新药主题</td><td class="warn">−0.69%</td></tr>
+      <tr><td>中证消费 399932</td><td>嘉实消费</td><td class="warn">−0.59%</td></tr>
+      <tr><td>煤炭 880301</td><td>富国煤炭(已转鹏华债)</td><td class="ok">+0.84%</td></tr>
+      <tr><td>港股创新药ETF 513120</td><td>广发港股创新药(待验证)</td><td class="warn">−3.68% <span class="neu">(07-07 陈旧)</span></td></tr>
+    </tbody>
+  </table>
+  <div class="note">港股创新药 ETF 行情源返回 2026-07-07 15:00 旧值，QDII 基金盘中不更新，仅作隔夜参考，标 ⚠ 待验证。</div>
+</div>
+
+<div class="card">
+  <div class="sec-title gray">⑤ 盘中情绪 · 恐惧贪婪指数（8 因子快速估算）</div>
+  <div class="kv"><span class="k">综合指数（估算）</span><span class="v">≈ 40　<span class="pill y">恐惧</span></span></div>
+  <div class="kv"><span class="k">极端区判定</span><span class="v">≤20 或 ≥80 才提示 → <span class="ok">未达极端区，不提示</span></span></div>
+  <div class="note">因子加权简算（部分因子缺失按中性 50 计入并标注）：市场广度 697/1579≈0.44→22（恐惧）｜涨跌停/北向/融资/ERP 数据缺失→中性 50｜主力资金 偏流出→35｜量能 缩量→45｜VIX 隔夜美存储暴跌偏高→30。综合 ≈40，处于「恐惧」区但非极端。本估算为快速快照，非尾盘完整情绪表，仅供监控参考。</div>
+</div>
+
+<div class="card">
+  <div class="sec-title gray">数据可信度与来源</div>
+  <div class="kv"><span class="k">行情源</span><span class="v">通达信（T2）实时快照</span></div>
+  <div class="kv"><span class="k">大盘/板块指数</span><span class="v">✅ 中可信（单源 T2）</span></div>
+  <div class="kv"><span class="k">MA20</span><span class="v">由 25 日 K 线收盘计算（✅ 中可信）</span></div>
+  <div class="kv"><span class="k">涨跌家数</span><span class="v">沪市 K 线 up/down 字段（✅ 中可信）</span></div>
+  <div class="kv"><span class="k">持仓明细</span><span class="v">T0 用户支付宝截图（优先级最高，本监控不改）</span></div>
+</div>
+
+<div class="foot">⚠️ 本监控仅供参考，不构成投资建议。市场有风险，投资需谨慎。<br>每日基金自动报告系统 · 盘中监控 · 2026-07-08</div>
+
+</div></details><details class="rep"><summary>⚡ 盘中预警 14:21</summary><div class="repbody">
+<div class="card">
+  <div class="h">🛡️ 盘中预警</div>
+  <div class="sub">2026-07-08 周二盘中风控监控 · 交易日 14:25</div>
+  <span class="tag">⚠ 1 项触发：减仓预警（趋势性持续）</span>
+  <div class="tline">
+    ① 开始时间：<b>2026-07-08 14:21:12</b><br>
+    ② 生成时间：<b>2026-07-08 14:26:41</b><br>
+    ③ 结束时间：<b>2026-07-08 14:26:41</b>
+  </div>
+</div>
+
+<div class="card">
+  <div class="h" style="font-size:16px;color:#ffd24a">预警清单</div>
+  <table>
+    <tr><th>触发条件</th><th>状态</th><th>实时判定</th></tr>
+    <tr>
+      <td>减仓预警<br><small>上证破3460或20日线</small></td>
+      <td class="alert">✅ 触发</td>
+      <td>上证 <b>3991.19</b> &lt; MA20 <b>4065.12</b>（下方 <b>1.82%</b>，趋势性持续）；3460 相距 +15.4% 未破</td>
+    </tr><tr>
+      <td>禁止买入预警<br><small>大盘跳水&gt;0.5%</small></td>
+      <td class="ok">❌ 未触发</td>
+      <td>上证当日 <b>+0.02%</b>（微涨），非跳水</td>
+    </tr><tr>
+      <td>止损预警<br><small>单基跌&gt;5%</small></td>
+      <td class="ok">❌ 未触发</td>
+      <td>代理板块最大跌幅 <b>-0.97%</b>（纳指ETF），无基金跌超5%</td>
+    </tr><tr>
+      <td>止盈预警<br><small>单基涨&gt;15%</small></td>
+      <td class="ok">❌ 未触发</td>
+      <td>代理板块最大涨幅 <b>+1.80%</b>（半导体ETF），远低于15%</td>
+    </tr>
+  </table>
+  <div class="note">数据 Tier：上证/ETF 均取自通达信实时行情（T2），时间戳 2026-07-08 14:24。板块代理以对应 ETF 实时涨跌近似关联指数，含跟踪误差。</div>
+</div>
+
+<div class="card">
+  <div class="h" style="font-size:16px;color:#ffd24a">单基金代理板块实时涨跌</div>
+  <table>
+    <tr><th>代理ETF</th><th>关联板块</th><th>实时</th><th>覆盖持仓</th></tr>
+    <tr><td>半导体ETF(512480)</td><td><small>半导体材料设备/存储/制造</small></td><td class='up'>+1.80%</td><td><small>东方人工智能/东方阿尔法/永赢半导体/国泰半导体</small></td></tr><tr><td>煤炭ETF(515220)</td><td><small>中证煤炭</small></td><td class='up'>+1.06%</td><td><small>富国中证煤炭</small></td></tr><tr><td>通信ETF(515880)</td><td><small>通信设备</small></td><td class='up'>+0.53%</td><td><small>天弘通信设备</small></td></tr><tr><td>港股创新药ETF(513120)</td><td><small>香港创新药</small></td><td class='dn'>-0.18%</td><td><small>广发港股创新药</small></td></tr><tr><td>消费ETF(159928)</td><td><small>中证主要消费</small></td><td class='dn'>-0.32%</td><td><small>嘉实主要消费</small></td></tr><tr><td>纳指ETF(513100)</td><td><small>纳斯达克100</small></td><td class='dn'>-0.97%</td><td><small>广发纳斯达克100</small></td></tr>
+  </table>
+  <div class="note">最大跌幅 -0.97%（纳指），最大涨幅 +1.80%（半导体）；均未触及 ±5%/±15% 阈值，故止损/止盈预警未触发。</div>
+</div>
+
+<div class="card">
+  <div class="h" style="font-size:16px;color:#ffd24a">建议动作</div>
+  <div class="act">
+    <ul>
+      <li><b>不追高、不恐慌减仓</b>：本次为趋势性破位（上证持续运行于 20 日线下方约 1.8%），非急跌跳水，硬止损线 -8% 未触及。</li>
+      <li><b>维持进攻型仓位</b>：账户总仓 ≤ 90%、单基 ≤ 30% 的纪律不变；重仓半导体（合计约 58%）随板块反弹 +1.80%，未触发减仓点，继续持有观察。</li>
+      <li><b>等待尾盘指令</b>：具体加减仓/调仓价位以 14:30 尾盘决策任务为准，本监控仅预警、不买卖。</li>
+      <li><b>持续关注</b>：若上证进一步跌破 MA20 且放量，或单基金当日跌 &gt; 5%，将升级为更强制预警。</li>
+    </ul>
+  </div>
+</div>
+
+<div class="card">
+  <div class="h" style="font-size:16px;color:#ffd24a">盘中情绪（8 因子快估）</div>
+  <p class="small">恐惧贪婪指数 ≈ <b style="color:#ffd24a;font-size:18px">43.5</b>（中性偏恐惧，区间 0-100）</p>
+  <p class="small">未达极端区（≤20 极度恐惧 / ≥80 极度贪婪），按规则<span class="ok"> 不单独提示</span>。主要压制的因子：市场广度偏弱（涨跌家数 891:1384≈0.64）、主力净流出、隔夜美存储暴跌推升 VIX。</p>
+</div>
+
+<div class="disc">⚠️ 本监控仅供参考，不构成投资建议。市场有风险，投资需谨慎。所有行情为 T2 实时快照，含跟踪误差与延迟，请以基金官方净值为准。</div>
+</div></details><details class="rep"><summary>🎯 尾盘决策</summary><div class="repbody">
+<div class="card">
+  <div class="h">📊 尾盘决策（基线 / 首轮）</div>
+  <div class="sub">2026-07-08 周三 · 尾盘盯盘 14:35–15:00 · 生成于 14:40</div>
+  <span class="tag">指令基调：HOLD 为主 · 禁止买入 · 煤炭降风险转换在途</span>
+  <div class="tline">
+    ① 开始时间：<b>2026-07-08 14:35:35</b><br>
+    ② 生成时间：<b>2026-07-08 14:46:18</b><br>
+    ③ 结束时间：<b>2026-07-08 14:46:18</b>
+  </div>
+  <div class="note">本决策为今日尾盘盯盘首轮基线（无上一轮可对比）。后续每2分钟一轮，决策变动时立即推送变动报告；约14:58出收盘定稿。</div>
+</div>
+
+<div class="card">
+  <div class="h" style="font-size:16px;color:#ffd24a">全局纪律与买入禁令</div>
+  <div class="act">总仓≈100% > 90%上限；且东方人工智能单仓36.62% > 30%上限 → 尾盘禁止净买入（除非先减仓腾额度，但无减仓触发）。大盘(上证-0.15%)未触发'跳水>0.5%'禁令；账户日亏-16.85元(≈-0.12%)未触发'-3%'禁令。</div>
+</div>
+
+<div class="card">
+  <div class="h" style="font-size:16px;color:#ffd24a">实时关联指数（通达信 T2 · 14:40）</div>
+  <table>
+    <tr><th>指数/板块</th><th>实时涨跌</th></tr>
+    <tr><td>半导体(881319)</td><td class='up'>+0.63%</td></tr><tr><td>通信设备(881338)</td><td class='up'>+0.36%</td></tr><tr><td>中证煤炭(399998)</td><td class='up'>+1.14%</td></tr><tr><td>港股创新药(513120)</td><td class='dn'>-3.70%</td></tr><tr><td>中证主要消费(000932)</td><td class='dn'>-0.53%</td></tr><tr><td>纳斯达克100(513110)</td><td class='up'>+1.26%</td></tr>
+    <tr><td>上证指数 / 创业板指</td><td>上证 <span class="dn">-0.15%</span> / 创业板 <span class="dn">-1.13%</span></td></tr>
+  </table>
+  <div class="note">大盘未跳水(上证-0.15%&lt;0.5%)；创业板-1.13%显示成长承压。数据 Tier：通达信实时行情(T2)，板块以对应指数/行业板近似关联指数，含跟踪误差。</div>
+</div>
+
+<div class="card">
+  <div class="h" style="font-size:16px;color:#ffd24a">情绪因子 · 恐惧贪婪指数</div>
+  <p class="small">综合指数 = <span class="fgnum">44.3</span> / 100 &nbsp;|&nbsp; 分级：<b>中性</b></p>
+  <p class="small">尾盘情绪指令：中性，按技术/基本面逻辑决策，情绪不额外干预（未达极端区）</p>
+  <table style="margin-top:8px">
+    <tr><th>因子</th><th>原始值</th><th>评分</th><th>加权贡献</th></tr>
+    <tr><td>市场广度</td><td><small>涨跌家数比≈0.64</small></td><td>38</td><td class='dn'>38</td><td>5.7</td></tr><tr><td>涨跌停家数</td><td><small>数据缺失→中性</small></td><td>50</td><td class='up'>50</td><td>5.0</td></tr><tr><td>主力资金净流入</td><td><small>成长净流出/半导体微正</small></td><td>42</td><td class='dn'>42</td><td>6.3</td></tr><tr><td>北向资金净买入</td><td><small>数据缺失→中性[⚠待验证]</small></td><td>50</td><td class='up'>50</td><td>6.0</td></tr><tr><td>融资余额变化</td><td><small>数据缺失→中性[⚠待验证]</small></td><td>50</td><td class='up'>50</td><td>4.0</td></tr><tr><td>量能亢奋度</td><td><small>创业板LB0.82/半导体LB0.98</small></td><td>50</td><td class='up'>50</td><td>5.0</td></tr><tr><td>VIX恐慌指数</td><td><small>隔夜美存储暴跌推升</small></td><td>32</td><td class='dn'>32</td><td>4.8</td></tr><tr><td>股债风险溢价ERP</td><td><small>数据缺失→中性[⚠待验证]</small></td><td>50</td><td class='up'>50</td><td>7.5</td></tr>
+  </table>
+  <div class="note">缺失因子(北向/融资/ERP)按中性50计入并标注[⚠待验证]，权重不变。情绪不覆盖-8%硬止损。</div>
+</div>
+
+<div class="card">
+  <div class="h" style="font-size:16px;color:#ffd24a">板块日K量化（五维 · 多空倾向）</div>
+  <table>
+    <tr><th>板块</th><th>多空倾向</th><th>趋势定位</th><th>量价关系</th><th>形态信号</th><th>主力行为</th><th>收盘价暗号</th><th>判定</th></tr>
+    <tr><td><b>半导体材料设备</b></td><td class='up'><b>66</b></td><td>偏多(收盘MA20上/AI-CPO趋势)</td><td>价微涨量近均(LB0.98)健康</td><td>探底回升(低点2073→2160)</td><td>洗盘偏多/温和净流</td><td>站上短期均线</td><td class='up'><b>偏多</b></td></tr><tr><td><b>通信设备/CPO</b></td><td class='up'><b>67</b></td><td>偏多(CPO突破趋势)</td><td>价涨量平(LB0.907)</td><td>高位略上影但主题强</td><td>抢筹(光模块量产)</td><td>突破平台</td><td class='up'><b>偏多</b></td></tr><tr><td><b>香港创新药</b></td><td class='dn'><b>27</b></td><td>偏空(下行/破MA)</td><td>价跌量能放大</td><td>下跌中继</td><td>出货/减仓</td><td>跌破均线</td><td class='dn'><b>偏空</b></td></tr><tr><td><b>中证煤炭</b></td><td class=''><b>64</b></td><td>偏多(午后反弹)</td><td>价涨量增(反弹)</td><td>探底回升(早-2.74%→+1.14%)</td><td>回补</td><td>收复均线</td><td class='up'><b>偏多</b></td></tr><tr><td><b>中证主要消费</b></td><td class=''><b>50</b></td><td>偏空转中性</td><td>价跌量缩(LB0.72)</td><td>无明确信号</td><td>中性</td><td>均线纠缠</td><td class=''><b>中性</b></td></tr>
+  </table>
+  <div class="note">加权=趋势40%+量价30%+形态15%+主力15%；≥65偏多 / 35-64中性 / ≤34偏空。形态与主力行为为AI模型研判(⚠模型研判)。</div>
+</div>
+
+<div class="card">
+  <div class="h" style="font-size:16px;color:#ffd24a">逐基金决策（指令 / 价位 / 硬止损 / 情绪 / 板块）</div>
+  <table>
+    <tr><th>基金(板块)</th><th>仓位</th><th>持有收益</th><th>关联指数</th><th>板块</th><th>指令</th><th>硬止损</th><th>价位动作</th><th>逻辑</th></tr>
+    <tr><td><b>东方人工智能主题混合C</b><br><small>半导体材料设备/AI</small></td><td>36.62%</td><td class='up'>+1.64%</td><td><small>半导体 +0.63%</small></td><td class='up'>偏多</td><td class='ok'><b>HOLD</b></td><td class='dn'>-8%</td><td><small>持有不加仓(单仓超限)</small></td><td><small>板块偏多企稳；单仓36.62%超30%上限，禁止加仓；建议择机降至≤30%</small></td></tr><tr><td><b>东方阿尔法科技优选混合C</b><br><small>半导体/科技优选</small></td><td>21.8%</td><td class='up'>+0.87%</td><td><small>半导体 +0.63%</small></td><td class='up'>偏多</td><td class='ok'><b>HOLD</b></td><td class='dn'>-8%</td><td><small>持有</small></td><td><small>板块偏多；未超限；总仓限禁买</small></td></tr><tr><td><b>广发港股创新药ETF联接(QDII)C</b><br><small>香港创新药</small></td><td>16.19%</td><td class='dn'>-2.56%</td><td><small>香港创新药 -3.70%</small></td><td class='dn'>偏空</td><td class='ok'><b>HOLD(观察/风控)</b></td><td class='dn'>-8%</td><td><small>持有观察，临近-8%预警</small></td><td><small>板块偏空(多空倾向27)；关联指数-3.7%承压；未触-8%硬止损</small></td></tr><tr><td><b>永赢先锋半导体智选混合C</b><br><small>半导体/存储芯片</small></td><td>12.51%</td><td class='dn'>-3.84%</td><td><small>半导体存储 承压(美存储暴跌)</small></td><td class=''>分化</td><td class='ok'><b>HOLD(风控优先)</b></td><td class='dn'>-8%</td><td><small>持有，紧盯-8%</small></td><td><small>半导体broad偏多但存储子板块受美光-9%/闪迪-14%独立冲击，yret-3.84%逼近止损</small></td></tr><tr><td><b>富国中证煤炭指数C</b><br><small>中证煤炭</small></td><td>7.3%</td><td class='up'>+1.29%</td><td><small>中证煤炭 +1.14%</small></td><td class='up'>偏多</td><td class='alert'><b>SELL/转换在途</b></td><td class=''>—</td><td><small>煤炭→鹏华丰诚债247.77份进行中</small></td><td><small>主动降风险，尾盘不追加</small></td></tr><tr><td><b>嘉实中证主要消费ETF发起联接C</b><br><small>中证主要消费</small></td><td>3.6%</td><td class=''>0.00%(新仓)</td><td><small>中证主要消费 -0.53%</small></td><td class=''>中性</td><td class='ok'><b>HOLD</b></td><td class='dn'>-8%</td><td><small>持有观察</small></td><td><small>新建仓；总仓限禁买</small></td></tr><tr><td><b>财通集成电路产业股票C</b><br><small>集成电路/PCB</small></td><td>0.72%</td><td class=''>0.00%</td><td><small>PCB -0.51%</small></td><td class=''>中性</td><td class='ok'><b>HOLD</b></td><td class='dn'>-8%</td><td><small>持有</small></td><td><small>微小仓</small></td></tr><tr><td><b>财通成长优选混合C</b><br><small>成长优选</small></td><td>0.72%</td><td class=''>0.00%</td><td><small>成长风格 —</small></td><td class=''>中性</td><td class='ok'><b>HOLD</b></td><td class='dn'>-8%</td><td><small>持有</small></td><td><small>微小仓</small></td></tr><tr><td><b>天弘中证全指通信设备指数C</b><br><small>通信设备/CPO</small></td><td>0.07%</td><td class=''>0.00%</td><td><small>通信设备 +0.36%</small></td><td class='up'>偏多</td><td class='ok'><b>HOLD</b></td><td class='dn'>-8%</td><td><small>持有</small></td><td><small>CPO主题偏多</small></td></tr><tr><td><b>广发纳斯达克100ETF联接</b><br><small>纳斯达克100</small></td><td>0.43%</td><td class='up'>+0.53%</td><td><small>纳斯达克100 +1.26%</small></td><td class='up'>偏多</td><td class='ok'><b>HOLD</b></td><td class='dn'>-8%</td><td><small>持有</small></td><td><small>QDII隔夜美股上行</small></td></tr><tr><td><b>国泰半导体制造精选混合C</b><br><small>半导体制造</small></td><td>0.0%</td><td class=''>—</td><td><small>半导体制造 —</small></td><td class=''>—</td><td class='alert'><b>已清仓</b></td><td class=''>—</td><td><small>无操作</small></td><td><small>已清仓</small></td></tr>
+  </table>
+  <div class="note">硬止损-8%全程有效，不因子情绪覆盖。总仓超限→本轮回合无新买入指令。</div>
+</div>
+
+<div class="card">
+  <div class="h" style="font-size:16px;color:#ffd24a">风控预警</div>
+  <table>
+    <tr><th>预警</th><th>说明</th></tr>
+    <tr><td>🔴 总仓≈100% 超 90% 上限</td><td><small>需降至≤90%（约减1400元）；尾盘禁止净买入</small></td></tr><tr><td>🔴 东方人工智能 单仓36.62% 超 30% 上限</td><td><small>择机减至≤30%（约减900元）</small></td></tr><tr><td>🟡 永赢半导体 持有-3.84%+美存储暴跌</td><td><small>逼近-8%硬止损，重点盯盘</small></td></tr><tr><td>🟡 港股创新药 持有-2.56%+板块偏空(-3.7%)</td><td><small>逼近-8%硬止损，重点盯盘</small></td></tr><tr><td>🟡 创业板指 -1.13%</td><td><small>成长风格承压，但非大盘跳水(上证-0.15%)</small></td></tr>
+  </table>
+</div>
+
+<div class="disc">⚠️ 本分析仅供参考，不构成投资建议。市场有风险，投资需谨慎。行情为 T2 实时快照(通达信)，含跟踪误差与延迟；基金以官方净值为准。情绪/板块形态含模型研判(⚠)。</div>
+</div></details><details class="rep"><summary>🌙 晚间复盘</summary><div class="repbody"><div class="wrap">
+
+<h1>📊 每日基金晚间复盘（权威版）</h1>
+<div class="meta">日期 <b>2026-07-08（周二）</b> · 复盘生成 2026-07-09 00:30 · 账户真值 <b>腾讯自选股持仓 OCR 校准快照 22:22</b> · 市场分析 <b>neodata-financial-search</b> · 仅供参考，不构成投资建议</div>
+
+<div class="banner">
+<b>✅ 数据源说明（已对齐两份真值）：</b>
+<span class="warn">① 账户与持仓真值</span>取自腾讯自选股持仓截图 OCR 校准快照（2026-07-08 22:22，双图交叉验证）：总资产 ¥14,168.04、今日 −16.85、持有收益 +2.33%、累计 −52.69%；
+<span class="warn">② 市场分析（指数/板块/基金净值/α/资金/情绪/新闻）</span>取自 neodata 真实返回；
+<span class="warn">③ 公募基金 07-08 官方净值在该源尚未更新</span>，最新为 07-07 收官 → α 与基金日内基于 07-07 官方净值，07-08 当日变动以关联板块真实收盘作估值代理；
+<span class="warn">④ 广发港股创新药ETF联接(QDII)C 被源误匹配为「中证创新药联接(012738)」</span>，其 QDII 净值采用截图(−2.56%)，排名/重仓标注 N/A；
+<span class="warn">⑤ 北向资金、基金规模字段源未返回</span>。所有数值均为真实返回或标注估算，未编造。
+</div>
+
+<h2>一、账户与大盘概览</h2>
+<div class="acct">
+  <div class="card"><div class="lbl">账户总资产（实际·OCR）</div>
+    <div class="big">¥14,168.04</div>
+    <div class="sub">本金 15,000 · 可用/在途含待确认 210</div></div>
+  <div class="card"><div class="lbl">今日盈亏（实际）</div>
+    <div class="big down">−16.85</div>
+    <div class="down">约 −0.12%</div></div>
+  <div class="card"><div class="lbl">持有收益率</div>
+    <div class="big up">+2.33%</div>
+    <div class="up">建仓以来浮盈</div></div>
+  <div class="card"><div class="lbl">累计收益率</div>
+    <div class="big down">−52.69%</div>
+    <div class="down">距回本遥远</div></div>
+</div>
+<div class="cards">
+  <div class="card sm"><div class="lbl">上证指数</div><div class="big down">3,970.88</div><div class="down">−0.49%</div></div>
+  <div class="card sm"><div class="lbl">创业板指</div><div class="big down">3,845.35</div><div class="down">−1.70%</div></div>
+  <div class="card sm"><div class="lbl">沪深300</div><div class="big down">4,755.53</div><div class="down">−0.77%</div></div>
+  <div class="card sm"><div class="lbl">全市场广度</div><div class="big down">≈1:7</div><div class="sub">涨跌比，⚠ 估算，个股普跌</div></div>
+</div>
+<div class="cards">
+  <div class="card sm"><div class="lbl">策略</div><div style="font-size:14px;margin-top:4px">进攻型 · 单基≤30% · 总仓≤90%<br>止损 −8% / 止盈 +15%</div></div>
+  <div class="card sm"><div class="lbl">前二持仓集中度</div><div class="big neu">58.4%</div><div class="sub">东方AI 37.4% + 东方阿尔法 22.4%</div></div>
+  <div class="card sm"><div class="lbl">半导体暴露</div><div class="big neu">70.9%</div><div class="sub">单一行业风险集中</div></div>
+  <div class="card sm"><div class="lbl">活跃 / 休眠 / 清仓</div><div style="font-size:16px;margin-top:6px">6 / 4 / 1 只</div></div>
+</div>
+
+<h2>二、今日关键操作</h2>
+<table class="ops"><tr><th>时间</th><th>操作</th><th>标的</th><th>数量</th><th>目的</th></tr>
+<tr><td>14:49–50</td><td>🔄 转换×2</td><td>广发港药创新药 → ?</td><td>150 份</td><td>降仓港药止损</td></tr>
+<tr><td>14:52</td><td>💰 卖出</td><td>东方人工智能主题C</td><td>132 份</td><td>锁利减仓第一重仓</td></tr>
+<tr><td>14:57</td><td>🔄 转换</td><td>永赢先锋半导体 → ?</td><td>286.85 份</td><td>止损半导体降集中度</td></tr>
+<tr><td>14:59</td><td>💰 卖出</td><td>东方人工智能主题C</td><td>80 份</td><td>继续锁利减仓</td></tr>
+<tr><td>11:26</td><td>📅 定投</td><td>广发纳指100A</td><td>¥10</td><td>每日定投</td></tr>
+<tr><td>昨日</td><td>🔄 转换</td><td>富国煤炭 → 鹏华丰诚债C</td><td>247.77 份</td><td>高股息→固收降风险</td></tr>
+</table>
+
+<h2>三、持仓明细（实际·自选股 OCR 2026-07-08 22:22）</h2>
+<table>
+<tr><th>#</th><th>基金 / 板块</th><th class="r">市值(¥)</th><th class="r">今日盈亏(实际)</th><th class="r">持有收益</th><th class="r">权重</th><th>状态</th></tr>
+<tr><td>1</td><td><b>东方人工智能主题混合C</b><br><span class="sub">半导体材料设备/AI</span></td><td class="r">5,302.70</td><td class="r up">+100.94 (+1.64%)</td><td class="r up">+254.00 (+6.05%)</td><td class="r">37.4%</td><td><span class="pend">活跃</span></td></tr>
+<tr><td>2</td><td><b>东方阿尔法科技优选混合C</b><br><span class="sub">半导体材料设备/科技</span></td><td class="r">3,168.98</td><td class="r up">+72.82 (+2.28%)</td><td class="r up">+168.98 (+5.63%)</td><td class="r">22.4%</td><td><span class="pend">活跃</span></td></tr>
+<tr><td>3</td><td><b>广发港股创新药ETF联接(QDII)C</b><br><span class="sub">医药/港股创新药</span></td><td class="r">2,216.72</td><td class="r down">−81.08 (−3.52%)</td><td class="r down">−54.84 (−3.79%)</td><td class="r">15.7%</td><td><span class="risk">持续亏损</span></td></tr>
+<tr><td>4</td><td><b>永赢先锋半导体智选混合C</b><br><span class="sub">半导体材料设备/存储</span></td><td class="r">1,699.47</td><td class="r down">−69.42 (−3.92%)</td><td class="r down">−53.12 (−5.88%)</td><td class="r">12.0%</td><td><span class="risk">持续亏损</span></td></tr>
+<tr><td>5</td><td><b>富国中证煤炭指数C</b><br><span class="sub">资源/高股息防御</span></td><td class="r">511.40</td><td class="r down">−25.77 (−4.80%)</td><td class="r up">+11.40 (+2.28%)</td><td class="r">3.6%</td><td><span class="conv">转换中</span></td></tr>
+<tr><td>6</td><td><b>鹏华丰诚债券C</b><br><span class="sub">固定收益/纯债安全垫</span></td><td class="r">493.39</td><td class="r">+0.00</td><td class="r">+0.00 (+0.00%)</td><td class="r">3.5%</td><td><span class="pend">新到账</span></td></tr>
+<tr><td>7</td><td><b>嘉实中证主要消费ETF发起联接C</b><br><span class="sub">指数/大消费</span></td><td class="r">496.51</td><td class="r down">−3.49 (−0.70%)</td><td class="r down">−3.35 (−0.70%)</td><td class="r">3.5%</td><td><span class="pend">活跃</span></td></tr>
+<tr><td>8</td><td><b>广发纳斯达克100ETF联接(QDII)C</b><br><span class="sub">海外/美股指数</span></td><td class="r">68.91</td><td class="r down">−1.09 (−1.55%)</td><td class="r down">−1.51 (−2.18%)</td><td class="r">0.5%</td><td><span class="pend">活跃</span></td></tr>
+<tr><td>9</td><td><b>国泰半导体制造精选混合C</b><br><span class="sub">半导体制造</span></td><td class="r">0.00</td><td class="r down">−14.85</td><td class="r">+0.00</td><td class="r">0.0%</td><td><span class="clear">已清仓</span></td></tr>
+<tr><td>10</td><td><b>财通集成电路产业股票C</b><br><span class="sub">半导体/CPO光模块</span></td><td class="r">100.00</td><td class="r">— (待确认)</td><td class="r">+0.00</td><td class="r">0.7%</td><td><span class="dorm">待确认</span></td></tr>
+<tr><td>11</td><td><b>财通成长优选混合C</b><br><span class="sub">成长风格/混合</span></td><td class="r">100.00</td><td class="r">— (待确认)</td><td class="r">+0.00</td><td class="r">0.7%</td><td><span class="dorm">待确认</span></td></tr>
+<tr><td>12</td><td><b>天弘中证全指通信设备指数C</b><br><span class="sub">通信/CPO</span></td><td class="r">10.00</td><td class="r">— (待确认)</td><td class="r">+0.00</td><td class="r">0.1%</td><td><span class="dorm">待确认</span></td></tr>
+</table>
+<div class="sub">注：中国股市惯例，红色=盈利，绿色=亏损。第10–12项为昨日买入待确认份额，当日盈亏以券商确认后为准。</div>
+
+<h2>四、α 与基本面（neodata 最近可得官方净值 07-07）</h2>
+<div class="sub" style="margin-bottom:6px">α = 基金 07-07 实际日收益 − 关联基准 07-07 收益（越大越好）。排名/重仓为 neodata 返回，缺失标注 —。07-08 当日以关联板块真实收盘作估值代理（列末）。</div>
+<table>
+<tr><th>基金 / 板块</th><th class="r">净值(元)</th><th class="r">日收益07-07</th><th class="r">年内收益</th><th class="r">α</th><th class="r">同类排名</th><th class="r">07-08代理</th><th>十大重仓(前3)</th></tr>
+<tr><td><b>东方人工智能主题混合C</b><br><span class="sub">半导体/AI</span></td><td class="r">3.8566</td><td class="r up">+2.03%</td><td class="r up">+140.11%</td><td class="r up"><b>+2.15%</b></td><td class="r">2,357/5,052</td><td class="r down">−0.09%</td><td class="chips"><span class="chip">富创精密</span><span class="chip">华海清科</span><span class="chip">中微公司</span></td></tr>
+<tr><td><b>东方阿尔法科技优选混合C</b><br><span class="sub">半导体/科技优选</span></td><td class="r">0.9461</td><td class="r down">−3.70%</td><td class="r down">−16.02%</td><td class="r down"><b>−3.58%</b></td><td class="r">3,746/5,052</td><td class="r down">−0.09%</td><td class="chips"><span class="chip">震裕科技</span><span class="chip">科达利</span><span class="chip">新锐股份</span></td></tr>
+<tr><td><b>广发港股创新药ETF联接(QDII)C</b><br><span class="sub">港股创新药/QDII ⚠误匹配</span></td><td class="r">—</td><td class="r down">−2.56%*</td><td class="r">—</td><td class="r up"><b>+1.16%</b></td><td class="r">—</td><td class="r down">−1.39%</td><td class="chips">—</td></tr>
+<tr><td><b>永赢先锋半导体智选混合C</b><br><span class="sub">半导体/存储芯片</span> <span class="risk">HIGH</span></td><td class="r">3.0265</td><td class="r down">−3.84%</td><td class="r up">+127.30%</td><td class="r down"><b>−3.72%</b></td><td class="r">—</td><td class="r down">−0.09%</td><td class="chips"><span class="chip">德明利</span><span class="chip">江波龙</span><span class="chip">佰维存储</span></td></tr>
+<tr><td><b>富国中证煤炭指数C</b><br><span class="sub">中证煤炭/高股息防御</span></td><td class="r">2.0440</td><td class="r down">−2.48%</td><td class="r up">+8.67%</td><td class="r down"><b>−0.37%</b></td><td class="r">2,128/2,974</td><td class="r up">+1.20%</td><td class="chips">—</td></tr>
+<tr><td><b>嘉实中证主要消费ETF发起联接C</b><br><span class="sub">中证主要消费</span></td><td class="r">0.8008</td><td class="r down">−1.43%</td><td class="r down">−19.39%</td><td class="r up"><b>+0.46%</b></td><td class="r">—</td><td class="r down">−0.01%</td><td class="chips"><span class="chip">贵州茅台</span><span class="chip">五粮液</span><span class="chip">伊利股份</span></td></tr>
+<tr><td><b>财通集成电路产业股票C</b><br><span class="sub">集成电路</span></td><td class="r">8.0785</td><td class="r down">−0.44%</td><td class="r up">+116.12%</td><td class="r down"><b>−0.32%</b></td><td class="r">—</td><td class="r down">−0.09%</td><td class="chips">—</td></tr>
+<tr><td><b>财通成长优选混合C</b><br><span class="sub">成长优选</span></td><td class="r">4.9950</td><td class="r down">−0.24%</td><td class="r up">+118.60%</td><td class="r up"><b>+2.50%</b></td><td class="r">5/481</td><td class="r down">−0.34%</td><td class="chips">—</td></tr>
+<tr><td><b>天弘中证全指通信设备指数C</b><br><span class="sub">通信设备/CPO</span></td><td class="r">3.8524</td><td class="r down">−0.02%</td><td class="r up">+47.57%</td><td class="r up"><b>+2.01%</b></td><td class="r">649/2,974</td><td class="r down">−0.39%</td><td class="chips">—</td></tr>
+<tr><td><b>广发纳斯达克100ETF联接</b><br><span class="sub">纳斯达克100/美股QDII</span></td><td class="r">8.2891</td><td class="r up">+1.29%</td><td class="r up">+13.29%</td><td class="r up"><b>+3.06%</b></td><td class="r">73/394</td><td class="r down">−0.44%</td><td class="chips">—</td></tr>
+</table>
+<div class="sub">*广发港药 −2.56% 取自持仓截图(T0)，非 neodata 官方净值（被源误匹配）。鹏华丰诚债C（新到账债基）与国泰半导体（已清仓）无 neodata 排名数据。</div>
+
+<h2>五、资金流（资金面 · 07-08）</h2>
+<div class="card" style="margin:10px 0">
+  <ul class="news">
+    <li>计算机行业获主力净流入 <b>+76.45 亿元</b>（全市场最强）</li>
+    <li>计算机、通信板块合计吸金超 <b>119 亿元</b></li>
+    <li>电子（含半导体/存储）主力净流出约 <b>187 亿元</b>，半导体存储与新能源遭抛售</li>
+    <li>AI 算力产业链受资金追捧，但半导体存储端承压</li>
+  </ul>
+  <div class="sub" style="margin-top:8px">北向资金：数据源未返回（陆股通实时净买入披露已于 2024 年暂停，neodata 未提供该字段）。</div>
+</div>
+
+<h2>六、调仓建议（集中度 / 半导体暴露 / 风险标记）</h2>
+<div class="reb"><div class="reb-t">● 高集中度</div>
+  <div class="reb-d">前两大持仓（东方人工智能主题 37.4% + 东方阿尔法科技优选 22.4%）合计 58.4%，显著高于分散基准；单一持仓 东方人工智能主题 达 37.4% 已超策略上限 30%。</div>
+  <div class="reb-s">➤ 建议：将 东方人工智能主题 由 37.4% 降至 ≤30%，释放资金用于分散（今日已卖出 212 份锁利，方向正确）。</div></div>
+<div class="reb"><div class="reb-t">● 半导体暴露过高</div>
+  <div class="reb-d">半导体/科技类（含 AI、集成、存储）活跃持仓合计约 70.9%，单一行业风险集中。</div>
+  <div class="reb-s">➤ 建议：延续「煤炭→债券」降风险思路，适度将半导体仓位向债券/消费/港股创新药再平衡，目标半导体暴露 ≤60%。</div></div>
+<div class="reb"><div class="reb-t">● 高风险管理（永赢先锋半导体）</div>
+  <div class="reb-d">标记为 HIGH（存储芯片，隔夜美存储暴跌 美光 −9% / 闪迪 −14%），07-07 α=−3.72% 显著为负，今日续亏 −5.88%。</div>
+  <div class="reb-s">➤ 建议：维持谨慎，不追加；若跌破 −8% 硬止损线立即执行，不因「市场恐惧」扛单。</div></div>
+<div class="reb"><div class="reb-t">● 港股创新药止血</div>
+  <div class="reb-d">广发港药今日 −3.79%，已转出 150 份但仍亏；关联港股创新药指数 −1.39% 承压。</div>
+  <div class="reb-s">➤ 建议：维持观察/风控，临近 −8% 预警线，未触硬止损前持有，反弹减仓。</div></div>
+<div class="reb"><div class="reb-t">● 新建小仓观察</div>
+  <div class="reb-d">财通集成/财通成长/天弘通信/嘉实消费为近期新建小仓（合计 &lt;5%），属 CPO/消费试探性布局。</div>
+  <div class="reb-s">➤ 建议：继续小额观察，待趋势确认再加码，不做重仓押注。</div></div>
+<div class="reb"><div class="reb-t">● 已排队的降风险操作</div>
+  <div class="reb-d">待确认：煤炭→鹏华丰诚债转换 247.77 份（主动降风险）、定投纳指 10 元/日。</div>
+  <div class="reb-s">➤ 建议：待交易确认后在下个复盘更新持仓结构。</div></div>
+
+<h2>七、预测命中率（回填 07-07 → 07-08 晚间复盘）</h2>
+<div class="cards">
+  <div class="card sm"><div class="lbl">总体命中率</div><div class="big down">20.0%</div><div class="sub">2/10 命中</div></div>
+  <div class="card sm"><div class="lbl">置信加权命中率</div><div class="big neu">14.7%</div><div class="sub">权重和 6.8</div></div>
+  <div class="card sm"><div class="lbl">时段</div><div class="big" style="font-size:20px">evening</div><div class="sub">21:30 复盘回填</div></div>
+</div>
+<div class="banner" style="border-left-color:var(--neu)">07-07 晚间普遍看多，但 07-08 大盘回调（上证 −0.49%、半导体近平、港股创新药 −1.39%、仅煤炭 +1.2% 逆势），致多数看多预测落空；仅「纳指100」「中证主要消费」震荡判断命中。实际值采用关联板块 07-08 真实收盘变动作估值代理。</div>
+<table>
+<tr><th>预测标的</th><th class="r">预测方向</th><th class="r">实际(07-08代理)</th><th>置信</th><th class="r">结果</th></tr>
+<tr><td>东方人工智能</td><td class="r"><span class="pdir">涨</span></td><td class="r down">−0.22% <span class="pdir">震荡</span></td><td>高</td><td class="r"><span class="badge miss">未中</span></td></tr>
+<tr><td>东方阿尔法科</td><td class="r"><span class="pdir">涨</span></td><td class="r down">−0.22% <span class="pdir">震荡</span></td><td>高</td><td class="r"><span class="badge miss">未中</span></td></tr>
+<tr><td>永赢先锋半导体</td><td class="r"><span class="pdir">涨</span></td><td class="r down">−0.09% <span class="pdir">震荡</span></td><td>中</td><td class="r"><span class="badge miss">未中</span></td></tr>
+<tr><td>广发港股创新药</td><td class="r"><span class="pdir">涨</span></td><td class="r down">−1.39% <span class="pdir">跌</span></td><td>中</td><td class="r"><span class="badge miss">未中</span></td></tr>
+<tr><td>广发纳斯达克100</td><td class="r"><span class="pdir">震荡</span></td><td class="r down">−0.44% <span class="pdir">震荡</span></td><td>中</td><td class="r"><span class="badge hit">命中</span></td></tr>
+<tr><td>富国中证煤炭</td><td class="r"><span class="pdir">跌</span></td><td class="r up">+1.20% <span class="pdir">涨</span></td><td>中</td><td class="r"><span class="badge miss">未中</span></td></tr>
+<tr><td>财通集成电路</td><td class="r"><span class="pdir">跌</span></td><td class="r down">−0.09% <span class="pdir">震荡</span></td><td>中</td><td class="r"><span class="badge miss">未中</span></td></tr>
+<tr><td>财通成长优选</td><td class="r"><span class="pdir">跌</span></td><td class="r down">−0.34% <span class="pdir">震荡</span></td><td>中</td><td class="r"><span class="badge miss">未中</span></td></tr>
+<tr><td>天弘中证全指</td><td class="r"><span class="pdir">跌</span></td><td class="r down">−0.39% <span class="pdir">震荡</span></td><td>低</td><td class="r"><span class="badge miss">未中</span></td></tr>
+<tr><td>嘉实中证主要消费</td><td class="r"><span class="pdir">震荡</span></td><td class="r down">−0.01% <span class="pdir">震荡</span></td><td>低</td><td class="r"><span class="badge hit">命中</span></td></tr>
+</table>
+
+<h2>八、收盘情绪校准 · 恐惧贪婪指数</h2>
+<div class="gauge">
+  <div class="gnum neu">41.5</div>
+  <div style="flex:1">
+    <div class="glbl neu">中性（偏恐惧）</div>
+    <div class="gbar"><i style="left:41.5%"></i></div>
+    <div class="sub" style="margin-top:6px">8 因子中 5 项（涨跌停/北向/融资/VIX/ERP）数据源未返回，按协议以中性 50 计入，致综合指数被拉向中性；但广度（涨跌比约 1:7）显示真实情绪偏恐惧。当前账户半导体集中度过高（约 71%），情绪恐惧+高集中度下不宜加仓，维持防御，严守单基 −8% 硬止损。</div>
+  </div>
+</div>
+<table>
+<tr><th>情绪因子</th><th class="r">评分(0-100)</th><th class="r">加权贡献</th></tr>
+<tr><td>市场广度 <span class="sub">15%</span></td><td class="r">12</td><td class="r">1.80</td></tr>
+<tr><td>涨跌停家数 <span class="sub">10%</span></td><td class="r">50 ⚠缺失</td><td class="r">5.00</td></tr>
+<tr><td>主力资金净流入 <span class="sub">15%</span></td><td class="r">35</td><td class="r">5.25</td></tr>
+<tr><td>北向资金净买入 <span class="sub">12%</span></td><td class="r">50 ⚠缺失</td><td class="r">6.00</td></tr>
+<tr><td>融资余额变化 <span class="sub">8%</span></td><td class="r">50 ⚠缺失</td><td class="r">4.00</td></tr>
+<tr><td>量能亢奋度 <span class="sub">10%</span></td><td class="r">45</td><td class="r">4.50</td></tr>
+<tr><td>VIX恐慌指数 <span class="sub">15%</span></td><td class="r">50 ⚠缺失</td><td class="r">7.50</td></tr>
+<tr><td>股债风险溢价 <span class="sub">15%</span></td><td class="r">50 ⚠缺失</td><td class="r">7.50</td></tr>
+<tr><td><b>综合恐惧贪婪指数</b></td><td class="r"><b class="neu">41.5</b></td><td class="r">—</td></tr>
+</table>
+
+<h2>九、板块日K信号（⚠ 模型研判）</h2>
+<div class="kcards">
+<div class="kcard"><div class="khead"><span>半导体</span><span class="kbias down">偏空 −0.09%</span></div>
+  <div class="krow"><span>趋势</span><b>偏空（近两日微跌，均线纠缠）</b><i>38</i></div>
+  <div class="krow"><span>量价</span><b>价平量平，观望</b><i>50</i></div>
+  <div class="krow"><span>主力</span><b>电子净流出 187 亿，分歧/出货 ⚠模型</b></div>
+  <div class="knote">A股抗住隔夜美存储暴跌显韧性，但主力撤离，观望为宜</div></div>
+<div class="kcard"><div class="khead"><span>人工智能</span><span class="kbias down">偏空 −0.34%</span></div>
+  <div class="krow"><span>趋势</span><b>偏空（07-08 −0.34%）</b><i>35</i></div>
+  <div class="krow"><span>量价</span><b>AI算力吸金但整体偏弱</b><i>48</i></div>
+  <div class="krow"><span>主力</span><b>计算机+76亿但AI指数仍跌，内部分化 ⚠模型</b></div>
+  <div class="knote">算力链受捧、应用端承压，等待企稳</div></div>
+<div class="kcard"><div class="khead"><span>CPO通信</span><span class="kbias neu">中性 −0.39%</span></div>
+  <div class="krow"><span>趋势</span><b>中性（主题强、当日弱）</b><i>45</i></div>
+  <div class="krow"><span>量价</span><b>光模块量产热点 vs 当日 −0.39%</b><i>52</i></div>
+  <div class="krow"><span>主力</span><b>主题资金活跃但分歧 ⚠模型</b></div>
+  <div class="knote">光模块量产实锤支撑中长期，短期震荡</div></div>
+<div class="kcard"><div class="khead"><span>煤炭</span><span class="kbias up">偏多 +1.20%</span></div>
+  <div class="krow"><span>趋势</span><b>偏多（07-08 +1.2% 逆势强）</b><i>72</i></div>
+  <div class="krow"><span>量价</span><b>价涨，资金偏流入</b><i>70</i></div>
+  <div class="krow"><span>主力</span><b>防御属性凸显，资金避险 ⚠模型</b></div>
+  <div class="knote">高股息防御受捧；账户正转债券降风险，不追高</div></div>
+<div class="kcard"><div class="khead"><span>中证主要消费</span><span class="kbias neu">中性 −0.01%</span></div>
+  <div class="krow"><span>趋势</span><b>中性（07-08 −0.01% 平）</b><i>48</i></div>
+  <div class="krow"><span>量价</span><b>地量持平</b><i>50</i></div>
+  <div class="krow"><span>主力</span><b>左侧布局资金零星 ⚠模型</b></div>
+  <div class="knote">估值低位等待拐点，小仓试探</div></div>
+</div>
+
+<h2>十、新闻面（行业 / 政策 / 重仓动态）</h2>
+<ul class="news">
+<li>【研报】半导体行业 2026 年下半年投资策略：人工智能持续演进，多重环节有望受益</li>
+<li>2026 年 6 月半导体市场强劲上涨，资金净流入 1251 亿元，景气持续与涨价共振</li>
+<li>五洲医疗拟跨界半导体「谋变」</li>
+<li>A股半导体板块结构调整信号：全球需求强劲与高估值风险并存</li>
+<li>越亚半导体 IPO 披露审核中心意见落实函回复，业绩稳定性被追问</li>
+<li>【研报】电子周报：半导体国产替代深化；3C数码补贴政策带动需求回暖</li>
+<li>国家药监局：支持以临床价值为导向的细胞与基因治疗药品研发创新，港股创新药 ETF 多只涨超 3%</li>
+<li>港股创新药概念反弹强于大市，多只 ETF 获资金抢筹近两周累涨逾 10%</li>
+<li>A股 8 日回调，沪指跌 0.49%，科技股受韩国市场影响显著</li>
+<li>7月7日 A 股市场低开低走，上证指数失守 4000 点，成交额骤降超 5100 亿</li>
+<li>A股 7 月 7 日缩量普跌，市场筑底信号显现但未确认底部</li>
+<li>科创50 逆势翻红</li>
+</ul>
+
+<div class="foot">
+数据来源：<b>账户真值</b>＝腾讯自选股持仓截图 OCR 校准快照（2026-07-08 22:22，双图交叉验证）；<b>市场分析</b>＝neodata-financial-search（已连接，真实返回）。指数/板块/基金净值为源返回真实值；基金官方净值最新为 07-07，07-08 变动以关联板块真实收盘作估值代理；北向/规模字段源未返回，广发港药 QDII 被源误匹配，均已标注。<br>
+⚠️ 本报告由自动化系统生成，所有内容仅供参考，不构成任何投资建议。市场有风险，投资需谨慎。
+</div>
+
+</div></div></details><details class="rep"><summary>📊 午盘收盘分析</summary><div class="repbody">
+<div class="header">
+  <h1>🌅 午盘快报 · 增强版</h1>
+  <div class="sub">每日基金报告系统 · 段一(11:30) · 含具体决策逻辑</div>
+  <div class="trial">🧪 试行 · 数据日 2026-07-07 · 进攻型</div>
+</div>
+
+<div class="card">
+  <h2>🤖 自动化任务执行日志（模拟 11:30 触发）</h2>
+  <div class="log-box">
+<span style="color:#93c5fd">[11:30:00] 任务触发：每日基金午盘快报(11:30) ID=2281409 [增强版]</span>
+<span style="color:#4ade80">[11:30:01] ✅ 读取 watchlist.json → T0持仓10只 + strategy(进攻型)</span>
+<span style="color:#4ade80">[11:30:02] ✅ 获取上午行情 + 板块资金流向(半导体午间净流入+21.63亿居首)</span>
+<span style="color:#4ade80">[11:30:03] ✅ 加载午盘逻辑引擎 → 逐只推演</span>
+<span style="color:#fbbf24">[11:30:04] ⚠️ 昨日分时未留存，上午点位为收盘还原值(标注)</span>
+<span style="color:#4ade80">[11:30:05] ✅ 输出10只基金午盘信号 + 逻辑推导 + 下午预案</span>
+<span style="color:#4ade80">[11:30:06] ✅ 生成 morning-close-2026-07-07.html（增强版·含逻辑）</span>
+  </div>
+</div>
+
+<div class="card">
+  <h2>🧠 午盘逻辑引擎（具体规则）</h2>
+  <div class="engine">【午盘信号 BUY】需同时满足：
+  ① 关联指数上午收红（或板块由弱转强）
+  ② 基金未触发止损（当日亏损 < -8%）
+  ③ 大盘未破位（上证在5日线上且未放量下跌）
+
+【午盘信号 SELL】满足任一即预警：
+  ① 单基金当日亏损 ≥ -8% → 强制止损
+  ② 板块过热（上午单板块涨 > 5% 且缩量）
+  ③ 大盘破位（上证跌破5日线且放量）
+
+【HOLD】上述均不满足 → 持仓观望，等下午确认</div>
+  <div class="key-point" style="margin-top:10px;">
+    📌 <strong>本日午盘判定</strong>：上午指数分化（上证微红、深证弱），半导体链相对强（午间资金净流入居首）。<strong>无基金触-8%止损、无板块过热、大盘未破位</strong> → 全部 HOLD，下午14:00为关键确认窗口。
+  </div>
+</div>
+
+<div class="card">
+  <h2>📊 上午行情快照（11:30，日内还原⚠️）</h2>
+  <div class="sim">⚠️ 昨日(07-07)盘中分时未留存，以下上午点位为基于收盘的合理日内还原，<strong>非真实分时</strong>，仅验证系统流程。</div>
+  <table>
+    <tr><th>指数</th><th>上午点位</th><th>涨跌幅</th><th>板块资金(上午)</th></tr>
+    <tr><td>上证指数</td><td>3471.2</td><td class="pos">+0.01%</td><td rowspan="3">半导体材料设备 <span class="pos">+21.63亿(居首)</span><br>存储/PCB <span class="neg">净流出</span></td></tr>
+    <tr><td>深证成指</td><td>15260.3</td><td class="neg">-0.42%</td></tr>
+    <tr><td>创业板指</td><td>—</td><td class="neg">-0.65%</td></tr>
+  </table>
+</div>
+
+<div class="card">
+  <h2>🔍 持仓午盘信号（逐只逻辑推导）</h2>
+
+  <div class="fund-card">
+    <div class="name">① 东方人工智能 <span class="sig s-hold">HOLD</span></div>
+    <div class="logic"><span class="rule-ok">规则①</span> 半导体上午强(资金+21.63亿) ✅ &nbsp; <span class="rule-ok">规则②</span> 未触止损 ✅ &nbsp; <span class="rule-ok">规则③</span> 大盘未破位 ✅<br>→ 均满足但不构成BUY（BUY需明确加仓信号，上午为观察期）→ <strong>HOLD</strong></div>
+  </div>
+  <div class="fund-card">
+    <div class="name">② 东方阿尔法科 <span class="sig s-hold">HOLD</span></div>
+    <div class="logic">同①，半导体材料双核，上午强势 → <strong>HOLD</strong> 观察</div>
+  </div>
+  <div class="fund-card">
+    <div class="name">③ 永赢先锋半导体 <span class="sig s-hold">HOLD</span></div>
+    <div class="logic"><span class="rule-no">规则②</span> 上午-2.0%(还原) ≥ -8%? <span class="rule-no">否</span> &nbsp; <span class="rule-no">规则③</span> 存储链弱但非破位<br>→ 未触卖出 → <strong>HOLD</strong>（等三星财报定夺，胜负手）</div>
+  </div>
+  <div class="fund-card">
+    <div class="name">④ 广发港股创新药 <span class="sig s-hold">HOLD</span></div>
+    <div class="logic">上午-1.9%(还原)，中期强(南向>200亿)但短期回调 → <strong>HOLD</strong>，列为下午低吸候选</div>
+  </div>
+  <div class="fund-card">
+    <div class="name">⑤ 广发纳斯达克100 <span class="sig s-hold">HOLD</span></div>
+    <div class="logic">隔夜纳指+1.12%新高，对冲仓 → <strong>HOLD</strong></div>
+  </div>
+  <div class="fund-card">
+    <div class="name">⑥ 天弘通信 / ⑦ 嘉实消费 / ⑧ 富国煤炭 / ⑨⑩ 财通PCB×2 <span class="sig s-hold">HOLD</span></div>
+    <div class="logic">均无卖出条件触发（无-8%、无过热、未破位）→ <strong>HOLD</strong>。进攻型复盘计划清仓转核心，午盘不急。</div>
+  </div>
+</div>
+
+<div class="card">
+  <h2>📋 午盘信号汇总表</h2>
+  <table>
+    <tr><th>基金</th><th>上午收益(还原)</th><th>信号</th><th>逻辑简述</th></tr>
+    <tr><td>东方人工智能</td><td class="pos">+1.8%</td><td><span class="sig s-hold">HOLD</span></td><td>半导体强，观察</td></tr>
+    <tr><td>东方阿尔法科</td><td class="pos">+2.0%</td><td><span class="sig s-hold">HOLD</span></td><td>双核强势</td></tr>
+    <tr><td>永赢先锋半导体</td><td class="neg">-2.0%</td><td><span class="sig s-hold">HOLD</span></td><td>等三星，未触止损</td></tr>
+    <tr><td>广发港股创新药</td><td class="neg">-1.9%</td><td><span class="sig s-hold">HOLD</span></td><td>低吸候选</td></tr>
+    <tr><td>广发纳斯达克100</td><td class="pos">+0.9%</td><td><span class="sig s-hold">HOLD</span></td><td>对冲持有</td></tr>
+    <tr><td>天弘中证通信</td><td class="neu">-0.05%</td><td><span class="sig s-hold">HOLD</span></td><td>待清仓</td></tr>
+    <tr><td>嘉实主要消费</td><td class="neg">-0.8%</td><td><span class="sig s-hold">HOLD</span></td><td>待清仓</td></tr>
+    <tr><td>富国中证煤炭</td><td class="neg">-1.2%</td><td><span class="sig s-hold">HOLD</span></td><td>待清仓</td></tr>
+    <tr><td>财通PCB×2</td><td class="neg">-0.3%</td><td><span class="sig s-hold">HOLD</span></td><td>待清仓</td></tr>
+  </table>
+</div>
+
+<div class="card">
+  <h2>📋 下午操作预案</h2>
+  <div class="key-point">
+    <strong>下午关注</strong>：①13:00开盘半小时资金流向 ②<strong>14:00板块轮动确认窗口</strong>（决定尾盘买卖）③三星财报盘后公布→影响半导体链 ④若上证跌破3460且放量→触发减仓信号。
+  </div>
+  <div class="key-point">
+    <strong>尾盘决策预览</strong>：当前仓位≈92%已超进攻上限90%，且三星待落地→<strong>尾盘大概率全面HOLD</strong>，仅永赢根据三星结果做胜负手调整。具体以14:30尾盘报告为准。
+  </div>
+</div>
+
+<div class="disclaimer">
+  ⚠️ 免责声明：本午盘快报为增强版试行产出。上午点位为基于收盘的日内还原(非真实分时)，仅验证流程。持仓以T0实盘为准。市场有风险，投资需谨慎。生成时间：模拟 2026-07-07 11:30。
+</div>
+</div></details><details class="rep"><summary>🌙 晚间复盘</summary><div class="repbody">
+<div class="header">
+  <h1>🌙 晚间复盘 · 增强版</h1>
+  <div class="sub">具体基金分析 · 利好利空逻辑 · 板块资金流 · 涨跌幅 · 进攻型调仓（1.5w本金）</div>
+  <div class="trial-badge">🧪 数据日 2026-07-07 · 策略风格：进攻型</div>
+</div>
+
+<!-- 策略定位 -->
+<div class="strat-box">
+  <h3 style="margin-top:0;">⚔️ 进攻型策略定位</h3>
+  <p style="font-size:14px;">
+    当前账户 <strong>¥13,777.52 ≈ 1.5w</strong>，采用<strong>进攻型</strong>配置：高仓位(85-95%)、核心集中(前3只半导体链占50%+)、高弹性优先(半导体/港股创新药)、<strong>单基金-8%硬止损</strong>(必执行)、+15~20%分批止盈、日回撤&lt;3%不减仓。<br>
+    <span style="color:#b91c1c;font-weight:600;">核心胜负手：永赢先锋半导体（存储芯片）——赌三星Q2财报超预期。</span>
+  </p>
+</div>
+
+<!-- 板块资金流向 -->
+<div class="card">
+  <h2>💰 各行业板块资金出入情况（2026-07-07）</h2>
+  <table>
+    <tr><th>板块</th><th>主力资金</th><th>涨跌</th><th>逻辑</th><th>置信</th></tr>
+    <tr><td>半导体(国产材料设备)</td><td class="flow-in">+21.63亿(午间净流入居首)</td><td class="pos">强</td><td>全球AI扩产+国产替代，资金局部回流</td><td>✅中</td></tr>
+    <tr><td>存储芯片/封测/硅材料</td><td class="flow-out">净流出(兆易-28.2亿/澜起-20.3亿/君正-17.9亿)</td><td class="neg">弱</td><td>高位拥挤，获利盘集中出逃</td><td>✅中</td></tr>
+    <tr><td>电子板块(全)</td><td class="flow-out">7月首周净流出&gt;103亿</td><td class="neg">承压</td><td>机构调仓撤离</td><td>✅中</td></tr>
+    <tr><td>PCB/CPO/光模块</td><td class="flow-out">净流出</td><td class="neg">重挫</td><td>海外链集体回调</td><td>✅中</td></tr>
+    <tr><td>港股创新药</td><td class="flow-in">南向净买入&gt;200亿港元</td><td class="pos">强(中期)</td><td>恒生创新药月涨15%，政策红利</td><td>✅中</td></tr>
+    <tr><td>煤炭/银行/医药</td><td class="flow-in">防御资金流入</td><td class="pos">抗跌</td><td>资金从科技切防御</td><td>✅中</td></tr>
+    <tr><td>主要消费</td><td class="flow-out">偏弱</td><td class="neg">-1.43%</td><td>内需疲软</td><td>✅中</td></tr>
+    <tr><td>通信设备</td><td class="flow-out">中性偏弱</td><td class="neu">-0.02%</td><td>无明确催化</td><td>✅中</td></tr>
+  </table>
+  <div class="key-point" style="margin-top:12px;">
+    📌 <strong>资金风格结论</strong>：当日呈现"科技内部分化 + 整体切防御"。半导体国产链有资金回流（午间+21.63亿），但<strong>存储芯片链在出逃</strong>（兆易创新单只净流出28亿）——这解释了为何东方双基涨、永赢存储芯片跌。进攻型应聚焦"有资金流入的半导体材料"而非"在出逃的存储链"。
+  </div>
+</div>
+
+<!-- 涨跌幅分析 -->
+<div class="card">
+  <h2>📊 涨跌幅分析（基金 vs 关联指数 α）</h2>
+  <table>
+    <tr><th>基金</th><th>基金涨跌</th><th>关联指数</th><th>超额α</th><th>解读</th></tr>
+    <tr><td>东方阿尔法科</td><td class="pos">+2.47%</td><td>+0.87%</td><td class="pos">+1.60%</td><td>显著跑赢，选股强</td></tr>
+    <tr><td>东方人工智能</td><td class="pos">+2.03%</td><td>+0.87%</td><td class="pos">+1.16%</td><td>跑赢，核心仓</td></tr>
+    <tr><td>永赢先锋半导体</td><td class="neg">-3.84%</td><td>-4.66%</td><td class="pos">+0.82%</td><td>跌但跑赢指数(存储链更惨)</td></tr>
+    <tr><td>广发港股创新药</td><td class="neg">-3.48%</td><td>-3.88%</td><td class="pos">+0.40%</td><td>跑赢，超跌反弹潜力</td></tr>
+    <tr><td>富国中证煤炭</td><td class="neg">-2.48%</td><td>-2.74%</td><td class="pos">+0.26%</td><td>略跑赢，但进攻型不配</td></tr>
+    <tr><td>嘉实主要消费</td><td class="neg">-1.43%</td><td>-1.50%</td><td class="pos">+0.07%</td><td>基本同步</td></tr>
+    <tr><td>广发纳斯达克100</td><td class="pos">+1.29%</td><td>+1.26%</td><td class="pos">+0.03%</td><td>同步，对冲仓</td></tr>
+    <tr><td>天弘中证通信</td><td class="neu">-0.02%</td><td>+0.03%</td><td class="neg">-0.05%</td><td>微跑输</td></tr>
+    <tr><td>财通集成电路</td><td class="neg">-0.44%</td><td>-0.51%</td><td class="pos">+0.07%</td><td>略跑赢但板块弱</td></tr>
+    <tr><td>财通成长优选</td><td class="neg">-0.24%</td><td>-0.51%</td><td class="pos">+0.27%</td><td>跑赢PCB指数</td></tr>
+  </table>
+  <div class="key-point">
+    📊 <strong>α结论</strong>：所有基金均跑赢或持平关联指数（无显著选股失误）。东方双基α最强(+1.6%/+1.16%)，证明半导体材料选股能力突出——进攻型应加码。永赢虽跌但α为正，说明基金经理在存储链里算抗跌。
+  </div>
+</div>
+
+<!-- 具体基金分析 -->
+<div class="card">
+  <h2>🔍 具体基金分析 + 操作指令（进攻型）</h2>
+
+  <div class="fund-block">
+    <div class="name">① 东方人工智能 <span class="tag t-add">加仓</span> <span class="tag t-buy">核心仓</span></div>
+    <div class="good">✅ 利好：国产半导体材料设备资金午间净流入居首(+21.63亿)；大基金三期70%倾斜设备材料；AI上游材料量价齐升，中报业绩确定性高</div>
+    <div class="bad">❌ 利空：科技交易拥挤度历史极值，若大盘破位可能补跌；机构持仓高度集中</div>
+    <div class="action">⚡ 进攻操作：回踩5日线不破则加仓至 <strong>3000元</strong>。+15%止盈1/3，剩余趋势持有。硬止损-8%（约-240元）。</div>
+  </div>
+
+  <div class="fund-block">
+    <div class="name">② 东方阿尔法科 <span class="tag t-add">加仓</span> <span class="tag t-buy">核心仓</span></div>
+    <div class="good">✅ 利好：同半导体材料逻辑；当日α +1.60%为全持仓最强，选股能力突出</div>
+    <div class="bad">❌ 利空：同板块系统性风险；规模若过大可能影响弹性</div>
+    <div class="action">⚡ 进攻操作：加仓至 <strong>2000元</strong>（与①构成半导体双核，合计5000=33%）。+15%止盈，止损-8%。</div>
+  </div>
+
+  <div class="fund-block">
+    <div class="name">③ 永赢先锋半导体(存储芯片) <span class="tag t-hold">关键赌注</span> <span class="tag t-buy">胜负手</span></div>
+    <div class="good">✅ 利好：三星Q2营业利润创历史新高(预期563亿美元/+17倍)；存储涨价周期(HBM/AI存储)；若三星超预期→A股存储链情绪反攻</div>
+    <div class="bad">❌ 利空：A股存储链资金出逃明显(兆易-28亿/澜起-20亿)；板块两日跌18%；今日-3.84%且持有收益-3.70%</div>
+    <div class="action">⚡ 进攻操作：<strong>这是进攻型胜负手</strong>。当前持有~1877，维持并准备：①三星超预期→加至<strong>2500元</strong>博反弹；②不及预期→-8%硬止损清仓(-150元)。不提前割，等财报落地。</div>
+  </div>
+
+  <div class="fund-block">
+    <div class="name">④ 广发港股创新药 <span class="tag t-add">加仓</span> <span class="tag t-buy">高弹性</span></div>
+    <div class="good">✅ 利好：南向资金净买入港股超200亿港元；恒生创新药指数7月涨15.4%创最佳月度；医保两大机制变革释放红利</div>
+    <div class="bad">❌ 利空：短期-3.48%回调；美联储议息扰动；港股波动大于A股</div>
+    <div class="action">⚡ 进攻操作：分批低吸至 <strong>3000元</strong>（中线弹性仓）。不追高，每跌2%补一次。+20%止盈。止损-8%。</div>
+  </div>
+
+  <div class="fund-block">
+    <div class="name">⑤ 广发纳斯达克100 <span class="tag t-hold">持有</span> <span class="tag t-buy">对冲</span></div>
+    <div class="good">✅ 利好：纳指创新高(+1.12%)；美股AI叙事未破；与A股低相关，分散风险</div>
+    <div class="bad">❌ 利空：盘后芯片期货跌近1%；估值高位</div>
+    <div class="action">⚡ 进攻操作：持有 <strong>1500元</strong> 作对冲仓（A股调整时美股缓冲）。震荡不止损，长期持有。</div>
+  </div>
+
+  <div class="fund-block">
+    <div class="name">⑥ 天弘中证通信 <span class="tag t-clear">清仓</span></div>
+    <div class="bad">❌ 逻辑：通信设备无明确催化，α微负；进攻型不配低效中性仓</div>
+    <div class="action">⚡ 操作：清仓回收~1250元，转入半导体/创新药核心。</div>
+  </div>
+
+  <div class="fund-block">
+    <div class="name">⑦ 嘉实主要消费 <span class="tag t-clear">清仓</span></div>
+    <div class="bad">❌ 逻辑：内需疲软，消费板块无进攻弹性；占用资金效率低</div>
+    <div class="action">⚡ 操作：清仓回收~506元，转入核心仓。</div>
+  </div>
+
+  <div class="fund-block">
+    <div class="name">⑧ 富国中证煤炭 <span class="tag t-clear">清仓</span></div>
+    <div class="bad">❌ 逻辑：防御属性，与进攻型背离；虽当日抗跌但弹性不足，资金属"避险"而非"进攻"</div>
+    <div class="action">⚡ 操作：清仓回收~1065元，转半导体/创新药。</div>
+  </div>
+
+  <div class="fund-block">
+    <div class="name">⑨ 财通集成电路 / ⑩ 财通成长优选(PCB) <span class="tag t-clear">清仓</span></div>
+    <div class="bad">❌ 逻辑：PCB板块最弱，资金撤离；虽α略正但板块趋势向下，不抄底</div>
+    <div class="action">⚡ 操作：清仓回收~1000元，转核心仓。若后续PCB企稳再考虑。</div>
+  </div>
+</div>
+
+<!-- 调仓方案 -->
+<div class="card">
+  <h2>🎯 调仓方案（1.5w本金 · 进攻型）</h2>
+  <h3>当前持仓估算（基于收益反推市值）</h3>
+  <table>
+    <tr><th>基金</th><th>估算市值</th><th>占比</th><th>处置</th></tr>
+    <tr><td>东方人工智能</td><td>~4772</td><td>32%</td><td>加至3000(调仓后)</td></tr>
+    <tr><td>东方阿尔法科</td><td>~2877</td><td>19%</td><td>加至2000</td></tr>
+    <tr><td>永赢先锋半导体</td><td>~1877</td><td>12%</td><td>维持~2500(等三星)</td></tr>
+    <tr><td>广发港股创新药</td><td>~2414</td><td>16%</td><td>加至3000</td></tr>
+    <tr><td>广发纳斯达克100</td><td>~59</td><td>0.4%</td><td>加至1500</td></tr>
+    <tr><td>天弘通信/消费/煤炭/PCB×2</td><td>~3821</td><td>25%</td><td>清仓回收→转核心</td></tr>
+  </table>
+
+  <h3>目标配置（仓位90%=13500 + 现金10%=1500）</h3>
+  <table>
+    <tr><th>仓位</th><th>基金</th><th>目标金额</th><th>占比</th><th>性质</th></tr>
+    <tr><td rowspan="3">进攻核心 58%</td><td>东方人工智能</td><td>3000</td><td>20%</td><td>半导体材料(加)</td></tr>
+    <tr><td>东方阿尔法科</td><td>2000</td><td>13%</td><td>半导体材料(加)</td></tr>
+    <tr><td>永赢先锋半导体</td><td>2500</td><td>17%</td><td>存储芯片(赌注)</td></tr>
+    <tr><td>高弹性 20%</td><td>广发港股创新药</td><td>3000</td><td>20%</td><td>港股创新药(加)</td></tr>
+    <tr><td>对冲 10%</td><td>广发纳斯达克100</td><td>1500</td><td>10%</td><td>美股(加)</td></tr>
+    <tr><td>机动 10%</td><td>现金</td><td>1500</td><td>10%</td><td>等三星财报加仓</td></tr>
+    <tr><td>清仓</td><td>通信/消费/煤炭/PCB×2</td><td>0</td><td>0%</td><td>回收~3821转核心</td></tr>
+  </table>
+  <div class="opp-point">
+    📌 <strong>调仓动作清单</strong>：①清仓4类弱势/防御仓(回收~3821) → ②东方人工智能加至3000、阿尔法科加至2000 → ③港股创新药加至3000、纳指加至1500 → ④永赢持有待三星 → ⑤留1500现金机动。
+  </div>
+  <div class="risk-point">
+    ⚠️ <strong>进攻型风险</strong>：集中度高(前3只占50%+)，单日波动可能达-3%~-5%。永赢先锋半导体是最大变量——三星不及预期则止损-8%(-150元)，但上行空间+15%~20%。
+  </div>
+</div>
+
+<!-- 预测命中率 -->
+<div class="card">
+  <h2>🎯 预测命中率追踪（核心模块）</h2>
+  <table>
+    <tr><th>统计维度</th><th>数值</th><th>说明</th></tr>
+    <tr><td>累计预测数</td><td>10 条</td><td>07-07发布，待07-08验证</td></tr>
+    <tr><td>当前命中率</td><td><strong>—</strong></td><td>首测，无基准</td></tr>
+    <tr><td>置信加权</td><td><strong>—</strong></td><td>待回填</td></tr>
+  </table>
+  <div class="key-point">📌 今晚发布的10条07-08预测，将于 <strong>2026-07-08 20:00</strong> 自动回填实际值并计算首期命中率。</div>
+</div>
+
+<!-- 明日预测 -->
+<div class="card">
+  <h2>🔮 明日（07-08）方向预测 + 进攻型应对</h2>
+  <table>
+    <tr><th>基金</th><th>预测</th><th>进攻型应对</th></tr>
+    <tr><td>东方人工智能/阿尔法科</td><td><span class="tag t-buy">↗涨</span></td><td>持有，回踩加仓</td></tr>
+    <tr><td>永赢先锋半导体</td><td><span class="tag t-buy">↗涨</span></td><td>三星超预期则加；不及预期止损</td></tr>
+    <tr><td>广发港股创新药</td><td><span class="tag t-buy">↗涨</span></td><td>低吸加仓</td></tr>
+    <tr><td>广发纳斯达克100</td><td><span class="tag t-hold">→震荡</span></td><td>持有对冲</td></tr>
+    <tr><td>煤炭/PCB/消费/通信</td><td><span class="tag t-sell">↘跌</span></td><td>已清仓，不接</td></tr>
+  </table>
+  <div class="opp-point">⭐ <strong>明日最大变量</strong>：三星Q2财报（今晚公布）。超预期→半导体链全面反攻，进攻仓受益；不及预期→科技再分歧，永赢止损。</div>
+</div>
+
+<div class="disclaimer">
+  <strong>⚠️ 免责声明</strong><br>
+  本报告为增强版试行产出，基于用户持仓T0实盘与公开财经信息整理。板块资金流向数据来自搜狐/百度财经/格隆汇(标注置信度✅中)，为T2级，存在时效与口径差异。
+  进攻型策略波动大，单基金-8%硬止损必执行。所有内容为研究参考，不构成投资建议。市场有风险，投资需谨慎。<br>
+  数据来源：用户持仓截图、东方财富、新浪财经、雪球、搜狐、格隆汇 | 生成时间：2026-07-07 20:00(增强版)
+</div>
+</div></details>
+<div class="footer">由每日基金自动报告系统生成 · 数据来源 NeoData · 仅供参考，不构成投资建议</div>
+</body></html>
