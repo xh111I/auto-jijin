@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>基金晚间复盘（新逻辑·测试草稿）2026-07-09</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+  * { box-sizing: border-box; }
+  body { font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif; margin: 0; padding: 16px; background: #f4f6f9; color: #1f2937; line-height: 1.6; }
+  .wrap { max-width: 760px; margin: 0 auto; }
+  .banner { background: linear-gradient(135deg,#f59e0b,#d97706); color:#fff; padding: 10px 14px; border-radius: 10px; font-size: 13px; margin-bottom: 14px; }
+  .card { background:#fff; border-radius: 12px; padding: 16px; margin-bottom: 14px; box-shadow: 0 1px 3px rgba(0,0,0,.06); }
+  h1 { font-size: 22px; margin: 0 0 4px; }
+  h2 { font-size: 17px; margin: 0 0 12px; border-left: 4px solid #2563eb; padding-left: 8px; }
+  .sub { color:#6b7280; font-size: 13px; }
+  .grid4 { display:grid; grid-template-columns: repeat(4,1fr); gap:8px; }
+  .kpi { background:#f8fafc; border-radius:8px; padding:10px; text-align:center; }
+  .kpi .v { font-size:19px; font-weight:700; }
+  .kpi .l { font-size:11px; color:#6b7280; }
+  .up { color:#dc2626; } .down { color:#16a34a; } .flat { color:#6b7280; }
+  /* 对齐表 */
+  table { width:100%; border-collapse: collapse; font-size: 12.5px; }
+  th,td { padding:7px 6px; text-align:center; border-bottom:1px solid #eef2f7; }
+  th { background:#f1f5f9; font-weight:600; }
+  tr:hover td { background:#fafcff; }
+  .dev-ok { color:#16a34a; font-weight:600; }
+  .dev-warn { color:#ea580c; font-weight:700; background:#fff7ed; }
+  .note { font-size:12px; color:#6b7280; margin-top:8px; }
+  /* 预测卡片 */
+  .preds { display:grid; grid-template-columns: repeat(2,1fr); gap:10px; }
+  .pred { border:1px solid #e5e7eb; border-radius:10px; padding:12px; }
+  .pred .name { font-weight:700; font-size:14px; }
+  .pred .dir { font-size:22px; font-weight:800; margin:4px 0; }
+  .badge { display:inline-block; font-size:11px; padding:2px 8px; border-radius:99px; font-weight:600; }
+  .b-high { background:#dcfce7; color:#15803d; }
+  .b-mid { background:#fef9c3; color:#a16207; }
+  .b-low { background:#f3f4f6; color:#6b7280; }
+  .arrow-up::before { content:"↑ "; } .arrow-flat::before { content:"→ "; } .arrow-down::before { content:"↓ "; }
+  .check li { font-size:13px; margin-bottom:5px; }
+  .foot { font-size:11px; color:#9ca3af; border-top:1px solid #e5e7eb; padding-top:10px; margin-top:6px; }
+  .src { font-size:12px; color:#374151; background:#f0f9ff; border-radius:8px; padding:10px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="banner">⚠️ 测试草稿 · 验证「新逻辑」：数据源已切到 <b>westock（同花顺/东方财富类）</b>，板块侧用「关联ETF + 申万行业」双参照，新增板块↔基金对齐表 / 预测模块 / 逻辑自检。非最终发布版。</div>
+
+  <div class="card">
+    <h1>基金晚间复盘</h1>
+    <div class="sub">日期：2026-07-09（持仓快照 00:54 OCR 校准）｜ 板块行情：westock 2026-07-08 收盘</div>
+  </div>
+
+  <!-- 数据校验栏（逻辑自检） -->
+  <div class="card">
+    <h2>✅ 数据校验（逻辑自检）</h2>
+    <ul class="check">
+      <li>① 对齐表数值：<b>全部非空</b>（基金列取自 OCR 真值，板块列取自 westock 实时）</li>
+      <li>② 偏离度计算：<b>已复核</b>（基金% − ETF%）</li>
+      <li>③ 缺失字段标注：申万「食品饮料(pt01801120)」「创新药(pt02131362)」westock 未返回 → 已标「数据源未返回」，<b>改用关联ETF为板块参照</b></li>
+      <li>④ QDII 时差：广发港药 / 广发纳指 为 T+1 净值，与海外前一交易日联动，已注明</li>
+    </ul>
+  </div>
+
+  <!-- 账户概览 -->
+  <div class="card">
+    <h2>📊 账户概览（OCR 真值）</h2>
+    <div class="grid4">
+      <div class="kpi"><div class="v">¥14,168</div><div class="l">总资产</div></div>
+      <div class="kpi"><div class="v up">+289.50</div><div class="l">当日收益</div></div>
+      <div class="kpi"><div class="v up">+2.27%</div><div class="l">持有收益</div></div>
+      <div class="kpi"><div class="v up">+1.58%</div><div class="l">累计收益</div></div>
+    </div>
+    <div class="note">半导体仓位占比 ≈ <b>70.9%</b>（高度集中）；前三大持仓集中度 ≈ 75.4%。</div>
+  </div>
+
+  <!-- 核心：板块↔基金对齐表 -->
+  <div class="card">
+    <h2>🔗 板块 ↔ 基金 对齐表（核心）</h2>
+    <table>
+      <thead>
+        <tr><th>基金</th><th>状态</th><th>账户收益%<br>(OCR)</th><th>关联ETF当日%</th><th>申万行业当日%</th><th>偏离<br>(基金−ETF)</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>东方人工智能C</td><td>active</td><td class="up">+4.34</td><td class="up">+0.22</td><td class="down">-0.09</td><td class="dev-warn">+4.12</td></tr>
+        <tr><td>东方阿尔法科技C</td><td>active</td><td class="up">+4.72</td><td class="up">+0.22</td><td class="down">-0.09</td><td class="dev-warn">+4.50</td></tr>
+        <tr><td>广发港股创新药C</td><td>active</td><td class="down">-1.34</td><td class="down">-1.23</td><td class="flat">未返回</td><td class="dev-ok">-0.11</td></tr>
+        <tr><td>永赢先锋半导体C</td><td>active</td><td class="down">-2.12</td><td class="up">+0.22</td><td class="down">-0.09</td><td class="dev-warn">-2.34</td></tr>
+        <tr><td>富国中证煤炭C</td><td>converting</td><td class="down">-0.52</td><td class="up">+1.15</td><td class="up">+1.30</td><td class="dev-warn">-1.67</td></tr>
+        <tr><td>鹏华丰诚债券C</td><td>active</td><td class="flat">-0.01</td><td class="flat">—</td><td class="flat">—</td><td class="dev-ok">≈0</td></tr>
+        <tr><td>嘉实主要消费C</td><td>active</td><td class="down">-0.70</td><td class="down">-0.79</td><td class="flat">未返回</td><td class="dev-ok">+0.09</td></tr>
+        <tr><td>广发纳指100C</td><td>active</td><td class="down">-1.26</td><td class="down">-1.29</td><td class="flat">—</td><td class="dev-ok">+0.03</td></tr>
+        <tr><td>国泰半导体制造C</td><td>cleared</td><td class="flat">0.00</td><td class="up">+0.22</td><td class="down">-0.09</td><td class="flat">已清</td></tr>
+        <tr><td>财通集成电路C</td><td>待确认</td><td class="flat">0.00</td><td class="up">+0.22</td><td class="down">-0.09</td><td class="flat">待确认</td></tr>
+        <tr><td>财通成长优选C</td><td>待确认</td><td class="flat">0.00</td><td class="down">-0.58</td><td class="flat">未返回</td><td class="flat">待确认</td></tr>
+        <tr><td>天弘通信设备C</td><td>待确认</td><td class="flat">0.00</td><td class="down">-0.53</td><td class="down">-0.39</td><td class="flat">待确认</td></tr>
+      </tbody>
+    </table>
+    <div class="note">
+      📌 <b>为什么基金会和板块涨跌不一致？</b> 基金收益 ≠ 板块涨跌很正常——受现金仓位、重仓股α、个股贡献、确认时滞影响。本表用于<b>交叉验证</b>而非等同。<br>
+      🔎 <b>重点提示（>1% 显著背离）：</b><br>
+      • <b>富国煤炭 -0.52% vs 煤炭ETF +1.15% / 申万煤炭 +1.30%</b>：板块当日明显上涨，基金却微跌 → 疑因「债转进行中、份额减半 + 净值确认滞后」，<b>建议核查</b>（申万与ETF双向一致，板块侧可信）。<br>
+      • 东方AI / 东方阿尔法 +4%+ vs 半导体ETF +0.22%：主动基金α显著跑赢，属正常主动管理差异（且基金收益为前期确认值，含时序差）。
+    </div>
+  </div>
+
+  <!-- 偏离度可视化 -->
+  <div class="card">
+    <h2>📉 基金 vs 关联ETF 偏离度</h2>
+    <canvas id="devChart" height="150"></canvas>
+    <div class="note">仅含已有确认收益的基金；橙红=显著背离(>1%)，绿=跟踪紧密。</div>
+  </div>
+
+  <!-- 板块动能（westock 资金流） -->
+  <div class="card">
+    <h2>💰 板块动能（westock 资金流）</h2>
+    <table>
+      <thead><tr><th>板块</th><th>当日%</th><th>5日%</th><th>20日%</th><th>60日%</th><th>主力净流入</th></tr></thead>
+      <tbody>
+        <tr><td>半导体</td><td class="down">-0.09</td><td class="down">-9.24</td><td class="up">+24.56</td><td class="up">+70.80</td><td class="down">-115万</td></tr>
+        <tr><td>煤炭开采</td><td class="up">+1.30</td><td class="up">+6.17</td><td class="down">-11.53</td><td class="down">-3.61</td><td class="flat">—</td></tr>
+        <tr><td>通信设备</td><td class="down">-0.39</td><td class="down">-11.54</td><td class="down">-9.49</td><td class="up">+31.91</td><td class="flat">—</td></tr>
+        <tr><td>消费(ETF参照)</td><td class="down">-0.79</td><td class="down">-0.79</td><td class="down">-2.95</td><td class="down">-16.33</td><td class="flat">—</td></tr>
+      </tbody>
+    </table>
+    <div class="note">半导体中期(60日+70.8%)极强但短期(5日-9.24%)获利回吐；煤炭为超跌反弹；消费/通信中期仍弱。</div>
+  </div>
+
+  <!-- 预测模块 -->
+  <div class="card">
+    <h2>🔮 短期预测（预测模块）</h2>
+    <div class="preds">
+      <div class="pred"><div class="name">半导体 / 东方AI</div><div class="dir arrow-flat">震荡</div><span class="badge b-mid">置信度 中</span><div class="note">中期趋势强(60日+70%+)，但5日-9%短线回吐；主动基金α仍可期，回调即机会。</div></div>
+      <div class="pred"><div class="name">港股创新药</div><div class="dir arrow-flat">震荡偏多</div><span class="badge b-mid">置信度 中</span><div class="note">5日+2.17%、20日+15.1% 筑底回升；QDII T+1，注意海外波动。</div></div>
+      <div class="pred"><div class="name">煤炭</div><div class="dir arrow-flat">震荡</div><span class="badge b-mid">置信度 中</span><div class="note">当日+1.30%反弹，但20日-11.5%中期弱，视为超跌反抽。</div></div>
+      <div class="pred"><div class="name">消费</div><div class="dir arrow-down">偏弱</div><span class="badge b-low">置信度 低-中</span><div class="note">60日-16.3%未见企稳，宜观望。</div></div>
+      <div class="pred"><div class="name">纳指100</div><div class="dir arrow-flat">震荡偏空</div><span class="badge b-mid">置信度 中</span><div class="note">5日-3.08%、当日-1.29%，美股高位震荡。</div></div>
+      <div class="pred"><div class="name">通信设备/CPO</div><div class="dir arrow-flat">震荡</div><span class="badge b-mid">置信度 中</span><div class="note">5日-11.87%急挫后当日-0.53%初步企稳，等放量确认。</div></div>
+    </div>
+    <div class="note">🤖 命中率驱动权重：本次为<b>首次预测</b>（prediction-log 无历史），按基准权重；后续每日回填实际值后自动升/降权。</div>
+  </div>
+
+  <!-- 调仓建议 -->
+  <div class="card">
+    <h2>🎯 调仓建议（基于集中度/风险）</h2>
+    <ul class="check">
+      <li><b>半导体减仓锁利</b>：占比≈70.9% 过高，建议将东方AI/东方阿尔法部分获利了结，压回单仓≤30%、总仓≤90%。</li>
+      <li><b>富国煤炭核查</b>：与板块显著背离(-1.67%)，先确认是否债转/确认滞后；若真实跑输则继续转债。</li>
+      <li><b>港药/纳指持有观察</b>：跟踪紧密，QDII T+1，不止损不下车。</li>
+      <li><b>消费/通信观望</b>：中期趋势弱，不加仓。</li>
+    </ul>
+  </div>
+
+  <div class="card src">
+    <b>数据来源：</b>行情主源 <b>westock-data</b>（同花顺/东方财富类实时行情：ETF涨跌、申万行业、资金流）；基金收益真值取自持仓 OCR 校准（watchlist.json）。<br>
+    <b>说明：</b>基金账户收益为最新确认净值（OCR），板块数据为 westock 最新收盘，二者存在确认时滞，偏离含时序差+α+跟踪误差，本表用于交叉验证。
+  </div>
+
+  <div class="foot">⚠️ 本分析由 AI 基于公开数据整理生成，仅供参考，不构成任何投资建议或个股推荐。投资有风险，决策需谨慎。<br>测试草稿 · 数据源 westock · 生成于自动化逻辑验证</div>
+</div>
+
+<script>
+  const ctx = document.getElementById('devChart');
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: ['东方AI','东方阿尔法','永赢半导体','富国煤炭','嘉实消费','广发港药','广发纳指','鹏华债'],
+      datasets: [{
+        label: '偏离度 (基金% − ETF%)',
+        data: [4.12, 4.50, -2.34, -1.67, 0.09, -0.11, 0.03, -0.01],
+        backgroundColor: ['#ea580c','#ea580c','#ea580c','#ea580c','#16a34a','#16a34a','#16a34a','#16a34a']
+      }]
+    },
+    options: {
+      plugins: { legend: { display: false } },
+      scales: { y: { ticks: { callback: v => v+'%' } } }
+    }
+  });
+</script>
+</body>
+</html>

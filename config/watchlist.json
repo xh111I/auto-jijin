@@ -38,7 +38,21 @@
       "target_total_position_pct": 90
     },
     "peizhibao_merged_at": "2026-07-08T11:12:39+08:00",
-    "peizhibao_schema": "peizhibao.config/v1"
+    "peizhibao_schema": "peizhibao.config/v1",
+    "etf_sector_map": {
+      "东方人工智能主题混合C": {"etf": "sh512480", "sector": "pt01801081", "sector_name": "半导体"},
+      "东方阿尔法科技优选混合C": {"etf": "sh512480", "sector": "pt01801081", "sector_name": "半导体"},
+      "广发港股创新药ETF联接(QDII)C": {"etf": "sh513120", "sector": "pt02131362", "sector_name": "创新药/港股创新药"},
+      "永赢先锋半导体智选混合C": {"etf": "sh512480", "sector": "pt01801081", "sector_name": "半导体"},
+      "富国中证煤炭指数C": {"etf": "sh515220", "sector": "pt01801951", "sector_name": "煤炭开采"},
+      "鹏华丰诚债券C": {"etf": null, "sector": null, "sector_name": "纯债安全垫(无权益板块)"},
+      "嘉实中证主要消费ETF发起联接C": {"etf": "sz159928", "sector": "pt01801120", "sector_name": "食品饮料/主要消费"},
+      "广发纳斯达克100ETF联接(QDII)C": {"etf": "sh513100", "sector": null, "sector_name": "纳斯达克100(美股QDII)"},
+      "国泰半导体制造精选混合C": {"etf": "sh512480", "sector": "pt01801081", "sector_name": "半导体"},
+      "财通集成电路产业股票C": {"etf": "sh512480", "sector": "pt01801081", "sector_name": "半导体/CPO"},
+      "财通成长优选混合C": {"etf": "sh510300", "sector": "pt01801120", "sector_name": "沪深300/成长宽基"},
+      "天弘中证全指通信设备指数C": {"etf": "sh515880", "sector": "pt01801102", "sector_name": "通信设备/CPO"}
+    }
   },
   "holdings": [
     {
