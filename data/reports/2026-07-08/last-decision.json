@@ -1,0 +1,117 @@
+{
+  "date": "2026-07-08",
+  "gen_time": "2026-07-08 14:46:18",
+  "is_baseline": true,
+  "fear_greed_index": 44.3,
+  "sentiment_level": "中性",
+  "sentiment_action": "中性，按技术/基本面逻辑决策，情绪不额外干预（未达极端区）",
+  "market": {
+    "sh": -0.15,
+    "cyb": -1.13
+  },
+  "global": {
+    "total_position_pct": 100,
+    "total_position_limit": 90,
+    "single_max_pct": 36.62,
+    "single_limit": 30,
+    "buy_allowed": false,
+    "reason": "总仓≈100%超90%上限；东方人工智能单仓36.62%超30%上限"
+  },
+  "decisions": {
+    "东方人工智能主题混合C": {
+      "action": "HOLD",
+      "stop_loss": "-8%",
+      "price_action": "持有不加仓(单仓超限)",
+      "note": "板块偏多企稳；单仓36.62%超30%上限，禁止加仓；建议择机降至≤30%",
+      "sector_bias": "偏多",
+      "yret": "+1.64%"
+    },
+    "东方阿尔法科技优选混合C": {
+      "action": "HOLD",
+      "stop_loss": "-8%",
+      "price_action": "持有",
+      "note": "板块偏多；未超限；总仓限禁买",
+      "sector_bias": "偏多",
+      "yret": "+0.87%"
+    },
+    "广发港股创新药ETF联接(QDII)C": {
+      "action": "HOLD(观察/风控)",
+      "stop_loss": "-8%",
+      "price_action": "持有观察，临近-8%预警",
+      "note": "板块偏空(多空倾向27)；关联指数-3.7%承压；未触-8%硬止损",
+      "sector_bias": "偏空",
+      "yret": "-2.56%"
+    },
+    "永赢先锋半导体智选混合C": {
+      "action": "HOLD(风控优先)",
+      "stop_loss": "-8%",
+      "price_action": "持有，紧盯-8%",
+      "note": "半导体broad偏多但存储子板块受美光-9%/闪迪-14%独立冲击，yret-3.84%逼近止损",
+      "sector_bias": "分化",
+      "yret": "-3.84%"
+    },
+    "富国中证煤炭指数C": {
+      "action": "SELL/转换在途",
+      "stop_loss": "—",
+      "price_action": "煤炭→鹏华丰诚债247.77份进行中",
+      "note": "主动降风险，尾盘不追加",
+      "sector_bias": "偏多",
+      "yret": "+1.29%"
+    },
+    "嘉实中证主要消费ETF发起联接C": {
+      "action": "HOLD",
+      "stop_loss": "-8%",
+      "price_action": "持有观察",
+      "note": "新建仓；总仓限禁买",
+      "sector_bias": "中性",
+      "yret": "0.00%(新仓)"
+    },
+    "财通集成电路产业股票C": {
+      "action": "HOLD",
+      "stop_loss": "-8%",
+      "price_action": "持有",
+      "note": "微小仓",
+      "sector_bias": "中性",
+      "yret": "0.00%"
+    },
+    "财通成长优选混合C": {
+      "action": "HOLD",
+      "stop_loss": "-8%",
+      "price_action": "持有",
+      "note": "微小仓",
+      "sector_bias": "中性",
+      "yret": "0.00%"
+    },
+    "天弘中证全指通信设备指数C": {
+      "action": "HOLD",
+      "stop_loss": "-8%",
+      "price_action": "持有",
+      "note": "CPO主题偏多",
+      "sector_bias": "偏多",
+      "yret": "0.00%"
+    },
+    "广发纳斯达克100ETF联接": {
+      "action": "HOLD",
+      "stop_loss": "-8%",
+      "price_action": "持有",
+      "note": "QDII隔夜美股上行",
+      "sector_bias": "偏多",
+      "yret": "+0.53%"
+    },
+    "国泰半导体制造精选混合C": {
+      "action": "已清仓",
+      "stop_loss": "—",
+      "price_action": "无操作",
+      "note": "已清仓",
+      "sector_bias": "—",
+      "yret": "—"
+    }
+  },
+  "risk_flags": [
+    "🔴 总仓≈100% 超 90% 上限",
+    "🔴 东方人工智能 单仓36.62% 超 30% 上限",
+    "🟡 永赢半导体 持有-3.84%+美存储暴跌",
+    "🟡 港股创新药 持有-2.56%+板块偏空(-3.7%)",
+    "🟡 创业板指 -1.13%"
+  ]
+}
