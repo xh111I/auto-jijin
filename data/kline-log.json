@@ -168,6 +168,36 @@
       "preclose_meaning": "估值低位但情绪弱，小仓试探",
       "date": "2026-07-09",
       "note": "⚠️模型研判"
+    },
+    {
+      "sector": "人工智能",
+      "change_0709": 0.88,
+      "trend_score": 55,
+      "trend_judg": "中性偏多(板块+0.88%)",
+      "vp_score": 45,
+      "vp_judg": "量价温和",
+      "pattern": "无明确形态",
+      "main_force": "AI算力吸金但分化 ⚠️模型研判",
+      "close_signal": "收盘偏强",
+      "bias": "中性偏多",
+      "preclose_meaning": "主题仍活跃，弱于半导体",
+      "date": "2026-07-09",
+      "note": "⚠️模型研判，形态/主力行为为AI推断"
+    },
+    {
+      "sector": "纳斯达克100",
+      "change_0709": 1.04,
+      "trend_score": 60,
+      "trend_judg": "偏多(纳指+1.04%早盘)",
+      "vp_score": 45,
+      "vp_judg": "量价温和",
+      "pattern": "无明确形态",
+      "main_force": "美股强势 ⚠️模型研判",
+      "close_signal": "偏强",
+      "bias": "偏多",
+      "preclose_meaning": "QDII T+1，关注隔夜",
+      "date": "2026-07-09",
+      "note": "⚠️模型研判，形态/主力行为为AI推断"
     }
   ]
 }
