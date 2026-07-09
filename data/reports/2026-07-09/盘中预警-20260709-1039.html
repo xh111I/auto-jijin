@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>盘中预警_20260709_1039</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif; background:#f4f6f9; color:#1f2733; padding:16px; line-height:1.5; }
+  .card { background:#fff; border-radius:14px; padding:16px; margin-bottom:14px; box-shadow:0 2px 10px rgba(0,0,0,.06); }
+  .head { background:linear-gradient(135deg,#ff7a45,#ff4d4f); color:#fff; }
+  .head h1 { font-size:20px; font-weight:700; }
+  .head .sub { opacity:.92; font-size:13px; margin-top:4px; }
+  .badges { display:flex; flex-wrap:wrap; gap:8px; margin-top:12px; }
+  .badge { background:rgba(255,255,255,.18); border:1px solid rgba(255,255,255,.35); border-radius:8px; padding:6px 10px; font-size:12px; }
+  .badge b { display:block; font-size:11px; opacity:.85; font-weight:400; }
+  .badge span { font-size:13px; font-weight:600; }
+  .sec-title { font-size:14px; font-weight:700; color:#ff4d4f; margin-bottom:10px; display:flex; align-items:center; gap:6px; }
+  .sec-title.gray { color:#5b6b7f; }
+  .kv { display:flex; justify-content:space-between; padding:7px 0; border-bottom:1px dashed #eef1f5; font-size:13px; }
+  .kv:last-child { border-bottom:none; }
+  .kv .k { color:#6b7888; }
+  .kv .v { font-weight:600; }
+  .alert { background:#fff3f0; border-left:4px solid #ff4d4f; border-radius:8px; padding:12px; margin-bottom:10px; }
+  .alert .t { font-weight:700; color:#d9360c; font-size:14px; }
+  .alert .d { font-size:12.5px; color:#5b4a44; margin-top:5px; }
+  .alert .act { font-size:12.5px; color:#1f2733; margin-top:7px; background:#fff; border-radius:6px; padding:8px; }
+  .alert.yellow { background:#fffaf0; border-left-color:#faad14; }
+  .alert.yellow .t { color:#b88200; }
+  table { width:100%; border-collapse:collapse; font-size:12.5px; }
+  th,td { text-align:left; padding:7px 6px; border-bottom:1px solid #eef1f5; }
+  th { color:#6b7888; font-weight:600; }
+  .ok { color:#2e9b5b; font-weight:600; }
+  .warn { color:#d9360c; font-weight:700; }
+  .neu { color:#8a94a3; }
+  .pill { display:inline-block; padding:2px 8px; border-radius:20px; font-size:11px; font-weight:700; }
+  .pill.r { background:#ffe3da; color:#d9360c; }
+  .pill.g { background:#dff5e6; color:#2e9b5b; }
+  .pill.y { background:#fff4d6; color:#b88200; }
+  .note { font-size:11.5px; color:#8a94a3; margin-top:6px; }
+  .foot { text-align:center; font-size:11px; color:#a3adba; padding:10px 0 4px; }
+  .muted { color:#8a94a3; }
+</style>
+</head>
+<body>
+
+<div class="card head">
+  <h1>🛡️ 盘中预警 · 异动 + 减仓预警</h1>
+  <div class="sub">每日基金自动报告系统 · 盘中监控（每小时触发）</div>
+  <div class="badges">
+    <div class="badge"><b>开始时间</b><span>2026-07-09 10:36:24</span></div>
+    <div class="badge"><b>生成时间</b><span>2026-07-09 10:40:08</span></div>
+    <div class="badge"><b>结束时间</b><span>2026-07-09 10:40:08</span></div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="sec-title">① 市场快照（实时 · NeoData）</div>
+  <div class="kv"><span class="k">沪深300</span><span class="v">4757.70　<span class="ok">+0.05%</span></span></div>
+  <div class="kv"><span class="k">上证指数</span><span class="v">3958.77　<span class="warn">−0.30%</span></span></div>
+  <div class="kv"><span class="k">深证成指</span><span class="v">14903.40　<span class="warn">−0.24%</span></span></div>
+  <div class="kv"><span class="k">创业板指</span><span class="v">3841.52　<span class="warn">−0.10%</span></span></div>
+  <div class="kv"><span class="k">上证 20 日线（MA20）</span><span class="v">≈ 4060（参考 07-08 测算 4065）</span></div>
+  <div class="kv"><span class="k">上证距 20 日线</span><span class="v"><span class="warn">下方约 2.5%（持续）</span></span></div>
+  <div class="kv"><span class="k">上证距 3460 减仓线</span><span class="v" style="color:#2e9b5b">上方 +14.5%（未破）</span></div>
+  <div class="kv"><span class="k">数据时间</span><span class="v muted">2026-07-09 10:39 盘中</span></div>
+</div>
+
+<div class="card">
+  <div class="sec-title">② 触发条件判定（门控总览）</div>
+  <table>
+    <thead><tr><th>触发项</th><th>条件</th><th>实测</th><th>状态</th></tr></thead>
+    <tbody>
+      <tr>
+        <td>异动扫描</td>
+        <td>指数 |≥1.5%|</td>
+        <td>半导体 <b class="ok">+2.92%</b> / 中证煤炭 <b class="warn">−1.68%</b></td>
+        <td><span class="pill r">已触发</span></td>
+      </tr>
+      <tr>
+        <td>减仓预警</td>
+        <td>上证破 3460 或 20 日线</td>
+        <td>3958 &lt; MA20≈4060（破 20 日线；距 3460 仍 +14.5%）</td>
+        <td><span class="pill r">已触发</span></td>
+      </tr>
+      <tr>
+        <td>止损预警</td>
+        <td>单基金跌 &gt; 5%</td>
+        <td>板块代理最大跌幅 煤炭 −1.68%（富国煤炭≈−1.7%）</td>
+        <td><span class="pill g">未触发</span></td>
+      </tr>
+      <tr>
+        <td>止盈预警</td>
+        <td>单基金涨 &gt; 15%</td>
+        <td>板块代理最大涨幅 半导体 +2.92%（单基≈+3%）</td>
+        <td><span class="pill g">未触发</span></td>
+      </tr>
+      <tr>
+        <td>极端情绪</td>
+        <td>恐惧贪婪 ≤20 或 ≥80</td>
+        <td>数据源返回空（无数值），无法判定</td>
+        <td><span class="pill y">数据缺失</span></td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="note">注：幅度闸门判定——沪深300 当日 +0.05%（|0.05%|&lt;0.5%），但存在「重大事件」（半导体 / 煤炭板块异动突破 1.5% 阈值），故进入完整流程并生成本报告。场外基金无盘中实时净值，单基金涨跌幅以关联板块指数作估值代理，含跟踪误差；QDII 基金以 T+1 净值 / 隔夜参考，盘中不具实时性。</div>
+</div>
+
+<div class="card">
+  <div class="sec-title">③ 异动清单（阈值 |≥1.5%|）</div>
+  <table>
+    <thead><tr><th>指数 / 板块</th><th>当日涨跌</th><th>方向</th><th>判定</th></tr></thead>
+    <tbody>
+      <tr><td>半导体（01801081）</td><td class="ok">+2.92%</td><td>↑ 向上突破</td><td><span class="pill r">异动</span></td></tr>
+      <tr><td>中证煤炭（399998）</td><td class="warn">−1.68%</td><td>↓ 向下</td><td><span class="pill r">异动</span></td></tr>
+      <tr><td>港股创新药（931787）</td><td class="ok">+1.40%</td><td>↑</td><td><span class="pill y">接近未破</span></td></tr>
+      <tr><td>通信设备（01801102）</td><td class="warn">−0.51%</td><td>↓</td><td><span class="pill g">正常</span></td></tr>
+      <tr><td>共封装光模块 CPO</td><td class="warn">−0.77%</td><td>↓</td><td><span class="pill g">正常</span></td></tr>
+      <tr><td>中证主要消费（000932）</td><td class="warn">−0.81%</td><td>↓</td><td><span class="pill g">正常</span></td></tr>
+      <tr><td>沪深300 / 上证 / 深成 / 创业板</td><td class="muted">+0.05% / −0.30% / −0.24% / −0.10%</td><td>—</td><td><span class="pill g">正常</span></td></tr>
+      <tr><td>纳斯达克100（.NDX，美股滞后）</td><td class="ok">+0.27%</td><td>↑</td><td><span class="pill y">07-08 收盘</span></td></tr>
+    </tbody>
+  </table>
+  <div class="note">异动扫描口径：主要宽基 + 持仓关联指数（半导体 / CPO / 煤炭 / 消费 / 港股创新药 / 纳指）。15 分钟斜率突变 ≥1% 因数据源未提供分钟级序列，未单独判定；以日涨跌幅 |≥1.5%| 为准。</div>
+</div>
+
+<div class="card">
+  <div class="sec-title">④ 预警清单 + 建议动作</div>
+  <div class="alert">
+    <div class="t">⚠️ 减仓预警（趋势性 · 持续状态）</div>
+    <div class="d">上证指数 3958.77 位于 20 日线（≈4060）下方约 2.5%，属「破 20 日线」减仓信号。该状态自 07-08 起持续（非分钟级新破位），3460 关键减仓线尚远（上方 +14.5%），属温和破位而非急跌。今日大盘整体偏弱（沪深300 仅 +0.05%，上证 −0.30%），趋势未修复。</div>
+    <div class="act">建议动作（仅供参考，本监控不买卖）：<br>
+      1. 控仓为主，暂缓加仓；进攻型目标仓 90% 维持观察。<br>
+      2. 重点盯半导体集中度（半导体暴露 70.93%）——今日半导体异动向上 +2.92% 令权益端浮盈扩大，但板块 20 日涨 +29%、年初至今 +89% 已处高位，勿追高，维持「AI 减仓锁利」既定节奏。<br>
+      3. 不触发硬止损（单基均未 &gt; −5%），情绪面数据缺失无法确认极端，无需恐慌性杀跌。<br>
+      4. 等待尾盘（14:30）决策任务结合技术 / 资金 / 情绪四因子给出最终加减仓指令。
+    </div>
+  </div>
+  <div class="alert yellow">
+    <div class="t">📈 异动提示 · 半导体向上 +2.92%</div>
+    <div class="d">半导体板块逆势走强，持仓中半导体方向（东方AI / 东方阿尔法 / 永赢先锋 / 财通集成 / 财通成长）今日估算约 +2.9% 浮盈扩大。属持仓顺风，但高位追价风险上升。</div>
+    <div class="act">动作：持有观望、不追高；可借冲高执行部分「减仓锁利」。</div>
+  </div>
+  <div class="alert yellow">
+    <div class="t">📉 异动提示 · 中证煤炭向下 −1.68%</div>
+    <div class="d">煤炭板块走弱，富国中证煤炭估算约 −1.7%（债转降仓进程中，市值占比 3.6%），对组合影响极小。</div>
+    <div class="act">动作：无需操作，债转进程延续即可。</div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="sec-title gray">⑤ 持仓板块代理涨跌（截至 10:39）</div>
+  <table>
+    <thead><tr><th>板块代理</th><th>对应基金</th><th>涨跌</th></tr></thead>
+    <tbody>
+      <tr><td>半导体 01801081</td><td>东方AI / 东方阿尔法 / 永赢先锋 / 财通集成 / 财通成长(部分)</td><td class="ok">+2.92%</td></tr>
+      <tr><td>通信设备 / CPO</td><td>天弘通信(CPO) / 财通集成(CPO部分)</td><td class="warn">−0.51% / −0.77%</td></tr>
+      <tr><td>中证煤炭 399998</td><td>富国煤炭(债转中)</td><td class="warn">−1.68%</td></tr>
+      <tr><td>港股创新药 931787</td><td>广发港股创新药</td><td class="ok">+1.40%</td></tr>
+      <tr><td>中证主要消费 000932</td><td>嘉实消费</td><td class="warn">−0.81%</td></tr>
+      <tr><td>纳斯达克100 .NDX</td><td>广发纳指(QDII，滞后)</td><td class="ok">+0.27% <span class="neu">(07-08 收盘)</span></td></tr>
+    </tbody>
+  </table>
+  <div class="note">QDII / 美股联动基金（纳指）盘中不更新，仅作隔夜参考；港股创新药为实时。其余为 A 股板块实时行情代理。</div>
+</div>
+
+<div class="card">
+  <div class="sec-title gray">⑥ 数据可信度与来源</div>
+  <div class="kv"><span class="k">行情源</span><span class="v">NeoData Financial Search（唯一数据源，实时行情）</span></div>
+  <div class="kv"><span class="k">宽基 / 板块指数</span><span class="v">✅ 实时快照（单源）</span></div>
+  <div class="kv"><span class="k">MA20</span><span class="v">参考 07-08 测算 4065，今日延续（约 4060，✅ 中可信）</span></div>
+  <div class="kv"><span class="k">恐惧贪婪指数</span><span class="v">⚠ 本次查询返回空，未纳入判定</span></div>
+  <div class="kv"><span class="k">持仓明细</span><span class="v">T1 watchlist.json（本监控不改）</span></div>
+</div>
+
+<div class="foot">⚠️ 本监控仅供参考，不构成投资建议。市场有风险，投资需谨慎。<br>每日基金自动报告系统 · 盘中监控 · 2026-07-09</div>
+
+</body>
+</html>
