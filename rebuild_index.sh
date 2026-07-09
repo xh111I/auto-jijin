@@ -11,9 +11,9 @@ classify() {
   local f="$1"
   case "$f" in
     早间*|early-morning*)   echo "🌅|1|早间全球分析" ;;
-    午盘*|morning-close*|pre-close*) echo "📊|2|午盘收盘分析" ;;
+    午盘*|morning-close*)        echo "📊|2|午盘收盘分析" ;;
    盘中预警*|intraday-alert*) echo "⚡|3|盘中预警" ;;
-    尾盘*|tail-decision*)   echo "🎯|4|尾盘决策" ;;
+    尾盘*|tail-decision*|pre-close*) echo "🎯|4|尾盘决策" ;;
     晚间*|evening-review*)  echo "🌙|9|晚间复盘" ;;
     大盘研判*|market-index*) echo "📡|0|大盘·板块研判" ;;
     *)                     echo "📄|5|$f" ;;
