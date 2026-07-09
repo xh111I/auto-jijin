@@ -15,6 +15,7 @@ classify() {
    盘中预警*|intraday-alert*) echo "⚡|3|盘中预警" ;;
     尾盘*|tail-decision*)   echo "🎯|4|尾盘决策" ;;
     晚间*|evening-review*)  echo "🌙|9|晚间复盘" ;;
+    大盘研判*|market-index*) echo "📡|0|大盘·板块研判" ;;
     *)                     echo "📄|5|$f" ;;
   esac
 }

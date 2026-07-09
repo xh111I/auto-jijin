@@ -1,0 +1,11 @@
+{
+  "meta": {
+    "description": "每日大盘指数日K五维研判 + 涨跌时日预测记录库",
+    "protocol": "data/kline-protocol.md",
+    "indices": ["sh000001", "sz399001", "sz399006", "sh000016", "sh000300", "sh000905", "sh000688", "bj899050", "hstech"],
+    "dimensions": ["trend", "volume_price", "pattern", "main_force", "close_signal"],
+    "prediction_horizons": ["next_day", "t+2", "t+3"],
+    "created_at": "2026-07-09T15:30:00+08:00"
+  },
+  "records": []
+}
