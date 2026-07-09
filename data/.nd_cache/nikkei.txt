@@ -1,0 +1,100 @@
+{
+  "msg": "操作成功",
+  "suc": true,
+  "traceId": "627c8dea21bdd75e682cfa0fc8c966ce",
+  "code": "200",
+  "data": {
+    "seParams": {},
+    "requestId": "3e2188e9855d4107805697b05b0cabf2",
+    "apiData": {
+      "apiRecall": [
+        {
+          "tag": "股票数据库",
+          "type": "股票实时行情",
+          "content": "日经225指数(代码:N225.GZ)在AP的行情：\n数据更新时间:2026-07-09 08:43:50;最新价格:68201.58元;当日涨跌幅:2.07%\n恒生科技指数(代码:HSTECH.HK)在港股指数的行情：\n数据更新时间:2026/07/08 16:08:50;最新价格:4,731.02点;昨日收盘价格:4,507.04点;今日开盘价格:4,525.77点;最高点:4,774.20点;最低点:4,525.77点;当日涨跌幅:4.97%;当天振幅:5.51%;换手率:0.00%;成交金额(港元):14,045,688.08;量比:1.36;委比:-14.59%;5日涨跌幅:5.79%;年初至今涨跌幅: -14.23%;市盈率(TTM):0.00;市净率:0.00;股息率:0; 20日涨跌幅:-0.52%;总市值(亿点):0.00;H股市值(亿点):0.00;流通股本(股):0.00",
+          "desc": "股票实时行情"
+        }
+      ],
+      "entity": [
+        {
+          "code": "日经225指数",
+          "name": "N225.GZ"
+        }
+      ]
+    },
+    "extraParams": {},
+    "docData": {
+      "docRecall": [
+        {
+          "docList": [
+            {
+              "publishTime": 1782388800,
+              "docId": "SN20260625200923a6b6aaef",
+              "title": "Pulsenmore宣布完成750万美元的私募定价，投资方为一家专注于医疗保健领域的机构投资者Pulsenmore Announces Pricing of $7.5 Million Private Placement with a Single Healthcare Focused Institutional Investor",
+              "type": "本地资讯",
+              "content": "RAMAT GAN, Israel\n以色列，拉马特甘\n,\n，\nJune 25, 2026\n2026年6月25日\n/PRNewswire/ -- Pulsenmore Ltd. (NASDAQ:\n/美通社/ -- Pulsenmore Ltd.（纳斯达克：\nPLSM\nPLSM\n) (TASE: PLSM), a pioneer in home ultrasound technology, today announced that it has entered into a securities purchase agreement with a healthcare-focused institutional investor, for the purchase and sale of 1,562,500 ordinary shares (or pre-funded warrants in lieu thereof) and ordinary warrants to purchase up to 1,562,500 ordinary shares in a private placement at a combined purchase price of $4.80 per ordinary share and accompanying warrant  (or $4.7999 per pre-funded warrant and accompanying ordinary warrant), representing a premium to the Nasdaq Minimum Price under Nasdaq rules.\n（特拉维夫证券交易所股票代码：PLSM）作为家用超声技术的先驱，今日宣布已与一家专注于医疗保健领域的机构投资者签订证券购买协议，以私募方式买卖1,562,500股普通股（或预付认股权证以替代普通股）以及最多可认购1,562,500股普通股的普通认股权证，每股普通股及附带认股权证的合并购买价格为4.80美元（或每份预付认股权证及附带普通认股权证的价格为4.7999美元），该价格高于纳斯达克规则规定的最低价格。",
+              "url": "http://gu.qq.com/resources/shy/news/detail-v2/index.html#/?id=nesSN20260625200923a6b6aaef&s=b"
+            },
+            {
+              "publishTime": 1782388800,
+              "docId": "SN20260625200923a6b6aaef",
+              "title": "Pulsenmore宣布完成750万美元的私募定价，投资方为一家专注于医疗保健领域的机构投资者Pulsenmore Announces Pricing of $7.5 Million Private Placement with a Single Healthcare Focused Institutional Investor",
+              "type": "本地资讯",
+              "content": "因此，除非依据生效的注册声明或适用《证券法》及相应州证券法律中关于注册要求的豁免规定，否则不得在美国境内发售或出售该等证券。根据与投资者签订的证券购买协议的条款，公司已同意向美国提交一份注册声明。\nSecurities and Exchange Commission (the 'SEC') covering the resale of the ordinary shares and ordinary shares underlying Warrants sold in the Offering..\n美国证券交易委员会（“SEC”）关于在本次发行中出售的普通股及认股权证所涉普通股的转售事宜。\nThis press release shall not constitute an offer to sell or the solicitation of an offer to buy the securities being offered, nor shall there be any sale of these securities in any state or jurisdiction in which such offer, solicitation or sale would be unlawful prior to registration or qualification under the securities laws of any such state or jurisdiction..\n本新闻稿不构成出售要约或购买所发行证券的要约邀请，也不得在任何此类要约、邀请或销售在根据该州或司法管辖区的证券法进行注册或资格认定之前属违法的州或司法管辖区进行这些证券的销售。\nAbout Pulsenmore\n关于 Pulsenmore。",
+              "url": "http://gu.qq.com/resources/shy/news/detail-v2/index.html#/?id=nesSN20260625200923a6b6aaef&s=b"
+            },
+            {
+              "publishTime": 1782388800,
+              "docId": "SN20260625200923a6b6aaef",
+              "title": "Pulsenmore宣布完成750万美元的私募定价，投资方为一家专注于医疗保健领域的机构投资者Pulsenmore Announces Pricing of $7.5 Million Private Placement with a Single Healthcare Focused Institutional Investor",
+              "type": "本地资讯",
+              "content": "A.G.P./Alliance Global Partners 担任本次发行的独家配售代理。\nThe offer and sale of the foregoing securities is being made in reliance on an exemption from the registration requirement under Section 4(a)(2) of the Securities Act of 1933, as amended (the 'Securities Act'), and/or Regulation D promulgated thereunder, and applicable state securities laws, and the securities have not been and will not initially be registered under the Securities Act, or applicable state securities laws.\n上述证券的发售和销售系依据经修订的《1933年证券法》（以下简称“《证券法》”）第4(a)(2)条及其下颁布的D条例，以及适用的州证券法中关于注册要求的豁免规定进行；该等证券未曾且初始亦不会根据《证券法》或适用的州证券法进行注册。\nAccordingly, the securities may not be offered or sold in the United States except pursuant to an effective registration statement or an applicable exemption from the registration requirements of the Securities Act and such applicable state securities laws. Pursuant to the terms of the securities purchase agreement entered into with the investor, the Company has agreed to file a registration statement with the U.S.",
+              "url": "http://gu.qq.com/resources/shy/news/detail-v2/index.html#/?id=nesSN20260625200923a6b6aaef&s=b"
+            },
+            {
+              "publishTime": 1782388800,
+              "docId": "SN20260625200923a6b6aaef",
+              "title": "Pulsenmore宣布完成750万美元的私募定价，投资方为一家专注于医疗保健领域的机构投资者Pulsenmore Announces Pricing of $7.5 Million Private Placement with a Single Healthcare Focused Institutional Investor",
+              "type": "本地资讯",
+              "content": "The gross proceeds from the offering are expected to be approximately $7.5 million, before deducting placement agent commissions and other estimated offering expenses. The ordinary warrants will have an exercise price of $4.80 per share, will be exercisable immediately upon issuance, and will expire five years following the date of issuance.\n本次发行的总收益预计在扣除配售代理佣金及其他预估发行费用前约为750万美元。普通认股权证的行权价格为每股4.80美元，自发行之日起即可行权，并于发行日五年后到期。\nThe pre-funded warrants will have at an exercise price of $0.0001 per share and will be exercisable immediately until exercised in full..\n预付融资认股权证的行权价格为每股0.0001美元，可立即行权，直至全部行权完毕。\nElazar Sonnenschein, Chief Executive Officer of Pulsenmore commented, 'This financing supports our next phase of growth and is intended to enable us to further expand our commercial footprint, particularly in the U.S. market, increase market penetration, and execute on strategic initiatives designed to drive long-term growth.",
+              "url": "http://gu.qq.com/resources/shy/news/detail-v2/index.html#/?id=nesSN20260625200923a6b6aaef&s=b"
+            },
+            {
+              "publishTime": 1782388800,
+              "docId": "SN20260625200923a6b6aaef",
+              "title": "Pulsenmore宣布完成750万美元的私募定价，投资方为一家专注于医疗保健领域的机构投资者Pulsenmore Announces Pricing of $7.5 Million Private Placement with a Single Healthcare Focused Institutional Investor",
+              "type": "本地资讯",
+              "content": "Pulsenmore 首席执行官 Elazar Sonnenschein 表示：“此次融资将支持我们的下一阶段增长，旨在帮助我们进一步扩大商业布局，尤其是在美国市场，提高市场渗透率，并执行旨在推动长期增长的战略举措。”\nWe remain focused on advancing our mission, strengthening our market position, and delivering sustainable value to all stakeholders.'.\n我们继续专注于推进我们的使命，加强市场地位，并为所有利益相关者创造可持续的价值。\nThe closing of the Offering is expected to occur on or about June 26, 2026, subject to the satisfaction of customary closing conditions. The Company currently intends to use the net proceeds from the Offering for marketing and commercialization activities, working capital and other general corporate purposes..\n本次发行的交割预计将于2026年6月26日或前后进行，但须满足惯常的交割条件。公司目前打算将本次发行所得款项净额用于营销和商业化活动、营运资金以及其他一般公司用途。\nA.G.P./Alliance Global Partners is acting as the sole placement agent for the Offering.\nA.G.P./Alliance Global Partners 担任本次发行的独家配售代理。",
+              "url": "http://gu.qq.com/resources/shy/news/detail-v2/index.html#/?id=nesSN20260625200923a6b6aaef&s=b"
+            },
+            {
+              "publishTime": 1782388800,
+              "docId": "SN20260625200923a6b6aaef",
+              "title": "Pulsenmore宣布完成750万美元的私募定价，投资方为一家专注于医疗保健领域的机构投资者Pulsenmore Announces Pricing of $7.5 Million Private Placement with a Single Healthcare Focused Institutional Investor",
+              "type": "本地资讯",
+              "content": "About Pulsenmore\n关于 Pulsenmore\nPulsenmore Ltd. is dedicated to revolutionizing maternal health through home-use ultrasound technology that connects mothers and healthcare providers remotely. By leveraging advanced imaging and telemedicine, Pulsenmore makes prenatal care patient-centric, expanding access and improving continuity of care.\nPulsenmore Ltd. 致力于通过家用超声技术革新母婴健康，该技术可远程连接孕妇与医疗保健提供者。借助先进的成像技术和远程医疗，Pulsenmore 使产前护理以患者为中心，扩大服务可及性并提升护理的连续性。\nFor more information, visit .\n更多信息，请访问。\nwww.pulsenmore.com\nwww.pulsenmore.com\nForward-Looking Statements\n前瞻性陈述。",
+              "url": "http://gu.qq.com/resources/shy/news/detail-v2/index.html#/?id=nesSN20260625200923a6b6aaef&s=b"
+            },
+            {
+              "publishTime": 1783513944,
+              "docId": "SN2026070820353698884733",
+              "title": "百济神州授出合共3.34万股美国存托股份受限制股份单位",
+              "type": "本地资讯",
+              "content": "百济神州（HK6160）(06160)发布公告，于2026年7月2日，董事会薪酬委员会根据2016期权及激励计划的条款授予215名承授人合共3.34万股美国存托股份受限制股份单位。该等受限制股份单位相当于43.4万股股份，约占本公告之日公司发行股份总数的0.03%。\n。",
+              "url": "http://gu.qq.com/resources/shy/news/detail-v2/index.html#/?id=nesSN2026070820353698884733&s=b"
+            },
+            {
+              "publishTime": 1782388800,
+              "docId": "SN20260625200923a6b6aaef",
+              "title": "Pulsenmore宣布完成750万美元的私募定价，投资方为一家专注于医疗保健领域的机构投资者Pulsenmore Announces Pricing of $7.5 Million Private Placement with a Single Healthcare Focused Institutional Investor",
+              "type": "本地资讯",
+              "content": "Forward-Looking Statements\n前瞻性陈述\nThis press release contains forward-looking statements within the meaning of Section 27A of the Securities Act of 1933 and Section 21E of the Securities Exchange Act of 1934. In particular, statements using words such as 'may,' 'seek,' 'will,' 'consider,' 'likely,' 'assume,' 'estimate,' 'expect,' 'anticipate,' 'intend,' 'believe,' 'contemplate,' 'do not believe,' 'aim,' 'goal,' 'due,' 'predict,' 'plan,' 'project,' 'continue,' 'potential,' 'positioned,' 'guidance,' 'objective,' 'outlook,' 'trends,' 'future,' 'could,' 'would,' 'should,' 'target,' 'on track' or their negatives or variations, and similar terminology and words of similar import, generally involve future or forward-looking statements.\n本新闻稿包含1933年《证券法》第27A条和1934年《证券交易法》第21E条所定义的“前瞻性陈述”。特别是，使用诸如“可能”、“寻求”、“将”、“考虑”、“可能”、“假设”、“估计”、“预期”、“预计”、“打算”、“相信”、“设想”、“不相信”、“旨在”、“目标”、“由于”、“预测”、“计划”、“规划”、“继续”、“潜在”、“定位”、“指引”、“目的”、“展望”、“趋势”、“未来”、“可以”、“将会”、“应当”、“靶向”、“按计划进行”等词语或其否定形式或变体，以及类似术语和具有类似含义的措辞的陈述，通常涉及未来或前瞻性陈述。",
+              "url": "http://gu.qq.com/resources/shy/news/detail-v2/index.html#/?id=nesSN20260625200923a6b6aaef&s=b"
+            }
+          ],
+          "extQuery": "日经225指数 最新收盘点位和涨跌幅；恒生医疗保健指数 最新涨跌"
+        }
+      ]
+    }
+  }
+}
