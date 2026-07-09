@@ -35,6 +35,7 @@ a:hover{transform:translateY(-1px);box-shadow:0 2px 6px rgba(0,0,0,.08)}
 .fname{font-size:14px;overflow:hidden;text-overflow:ellipsis}
 .time-hint{color:#9ca3af;font-size:11px;margin-left:auto;flex-shrink:0}
 .footer{margin-top:24px;color:#9ca3af;font-size:12px;text-align:center}
+</style>
 CSS
   echo '</head><body>'
   echo "<h1>📱 基金报告收件箱</h1>"
