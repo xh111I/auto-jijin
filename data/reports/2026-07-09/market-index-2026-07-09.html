@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<title>大盘·板块·日K研判 2026-07-09</title>
+<style>
+:root{--up:#f5564d;--down:#26c281;--neu:#d9a441;--acc:#4aa8ff;--bg:#0e1117;--bg2:#161b24;--card:#1c232e;--line:#2a3340;--tx:#e6edf3;--mut:#8b98a9}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--tx);font:14px/1.5 -apple-system,"PingFang SC","Microsoft YaHei",sans-serif;padding:12px;max-width:680px;margin:0 auto}
+.up{color:var(--up)} .down{color:var(--down)} .neu{color:var(--neu)} .acc{color:var(--acc)}
+h1{font-size:18px;margin-bottom:2px} .sub{color:var(--mut);font-size:12px;margin-bottom:12px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px;margin-bottom:12px}
+.card h2{font-size:15px;margin-bottom:8px;display:flex;align-items:center;gap:6px}
+.badge{font-size:11px;padding:1px 6px;border-radius:6px;background:var(--bg2);color:var(--mut);border:1px solid var(--line)}
+table{width:100%;border-collapse:collapse;font-size:12.5px}
+th,td{padding:6px 4px;text-align:right;border-bottom:1px solid var(--line)}
+th{color:var(--mut);font-weight:400;font-size:11.5px}
+td:first-child,th:first-child{text-align:left}
+.tag{font-size:11px;padding:1px 6px;border-radius:5px;font-weight:600}
+.t-up{background:rgba(245,86,77,.15);color:var(--up)}
+.t-down{background:rgba(38,194,129,.15);color:var(--down)}
+.t-neu{background:rgba(217,164,65,.15);color:var(--neu)}
+details{border-top:1px solid var(--line);padding:8px 0}
+summary{cursor:pointer;font-weight:600;font-size:13.5px;display:flex;justify-content:space-between;align-items:center}
+summary .sc{font-size:12px;color:var(--mut)}
+.dim{display:grid;grid-template-columns:64px 1fr 1fr;gap:4px;font-size:12px;margin-top:6px}
+.dim b{color:var(--mut);font-weight:400}
+.row{display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid var(--line);font-size:13px}
+.row:last-child{border:0}
+.note{color:var(--mut);font-size:11.5px;margin-top:6px}
+.warn{color:var(--neu)}
+.kv{display:flex;justify-content:space-between;font-size:13px;padding:4px 0}
+.bar{height:6px;border-radius:3px;background:var(--bg2);overflow:hidden;margin-top:3px}
+.bar i{display:block;height:100%}
+</style>
+</head>
+<body>
+
+<h1>📡 大盘·板块·日K研判</h1>
+<div class="sub">2026-07-09 收盘 · 数据源 neodata(T2) · 方法论 四因子+板块五维+情绪8因子</div>
+
+<!-- ① 数据可信度卡 -->
+<div class="card">
+<h2>① 数据可信度卡 <span class="badge">T2</span></h2>
+<div class="kv"><span>指数快照/涨跌幅</span><span class="neu">✅ 多源一致(neodata实时)</span></div>
+<div class="kv"><span>MA/技术面</span><span class="neu">✅ 技术面接口(T2)</span></div>
+<div class="kv"><span>主力净流入</span><span class="warn">⚠ 资金流向为估算值(T2)</span></div>
+<div class="kv"><span>情绪8因子</span><span class="warn">⚠ 广度/涨跌停/VIX/北向 部分缺失→中性计</span></div>
+<div class="kv"><span>更新时间</span><span>2026-07-09 15:25 收盘</span></div>
+<div class="note">可信度说明：除主力净流入与部分情绪因子标注⚠外，指数与均线均为交易所/聚合源实时数据。形态与主力行为判定为AI模型研判(辅助信号)。</div>
+</div>
+
+<!-- ② 大盘全景表 -->
+<div class="card">
+<h2>② 大盘全景表 <span class="badge">9指数</span></h2>
+<table>
+<tr><th>指数</th><th>收盘</th><th>涨%</th><th>额(亿)</th><th>主净(亿)</th><th>倾向</th></tr>
+<tr><td>上证</td><td>4036.59</td><td class="up">+1.65</td><td>13642</td><td class="up">+100</td><td><span class="tag t-neu">中性 53</span></td></tr>
+<tr><td>深证</td><td>15398.73</td><td class="up">+3.07</td><td>15496</td><td class="up">+167</td><td><span class="tag t-neu">中性 53</span></td></tr>
+<tr><td>创业板</td><td>4018.17</td><td class="up">+4.49</td><td>7221</td><td class="neu">—</td><td><span class="tag t-neu">中性偏多 55</span></td></tr>
+<tr><td>上证50</td><td>2995.79</td><td class="up">+2.57</td><td>2659</td><td class="neu">—</td><td><span class="tag t-up">偏多 64</span></td></tr>
+<tr><td>沪深300</td><td>4876.31</td><td class="up">+2.54</td><td>9471</td><td class="up">+263</td><td><span class="tag t-neu">偏多临界 61</span></td></tr>
+<tr><td>中证500</td><td>8652.79</td><td class="up">+3.13</td><td>6027</td><td class="neu">—</td><td><span class="tag t-neu">中性偏多 57</span></td></tr>
+<tr><td>科创50</td><td>2185.83</td><td class="up">+8.41</td><td>2245</td><td class="up">+113</td><td><span class="tag t-up">强多 91</span></td></tr>
+<tr><td>北证50</td><td>1209.37</td><td class="up">+0.44</td><td>187</td><td class="neu">—</td><td><span class="tag t-down">偏空临界 37</span></td></tr>
+<tr><td>恒生科技</td><td>4753.05</td><td class="up">+0.47</td><td>1186*</td><td class="neu">—</td><td><span class="tag t-neu">中性 52</span></td></tr>
+</table>
+<div class="note">*恒科为港元成交额。全市场放量普涨：沪+深约2.9万亿，半导体/科创掀20cm涨停潮。</div>
+</div>
+
+<!-- ③ 各指数日K五维 -->
+<div class="card">
+<h2>③ 各指数日K五维研判 <span class="badge">可折叠</span></h2>
+
+<details open>
+<summary>科创50 · 强多 <span class="sc">综合 91</span></summary>
+<div class="dim"><b>趋势</b><span>强多(95)</span><span>站上全部均线,MA5 2035,收2186(+7.4%)</span></div>
+<div class="dim"><b>量价</b><span>抢筹(90)</span><span>量比1.10放量,+8.41%大阳</span></div>
+<div class="dim"><b>形态</b><span>突破(90)</span><span>大阳线,突破平台,创阶段高</span></div>
+<div class="dim"><b>主力</b><span>抢筹(80)</span><span>净流入+113亿,超大单+113亿</span></div>
+<div class="dim"><b>收盘暗号</b><span>光头强阳</span><span>MACD刚金叉(+91/+90)</span></div>
+<div class="note warn">⚠ 极强但严重超买：20日+32.3%、距MA5乖离7.4%。短线获利盘兑现压力大。</div>
+</details>
+
+<details>
+<summary>上证50 · 偏多 <span class="sc">综合 64</span></summary>
+<div class="dim"><b>趋势</b><span>偏多(78)</span><span>站上全部均线,MA60 2942</span></div>
+<div class="dim"><b>量价</b><span>健康(55)</span><span>量比0.99平量,+2.57%</span></div>
+<div class="dim"><b>形态</b><span>多头(60)</span><span>MACD金叉(+7.8/+6.1)</span></div>
+<div class="dim"><b>主力</b><span>—</span><span>待验证(缺失)</span></div>
+<div class="dim"><b>收盘暗号</b><span>站上均线</span><span>5日+2.87%/20日+5.10%</span></div>
+<div class="note">大蓝筹领涨，防守转进攻信号。</div>
+</details>
+
+<details>
+<summary>沪深300 · 偏多临界 <span class="sc">综合 61</span></summary>
+<div class="dim"><b>趋势</b><span>偏多(62)</span><span>上MA5/10/60,下MA20(4887)</span></div>
+<div class="dim"><b>量价</b><span>健康(55)</span><span>量比0.99平量</span></div>
+<div class="dim"><b>形态</b><span>临界(58)</span><span>逼近MA20,待确认</span></div>
+<div class="dim"><b>主力</b><span>抢筹(75)</span><span>净流入+263亿</span></div>
+<div class="dim"><b>收盘暗号</b><span>近MA20</span><span>MACD仍负(-7.9/7.4)</span></div>
+<div class="note">主力大幅流入,趋势临界偏多,站稳MA20则转强。</div>
+</details>
+
+<details>
+<summary>创业板 · 中性偏多 <span class="sc">综合 55</span></summary>
+<div class="dim"><b>趋势</b><span>中性(50)</span><span>上MA5/60,下MA10/20</span></div>
+<div class="dim"><b>量价</b><span>偏多(60)</span><span>+4.49%探底回升,量比0.97</span></div>
+<div class="dim"><b>形态</b><span>止跌(60)</span><span>长下影大阳,探底回升</span></div>
+<div class="dim"><b>主力</b><span>—</span><span>待验证(缺失)</span></div>
+<div class="dim"><b>收盘暗号</b><span>大阳</span><span>5日+0.02%/20日+4.24%</span></div>
+<div class="note">成长弹性释放,但MA20(4107)仍为压制。</div>
+</details>
+
+<details>
+<summary>中证500 · 中性偏多 <span class="sc">综合 57</span></summary>
+<div class="dim"><b>趋势</b><span>偏多(60)</span><span>上MA5/20/60,下MA10</span></div>
+<div class="dim"><b>量价</b><span>健康(55)</span><span>量比0.96平量,+3.13%</span></div>
+<div class="dim"><b>形态</b><span>偏多(58)</span><span>20日+7.3%强</span></div>
+<div class="dim"><b>主力</b><span>—</span><span>待验证(缺失)</span></div>
+<div class="dim"><b>收盘暗号</b><span>站上中期线</span><span>MACD差离转正</span></div>
+<div class="note">中小成长同步反弹,弱于科创。</div>
+</details>
+
+<details>
+<summary>上证 · 中性 <span class="sc">综合 53</span></summary>
+<div class="dim"><b>趋势</b><span>中性(45)</span><span>上MA5,下MA10/20/60</span></div>
+<div class="dim"><b>量价</b><span>健康(55)</span><span>量比0.97平量,+1.65%</span></div>
+<div class="dim"><b>形态</b><span>中性(50)</span><span>反弹但未脱均线压制</span></div>
+<div class="dim"><b>主力</b><span>做多(70)</span><span>净流入+100亿</span></div>
+<div class="dim"><b>收盘暗号</b><span>站MA5</span><span>MA20 4066/MA60 4088压制</span></div>
+</details>
+
+<details>
+<summary>深证 · 中性 <span class="sc">综合 53</span></summary>
+<div class="dim"><b>趋势</b><span>中性(44)</span><span>仅上MA5,下MA10/20/60</span></div>
+<div class="dim"><b>量价</b><span>健康(55)</span><span>+3.07%探底回升,量比0.96</span></div>
+<div class="dim"><b>形态</b><span>止跌(55)</span><span>长下影,下探14781拉回</span></div>
+<div class="dim"><b>主力</b><span>做多(68)</span><span>净流入+167亿</span></div>
+<div class="dim"><b>收盘暗号</b><span>探底回升</span><span>MACD深度负值(-40/62)修复中</span></div>
+</details>
+
+<details>
+<summary>恒生科技 · 中性 <span class="sc">综合 52</span></summary>
+<div class="dim"><b>趋势</b><span>中性(55)</span><span>5日+6.71%强,20日-0.35%平</span></div>
+<div class="dim"><b>量价</b><span>中性(50)</span><span>+0.47%平淡</span></div>
+<div class="dim"><b>形态</b><span>中性(50)</span><span>MA缺失(港股)</span></div>
+<div class="dim"><b>主力</b><span>—</span><span>待验证(港股)</span></div>
+<div class="dim"><b>收盘暗号</b><span>震荡</span><span>短期强反弹后休整</span></div>
+</details>
+
+<details>
+<summary>北证50 · 偏空临界 <span class="sc">综合 37</span></summary>
+<div class="dim"><b>趋势</b><span>偏空(25)</span><span>下全部均线,MA60 1313</span></div>
+<div class="dim"><b>量价</b><span>中性(50)</span><span>+0.44%缩量微弹</span></div>
+<div class="dim"><b>形态</b><span>弱势(30)</span><span>5日-4.49%/20日-6.66%</span></div>
+<div class="dim"><b>主力</b><span>—</span><span>待验证(缺失)</span></div>
+<div class="dim"><b>收盘暗号</b><span>弱</span><span>MACD -19/-15 空头</span></div>
+<div class="note warn">⚠ 唯一收绿偏弱指数,资金明显偏好主板/科创。</div>
+</details>
+
+</div>
+
+<!-- ④ 板块传导 -->
+<div class="card">
+<h2>④ 板块影响传导</h2>
+<div class="row"><span class="acc">强势主线</span><span><b class="up">半导体/AI/CPO</b>(科创50强多驱动)</span></div>
+<div class="row"><span class="acc">联动走强</span><span>证券/大金融(沪深300主力+263亿)</span></div>
+<div class="row"><span class="warn">弱势/承压</span><span>北证50、煤炭(防御转弱)、消费、港股创新药</span></div>
+<div class="row"><span class="acc">轮动逻辑</span><span>资金由防御(煤炭→债)切向科创/半导体进攻；半导体AI主线扩散至通信设备/CPO</span></div>
+<div class="note">传导链：科创50强多 → 半导体材料设备/制造/CPO全线爆发(20cm涨停潮)；沪深300偏多 → 大金融消费修复；恒科中性 → 港股创新药/互联网观望；中证500中性偏多 → 中小成长跟涨(弱于科创)；北证50偏空 → 小盘弱势。</div>
+</div>
+
+<!-- ⑤ 持仓联动 -->
+<div class="card">
+<h2>⑤ 持仓联动 <span class="badge">watchlist</span></h2>
+<table>
+<tr><th>持仓</th><th>关联</th><th>信号</th></tr>
+<tr><td>东方人工智能C</td><td>半导体</td><td><span class="tag t-up">偏多·持有</span></td></tr>
+<tr><td>东方阿尔法科技C</td><td>半导体</td><td><span class="tag t-up">偏多·持有</span></td></tr>
+<tr><td>永赢先锋半导体C</td><td>半导体</td><td><span class="tag t-up">偏多·持有</span></td></tr>
+<tr><td>财通集成电路C</td><td>半导体</td><td><span class="tag t-up">偏多·持有</span></td></tr>
+<tr><td>财通成长优选C</td><td>沪深300成长</td><td><span class="tag t-neu">偏多临界·持有</span></td></tr>
+<tr><td>天弘通信设备C</td><td>通信设备/CPO</td><td><span class="tag t-up">偏多·持有</span></td></tr>
+<tr><td>嘉实主要消费C</td><td>主要消费</td><td><span class="tag t-down">偏空·警惕</span></td></tr>
+<tr><td>广发港股创新药C</td><td>恒生医疗</td><td><span class="tag t-neu">中性·持续亏损</span></td></tr>
+<tr><td>富国中证煤炭C</td><td>中证煤炭</td><td><span class="tag t-neu">中性·债转降仓</span></td></tr>
+<tr><td>鹏华丰诚债券C</td><td>纯债</td><td><span class="tag t-neu">安全垫·中性</span></td></tr>
+</table>
+<div class="note warn">⚠ 半导体重仓(约71%)与科创50强多共振→持有但超买,建议冲高不追、分批锁利。港药/消费偏弱,未触-8%硬止损(最深-5.88%)。</div>
+</div>
+
+<!-- ⑥ 涨跌时日预测 -->
+<div class="card">
+<h2>⑥ 涨跌时日预测 <span class="badge">模型研判</span></h2>
+<table>
+<tr><th>标的</th><th>次日</th><th>t+2</th><th>t+3</th><th>置信</th></tr>
+<tr><td>科创50</td><td class="down">震荡-0.5~1.5%</td><td class="neu">震荡±1.5%</td><td class="up">偏多</td><td>中</td></tr>
+<tr><td>创业板</td><td class="up">偏多+0.5~2%</td><td class="neu">震荡</td><td class="neu">中性</td><td>中</td></tr>
+<tr><td>沪深300</td><td class="up">偏多+0.3~1.5%</td><td class="up">偏多</td><td class="up">偏多</td><td>中高</td></tr>
+<tr><td>上证50</td><td class="up">偏多+0.3~1.5%</td><td class="up">偏多</td><td class="up">偏多</td><td>中高</td></tr>
+<tr><td>半导体板块</td><td class="neu">高开分歧·防冲高回落</td><td class="neu">震荡</td><td class="up">偏多</td><td>中</td></tr>
+<tr><td>北证50</td><td class="down">偏空-0.5~1%</td><td class="down">偏弱</td><td class="neu">中性</td><td>中</td></tr>
+<tr><td>恒生科技</td><td class="neu">中性±0.5%</td><td class="neu">中性</td><td class="neu">中性</td><td>中</td></tr>
+</table>
+<div class="note">触发条件：①科创50次日放量长上影/跌破MA5(2035)→短线回踩；②沪深300站稳MA20(4887)→偏多确认；③半导体龙头炸板/量能不济→板块分歧加大。每条预测已写入 data/index-kline-log.json。</div>
+</div>
+
+<!-- ⑦ 情绪校准 -->
+<div class="card">
+<h2>⑦ 情绪校准 <span class="badge">恐惧贪婪指数</span></h2>
+<div class="kv"><span class="neu">综合恐惧贪婪指数</span><span class="neu"><b>≈63</b> · 贪婪(初段)</span></div>
+<div class="bar"><i style="width:63%;background:var(--neu)"></i></div>
+<div class="kv" style="margin-top:8px"><span>市场广度</span><span>78 ⚠待验证(涨停潮)</span></div>
+<div class="kv"><span>涨跌停家数</span><span>80 ⚠待验证(20cm潮)</span></div>
+<div class="kv"><span>主力净流入</span><span class="up">75 全市场大幅净流入</span></div>
+<div class="kv"><span>北向资金</span><span>50 数据缺失→中性</span></div>
+<div class="kv"><span>融资余额</span><span class="down">35 两融周降414亿</span></div>
+<div class="kv"><span>量能亢奋度</span><span>65 放量普涨</span></div>
+<div class="kv"><span>VIX</span><span>50 数据缺失→中性</span></div>
+<div class="kv"><span>股债ERP</span><span>62 十年国债1.74%,ERP分位68%</span></div>
+<div class="note">逆向校准：指数63处"贪婪初段",未达>75减仓预警。但科创50单日+8.41%极端超买,局部需警惕。情绪指令：<b class="neu">中性偏谨慎</b>——盈利持仓(尤其半导体)可分批止盈锁利,不追高；不覆盖-8%硬止损。</div>
+</div>
+
+<!-- ⑧ 风险+免责 -->
+<div class="card">
+<h2>⑧ 风险提示与免责</h2>
+<div class="row"><span class="warn">主要风险</span><span>①科创/半导体极度超买 ②融资余额周降(杠杆退潮) ③北证50弱势背离 ④外部中东局势/美股波动</span></div>
+<div class="row"><span class="warn">风控底线</span><span>单基-8%硬止损不变；半导体重仓建议分批锁利控仓</span></div>
+<div class="note">⚠ 本分析仅供参考,预测为模型研判,历史不代表未来。数据含T2估算与AI模型推断,不构成投资建议。涨红跌绿按A股惯例。</div>
+</div>
+
+</body>
+</html>
