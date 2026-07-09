@@ -1,0 +1,55 @@
+{
+  "version": "1.0",
+  "name": "盘中预警触发式监控系统",
+  "watch_source": "neodata-financial-search",
+  "cooldown_minutes": 30,
+  "stop_loss_pct": -8,
+  "trading_window": {
+    "open": "09:30",
+    "close": "14:55",
+    "lunch_start": "11:30",
+    "lunch_end": "13:00",
+    "precompute_open": "09:00",
+    "precompute_close": "09:30"
+  },
+  "whitelist": [
+    {"name": "上证指数",      "code": "000001.SH", "gate_step": 100, "bar": true,  "key_levels": [3460, 4000]},
+    {"name": "深证成指",      "code": "399001.SZ", "gate_step": 100, "bar": true},
+    {"name": "创业板指",      "code": "399006.SZ", "gate_step": 100, "bar": true},
+    {"name": "沪深300",       "code": "000300.SH", "gate_step": 100},
+    {"name": "科创50",        "code": "000688.SH", "gate_step": 100, "bar": true},
+    {"name": "半导体",        "code": "01801081.PT", "gate_step": 50, "bar": true,  "holding": true},
+    {"name": "共封装光模块CPO", "code": "02GN2211.PT", "gate_step": 50, "holding": true},
+    {"name": "通信设备",      "code": "01801102.PT", "gate_step": 50, "holding": true},
+    {"name": "中证煤炭",      "code": "399998.SZ",  "gate_step": 50, "holding": true},
+    {"name": "中证主要消费",  "code": "000932.SH",  "gate_step": 50, "holding": true},
+    {"name": "港股创新药",    "code": "931787.CS",  "gate_step": 50, "holding": true},
+    {"name": "纳斯达克100",   "code": ".NDX.US",    "gate_step": 50, "holding": true, "stale": true}
+  ],
+  "special_price": {
+    "enabled": true,
+    "pair_top":    ["66", "77", "88", "99"],
+    "pair_bottom": ["00", "11", "22"],
+    "neutral_pair":["33", "44", "55"]
+  },
+  "breadth": {
+    "extreme_ratio": 3.0,
+    "medium_ratio": 2.0,
+    "limit_up_high": 200,
+    "limit_down_high": 50
+  },
+  "holding_move_threshold_pct": 3.0,
+  "ma": {
+    "enabled": false,
+    "note": "NeoData 历史行情会省略中段，无法取连续序列，故 MA 预计算关闭；改用实时行情自带的 20日涨跌幅 做中期趋势判定。",
+    "periods": [5, 20, 60],
+    "indices": ["000001.SH", "399001.SZ", "399006.SZ", "000300.SH", "000688.SH", "01801081.PT"]
+  },
+  "precompute_history_days": 60,
+  "priority_categories": {
+    "特殊价位": ["对子号", "豹子号", "叠数", "整数关口", "顺子号", "对称数"],
+    "资金情绪": ["涨跌家数冰点", "涨跌家数亢奋", "涨停潮", "跌停潮"],
+    "板块异动": ["持仓主线异动", "指数半小时候异动", "板块资金流"],
+    "持仓预警": ["硬止损临近", "减仓预警"]
+  }
+}

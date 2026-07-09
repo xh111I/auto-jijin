@@ -1,0 +1,92 @@
+{
+  "date": "2026-07-09",
+  "updated_at": "2026-07-09 11:30",
+  "data_tier": "T2",
+  "snapshot": "11:30 A股午盘",
+  "core": {
+    "one_liner": "半导体带领的结构性行情，持仓显著受益但单一赛道过热；下午维持涨势但防获利回吐，核心持仓不追高",
+    "action_guide": "半导体核心持仓持有不追高；煤炭按计划转债降风险；其余小仓持有观望；严守单基-8%硬止损",
+    "kpis": [
+      {"label": "领涨 · 半导体", "value": "+3.18%", "cls": "up"},
+      {"label": "领跌 · 煤炭", "value": "-1.40%", "cls": "down"},
+      {"label": "主力净流入 Top1", "value": "半导体 +84.7亿", "cls": "up"}
+    ]
+  },
+  "alignment": [
+    {"name": "东方人工智能主题混合C", "qdii": false, "etf": "半导体ETF国联安", "etf_chg": 3.14, "sw_sector": "半导体", "sw_chg": 3.18, "op_signal": "持有", "row_class": "core", "cause_tags": ["第一大重仓37%", "半导体主动主题", "强动量共振"]},
+    {"name": "东方阿尔法科技优选混合C", "qdii": false, "etf": "半导体ETF国联安", "etf_chg": 3.14, "sw_sector": "半导体", "sw_chg": 3.18, "op_signal": "持有", "row_class": "core", "cause_tags": ["第二大重仓22%", "同半导体强共振"]},
+    {"name": "广发港股创新药ETF联接(QDII)C", "qdii": true, "etf": "港股创新药ETF广发", "etf_chg": 0.89, "sw_sector": "创新药/港股创新药", "sw_chg": null, "op_signal": "观望", "row_class": "normal", "cause_tags": ["昨日-1.39%今日+0.89%修复", "QDII T+1滞后"]},
+    {"name": "永赢先锋半导体智选混合C", "qdii": false, "etf": "半导体ETF国联安", "etf_chg": 3.14, "sw_sector": "半导体", "sw_chg": 3.18, "op_signal": "持有", "row_class": "core", "cause_tags": ["昨日-2.12%今日补回"]},
+    {"name": "富国中证煤炭指数C", "qdii": false, "etf": "煤炭ETF国泰", "etf_chg": -1.40, "sw_sector": "煤炭开采", "sw_chg": -1.20, "op_signal": "减仓观察", "row_class": "reduce", "cause_tags": ["账户正转债降风险", "板块走弱"]},
+    {"name": "鹏华丰诚债券C", "qdii": false, "etf": null, "etf_chg": null, "sw_sector": null, "sw_chg": null, "op_signal": "持有", "row_class": "normal", "cause_tags": ["纯债安全垫", "与权益脱钩,日内≈平"]},
+    {"name": "嘉实中证主要消费ETF发起联接C", "qdii": false, "etf": "消费ETF汇添富", "etf_chg": -0.80, "sw_sector": "食品饮料/主要消费", "sw_chg": null, "op_signal": "持有", "row_class": "normal", "cause_tags": ["消费板块偏弱延续弱势"]},
+    {"name": "广发纳斯达克100ETF联接(QDII)C", "qdii": true, "etf": "纳指ETF国泰", "etf_chg": 0.47, "sw_sector": null, "sw_chg": null, "op_signal": "持有", "row_class": "normal", "cause_tags": ["纳指ETF+0.47%", "T+1,与美股前一交易日联动"]},
+    {"name": "财通集成电路产业股票C", "qdii": false, "etf": "半导体ETF国联安", "etf_chg": 3.14, "sw_sector": "半导体", "sw_chg": 3.18, "op_signal": "待确认", "row_class": "normal", "cause_tags": ["半导体强动量", "新仓方向一致"]},
+    {"name": "财通成长优选混合C", "qdii": false, "etf": "沪深300ETF华泰柏瑞", "etf_chg": 0.15, "sw_sector": "食品饮料/主要消费", "sw_chg": null, "op_signal": "待确认", "row_class": "normal", "cause_tags": ["沪深300+0.15%窄幅"]},
+    {"name": "天弘中证全指通信设备指数C", "qdii": false, "etf": "通信ETF国泰", "etf_chg": 0.53, "sw_sector": "通信设备", "sw_chg": 0.70, "op_signal": "待确认", "row_class": "normal", "cause_tags": ["CPO/通信设备+0.53%~+0.70%", "主题仍活跃"]}
+  ],
+  "align_note": "红=涨 / 绿=跌（A股惯例），±2% 加粗。基金估算/[[偏离度|基金午间估算涨跌 − 关联ETF涨跌，衡量主动基金相对指数的超额/跟踪偏差]]因 neodata 本环境未连接统一标注「未连接」/「N/A」，合并于此备注；创新药/食品饮料[[申万行业|申万宏源一级/二级行业分类，用于刻画板块涨跌]] zdf 不在 westock 排名返回集中，行业涨跌标「数据源未返回」，以关联ETF为代理。基金涨跌≠板块涨跌属正常（受仓位/重仓股α影响），本表用于交叉验证而非等同。",
+  "capital_flow": {
+    "in_top3": [
+      {"name": "半导体", "value": 84.7},
+      {"name": "计算机设备", "value": 14.2},
+      {"name": "通信设备", "value": 6.3}
+    ],
+    "out_top3": [
+      {"name": "电池", "value": 12.3},
+      {"name": "工业金属", "value": 8.1},
+      {"name": "小金属", "value": 5.4}
+    ],
+    "conclusion": "全市场广度偏弱（多数行业下跌），属半导体独秀的结构性行情。北向实时停披→数据源未返回。",
+    "illustrative": "净流出 TOP3 量级为示意：westock 仅返回净流出行业排名（电池/工业金属/小金属居前），未给精确净额，图中数值用于展示排序。"
+  },
+  "predict": {
+    "note": "权重调整：历史「震荡」预测连续踏空（今日11标的中仅纳指/沪深300实际震荡），故下调震荡权重、上调动量方向。本批预测加权后计入命中率统计。",
+    "hit_rate": "累计验证 4/20",
+    "up": [
+      {"name": "东方人工智能主题混合C", "conf": "高", "reason": "半导体半日+3.18%领涨、主力净流入居首+84.7亿，动量极强；单日+3%后下午或冲高回落，不追高"},
+      {"name": "东方阿尔法科技优选混合C", "conf": "高", "reason": "同半导体板块强动量(ETF+3.14%/行业+3.18%)"},
+      {"name": "永赢先锋半导体智选混合C", "conf": "高", "reason": "半导体修复延续，昨日-2.12%今日补回"},
+      {"name": "财通集成电路产业股票C", "conf": "高", "reason": "半导体强动量+新仓方向一致"},
+      {"name": "广发港股创新药ETF联接(QDII)C", "conf": "中", "reason": "港股创新药ETF午盘+0.89%修复；QDII T+1净值滞后，午后随港股延续修复概率高"},
+      {"name": "广发纳斯达克100ETF联接(QDII)C", "conf": "中", "reason": "纳指ETF+0.47%；美股方向待隔夜，T+1"},
+      {"name": "天弘中证全指通信设备指数C", "conf": "中", "reason": "CPO/通信设备+0.53%~+0.70%，主题仍活跃"}
+    ],
+    "down": [
+      {"name": "富国中证煤炭指数C", "conf": "中", "reason": "煤炭板块-1.20%/ETF-1.40%走弱，账户正转债降风险，不抄底"},
+      {"name": "嘉实中证主要消费ETF发起联接C", "conf": "中", "reason": "消费-0.80%延续弱势，小仓持有观望"}
+    ],
+    "flat": [
+      {"name": "财通成长优选混合C", "conf": "低", "reason": "沪深300仅+0.15%窄幅；模型'震荡'历史偏差大，此判低置信、仅供参考"},
+      {"name": "鹏华丰诚债券C", "conf": "低", "reason": "纯债安全垫，日内≈平，与权益脱钩"}
+    ]
+  },
+  "tail": {
+    "tracks": [
+      {"title": "半导体系(~71%)", "body": "上午+3%强势，下午大概率维持涨但防获利回吐，不追高"},
+      {"title": "煤炭", "body": "板块走弱，按计划继续转债降风险，不抄底"},
+      {"title": "QDII类(港药/纳指)", "body": "T+1净值滞后，今日修复延续，净值次日确认"},
+      {"title": "其他小仓(消费/通信)", "body": "消费弱势持有；通信设备CPO主题仍活跃"},
+      {"title": "风控底线", "body": "结构性行情账户显著受益但单一赛道过热，严守单基-8%硬止损"}
+    ]
+  },
+  "validation": {
+    "checks": [
+      {"status": "ok", "item": "对齐表数值非空", "note": "关联ETF午盘涨跌、申万行业zdf 均来自 westock 实时返回，非空"},
+      {"status": "warn", "item": "偏离度计算", "note": "基金午间估算源 neodata MCP 本环境未连接，估值列标注「未连接」、偏离度标「N/A」，不阻塞（缺失则跳过）"},
+      {"status": "ok", "item": "缺失字段统一标注", "note": "neodata估值、北向实时净买入、创新药/食品饮料申万zdf 均已标注「数据源未返回」"},
+      {"status": "ok", "item": "QDII 时差标注", "note": "广发港股创新药、广发纳斯达克100 已标注「QDII·T+1 净值滞后」"},
+      {"status": "warn", "item": "北向停披", "note": "陆股通实时净买入已停披，data_north_holding 无当日值，标注「数据源未返回」"}
+    ],
+    "warnbox": "⚠️ 基金涨跌 ≠ 板块涨跌很正常：受仓位/重仓股α/个股贡献影响。本对齐表用于交叉验证而非等同。neodata 未连接时，关联ETF午盘涨跌可作 ETF联接/指数基金的近似代理。"
+  },
+  "sources": {
+    "items": [
+      {"item": "行情主源", "note": "westock（腾讯自选股实时行情）——关联ETF午盘涨跌(chg_5d/20d)、申万行业zdf、主力资金流(zljlr)"},
+      {"item": "基金估值/新闻辅助源", "note": "neodata-financial-search——本环境 MCP 未连接，基金午间估算标注「未连接」"},
+      {"item": "北向", "note": "陆股通实时净买入已停披，标注「数据源未返回」"},
+      {"item": "预测库", "note": "prediction-log.json（回填 07-08 实际、追加 07-09 上午预测）；情绪：sentiment-log.json；板块K：kline-log.json"}
+    ]
+  },
+  "disclaimer": "⚠️ 本分析由「每日基金自动报告系统」生成，仅供参考，不构成投资建议。模型研判，非交易建议。"
+}

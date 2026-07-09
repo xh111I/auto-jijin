@@ -1,0 +1,101 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1"><title>盘中预警时间线 2026-07-10</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif; background:#f4f6f9; color:#1f2733; padding-bottom:20px; }
+.topbar { position:sticky; top:0; z-index:50; background:linear-gradient(135deg,#1f2a44,#2b3a5c); color:#fff; padding:10px 14px; box-shadow:0 2px 10px rgba(0,0,0,.2); }
+.topbar .row1 { display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+.topbar .tt { font-size:13px; font-weight:700; }
+.topbar .quotes { display:flex; gap:12px; flex-wrap:wrap; }
+.topbar .q { font-size:12px; }
+.topbar .q b { font-weight:700; }
+.topbar .up { color:#ff7875; } .topbar .dn { color:#95de64; }
+.topbar .scroll { margin-top:8px; font-size:13px; background:rgba(255,77,79,.18); border-left:3px solid #ff4d4f; padding:6px 10px; border-radius:6px; animation:blink 1.4s infinite; }
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:.55} }
+.topbar .meta { margin-top:6px; font-size:11px; opacity:.8; }
+.filters { display:flex; gap:8px; padding:12px 14px 4px; flex-wrap:wrap; }
+.filters button { border:none; background:#e9edf3; color:#4b5563; font-size:12px; padding:5px 12px; border-radius:16px; cursor:pointer; }
+.filters button.on { background:#2b3a5c; color:#fff; }
+.timeline { padding:6px 14px; }
+.card { background:#fff; border-radius:12px; padding:12px 14px; margin:10px 0; box-shadow:0 1px 4px rgba(0,0,0,.06); border-left:4px solid #cbd2dc; }
+.card.高 { border-left-color:#ff4d4f; background:#fff6f5; }
+.card.中 { border-left-color:#faad14; background:#fffaef; }
+.card.低 { border-left-color:#cbd2dc; }
+.card .hd { display:flex; align-items:center; gap:8px; }
+.card .pri { font-size:11px; font-weight:700; padding:1px 8px; border-radius:10px; }
+.card .pri.高 { background:#ff4d4f; color:#fff; } .card .pri.中 { background:#faad14; color:#fff; } .card .pri.低 { background:#cbd2dc; color:#333; }
+.card .cat { font-size:11px; color:#8a94a3; }
+.card .tm { margin-left:auto; font-size:11px; color:#a3adba; }
+.card .ct { font-size:14px; font-weight:600; margin:6px 0 3px; }
+.card .it { font-size:12px; color:#5b6b7f; }
+.collapse { margin:14px; }
+.collapse summary { cursor:pointer; font-size:13px; color:#5b6b7f; font-weight:600; }
+.collapse .body { font-size:12px; color:#6b7888; margin-top:8px; line-height:1.7; }
+.kv { display:flex; justify-content:space-between; padding:4px 0; border-bottom:1px dashed #eef1f5; }
+.foot { text-align:center; font-size:11px; color:#a3adba; padding:14px; }
+</style></head><body>
+<div class="topbar">
+  <div class="row1"><span class="tt">📡 盘中预警时间线</span><span class="quotes"><span class="q">上证指数 <b>4036.59</b> <span class="up">+1.65%</span></span><span class="q">深证成指 <b>15398.73</b> <span class="up">+3.07%</span></span><span class="q">创业板指 <b>4018.17</b> <span class="up">+4.49%</span></span><span class="q">科创50 <b>2185.83</b> <span class="up">+8.41%</span></span><span class="q">半导体 <b>13849.11</b> <span class="up">+8.58%</span></span></span></div>
+  <div class="scroll">🔴 最新高优先级：半导体 触及 13849.11 点（对子底）</div>
+  <div class="meta">更新时间 2026-07-10 10:17:26 ｜ 当日预警 6 条（高 4 / 中 1）｜ 数据源 NeoData</div>
+</div>
+<div class="filters"><button class="on" data-f="all">全部</button><button class="" data-f="特殊价位">特殊价位</button><button class="" data-f="资金情绪">资金情绪</button><button class="" data-f="板块异动">板块异动</button><button class="" data-f="持仓预警">持仓预警</button></div>
+<div class="timeline">
+<div class="card 高" data-cat="特殊价位">
+  <div class="hd"><span class="pri 高">高</span><span class="cat">特殊价位 · 对子号</span><span class="tm">10:17:26</span></div>
+  <div class="ct">半导体 触及 13849.11 点（对子底）</div>
+  <div class="it">📌 低位叠数对子，阶段性支撑信号，关注短线反弹 ｜ 当时涨跌 +8.58%</div>
+</div>
+
+<div class="card 中" data-cat="板块异动">
+  <div class="hd"><span class="pri 中">中</span><span class="cat">板块异动 · 中期趋势偏弱</span><span class="tm">10:17:26</span></div>
+  <div class="ct">中证煤炭 20日涨跌幅 -15.07%（中期趋势偏弱）</div>
+  <div class="it">📌 20日维度走弱，持仓主线需关注趋势延续性 ｜ 当时涨跌 -1.90%</div>
+</div>
+
+<div class="card 低" data-cat="特殊价位">
+  <div class="hd"><span class="pri 低">低</span><span class="cat">特殊价位 · 对子号</span><span class="tm">10:17:26</span></div>
+  <div class="ct">纳斯达克100 触及 29751.44 点（对子号）</div>
+  <div class="it">📌 普通叠数对子，关注度一般 ｜ 当时涨跌 +1.71%</div>
+</div>
+
+<div class="card 高" data-cat="持仓预警">
+  <div class="hd"><span class="pri 高">高</span><span class="cat">持仓预警 · 持仓主线异动</span><span class="tm">10:17:26</span></div>
+  <div class="ct">持仓主线 半导体 大幅拉升 +8.58%</div>
+  <div class="it">📌 持仓核心赛道单时段大幅波动，关注趋势延续与仓位 ｜ 当时涨跌 +8.58%</div>
+</div>
+
+<div class="card 高" data-cat="持仓预警">
+  <div class="hd"><span class="pri 高">高</span><span class="cat">持仓预警 · 持仓主线异动</span><span class="tm">10:17:26</span></div>
+  <div class="ct">持仓主线 共封装光模块CPO 大幅拉升 +4.47%</div>
+  <div class="it">📌 持仓核心赛道单时段大幅波动，关注趋势延续与仓位 ｜ 当时涨跌 +4.47%</div>
+</div>
+
+<div class="card 高" data-cat="持仓预警">
+  <div class="hd"><span class="pri 高">高</span><span class="cat">持仓预警 · 持仓主线异动</span><span class="tm">10:17:26</span></div>
+  <div class="ct">持仓主线 通信设备 大幅拉升 +6.00%</div>
+  <div class="it">📌 持仓核心赛道单时段大幅波动，关注趋势延续与仓位 ｜ 当时涨跌 +6.00%</div>
+</div></div>
+<details class="collapse"><summary>⚙️ 监控规则 / 阈值 / 数据源</summary>
+<div class="body">
+  <div class="kv"><span>巡检频率</span><span>每 10 分钟（交易日 09:30–14:55，午休跳过）</span></div>
+  <div class="kv"><span>特殊价位</span><span>对子号 / 豹子号 / 叠数 / 整数关口(指数100·板块50) / 顺子 / 对称</span></div>
+  <div class="kv"><span>资金情绪</span><span>涨跌家数比 &lt;1:3 或 &gt;3:1 高；&gt;2:1 中 ｜ 涨停&gt;200 / 跌停&gt;50 高</span></div>
+  <div class="kv"><span>持仓主线</span><span>关联板块单时段 &gt;±3% 高 ｜ 距 -8% 硬止损不足 1% 高 ｜ 破减仓线 高</span></div>
+  <div class="kv"><span>去重冷却</span><span>同指数同类型 30 分钟内不重复；特殊价位每价位每日仅 1 次</span></div>
+  <div class="kv"><span>广度快照</span><span>（本次未取到）</span></div>
+  <div class="kv"><span>数据源</span><span>NeoData Financial Search（唯一；失败则中止本轮）</span></div>
+  <div class="kv"><span>说明</span><span>场外基金无盘中实时净值，持仓以关联板块指数作估值代理，含跟踪误差。</span></div>
+</div></details>
+<div class="foot">⚠️ 本监控仅供参考，不构成投资建议。市场有风险，投资需谨慎。<br>每日基金自动报告系统 · 盘中预警 · 2026-07-10</div>
+<script>
+const btns=document.querySelectorAll('.filters button');
+btns.forEach(b=>b.onclick=()=>{
+  btns.forEach(x=>x.classList.remove('on')); b.classList.add('on');
+  const f=b.dataset.f;
+  document.querySelectorAll('.card').forEach(c=>{
+    c.style.display=(f==='all'||c.dataset.cat===f)?'':'none';
+  });
+});
+</script>
+</body></html>

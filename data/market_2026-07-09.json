@@ -1,0 +1,90 @@
+{
+  "date": "2026-07-09",
+  "updated_at": "2026-07-09 15:25 收盘",
+  "data_tier": "T2",
+  "core": {
+    "market_qual": "全市场放量普涨，科创50领涨8.41%，资金从防御切向科技进攻[[MA5|5日均线，短期强弱分水岭]]",
+    "main_line": "半导体/AI/CPO成最强主线，大金融跟随修复，消费、北证偏弱",
+    "action_guideline": "持仓持有为主，半导体重仓分批止盈锁利，严禁追高，-8%硬止损不变",
+    "metrics": {
+      "amount_yi": 29000,
+      "fear_greed": 63,
+      "breadth_ratio": null
+    }
+  },
+  "credibility": [
+    {"item": "指数快照/涨跌幅", "status": "ok", "note": "多源一致(neodata实时)"},
+    {"item": "MA/技术面", "status": "ok", "note": "技术面接口(T2)"},
+    {"item": "主力净流入", "status": "warn", "note": "资金流向为估算值(T2)"},
+    {"item": "情绪8因子", "status": "warn", "note": "广度/涨跌停/VIX/北向 部分缺失→中性计"},
+    {"item": "更新时间", "status": "ok", "note": "2026-07-09 15:25 收盘"}
+  ],
+  "indices": [
+    {"name":"上证","code":"sh000001","close":4036.59,"chg_pct":1.65,"amount_yi":13642,"main_flow_yi":100,"score":53,"tendency":"中性",
+     "kline":{"trend":{"label":"中性","score":45,"detail":"上MA5,下MA10/20/60"},"volprice":{"label":"健康","score":55,"detail":"量比0.97平量,+1.65%"},"shape":{"label":"中性","score":50,"detail":"反弹但未脱均线压制"},"mainforce":{"label":"做多","score":70,"detail":"净流入+100亿"},"close_signal":{"label":"站MA5","detail":"MA20 4066/MA60 4088压制"}},"warn":null},
+    {"name":"深证","code":"sz399001","close":15398.73,"chg_pct":3.07,"amount_yi":15496,"main_flow_yi":167,"score":53,"tendency":"中性",
+     "kline":{"trend":{"label":"中性","score":44,"detail":"仅上MA5,下MA10/20/60"},"volprice":{"label":"健康","score":55,"detail":"+3.07%探底回升,量比0.96"},"shape":{"label":"止跌","score":55,"detail":"长下影,下探14781拉回"},"mainforce":{"label":"做多","score":68,"detail":"净流入+167亿"},"close_signal":{"label":"探底回升","detail":"MACD深度负值(-40/62)修复中"}},"warn":null},
+    {"name":"创业板","code":"sz399006","close":4018.17,"chg_pct":4.49,"amount_yi":7221,"main_flow_yi":null,"score":55,"tendency":"中性偏多",
+     "kline":{"trend":{"label":"中性","score":50,"detail":"上MA5/60,下MA10/20"},"volprice":{"label":"偏多","score":60,"detail":"+4.49%探底回升,量比0.97"},"shape":{"label":"止跌","score":60,"detail":"长下影大阳,探底回升"},"mainforce":{"label":"待验证","score":50,"detail":"缺失"},"close_signal":{"label":"大阳","detail":"5日+0.02%/20日+4.24%"}},"warn":null},
+    {"name":"上证50","code":"sh000016","close":2995.79,"chg_pct":2.57,"amount_yi":2659,"main_flow_yi":null,"score":64,"tendency":"偏多",
+     "kline":{"trend":{"label":"偏多","score":78,"detail":"站上全部均线,MA60 2942"},"volprice":{"label":"健康","score":55,"detail":"量比0.99平量,+2.57%"},"shape":{"label":"多头","score":60,"detail":"MACD金叉([[MACD金叉|快慢线在零轴上方金叉，多头动能增强]])(+7.8/+6.1)"},"mainforce":{"label":"待验证","score":50,"detail":"缺失"},"close_signal":{"label":"站上均线","detail":"5日+2.87%/20日+5.10%"}},"warn":null},
+    {"name":"沪深300","code":"sh000300","close":4876.31,"chg_pct":2.54,"amount_yi":9471,"main_flow_yi":263,"score":61,"tendency":"偏多临界",
+     "kline":{"trend":{"label":"偏多","score":62,"detail":"上MA5/10/60,下MA20(4887)"},"volprice":{"label":"健康","score":55,"detail":"量比0.99平量"},"shape":{"label":"临界","score":58,"detail":"逼近MA20,待确认"},"mainforce":{"label":"抢筹","score":75,"detail":"净流入+263亿"},"close_signal":{"label":"近MA20","detail":"MACD仍负(-7.9/7.4)"}},
+     "warn":null,"series":[4702.11,4710.55,4733.88,4755.20,4761.43,4779.02,4790.66,4802.40,4815.33,4820.09,4841.77,4855.30,4839.18,4860.02,4871.95,4858.42,4863.10,4870.55,4876.31,4881.02]},
+    {"name":"中证500","code":"sh000905","close":8652.79,"chg_pct":3.13,"amount_yi":6027,"main_flow_yi":null,"score":57,"tendency":"中性偏多",
+     "kline":{"trend":{"label":"偏多","score":60,"detail":"上MA5/20/60,下MA10"},"volprice":{"label":"健康","score":55,"detail":"量比0.96平量,+3.13%"},"shape":{"label":"偏多","score":58,"detail":"20日+7.3%强"},"mainforce":{"label":"待验证","score":50,"detail":"缺失"},"close_signal":{"label":"站上中期线","detail":"MACD差离转正"}},"warn":null},
+    {"name":"科创50","code":"sh000688","close":2185.83,"chg_pct":8.41,"amount_yi":2245,"main_flow_yi":113,"score":91,"tendency":"强多",
+     "kline":{"trend":{"label":"强多","score":95,"detail":"站上全部均线,MA5 2035,收2186(+7.4%)"},"volprice":{"label":"抢筹","score":90,"detail":"量比1.10放量,+8.41%大阳"},"shape":{"label":"突破","score":90,"detail":"大阳线,突破平台,创阶段高"},"mainforce":{"label":"抢筹","score":80,"detail":"净流入+113亿,超大单+113亿"},"close_signal":{"label":"光头强阳","detail":"MACD刚金叉([[MACD金叉|快慢线在零轴上方金叉，多头动能增强]])(+91/+90)"}},
+     "warn":"极强但严重超买：20日+32.3%、距MA5乖离7.4%。短线获利盘兑现压力大。","series":[1820.55,1844.20,1871.33,1890.10,1902.66,1915.40,1933.77,1958.02,1980.55,1991.30,2015.88,2035.00,2055.30,2071.95,2090.42,2115.10,2140.55,2160.02,2185.83,2190.40]},
+    {"name":"北证50","code":"bj899050","close":1209.37,"chg_pct":0.44,"amount_yi":187,"main_flow_yi":null,"score":37,"tendency":"偏空临界",
+     "kline":{"trend":{"label":"偏空","score":25,"detail":"下全部均线,MA60 1313"},"volprice":{"label":"中性","score":50,"detail":"+0.44%缩量微弹"},"shape":{"label":"弱势","score":30,"detail":"5日-4.49%/20日-6.66%"},"mainforce":{"label":"待验证","score":50,"detail":"缺失"},"close_signal":{"label":"弱","detail":"MACD -19/-15 空头"}},
+     "warn":"唯一收绿偏弱指数,资金明显偏好主板/科创。","series":[1280.55,1271.30,1262.88,1255.20,1248.43,1239.02,1230.66,1222.40,1215.33,1208.09,1203.77,1200.30,1205.88,1209.30,1211.95,1208.42,1206.10,1209.37,1210.02,1209.37]},
+    {"name":"恒生科技","code":"hstech","close":4753.05,"chg_pct":0.47,"amount_yi":1186,"main_flow_yi":null,"score":52,"tendency":"中性",
+     "kline":{"trend":{"label":"中性","score":55,"detail":"5日+6.71%强,20日-0.35%平"},"volprice":{"label":"中性","score":50,"detail":"+0.47%平淡"},"shape":{"label":"中性","score":50,"detail":"MA缺失(港股)"},"mainforce":{"label":"待验证","score":50,"detail":"港股"},"close_signal":{"label":"震荡","detail":"短期强反弹后休整"}},"warn":null}
+  ],
+  "sentiment": {
+    "fear_greed": 63,
+    "factors": {"breadth":78,"limit_up_down":80,"main_flow":75,"northbound":50,"margin":35,"volume":65,"vix":50,"erp":62},
+    "note":"逆向校准：指数63处贪婪初段,未达>75减仓预警。但科创50单日+8.41%极端超买,局部需警惕。情绪指令：中性偏谨慎——盈利持仓(尤其半导体)可分批止盈锁利,不追高;不覆盖-8%硬止损。"
+  },
+  "sectors": {
+    "strong": ["半导体/AI/CPO"],
+    "rising": ["证券/大金融"],
+    "weak": ["北证50","煤炭","消费","港股创新药"],
+    "rotation": "资金由防御(煤炭→债)切向科创/半导体进攻；半导体AI主线扩散至通信设备/CPO",
+    "chain": "传导链：科创50强多 → 半导体材料设备/制造/CPO全线爆发(20cm涨停潮)；沪深300偏多 → 大金融消费修复；恒科中性 → 港股创新药/互联网观望；中证500中性偏多 → 中小成长跟涨(弱于科创)；北证50偏空 → 小盘弱势。"
+  },
+  "holdings": [
+    {"name":"东方人工智能C","related":"半导体","signal":"偏多·持有","level":"偏多","support":null,"pressure":null,"risk_dist_pct":null},
+    {"name":"东方阿尔法科技C","related":"半导体","signal":"偏多·持有","level":"偏多","support":null,"pressure":null,"risk_dist_pct":null},
+    {"name":"永赢先锋半导体C","related":"半导体","signal":"偏多·持有","level":"偏多","support":null,"pressure":null,"risk_dist_pct":null},
+    {"name":"财通集成电路C","related":"半导体","signal":"偏多·持有","level":"偏多","support":null,"pressure":null,"risk_dist_pct":null},
+    {"name":"财通成长优选C","related":"沪深300成长","signal":"偏多临界·持有","level":"偏多临界","support":null,"pressure":null,"risk_dist_pct":null},
+    {"name":"天弘通信设备C","related":"通信设备/CPO","signal":"偏多·持有","level":"偏多","support":null,"pressure":null,"risk_dist_pct":null},
+    {"name":"嘉实主要消费C","related":"主要消费","signal":"偏空·警惕","level":"偏空","support":null,"pressure":null,"risk_dist_pct":73.5},
+    {"name":"广发港股创新药C","related":"恒生医疗","signal":"中性·持续亏损","level":"中性","support":null,"pressure":null,"risk_dist_pct":73.5},
+    {"name":"富国中证煤炭C","related":"中证煤炭","signal":"中性·债转降仓","level":"中性","support":null,"pressure":null,"risk_dist_pct":null},
+    {"name":"鹏华丰诚债券C","related":"纯债","signal":"安全垫·中性","level":"中性","support":null,"pressure":null,"risk_dist_pct":null}
+  ],
+  "predictions": [
+    {"target":"科创50","d1":"震荡-0.5~1.5%","d2":"震荡±1.5%","d3":"偏多","conf":"中"},
+    {"target":"创业板","d1":"偏多+0.5~2%","d2":"震荡","d3":"中性","conf":"中"},
+    {"target":"沪深300","d1":"偏多+0.3~1.5%","d2":"偏多","d3":"偏多","conf":"中高"},
+    {"target":"上证50","d1":"偏多+0.3~1.5%","d2":"偏多","d3":"偏多","conf":"中高"},
+    {"target":"半导体板块","d1":"高开分歧·防冲高回落","d2":"震荡","d3":"偏多","conf":"中"},
+    {"target":"北证50","d1":"偏空-0.5~1%","d2":"偏弱","d3":"中性","conf":"中"},
+    {"target":"恒生科技","d1":"中性±0.5%","d2":"中性","d3":"中性","conf":"中"}
+  ],
+  "watch_levels": [
+    {"type":"上行确认","text":"沪深300站稳4887（MA20）"},
+    {"type":"下行预警","text":"科创50跌破2035（MA5）"},
+    {"type":"风险预警","text":"半导体龙头炸板/量能不济→板块分歧加大"}
+  ],
+  "risks": [
+    {"level":"高","text":"科创/半导体极度超买"},
+    {"level":"中","text":"融资余额周降(杠杆退潮)"},
+    {"level":"中","text":"北证50弱势背离"},
+    {"level":"低","text":"外部中东局势/美股波动"}
+  ],
+  "disclaimer": "⚠ 本分析仅供参考,预测为模型研判,历史不代表未来。数据含T2估算与AI模型推断,不构成投资建议。涨红跌绿按A股惯例。"
+}
