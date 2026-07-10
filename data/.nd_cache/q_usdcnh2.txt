@@ -1,0 +1,20 @@
+{
+  "msg": "操作成功",
+  "suc": true,
+  "traceId": "ae840c2714ecadc886c06f3d3ed3a903",
+  "code": "200",
+  "data": {
+    "seParams": {},
+    "requestId": "852ed9bc0cae4c8dba4e58c61341aed8",
+    "apiData": {
+      "apiRecall": [],
+      "entity": [
+        {
+          "code": "离岸人民币",
+          "name": "CNH.FX"
+        }
+      ]
+    },
+    "extraParams": {}
+  }
+}

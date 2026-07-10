@@ -41,6 +41,18 @@ def load_data(date):
     return json.load(open(p, encoding="utf-8")), date
 
 
+def load_tech(date):
+    """读取技术面增强产出的 market_tech_<DATE>.json，返回 (by_code, by_sector) 字典；缺失返回 (None, None)。"""
+    p = os.path.join(BASE, "market_tech_%s.json" % date)
+    if not os.path.exists(p):
+        return None, None
+    try:
+        d = json.load(open(p, encoding="utf-8"))
+        return d.get("by_code") or {}, d.get("by_sector") or {}
+    except Exception:
+        return None, None
+
+
 # ---------- 工具函数 ----------
 def esc(s):
     if s is None:
@@ -379,12 +391,71 @@ def render_predict(pds, watch_levels):
 </div>'''
 
 
+def _render_kx_card(i, ix, t, cls, lbl, cid="candle"):
+    """技术面增强版卡片：左 ECharts 日K蜡烛图(全周期均线含年线) + 右技术文案/支撑压力。
+    cid 控制 canvas id 前缀（指数 candle / 板块 scandle），避免 ID 冲突。"""
+    name = tip(ix.get("name", ""))
+    score = esc(ix.get("score", ""))
+    lines = [
+        ("趋势判定", t.get("trend_text", "")),
+        ("K线解读", t.get("kline_text", "")),
+        ("价位研判", t.get("price_text", "")),
+        ("操作参考", t.get("op_ref", "")),
+    ]
+    lx = ""
+    for k, v in lines:
+        if v:
+            lx += '<div class="kx-line"><b>%s</b><span>%s</span></div>' % (k, tip(v))
+    sr = ""
+    for s in (t.get("support") or []):
+        sr += ('<div class="sr-item sr-up"><span class="sr-p">%.2f</span>'
+               '<span class="sr-t">%s</span><span class="sr-s s-%s">%s</span></div>') % (
+            s["price"], s["type"], s["strength"], s["strength"])
+    for r in (t.get("resistance") or []):
+        sr += ('<div class="sr-item sr-down"><span class="sr-p">%.2f</span>'
+               '<span class="sr-t">%s</span><span class="sr-s s-%s">%s</span></div>') % (
+            r["price"], r["type"], r["strength"], r["strength"])
+    sp = ""
+    for tag in (t.get("special") or []):
+        sp += '<span class="sp-tag">%s</span>' % tag
+    badges = ('<span class="kv-badge">单K %s</span> <span class="kv-badge">3日 %s</span> '
+              '<span class="kv-badge">MACD %s</span> <span class="kv-badge">KDJ %s</span> '
+              '<span class="kv-badge">量比 %s</span> <span class="kv-badge">偏距5 %.2f%%</span>') % (
+        t.get("pattern_single", "—"), t.get("pattern_3d", "—"),
+        t.get("macd", "—"), t.get("kdj", "—"),
+        ("%.2f" % t["vol_ratio"]) if t.get("vol_ratio") is not None else "—",
+        t.get("bias5") or 0)
+    warn = ('<div class="warn-box">⚠ %s</div>' % tip(ix.get("warn"))) if ix.get("warn") else ""
+    return '''
+<details>
+  <summary>%s · %s <span class="sc">综合 %s</span></summary>
+  <div class="kx-card">
+    <div class="kx-left">
+      <div class="chart-wrap sm"><canvas id="%s%d"></canvas></div>
+      <div class="badges">%s</div>
+      %s
+    </div>
+    <div class="kx-right">
+      %s
+      <div class="sr-title">支撑 / 压力（近→远 · 强/中/弱）</div>
+      <div class="sr-list">%s</div>
+    </div>
+  </div>
+ %s
+</details>''' % (name, lbl, score, cid, i, badges, sp, lx, sr, warn)
+
+
 def render_kline(indices):
     if not indices:
         return ""
     blocks = ""
     for i, ix in enumerate(indices):
         cls, lbl = level_info(ix.get("score"), ix.get("tendency"))
+        tech = ix.get("tech")
+        if tech:
+            blocks += _render_kx_card(i, ix, tech, cls, lbl)
+            continue
+        # 降级：原五维 + 迷你折线
         k = ix.get("kline") or {}
         dims = ""
         for dim in ["trend", "volprice", "shape", "mainforce"]:
@@ -398,14 +469,9 @@ def render_kline(indices):
         if cs:
             dims += '<div class="dim"><b>收盘暗号</b><span>%s</span><span>%s</span></div>' % (
                 tip(cs.get("label", "")), tip(cs.get("detail", "")))
-        if ix.get("warn"):
-            warn = '<div class="warn-box">⚠ %s</div>' % tip(ix.get("warn"))
-        else:
-            warn = ""
-        if ix.get("series"):
-            canvas = '<div class="chart-wrap sm"><canvas id="mini%d"></canvas></div>' % i
-        else:
-            canvas = '<div class="note">（未提供近 N 日收盘序列，略去迷你走势）</div>'
+        warn = ('<div class="warn-box">⚠ %s</div>' % tip(ix.get("warn"))) if ix.get("warn") else ""
+        canvas = ('<div class="chart-wrap sm"><canvas id="mini%d"></canvas></div>' % i) if ix.get("series") \
+            else '<div class="note">（未提供近 N 日收盘序列，略去迷你走势）</div>'
         blocks += '''
 <details>
   <summary>%s · %s <span class="sc">综合 %s</span></summary>
@@ -416,7 +482,35 @@ def render_kline(indices):
          dims, warn, canvas)
     return f'''
 <div class="card">
-  <h2>⑦ 指数详细日 K 研判 <span class="badge">可折叠</span></h2>
+  <h2>⑦ 指数详细日 K 研判 <span class="badge">技术面增强</span></h2>
+  {blocks}
+</div>'''
+
+
+def render_sector_kline(cards):
+    """板块日K技术研判：每张卡左 ECharts 蜡烛图 + 右技术文案/支撑压力（复用 _render_kx_card）。"""
+    if not cards:
+        return ""
+    blocks = ""
+    for i, c in enumerate(cards):
+        cat = c.get("category")
+        if cat == "strong":
+            cls, lbl = "lv-strong-up", "强多"
+        elif cat == "rising":
+            cls, lbl = "lv-up", "偏多"
+        else:
+            cls, lbl = "lv-down", "偏空"
+        ix = {"name": c.get("name"), "score": "", "warn": None}
+        t = c.get("tech")
+        if t:
+            blocks += _render_kx_card(i, ix, t, cls, lbl, cid="scandle")
+            continue
+        blocks += ('<details><summary>%s · %s</summary>'
+                   '<div class="note">（未提供近 250 日 OHLC，暂略去日K）</div></details>') % (
+            tip(c.get("name", "")), lbl)
+    return f'''
+<div class="card" id="skline">
+  <h2>📊 板块日 K 技术研判 <span class="badge">技术面增强</span></h2>
   {blocks}
 </div>'''
 
@@ -524,6 +618,27 @@ canvas{width:100%!important;height:100%!important}
   .lv-strong-up,.lv-up,.lv-neu-up{background:#e8f7ee!important}
   .lv-neu-down,.lv-down,.lv-strong-down{background:#fdeceb!important}
 }
+.kx-card{display:flex;gap:10px;margin-top:6px}
+.kx-left{flex:0 0 38%;min-width:200px}
+.kx-right{flex:1;min-width:0}
+.kx-line{display:grid;grid-template-columns:64px 1fr;gap:6px;font-size:12px;margin-top:6px;align-items:baseline}
+.kx-line b{color:var(--mut);font-weight:400}
+.badges{margin-top:6px;font-size:11px;color:var(--mut);line-height:1.9}
+.kv-badge{display:inline-block;background:var(--bg2);border:1px solid var(--line);border-radius:6px;padding:1px 6px;margin:2px 3px 2px 0;color:var(--tx);font-size:11px}
+.sp-tag{display:inline-block;font-size:11px;padding:1px 7px;border-radius:20px;margin:3px 3px 0 0;background:rgba(217,164,65,.16);color:var(--neu);border:1px solid rgba(217,164,65,.4)}
+.sr-title{font-size:11.5px;color:var(--mut);margin:10px 0 4px;border-top:1px dashed var(--line);padding-top:6px}
+.sr-list{display:flex;flex-wrap:wrap;gap:4px}
+.sr-item{display:flex;align-items:center;gap:5px;font-size:11.5px;padding:2px 8px;border-radius:7px;border:1px solid var(--line)}
+.sr-up{background:rgba(38,194,129,.10);border-color:rgba(38,194,129,.35)}
+.sr-down{background:rgba(245,86,77,.10);border-color:rgba(245,86,77,.35)}
+.sr-p{font-weight:700}
+.sr-up .sr-p{color:#26c281}.sr-down .sr-p{color:#f5564d}
+.sr-t{color:var(--mut)}
+.sr-s{font-size:10px;padding:0 5px;border-radius:5px}
+.s-强{background:rgba(74,168,255,.18);color:#7cc4ff}
+.s-中{background:rgba(139,152,169,.16);color:var(--mut)}
+.s-弱{background:rgba(139,152,169,.08);color:#6b7686}
+@media (max-width:560px){.kx-card{flex-direction:column}.kx-left{flex:none;width:100%}}
 </style>
 </head>
 <body>
@@ -587,6 +702,7 @@ function initCharts(){
       });
     }
     idx.forEach((x,i)=>{
+      if(x.tech) return;   // 技术面增强卡走蜡烛图，跳过迷你折线
       const el = document.getElementById('mini'+i);
       if(el && Array.isArray(x.series) && x.series.length){
         const c = echarts.init(el, null, {renderer:'canvas'});
@@ -602,6 +718,61 @@ function initCharts(){
             {type:'line',data:s,name:'收盘',showSymbol:false,lineStyle:{color:DARK.acc,width:1.5}},
             {type:'line',data:ma(5),name:'MA5',showSymbol:false,lineStyle:{color:DARK.up,width:1}},
             {type:'line',data:ma(20),name:'MA20',showSymbol:false,lineStyle:{color:DARK.down,width:1}}
+          ]
+        });
+      }
+    });
+    // 技术面增强：日K蜡烛图（全周期均线，含年线）
+    idx.forEach((x,i)=>{
+      const el = document.getElementById('candle'+i);
+      const t = x.tech;
+      if(el && t && Array.isArray(t.candle) && t.candle.length){
+        const c = echarts.init(el, null, {renderer:'canvas'});
+        const dates = t.dates||[];
+        const ma=(name)=> (t.ma && t.ma[name]) ? t.ma[name] : null;
+        c.setOption({
+          backgroundColor:'transparent',
+          grid:{left:48,right:12,top:24,bottom:18},
+          tooltip:{trigger:'axis'},
+          legend:{data:['MA5','MA20','MA60','MA120','MA250(年)'],textStyle:{color:DARK.mut,fontSize:9},top:0,right:4,itemWidth:12,itemHeight:8},
+          xAxis:{type:'category',data:dates,axisLabel:{color:DARK.mut,fontSize:9},axisLine:{lineStyle:{color:'#2a3340'}}},
+          yAxis:{type:'value',scale:true,axisLabel:{color:DARK.mut,fontSize:9},splitLine:{lineStyle:{color:'#1d2530'}}},
+          series:[
+            {type:'candlestick',name:'日K',data:t.candle,
+              itemStyle:{color:DARK.up,color0:DARK.down,borderColor:DARK.up,borderColor0:DARK.down}},
+            {type:'line',data:ma('MA5'),name:'MA5',showSymbol:false,lineStyle:{color:'#e6c84',width:1}},
+            {type:'line',data:ma('MA20'),name:'MA20',showSymbol:false,lineStyle:{color:'#b083f0',width:1}},
+            {type:'line',data:ma('MA60'),name:'MA60',showSymbol:false,lineStyle:{color:'#26c281',width:1}},
+            {type:'line',data:ma('MA120'),name:'MA120',showSymbol:false,lineStyle:{color:'#4aa8ff',width:1}},
+            {type:'line',data:ma('MA250'),name:'MA250(年)',showSymbol:false,lineStyle:{color:'#8b98a9',width:1,type:'dashed'}}
+          ]
+        });
+      }
+    });
+    // 板块日K蜡烛图（全周期均线，含年线）
+    const skx = (REPORT._sector_kx)||[];
+    skx.forEach((x,i)=>{
+      const el = document.getElementById('scandle'+i);
+      const t = x.tech;
+      if(el && t && Array.isArray(t.candle) && t.candle.length){
+        const c = echarts.init(el, null, {renderer:'canvas'});
+        const dates = t.dates||[];
+        const ma=(name)=> (t.ma && t.ma[name]) ? t.ma[name] : null;
+        c.setOption({
+          backgroundColor:'transparent',
+          grid:{left:48,right:12,top:24,bottom:18},
+          tooltip:{trigger:'axis'},
+          legend:{data:['MA5','MA20','MA60','MA120','MA250(年)'],textStyle:{color:DARK.mut,fontSize:9},top:0,right:4,itemWidth:12,itemHeight:8},
+          xAxis:{type:'category',data:dates,axisLabel:{color:DARK.mut,fontSize:9},axisLine:{lineStyle:{color:'#2a3340'}}},
+          yAxis:{type:'value',scale:true,axisLabel:{color:DARK.mut,fontSize:9},splitLine:{lineStyle:{color:'#1d2530'}}},
+          series:[
+            {type:'candlestick',name:'日K',data:t.candle,
+              itemStyle:{color:DARK.up,color0:DARK.down,borderColor:DARK.up,borderColor0:DARK.down}},
+            {type:'line',data:ma('MA5'),name:'MA5',showSymbol:false,lineStyle:{color:'#e6c84',width:1}},
+            {type:'line',data:ma('MA20'),name:'MA20',showSymbol:false,lineStyle:{color:'#b083f0',width:1}},
+            {type:'line',data:ma('MA60'),name:'MA60',showSymbol:false,lineStyle:{color:'#26c281',width:1}},
+            {type:'line',data:ma('MA120'),name:'MA120',showSymbol:false,lineStyle:{color:'#4aa8ff',width:1}},
+            {type:'line',data:ma('MA250'),name:'MA250(年)',showSymbol:false,lineStyle:{color:'#8b98a9',width:1,type:'dashed'}}
           ]
         });
       }
@@ -643,13 +814,32 @@ def main():
         date = os.path.basename(fs[-1])[7:-5]
     data, date = load_data(date)
 
+    # 合并技术面增强产出的 market_tech_<DATE>.json（指数 by_code + 板块 by_sector）
+    by_code, by_sector = load_tech(date)
+    if by_code:
+        for ix in (data.get("indices") or []):
+            t = by_code.get(ix.get("code")) or by_code.get(ix.get("name"))
+            if t:
+                ix["tech"] = t
+    # 板块：取 strong/rising/weak 名称并集，挂技术面
+    sec = data.get("sectors") or {}
+    cat_map = {}
+    for cat in ("strong", "rising", "weak"):
+        for nm in (sec.get(cat) or []):
+            cat_map.setdefault(nm, cat)
+    sector_cards = []
+    for nm, cat in cat_map.items():
+        t = (by_sector or {}).get(nm)
+        sector_cards.append({"name": nm, "category": cat, "tech": t})
+    data["_sector_kx"] = sector_cards
+
     global Cred_tier
     Cred_tier = data.get("data_tier") or "T2"
     updated = data.get("updated_at") or (date + " 收盘")
     prev = yesterdate(date)
 
     nav = ('<nav class="topnav"><a href="#core">核心</a><a href="#cred">可信度</a>'
-            '<a href="#pano">大盘</a><a href="#sent">情绪</a><a href="#sec">板块</a>'
+            '<a href="#pano">大盘</a><a href="#sent">情绪</a><a href="#sec">板块</a><a href="#skline">板块日K</a>'
             '<a href="#hold">持仓</a><a href="#pred">预判</a><a href="#kline">日K</a>'
             '<a href="#risk">风险</a>'
             '<span class="nav-hist"><a href="market-index-%s.html">←昨日</a>'
@@ -660,6 +850,7 @@ def main():
             render_panorama(data.get("indices")) +
             render_sentiment(data.get("sentiment")) +
             render_sectors(data.get("sectors")) +
+            render_sector_kline(sector_cards) +
             render_holdings(data.get("holdings")) +
             render_predict(data.get("predictions"), data.get("watch_levels")) +
             render_kline(data.get("indices")) +

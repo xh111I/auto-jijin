@@ -1,0 +1,24 @@
+{
+  "msg": "操作成功",
+  "suc": true,
+  "traceId": "8c9bea22abdf0d0dd8227eb8001ca863",
+  "code": "200",
+  "data": {
+    "seParams": {},
+    "requestId": "437a7401231e4eb2bac95d6a03651a14",
+    "apiData": {
+      "apiRecall": [],
+      "entity": [
+        {
+          "code": "涨跌幅度",
+          "name": "4.HQ"
+        },
+        {
+          "code": "离岸人民币",
+          "name": "CNH.FX"
+        }
+      ]
+    },
+    "extraParams": {}
+  }
+}
