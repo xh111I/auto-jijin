@@ -49,11 +49,17 @@ QUERY_PY = find_query_py()
 
 # ---------- 北京时间 ----------
 def beijing_now():
+    # 优先：显式 Asia/Shanghai（需 tzdata，已安装到托管 Python）
     try:
         from zoneinfo import ZoneInfo
         return datetime.datetime.now(ZoneInfo("Asia/Shanghai"))
     except Exception:
-        return datetime.datetime.now() + datetime.timedelta(hours=8)
+        pass
+    # 回退：用系统本地时区（当前沙箱时钟已配置为北京时间，避免盲加 8h 造成重复偏移）
+    try:
+        return datetime.datetime.now().astimezone()
+    except Exception:
+        return datetime.datetime.now()
 
 # ---------- neodata 调用 ----------
 def neodata_query(q):
