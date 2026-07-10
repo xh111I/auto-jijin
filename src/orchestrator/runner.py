@@ -12,6 +12,7 @@ if _SRC not in sys.path:
     sys.path.insert(0, _SRC)
 
 from data_service.fetcher import load_config, get_today_str
+from .dag import check_dependency, TASK_DAG
 
 # 项目根
 ROOT = os.path.dirname(_SRC)
@@ -59,12 +60,12 @@ def run_task(task_name: str, analyze_fn, data_requirements: dict = None,
     try:
         today = get_today_str()
 
-        # 1. 依赖检查（可选，有就做）
-        if task_name == '尾盘决策':
-            if not check_tail_baseline(today):
-                audit_log(task_name, 'SKIP_DEP', 'baseline snapshot missing')
-                print(f'[runner] SKIP: baseline snapshot not ready')
-                return 'SKIPPED'
+        # 1. DAG依赖检查
+        ready, missing, detail = check_dependency(task_name, today)
+        if not ready:
+            audit_log(task_name, 'SKIP_DEP', detail)
+            print(f'[runner] SKIP: dependency not ready → {detail}')
+            return f'SKIPPED: {detail}'
 
         # 2. 执行分析
         print(f'[runner] {task_name}: analyzing...')
@@ -81,19 +82,26 @@ def run_task(task_name: str, analyze_fn, data_requirements: dict = None,
                           f, ensure_ascii=False, indent=2)
             print(f'[runner] JSON saved: {json_path} ({os.path.getsize(json_path)} bytes)')
 
-        # 4. 渲染 HTML（如指定模板）
+        # 4. 渲染 HTML（统一渲染层）
         if template_name:
-            render_args = ['python', os.path.join(DATA, 'make_tail_html.py')]
-            if template_name == 'tail':
-                render_args.append(today)
-            subprocess.run(render_args, cwd=DATA, check=False)
+            from render.render import render as render_html
+            render_html(template_name, today)
 
-        # 5. 重建索引 & 发布
+        # 5. 重建索引 & 发布(带重试)
         if publish:
             for script in ['rebuild_index.sh', 'publish.sh']:
                 sp = os.path.join(ROOT, script)
-                if os.path.exists(sp):
-                    subprocess.run(['bash', sp], cwd=ROOT, check=False)
+                if not os.path.exists(sp):
+                    continue
+                for attempt in range(3):
+                    r = subprocess.run(['bash', sp], cwd=ROOT, capture_output=True, text=True)
+                    if r.returncode == 0 or 'Everything up-to-date' in r.stdout:
+                        break
+                    if attempt < 2:
+                        print(f'[runner] {script} retry {attempt+1}/3...')
+                        time.sleep(2 ** attempt)
+                    else:
+                        audit_log(task_name, 'PUB_FAIL', f'{script} failed after 3 retries')
 
         elapsed = (time.time() - started) * 1000
         audit_log(task_name, 'OK', f'template={template_name}', elapsed)
