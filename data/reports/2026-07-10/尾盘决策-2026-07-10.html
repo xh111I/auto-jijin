@@ -192,31 +192,31 @@ details.card[open] summary{margin-bottom:10px;border-bottom:1px solid var(--line
 </head>
 <body>
 <h1>🎯 尾盘决策</h1>
-<div class="sub">数据截止 2026-07-10 尾盘 · 更新 2026-07-10 14:48 · 数据源 T2（neodata/westock）· 收盘前操作预案 · 仅供参考不构成投资建议</div>
+<div class="sub">数据截止 2026-07-10 尾盘 · 更新 2026-07-10 收盘 15:00 · 数据源 T2（neodata/westock）· 收盘前操作预案 · 仅供参考不构成投资建议</div>
 
-<div class="cmdbar core-hold">
+<div class="cmdbar core-watch">
   <div class="cmd-main">
-    <div class="cmd-core"><span class="dot"></span>全场 HOLD · 半导体暴跌触发减仓信号</div>
-    <div class="cmd-active">⚡ 唯一主动操作：择机减东方人工智能至 ≤30%（当前36.3%超限）</div>
-    <div class="cmd-risk">🔴 单基 -8% 硬止损 + 半导体集群级减仓(-5.54%已触发)</div>
+    <div class="cmd-core"><span class="dot"></span>放量跳水·半导体单日-6.84%触发集群减仓, 优先减东方阿尔法降第一大仓</div>
+    <div class="cmd-active">⚡ 唯一主动操作：择机减东方阿尔法至≤22%(降#1仓+半导体集群减仓); 东方AI剩2/3持有锁本; 永赢/港药持有不动</div>
+    <div class="cmd-risk">🔴 单基 -8% 硬止损 + 半导体集群级减仓(-6.84%已触发) + 14:55截止铁律</div>
   </div>
   <div class="cmd-meta">
-    <span class="ts">🕒 数据截至 2026-07-10 14:48</span>
+    <span class="ts">🕒 数据截至 2026-07-10 收盘(15:00) · 账户T0快照14:37 [⚠ 无14:30基准, 以开盘/午盘代理]</span>
     <nav class="cmd-nav"><a href="#hold">📦 持仓</a><a href="#sector">📊 板块</a><a href="#stop">🔻 止损</a><a href="#twin">🕒 窗口</a><a href="#pl">🔒 止盈</a><a href="#rb">🔄 调仓</a><span class="nav-sep">|</span><a href="早间全球分析-2026-07-10.html">🌅 早报</a><a href="午盘收盘-2026-07-10.html">📊 午盘</a><a href="../../index.html">📱 收件箱</a></nav>
   </div>
-  <div class="cmd-disc">半导体集中度77.6%极度集中; 今日半导体材料设备-5.54%触发集群减仓; 东方AI单仓36.3%超30%上限; 防御仅剩债基9.6%; 禁止继续加半导体</div>
+  <div class="cmd-disc">半导体集中度占总资产65.5%/占持仓74.5%; 今日半导体材料设备-6.84%(振幅10.2%放量)触发集群减仓; 东方阿尔法25.61%新第一大仓逼近30%上限; 防御仅债基9.62%+现金12.11%(弹药); ⚠ 14:37账户+3.75%快照早于尾盘跳水, EOD实际收益或显著低于此值; 14:55后禁止新建仓位</div>
 </div>
 <section id="twin" class="card">
   <h2>🕒 尾盘时间窗口与监控框架 <span class="badge">14:30监控→14:55决策→截止</span></h2>
-  
+  <div class="tw-today">🎯 今日尾盘场景：<b>放量跳水</b></div>
   <div class="tw-phases"><div class="tw-phase"><b>① 实时监控期</b><span>14:30-14:50 实时监控期：持续跟踪核心指标，记录量价异动信号</span></div><div class="tw-phase"><b>② 决策执行期</b><span>14:50-14:55 决策执行期：汇总全天+尾盘信号、生成最终决策、完成限价委托挂单</span></div><div class="tw-phase"><b>③ 截止铁律</b><span>14:55之后：仅允许已有持仓的止盈止损被动委托，不新建任何仓位，规避最后几分钟脉冲式诱多/诱空陷阱</span></div></div>
   <div class="tw-mon-box"><div class="tw-mon"><b>broad_market：</b>沪深300/创业板指/科创50分时涨跌幅 / 量比(≥1.2增量资金入场,≥3警惕异动诱盘) / 分时均线支撑/压力 / 北向资金尾盘10分钟净流入额</div><div class="tw-mon"><b>sector_rotation：</b>全市场一级行业指数涨幅排名 / 成交额增幅(识别当日资金主攻/出逃方向)</div><div class="tw-mon"><b>holdings：</b>持仓基金对应底层指数/ETF实时估值涨跌幅 / 量价配合度</div></div>
   <div class="tw-sc-title">尾盘场景分类（命中今日高亮）</div>
-  <div class="tw-scs"><div class="tw-sc"><div class="tw-sc-name">尾盘放量拉升</div><div class="tw-sc-cond">判定：指数涨幅&gt;1%,量比&gt;1.2,站稳分时均线</div><div class="tw-sc-act">动作：持仓盈利标的持有不动；不追高加仓，仅保留底仓</div></div><div class="tw-sc"><div class="tw-sc-name">尾盘放量跳水</div><div class="tw-sc-cond">判定：指数跌幅&gt;1%,量比&gt;3,跌破分时均线</div><div class="tw-sc-act">动作：高仓位/高盈利标的减仓1/3锁定利润；弱势标的止损降仓</div></div><div class="tw-sc"><div class="tw-sc-name">缩量横盘震荡</div><div class="tw-sc-cond">判定：高低点价差&lt;1%,成交量较日内均值萎缩50%</div><div class="tw-sc-act">动作：维持原有仓位，不做操作，等待次日方向选择</div></div><div class="tw-sc"><div class="tw-sc-name">板块分化轮动</div><div class="tw-sc-cond">判定：科技指数下跌，但宽基/消费/红利上涨</div><div class="tw-sc-act">动作：不盲目减仓科技，观察持续性，次日再执行调仓</div></div></div>
+  <div class="tw-scs"><div class="tw-sc"><div class="tw-sc-name">尾盘放量拉升</div><div class="tw-sc-cond">判定：指数涨幅&gt;1%,量比&gt;1.2,站稳分时均线</div><div class="tw-sc-act">动作：持仓盈利标的持有不动；不追高加仓，仅保留底仓</div></div><div class="tw-sc tw-sc-on"><div class="tw-sc-name">尾盘放量跳水</div><div class="tw-sc-cond">判定：指数跌幅&gt;1%,量比&gt;3,跌破分时均线</div><div class="tw-sc-act">动作：高仓位/高盈利标的减仓1/3锁定利润；弱势标的止损降仓</div></div><div class="tw-sc"><div class="tw-sc-name">缩量横盘震荡</div><div class="tw-sc-cond">判定：高低点价差&lt;1%,成交量较日内均值萎缩50%</div><div class="tw-sc-act">动作：维持原有仓位，不做操作，等待次日方向选择</div></div><div class="tw-sc"><div class="tw-sc-name">板块分化轮动</div><div class="tw-sc-cond">判定：科技指数下跌，但宽基/消费/红利上涨</div><div class="tw-sc-act">动作：不盲目减仓科技，观察持续性，次日再执行调仓</div></div></div>
 </section>
 <section id="core" class="card">
   <h2>📈 核心指标速览 <span class="badge">收盘前 10 秒定操作</span></h2>
-  <div class="kpi-row"><div class="kpi"><div class="kpi-l">上证</div><div class="kpi-v down">-0.76%</div></div><div class="kpi"><div class="kpi-l">创业板<span class="kpi-tag">领跌</span></div><div class="kpi-v down">-3.94%</div></div><div class="kpi"><div class="kpi-l">半导体材料设备<span class="kpi-tag">领跌板块</span></div><div class="kpi-v down">-5.54%</div></div><div class="kpi"><div class="kpi-l">沪深300主力净流出<span class="kpi-tag">主力出逃</span></div><div class="kpi-v down">-312亿</div></div></div>
+  <div class="kpi-row"><div class="kpi"><div class="kpi-l">上证</div><div class="kpi-v down">-1.00%</div></div><div class="kpi"><div class="kpi-l">深证</div><div class="kpi-v down">-2.29%</div></div><div class="kpi"><div class="kpi-l">创业板<span class="kpi-tag">领跌·光脚</span></div><div class="kpi-v down">-4.37%</div></div><div class="kpi"><div class="kpi-l">沪深300</div><div class="kpi-v down">-1.96%</div></div><div class="kpi"><div class="kpi-l">科创50<span class="kpi-tag">光脚</span></div><div class="kpi-v down">-5.53%</div></div><div class="kpi"><div class="kpi-l">半导体材料设备<span class="kpi-tag">领跌板块·放量</span></div><div class="kpi-v down">-6.84%</div></div><div class="kpi"><div class="kpi-l">CPO光模块<span class="kpi-tag">主力净流出165亿</span></div><div class="kpi-v down">-2.43%</div></div><div class="kpi"><div class="kpi-l">港股创新药<span class="kpi-tag">逆势涨</span></div><div class="kpi-v up">+3.25%</div></div><div class="kpi"><div class="kpi-l">成交额<span class="kpi-tag">放量</span></div><div class="kpi-v neu">≈3.3万亿</div></div></div>
   <div class="legend">涨跌配色 <b class="up">红=涨</b>/<b class="down">绿=跌</b>（A股惯例）· 尾盘决策以实时快照为准，收盘后以官方净值复核</div>
 </section>
 <section id="hold" class="card">
@@ -224,27 +224,65 @@ details.card[open] summary{margin-bottom:10px;border-bottom:1px solid var(--line
   <div class="hcards">
 <details class="hcard open" open>
   <summary class="hsum">
-    <span class="hname">东方人工智能主题混合C</span>
-    <span class="hsector">半导体材料设备/AI</span>
-    <span class="hweight">仓 36.30%</span>
-    <span class="hret"><span class="up b">+13.63%</span></span>
-    <span class="op-tag op-hold">HOLD</span>
+    <span class="hname">东方阿尔法科技优选混合C</span>
+    <span class="hsector">半导体材料设备/科技优选</span>
+    <span class="hweight">仓 25.61%</span>
+    <span class="hret"><span class="up b">+11.93%</span></span>
+    <span class="op-tag op-sell">减仓</span>
     <span class="ow-badge">⚠ 单仓超限</span>
   </summary>
   <div class="hbody">
-    <div class="hkline"><div class="kline-text">基金净值T+1; 关联半导体材料设备今日-5.54%</div></div>
+    <div class="hkline"><div class="kline-text">关联半导体材料设备今日-6.84%(振幅10.2%)</div></div>
     <div class="hright">
       <div class="hcol">
         <div class="hcol-h">主力行为研判</div>
-        <div class="kv"><span>净流入</span><span class="down">-143.5亿</span></div>
+        <div class="kv"><span>净流入</span><span class="down"><span class="mut">⚠ 数据源未返回</span></span></div>
         <div class="kv"><span>超大单占比</span><span><span class="mut">⚠ 数据源未返回</span></span></div>
-        <div class="kv"><span>定性</span><span class="mf mf-down">出货/洗盘偏空</span></div>
-        <div class="hcol-note">半导体主力净流出, 前期获利盘兑现</div>
+        <div class="kv"><span>定性</span><span class="mf mf-neu">高位放量派发(模型研判)</span></div>
+        <div class="hcol-note">半导体材料设备-6.84%振幅10.2%量比1.2, 获利盘兑现⚠待验证主力净额</div>
+      </div>
+      <div class="hcol">
+        <div class="hcol-h">五维技术评分</div>
+        <div class="tech-comp"><span class="down">28</span><span class="tech-lvl down">偏空</span></div>
+        <div class="kv"><span>趋势</span><span>收盘破MA20(光脚阴)</span></div>
+        <div class="kv"><span>量价</span><span>放量下跌</span></div>
+        <div class="kv"><span>形态</span><span>长阴破位</span></div>
+      </div>
+      <div class="hcol">
+        <div class="hcol-h">操作指令区</div>
+        <div class="op-big op-sell">减仓</div>
+        <div class="kv"><span>硬止损</span><span class="down">-8.0%</span></div>
+        <div class="kv"><span>持有收益</span><span><span class="up b">+11.93%</span></span></div>
+        <div class="kv"><span>缓冲</span><span>距 -8% 还有 <b>19.93%</b></span></div>
+        <div class="kv"><span>关联指数</span><span>半导体材料设备 <span class="down b">-6.84%</span></span></div>
+        <div class="hcol-note ">新第一大仓(25.61%)逼近30%上限; 板块-6.84%触发集群减仓→优先减此基降#1仓至≤22%(约减800元), 同步触发profit_lock立即赎30%收回本金</div>
+      </div>
+    </div>
+  </div>
+</details>
+<details class="hcard open" open>
+  <summary class="hsum">
+    <span class="hname">东方人工智能主题混合C</span>
+    <span class="hsector">半导体材料设备/AI</span>
+    <span class="hweight">仓 24.21%</span>
+    <span class="hret"><span class="up b">+13.63%</span></span>
+    <span class="op-tag op-hold">HOLD</span>
+    
+  </summary>
+  <div class="hbody">
+    <div class="hkline"><div class="kline-text">关联半导体材料设备今日-6.84%</div></div>
+    <div class="hright">
+      <div class="hcol">
+        <div class="hcol-h">主力行为研判</div>
+        <div class="kv"><span>净流入</span><span class="down"><span class="mut">⚠ 数据源未返回</span></span></div>
+        <div class="kv"><span>超大单占比</span><span><span class="mut">⚠ 数据源未返回</span></span></div>
+        <div class="kv"><span>定性</span><span class="mf mf-down">出货/派发偏空</span></div>
+        <div class="hcol-note">半导体主力净流出, 前期获利盘兑现⚠待验证</div>
       </div>
       <div class="hcol">
         <div class="hcol-h">五维技术评分</div>
         <div class="tech-comp"><span class="down">30</span><span class="tech-lvl down">偏空</span></div>
-        <div class="kv"><span>趋势</span><span>偏空(收盘破MA20)</span></div>
+        <div class="kv"><span>趋势</span><span>收盘破MA20</span></div>
         <div class="kv"><span>量价</span><span>价跌量增放量</span></div>
         <div class="kv"><span>形态</span><span>长阴破位</span></div>
       </div>
@@ -254,46 +292,8 @@ details.card[open] summary{margin-bottom:10px;border-bottom:1px solid var(--line
         <div class="kv"><span>硬止损</span><span class="down">-8.0%</span></div>
         <div class="kv"><span>持有收益</span><span><span class="up b">+13.63%</span></span></div>
         <div class="kv"><span>缓冲</span><span>距 -8% 还有 <b>21.63%</b></span></div>
-        <div class="kv"><span>关联指数</span><span>半导体 <span class="down b">-5.54%</span></span></div>
-        <div class="hcol-note ">板块单日-5.54%触发集群减仓, 优先减此基降至≤30%; 单仓超限禁止加仓</div>
-      </div>
-    </div>
-  </div>
-</details>
-<details class="hcard open" open>
-  <summary class="hsum">
-    <span class="hname">东方阿尔法科技优选混合C</span>
-    <span class="hsector">半导体材料设备/AI</span>
-    <span class="hweight">仓 25.60%</span>
-    <span class="hret"><span class="up b">+11.93%</span></span>
-    <span class="op-tag op-hold">HOLD</span>
-    
-  </summary>
-  <div class="hbody">
-    <div class="hkline"><div class="kline-text">关联光芯片今日-2.23%</div></div>
-    <div class="hright">
-      <div class="hcol">
-        <div class="hcol-h">主力行为研判</div>
-        <div class="kv"><span>净流入</span><span class="down">-60.9亿</span></div>
-        <div class="kv"><span>超大单占比</span><span><span class="mut">⚠ 数据源未返回</span></span></div>
-        <div class="kv"><span>定性</span><span class="mf mf-neu">洗盘偏空</span></div>
-        <div class="hcol-note">光芯片主力净流出</div>
-      </div>
-      <div class="hcol">
-        <div class="hcol-h">五维技术评分</div>
-        <div class="tech-comp"><span class="down">35</span><span class="tech-lvl down">偏空</span></div>
-        <div class="kv"><span>趋势</span><span>偏空</span></div>
-        <div class="kv"><span>量价</span><span>放量下跌</span></div>
-        <div class="kv"><span>形态</span><span>中阴</span></div>
-      </div>
-      <div class="hcol">
-        <div class="hcol-h">操作指令区</div>
-        <div class="op-big op-hold">HOLD</div>
-        <div class="kv"><span>硬止损</span><span class="down">-8.0%</span></div>
-        <div class="kv"><span>持有收益</span><span><span class="up b">+11.93%</span></span></div>
-        <div class="kv"><span>缓冲</span><span>距 -8% 还有 <b>19.93%</b></span></div>
-        <div class="kv"><span>关联指数</span><span>半导体 <span class="down b">-5.54%</span></span></div>
-        <div class="hcol-note ">同属半导体集群, 板块-5.54%回撤; 不减仓但禁止加仓</div>
+        <div class="kv"><span>关联指数</span><span>半导体材料设备 <span class="down b">-6.84%</span></span></div>
+        <div class="hcol-note ">已卖1/3解除超限(24.21%); 剩2/3持有锁本不追加; profit_lock: 涨至20%赎剩余50%收本金/回撤&gt;5%赎50%/回撤至收益仅2%全清</div>
       </div>
     </div>
   </div>
@@ -301,21 +301,21 @@ details.card[open] summary{margin-bottom:10px;border-bottom:1px solid var(--line
 <details class="hcard open" open>
   <summary class="hsum">
     <span class="hname">永赢先锋半导体智选混合C</span>
-    <span class="hsector">半导体材料设备/AI</span>
-    <span class="hweight">仓 14.10%</span>
+    <span class="hsector">半导体材料设备</span>
+    <span class="hweight">仓 14.12%</span>
     <span class="hret"><span class="down">-0.94%</span></span>
     <span class="op-tag op-hold">HOLD</span>
     
   </summary>
   <div class="hbody">
-    <div class="hkline"><div class="kline-text">关联半导体材料设备今日-5.54%</div></div>
+    <div class="hkline"><div class="kline-text">关联半导体材料设备今日-6.84%</div></div>
     <div class="hright">
       <div class="hcol">
         <div class="hcol-h">主力行为研判</div>
-        <div class="kv"><span>净流入</span><span class="down">-204.0亿</span></div>
+        <div class="kv"><span>净流入</span><span class="down"><span class="mut">⚠ 数据源未返回</span></span></div>
         <div class="kv"><span>超大单占比</span><span><span class="mut">⚠ 数据源未返回</span></span></div>
         <div class="kv"><span>定性</span><span class="mf mf-neu">洗盘偏空</span></div>
-        <div class="hcol-note">半导体整体净流出</div>
+        <div class="hcol-note">半导体整体净流出⚠待验证净额</div>
       </div>
       <div class="hcol">
         <div class="hcol-h">五维技术评分</div>
@@ -330,8 +330,8 @@ details.card[open] summary{margin-bottom:10px;border-bottom:1px solid var(--line
         <div class="kv"><span>硬止损</span><span class="down">-8.0%</span></div>
         <div class="kv"><span>持有收益</span><span><span class="down">-0.94%</span></span></div>
         <div class="kv"><span>缓冲</span><span>距 -8% 还有 <b>7.06%</b></span></div>
-        <div class="kv"><span>关联指数</span><span>半导体 <span class="down b">-5.54%</span></span></div>
-        <div class="hcol-note ">翻倍后绝对敞口1856, 每1%波动±18.5元; 今日板块-5.54%回撤约-100元; 距-8%硬止损尚有空间, 持有观察</div>
+        <div class="kv"><span>关联指数</span><span>半导体材料设备 <span class="down b">-6.84%</span></span></div>
+        <div class="hcol-note ">翻倍后绝对敞口1856, 每1%波动±18.5元; 今日板块-6.84%≈回撤-127元; 距-8%硬止损尚有空间(-0.94%未触-2%止损线), 持有观察不恐慌割肉</div>
       </div>
     </div>
   </div>
@@ -340,36 +340,36 @@ details.card[open] summary{margin-bottom:10px;border-bottom:1px solid var(--line
   <summary class="hsum">
     <span class="hname">广发港股创新药ETF联接(QDII)C</span>
     <span class="hsector">创新药/港股创新药</span>
-    <span class="hweight">仓 10.60%</span>
+    <span class="hweight">仓 10.58%</span>
     <span class="hret"><span class="down b">-3.75%</span></span>
-    <span class="op-tag op-sell">减仓</span>
+    <span class="op-tag op-hold">HOLD</span>
     
   </summary>
   <div class="hbody">
-    <div class="hkline"><div class="kline-text">港股创新药持续偏弱</div></div>
+    <div class="hkline"><div class="kline-text">关联港股创新药今日+3.25%(逆势)</div></div>
     <div class="hright">
       <div class="hcol">
         <div class="hcol-h">主力行为研判</div>
         <div class="kv"><span>净流入</span><span class="down"><span class="mut">⚠ 数据源未返回</span></span></div>
         <div class="kv"><span>超大单占比</span><span><span class="mut">⚠ 数据源未返回</span></span></div>
-        <div class="kv"><span>定性</span><span class="mf mf-neu">—</span></div>
-        <div class="hcol-note"></div>
+        <div class="kv"><span>定性</span><span class="mf mf-neu">逆势吸筹偏多</span></div>
+        <div class="hcol-note">港股创新药+3.25%领涨⚠待验证主力净额</div>
       </div>
       <div class="hcol">
         <div class="hcol-h">五维技术评分</div>
-        <div class="tech-comp"><span class="down">32</span><span class="tech-lvl down">偏空</span></div>
-        <div class="kv"><span>趋势</span><span>偏弱</span></div>
-        <div class="kv"><span>量价</span><span>阴跌</span></div>
-        <div class="kv"><span>形态</span><span>下行</span></div>
+        <div class="tech-comp"><span class="up">55</span><span class="tech-lvl up">偏多</span></div>
+        <div class="kv"><span>趋势</span><span>逆势走强</span></div>
+        <div class="kv"><span>量价</span><span>缩量反弹</span></div>
+        <div class="kv"><span>形态</span><span>阳线</span></div>
       </div>
       <div class="hcol">
         <div class="hcol-h">操作指令区</div>
-        <div class="op-big op-sell">减仓</div>
+        <div class="op-big op-hold">HOLD</div>
         <div class="kv"><span>硬止损</span><span class="down">-8.0%</span></div>
         <div class="kv"><span>持有收益</span><span><span class="down b">-3.75%</span></span></div>
         <div class="kv"><span>缓冲</span><span>距 -8% 还有 <b>4.25%</b></span></div>
-        <div class="kv"><span>关联指数</span><span>港股创新药 <span class="mut">⚠ 数据源未返回</span></span></div>
-        <div class="hcol-note ">持续亏损-3.75%, 此前已减仓; 继续择机减仓降低单一港股敞口</div>
+        <div class="kv"><span>关联指数</span><span>港股创新药 <span class="up b">+3.25%</span></span></div>
+        <div class="hcol-note ">今日关联港股创新药+3.25%逆势反弹(主力抢筹); 市场先生逆向不割肉; profit_lock: 回撤至-5%减仓50%/回升至-1%内减仓1/3</div>
       </div>
     </div>
   </div>
@@ -378,7 +378,7 @@ details.card[open] summary{margin-bottom:10px;border-bottom:1px solid var(--line
   <summary class="hsum">
     <span class="hname">鹏华丰诚债券C</span>
     <span class="hsector">纯债安全垫(无权益板块)</span>
-    <span class="hweight">仓 9.60%</span>
+    <span class="hweight">仓 9.62%</span>
     <span class="hret"><span class="neu">-0.04%</span></span>
     <span class="op-tag op-hold">HOLD</span>
     
@@ -416,13 +416,13 @@ details.card[open] summary{margin-bottom:10px;border-bottom:1px solid var(--line
   <summary class="hsum">
     <span class="hname">财通集成电路产业股票C</span>
     <span class="hsector">半导体/CPO</span>
-    <span class="hweight">仓 1.50%</span>
+    <span class="hweight">仓 1.47%</span>
     <span class="hret"><span class="up b">+2.65%</span></span>
     <span class="op-tag op-hold">HOLD</span>
     
   </summary>
   <div class="hbody">
-    <div class="hkline"><div class="kline-text">关联半导体材料设备-5.54%</div></div>
+    <div class="hkline"><div class="kline-text">关联半导体材料设备-6.84%</div></div>
     <div class="hright">
       <div class="hcol">
         <div class="hcol-h">主力行为研判</div>
@@ -444,8 +444,8 @@ details.card[open] summary{margin-bottom:10px;border-bottom:1px solid var(--line
         <div class="kv"><span>硬止损</span><span class="down">-8.0%</span></div>
         <div class="kv"><span>持有收益</span><span><span class="up b">+2.65%</span></span></div>
         <div class="kv"><span>缓冲</span><span>距 -8% 还有 <b>10.65%</b></span></div>
-        <div class="kv"><span>关联指数</span><span>半导体 <span class="down b">-5.54%</span></span></div>
-        <div class="hcol-note ">新仓小比例, 板块回撤持有</div>
+        <div class="kv"><span>关联指数</span><span>半导体/CPO <span class="down b">-6.84%</span></span></div>
+        <div class="hcol-note ">观察仓小比例, 板块回撤持有; profit_lock: 收益达10%止盈一半</div>
       </div>
     </div>
   </div>
@@ -453,14 +453,14 @@ details.card[open] summary{margin-bottom:10px;border-bottom:1px solid var(--line
 <details class="hcard " >
   <summary class="hsum">
     <span class="hname">财通成长优选混合C</span>
-    <span class="hsector">半导体/CPO</span>
-    <span class="hweight">仓 1.50%</span>
+    <span class="hsector">沪深300成长/混合</span>
+    <span class="hweight">仓 1.47%</span>
     <span class="hret"><span class="up b">+2.62%</span></span>
     <span class="op-tag op-hold">HOLD</span>
     
   </summary>
   <div class="hbody">
-    <div class="hkline"><div class="kline-text">关联半导体-5.54%</div></div>
+    <div class="hkline"><div class="kline-text">关联沪深300成长-1.96%</div></div>
     <div class="hright">
       <div class="hcol">
         <div class="hcol-h">主力行为研判</div>
@@ -471,7 +471,7 @@ details.card[open] summary{margin-bottom:10px;border-bottom:1px solid var(--line
       </div>
       <div class="hcol">
         <div class="hcol-h">五维技术评分</div>
-        <div class="tech-comp"><span class="down">38</span><span class="tech-lvl down">偏空</span></div>
+        <div class="tech-comp"><span class="down">42</span><span class="tech-lvl down">偏空</span></div>
         <div class="kv"><span>趋势</span><span>偏空</span></div>
         <div class="kv"><span>量价</span><span>量价齐跌</span></div>
         <div class="kv"><span>形态</span><span>小阴</span></div>
@@ -482,8 +482,8 @@ details.card[open] summary{margin-bottom:10px;border-bottom:1px solid var(--line
         <div class="kv"><span>硬止损</span><span class="down">-8.0%</span></div>
         <div class="kv"><span>持有收益</span><span><span class="up b">+2.62%</span></span></div>
         <div class="kv"><span>缓冲</span><span>距 -8% 还有 <b>10.62%</b></span></div>
-        <div class="kv"><span>关联指数</span><span>半导体 <span class="down b">-5.54%</span></span></div>
-        <div class="hcol-note ">新仓小比例, 板块回撤持有</div>
+        <div class="kv"><span>关联指数</span><span>沪深300成长 <span class="down">-1.96%</span></span></div>
+        <div class="hcol-note ">观察仓小比例, 关联沪深300成长-1.96%回撤持有; profit_lock: 收益达10%止盈一半</div>
       </div>
     </div>
   </div>
@@ -492,7 +492,7 @@ details.card[open] summary{margin-bottom:10px;border-bottom:1px solid var(--line
   <summary class="hsum">
     <span class="hname">广发纳斯达克100ETF联接(QDII)C</span>
     <span class="hsector">纳斯达克100(美股QDII)</span>
-    <span class="hweight">仓 0.70%</span>
+    <span class="hweight">仓 0.68%</span>
     <span class="hret"><span class="down">-1.35%</span></span>
     <span class="op-tag op-hold">HOLD</span>
     
@@ -521,7 +521,7 @@ details.card[open] summary{margin-bottom:10px;border-bottom:1px solid var(--line
         <div class="kv"><span>持有收益</span><span><span class="down">-1.35%</span></span></div>
         <div class="kv"><span>缓冲</span><span>距 -8% 还有 <b>6.65%</b></span></div>
         <div class="kv"><span>关联指数</span><span>纳斯达克100 <span class="mut">⚠ 数据源未返回</span></span></div>
-        <div class="hcol-note ">美股QDII T+1, 小比例持有</div>
+        <div class="hcol-note ">美股QDII T+1, 小比例防御底仓持有</div>
       </div>
     </div>
   </div>
@@ -530,13 +530,13 @@ details.card[open] summary{margin-bottom:10px;border-bottom:1px solid var(--line
   <summary class="hsum">
     <span class="hname">天弘中证全指通信设备指数C</span>
     <span class="hsector">通信设备/CPO</span>
-    <span class="hweight">仓 0.10%</span>
+    <span class="hweight">仓 0.08%</span>
     <span class="hret"><span class="up b">+5.91%</span></span>
     <span class="op-tag op-hold">HOLD</span>
     
   </summary>
   <div class="hbody">
-    <div class="hkline"><div class="kline-text">关联CPO -1.68%</div></div>
+    <div class="hkline"><div class="kline-text">关联CPO -2.43%</div></div>
     <div class="hright">
       <div class="hcol">
         <div class="hcol-h">主力行为研判</div>
@@ -558,8 +558,8 @@ details.card[open] summary{margin-bottom:10px;border-bottom:1px solid var(--line
         <div class="kv"><span>硬止损</span><span class="down">-8.0%</span></div>
         <div class="kv"><span>持有收益</span><span><span class="up b">+5.91%</span></span></div>
         <div class="kv"><span>缓冲</span><span>距 -8% 还有 <b>13.91%</b></span></div>
-        <div class="kv"><span>关联指数</span><span>通信设备CPO <span class="down">-1.68%</span></span></div>
-        <div class="hcol-note ">微仓, 关联CPO -1.68%</div>
+        <div class="kv"><span>关联指数</span><span>通信设备CPO <span class="down b">-2.43%</span></span></div>
+        <div class="hcol-note ">迷你仓, 关联CPO -2.43%; profit_lock: 收益达10%止盈一半</div>
       </div>
     </div>
   </div>
@@ -643,15 +643,15 @@ details.card[open] summary{margin-bottom:10px;border-bottom:1px solid var(--line
 </section>
 <section id="sector" class="card">
   <h2>📊 板块日K量化信号 <span class="badge">五维 · 持仓强关联高亮</span></h2>
-  <div class="sbars"><div class="sbar-row linked"><div class="sbar-name">半导体材料设备</div><div class="sbar-track"><div class="sbar-fill down" style="width:30%"></div><span class="sbar-score">30.0</span></div><div class="sbar-ten down">偏空</div><div class="sbar-flow"><span class="down b">-204.00%</span>亿</div></div><div class="sbar-row linked"><div class="sbar-name">光芯片</div><div class="sbar-track"><div class="sbar-fill down" style="width:35%"></div><span class="sbar-score">35.0</span></div><div class="sbar-ten down">偏空</div><div class="sbar-flow"><span class="down b">-60.90%</span>亿</div></div><div class="sbar-row linked"><div class="sbar-name">共封装光模块CPO</div><div class="sbar-track"><div class="sbar-fill down" style="width:38%"></div><span class="sbar-score">38.0</span></div><div class="sbar-ten down">偏空</div><div class="sbar-flow"><span class="down b">-143.60%</span>亿</div></div><div class="sbar-row linked"><div class="sbar-name">港股创新药</div><div class="sbar-track"><div class="sbar-fill down" style="width:32%"></div><span class="sbar-score">32.0</span></div><div class="sbar-ten down">偏空</div><div class="sbar-flow"><span class="mut">⚠ 数据源未返回</span></div></div></div>
-  <div class="sbar-extra"><div><b>主力行为详解</b>：半导体三细分今日全线净流出: CPO-143.6亿/光芯片-60.9亿/材料设备-204亿(估算), 主力获利兑现+外围(日韩科技走弱)传导; 抱团核心龙头抗跌, 伪科技小票集体回调</div><div class='up'>🟢 止跌信号：半导体材料设备单日-5.54%&gt;3% → 集群减仓信号触发</div><div class='down'>🔴 见顶信号：无见顶确认, 但短期暴涨后反向修复中</div><div>⚡ 收盘暗号：临近半年报窗口, 资金规避业绩不及预期题材股</div></div>
+  <div class="sbars"><div class="sbar-row linked"><div class="sbar-name">半导体材料设备</div><div class="sbar-track"><div class="sbar-fill down" style="width:28%"></div><span class="sbar-score">28.0</span></div><div class="sbar-ten down">偏空</div><div class="sbar-flow"><span class="mut">⚠ 数据源未返回</span></div></div><div class="sbar-row linked"><div class="sbar-name">共封装光模块CPO</div><div class="sbar-track"><div class="sbar-fill down" style="width:38%"></div><span class="sbar-score">38.0</span></div><div class="sbar-ten down">偏空</div><div class="sbar-flow"><span class="down b">-165.00%</span>亿</div></div><div class="sbar-row linked"><div class="sbar-name">通信设备</div><div class="sbar-track"><div class="sbar-fill down" style="width:40%"></div><span class="sbar-score">40.0</span></div><div class="sbar-ten down">偏空</div><div class="sbar-flow"><span class="mut">⚠ 数据源未返回</span></div></div><div class="sbar-row linked"><div class="sbar-name">港股创新药</div><div class="sbar-track"><div class="sbar-fill up" style="width:55%"></div><span class="sbar-score">55.0</span></div><div class="sbar-ten up">偏多</div><div class="sbar-flow"><span class="mut">⚠ 数据源未返回</span></div></div></div>
+  <div class="sbar-extra"><div><b>主力行为详解</b>：半导体材料设备单日-6.84%(振幅10.2%量比1.2)高位放量长阴=获利盘派发; CPO-2.43%主力净流出165亿同步走弱; 三细分全线净流出(⚠主力净额部分待验证)。唯港股创新药+3.25%逆势吸筹, 资金从科技切向医药/资源/红利(盘面出现卫星/有色/医药涨停)。</div><div class='up'>🟢 止跌信号：半导体材料设备单日-6.84%&gt;3% → 集群减仓信号触发(强)</div><div class='down'>🔴 见顶信号：无见顶新高的二次确认, 但短期暴涨后反向杀跌中继</div><div>⚡ 收盘暗号：创业板/科创50收盘=当日最低(光脚阴线)=尾盘加速赶底; 临近半年报窗口, 资金规避高估值伪科技</div></div>
   <div class="legend">评分 = 趋势40%+量价30%+形态15%+主力15%；≥65偏多 / 35-64中性 / ≤34偏空。进度条长度=多空评分。</div>
 </section>
 <section id="stop" class="card">
   <h2>🔻 硬止损风险监控 <span class="badge">当前亏损 / -8% 进度</span></h2>
-  <div class="stops"><div class="stop-row"><div class="stop-name">永赢先锋半导体</div><div class="stop-track"><div class="stop-fill" style="width:11.8%"></div></div><div class="stop-pct">-0.94%</div></div></div>
-  <div class="stop-floor">🛡️ 半导体77.6%集中度为最大风险源; 今日材料设备-5.54%触发集群减仓</div>
-  <div class="alerts"><div class="alert-item red"><b>半导体材料设备单日-5.54%触发集群减仓信号(&gt;3%)</b> — 建议至少减1只半导体(优先东方AI降至≤30%)</div><div class="alert-item red"><b>东方AI单仓36.3%超30%上限</b> — 需降至≤30%</div><div class="alert-item orange"><b>永赢半导翻倍至1856, 绝对敞口增大</b> — 每1%波动±18.5元</div><div class="alert-item orange"><b>防御仓位仅剩鹏华债9.6%</b> — 几乎无下跌缓冲</div><div class="alert-item orange"><b>半导体今日主力净流出</b> — CPO-143.6亿+光芯片-60.9亿, 出货迹象</div></div>
+  <div class="stops"><div class="stop-row"><div class="stop-name">永赢先锋半导体</div><div class="stop-track"><div class="stop-fill" style="width:11.8%"></div></div><div class="stop-pct">-0.94%</div></div><div class="stop-row"><div class="stop-name">东方AI(剩2/3)</div><div class="stop-track"><div class="stop-fill" style="width:0.0%"></div></div><div class="stop-pct"><span class="mut">⚠ 数据源未返回</span></div></div><div class="stop-row"><div class="stop-name">东方阿尔法</div><div class="stop-track"><div class="stop-fill" style="width:0.0%"></div></div><div class="stop-pct"><span class="mut">⚠ 数据源未返回</span></div></div></div>
+  <div class="stop-floor">🛡️ 半导体65.5%集中度为最大风险源; 今日材料设备-6.84%触发集群减仓; 单基-8%硬止损全程有效</div>
+  <div class="alerts"><div class="alert-item red"><b>半导体材料设备单日-6.84%(振幅10.2%)触发集群减仓信号(&gt;3%)</b> — 建议至少减1只半导体(优先东方阿尔法降#1仓至≤22%)</div><div class="alert-item red"><b>东方阿尔法25.61%为第一大仓, 逼近30%上限</b> — 需择机降至≤22-30%区间</div><div class="alert-item orange"><b>永赢半导大敞口1856, 每1%波动±18.5元</b> — 今日板块-6.84%≈回撤-127元</div><div class="alert-item orange"><b>港药持续亏损-3.75%</b> — 但今日关联+3.25%反弹, 不割肉</div><div class="alert-item orange"><b>防御仅债基9.62%</b> — 现金12.11%(1589元)为尾盘/次日低吸弹药, 勿闲置</div><div class="alert-item orange"><b>⚠ 14:37账户+3.75%快照早于尾盘跳水</b> — 收盘半导体-6.84%或令EOD实际收益显著低于+3.75%</div></div>
 </section>
 <section id="pl" class="card">
   <h2>🔒 阶梯止盈锁本参数表 <span class="badge">按持仓 · 分批收回本金</span></h2>
@@ -671,32 +671,34 @@ details.card[open] summary{margin-bottom:10px;border-bottom:1px solid var(--line
 </section>
 <section id="sent" class="card">
   <h2>🌡️ 市场情绪 · 结论前置 <span class="badge">恐惧贪婪指数</span></h2>
-  <div class="fg-big">F&amp;G <b>38</b> / 100 · <span class="down">偏空</span></div>
-  <div class="fg-div">⚡ 核心背离：指数抗跌(上证-0.76%)但3500+个股下跌/中位数-1.17%/近200只跌超8%, 隐性背离严重</div>
-  <div class="fg-action">尾盘情绪指令：中性偏防御; 半导体暴跌触发减仓而非抄底</div>
+  <div class="fg-big">F&amp;G <b>40</b> / 100 · <span class="down">偏空(恐惧升温)</span></div>
+  <div class="fg-div">⚡ 核心背离：指数暴跌(创业板-4.37%/科创50-5.53%光脚)但盘面现医药/资源/卫星涨停潮, 结构性背离: 资金从高估值科技向低位防御/医药轮动</div>
+  <div class="fg-action">尾盘情绪指令：中性偏防御; 半导体暴跌触发减仓而非抄底, 不盲目接飞刀</div>
   <details class="fg-detail">
     <summary>📋 8 因子分项（点击展开）</summary>
-    <table><tr><th>因子</th><th>原始值</th><th>评分</th><th>加权</th><th>来源</th></tr><tr><td>市场广度</td><td class="mut">涨跌家数比≈0.4(3500+下跌)</td><td class="down">30.0</td><td class="mut">15%</td><td class="mut">T2</td></tr><tr><td>极端跌幅</td><td class="mut">近200只跌超8%/跌停数十家</td><td class="down">20.0</td><td class="mut">15%</td><td class="mut">T2</td></tr><tr><td>成交额</td><td class="mut">全天预计3.3万亿放量</td><td class="up">55.0</td><td class="mut">10%</td><td class="mut">T2</td></tr><tr><td>创业板</td><td class="mut">-3.94%破位</td><td class="down">25.0</td><td class="mut">15%</td><td class="mut">T2</td></tr><tr><td>半导体</td><td class="mut">材料设备-5.54%领跌</td><td class="down">20.0</td><td class="mut">15%</td><td class="mut">T2</td></tr><tr><td>北向资金</td><td class="mut">数据源未返回</td><td class="neu">50.0</td><td class="mut">10%</td><td class="mut">T2</td></tr><tr><td>融资余额</td><td class="mut">数据源未返回</td><td class="neu">50.0</td><td class="mut">10%</td><td class="mut">T2</td></tr><tr><td>VIX</td><td class="mut">数据源未返回</td><td class="neu">50.0</td><td class="mut">10%</td><td class="mut">T2</td></tr></table>
+    <table><tr><th>因子</th><th>原始值</th><th>评分</th><th>加权</th><th>来源</th></tr><tr><td>市场广度</td><td class="mut">跌多涨少, 涨跌比≈0.4(半导体崩跌拖累)</td><td class="down">25.0</td><td class="mut">15%</td><td class="mut">T2⚠待验证</td></tr><tr><td>涨跌停家数</td><td class="mut">科技跌停增多, 但医药/资源/卫星涨停潮</td><td class="down">38.0</td><td class="mut">10%</td><td class="mut">T2⚠待验证</td></tr><tr><td>主力资金净流入</td><td class="mut">半导体净流出/CPO-165亿明确派发</td><td class="down">18.0</td><td class="mut">15%</td><td class="mut">T2</td></tr><tr><td>北向资金</td><td class="mut">数据源未返回</td><td class="neu">50.0</td><td class="mut">12%</td><td class="mut">缺失</td></tr><tr><td>融资余额</td><td class="mut">数据源未返回</td><td class="neu">50.0</td><td class="mut">8%</td><td class="mut">缺失</td></tr><tr><td>量能亢奋度</td><td class="mut">全天≈3.3万亿放量(恐慌性)</td><td class="down">45.0</td><td class="mut">10%</td><td class="mut">T2</td></tr><tr><td>VIX</td><td class="mut">数据源未返回</td><td class="neu">50.0</td><td class="mut">15%</td><td class="mut">缺失</td></tr><tr><td>股债风险溢价ERP</td><td class="mut">10Y国债1.74%; 沪深300PE缺失</td><td class="up">55.0</td><td class="mut">15%</td><td class="mut">T2⚠待验证</td></tr></table>
   </details>
   <div class="note">情绪信号不覆盖 -8% 硬止损铁律，仅影响加仓/止盈的弹性决策。</div>
 </section>
 <details id="logic" class="card">
   <summary>🤖 操作决策逻辑引擎 <span class="badge">默认折叠</span></summary>
-  <div class="lg-block lg-buy"><div class="lg-h">尾盘买入（需同时满足）</div><pre class="lg-pre">①半导体板块单日暴跌-5.54%(&gt;3%)且主力净流出 → 禁止净买入半导体
-②加仓后单基≤30%总仓≤90%(东方AI已36.3%超限)
-③外围扰动+获利盘兑现, 不盲目抄底</pre></div><div class="lg-block lg-sell"><div class="lg-h">尾盘卖出（满足任一）</div><pre class="lg-pre">①半导体材料设备-5.54%触发集群减仓→至少减1只半导体(优先东方AI降至≤30%)
-②东方AI单仓超30%上限, 择机降至≤30%
-③创业板-3.94%破位+板块放量下跌, 减仓信号有效</pre></div><div class="lg-block lg-noadd"><div class="lg-h">尾盘不加仓（禁止买入）</div><pre class="lg-pre">①大盘跳水(创业板-3.94%&gt;0.5%)
-②半导体主力净流出(CPO-143.6亿+光芯片-60.9亿)
-③半导体集中度77.6%无任何安全边际 → 全场禁止净买入半导体</pre></div><div class="lg-block lg-emo"><div class="lg-h">情绪面校准规则</div><pre class="lg-pre">恐惧升温(3500+下跌/近200只跌超8%): 但半导体-5.54%属获利盘兑现+外围扰动而非恐慌底, 不盲目抄底; 集中度过高时分散化本身就是长期主义</pre></div><table class="lg-tbl"><tr><th>基金</th><th>最终指令</th><th>价位参考</th><th>仓位调整</th><th>情绪校准</th><th>逻辑</th></tr><tr><td>东方人工智能C</td><td>HOLD(减仓)</td><td>择机降至≤30%</td><td>减~804元(36.3%→30%)</td><td>— 不干预</td><td>板块-5.54%触发集群减仓+单仓超限</td></tr><tr><td>东方阿尔法C</td><td>HOLD</td><td>持有不加仓</td><td>维持25.6%</td><td>—</td><td>同属半导体集群, 板块回撤持有</td></tr><tr><td>永赢半导C</td><td>HOLD</td><td>持有</td><td>维持14.1%(敞口1856)</td><td>盯盘</td><td>距-8%尚有空间, 但绝对敞口大</td></tr><tr><td>港药C</td><td>减仓</td><td>择机减</td><td>10.6%→更低</td><td>—</td><td>持续-3.75%亏损</td></tr><tr><td>鹏华债C</td><td>HOLD</td><td>持有</td><td>防御9.6%</td><td>—</td><td>唯一稳定器</td></tr><tr><td>财通双基</td><td>HOLD</td><td>持有</td><td>各1.5%</td><td>—</td><td>小比例新仓</td></tr><tr><td>煤炭/消费</td><td>HOLD</td><td>已清仓</td><td>≈0%</td><td>—</td><td>清仓完毕</td></tr></table>
+  <div class="lg-block lg-buy"><div class="lg-h">尾盘买入（需同时满足）</div><pre class="lg-pre">①半导体板块单日暴跌-6.84%(&gt;3%)且主力净流出 → 禁止净买入半导体
+②加仓后单基≤30%总仓≤90%(东方阿尔法25.61%逼近上限)
+③尾盘跳水&gt;0.5%(创业板-4.37%) → 严禁新建任何仓位
+④集中度65.5%无安全边际, 加仓=去掉安全网</pre></div><div class="lg-block lg-sell"><div class="lg-h">尾盘卖出（满足任一）</div><pre class="lg-pre">①半导体材料设备-6.84%触发集群减仓→至少减1只半导体(优先东方阿尔法降至≤22%降#1仓)
+②东方阿尔法单仓25.61%逼近30%上限, 择机降至≤22-30%
+③创业板-4.37%光脚破位+板块放量下跌, 减仓信号有效
+④板块单日暴涨&gt;5%滞涨才止盈, 当前为暴跌非止盈区</pre></div><div class="lg-block lg-noadd"><div class="lg-h">尾盘不加仓（禁止买入）</div><pre class="lg-pre">①大盘跳水(创业板-4.37%&gt;0.5%)
+②半导体主力净流出(CPO-165亿明确)
+③半导体集中度65.5%无任何安全边际 → 全场禁止净买入半导体</pre></div><div class="lg-block lg-emo"><div class="lg-h">情绪面校准规则</div><pre class="lg-pre">恐惧升温(创业板-4.37%光脚/半导体-6.84%): 但属获利盘兑现+高位派发而非黄金坑, 不盲目抄底; 集中度过高时分散化=长期主义, 减东方阿尔法降#1仓是当下最优解</pre></div><table class="lg-tbl"><tr><th>基金</th><th>最终指令</th><th>价位参考</th><th>仓位调整</th><th>情绪校准</th><th>逻辑</th></tr><tr><td>东方阿尔法C</td><td>减仓</td><td>择机降至≤22%</td><td>减~800元(25.61%→≤22%)</td><td>— 减仓</td><td>板块-6.84%触发集群减仓+降#1仓+profit_lock立即赎30%</td></tr><tr><td>东方AI C</td><td>HOLD</td><td>剩2/3锁本</td><td>维持24.21%</td><td>—</td><td>已卖1/3解超限, 回撤&gt;5%赎50%/涨20%赎50%收本金</td></tr><tr><td>永赢半导C</td><td>HOLD</td><td>持有盯盘</td><td>维持14.12%(敞口1856)</td><td>盯盘</td><td>距-8%有空间, 回撤-2%止损50%</td></tr><tr><td>港药C</td><td>HOLD</td><td>持有不割</td><td>10.58%</td><td>—</td><td>今日+3.25%逆势反弹, 市场先生逆向</td></tr><tr><td>鹏华债C</td><td>HOLD</td><td>持有</td><td>防御9.62%</td><td>—</td><td>唯一稳定器</td></tr><tr><td>财通双基</td><td>HOLD</td><td>持有</td><td>各1.47%</td><td>—</td><td>小比例观察仓, 收益10%止盈一半</td></tr><tr><td>煤炭/消费</td><td>HOLD</td><td>已清仓</td><td>≈0%</td><td>—</td><td>清仓完毕</td></tr></table>
 </details>
 <details id="src" class="card">
   <summary>📎 数据来源与免责 <span class="badge">默认折叠</span></summary>
-  <div class="src-box"><div class="kv"><span>持仓实时净值</span><span class="src-note">T0 用户实盘(腾讯自选股OCR校准 14:37)</span></div><div class="kv"><span>大盘/板块实时行情</span><span class="src-note">neodata T2 (14:48 快照)</span></div><div class="kv"><span>市场情绪广度</span><span class="src-note">资讯T2 (3500+下跌/近200只跌超8%)</span></div></div>
-  <div class="note warn">本分析仅供参考, 不构成投资建议。行情为 T2 实时快照, 含跟踪误差与延迟; 基金以官方净值为准; 预测为模型研判, 历史不代表未来。</div>
+  <div class="src-box"><div class="kv"><span>持仓实时净值</span><span class="src-note">T0 用户实盘(腾讯自选股OCR校准 14:37, 卖出东方AI 1/3后)</span></div><div class="kv"><span>大盘/板块收盘行情</span><span class="src-note">neodata T2 (2026-07-10 收盘 15:00)</span></div><div class="kv"><span>市场情绪/广度</span><span class="src-note">neodata T2 + 资讯(北向/融资/VIX/ERP部分缺失标注)</span></div><div class="kv"><span>尾盘基准</span><span class="src-note">⚠ 无14:30基准文件, 以开盘/午盘代理</span></div></div>
+  <div class="note warn">本分析仅供参考, 不构成投资建议。行情为 T2 实时/收盘快照, 含跟踪误差与延迟; 基金以官方净值为准; 预测为模型研判, 历史不代表未来。⚠ 北向资金/融资余额/VIX/沪深300PE当日未返回, 相关因子按中性(50)计入并标注缺失; 半导体主力净额部分待验证。</div>
 </details>
 <script>
-const REPORT = {"date": "2026-07-10", "updated_at": "2026-07-10 14:48", "data_tier": "T2", "instruction": {"core_conclusion": "全场 HOLD · 半导体暴跌触发减仓信号", "core_conclusion_cls": "hold", "active_action": "择机减东方人工智能至 ≤30%（当前36.3%超限）", "risk_floor": "单基 -8% 硬止损 + 半导体集群级减仓(-5.54%已触发)", "timestamp_label": "数据截至 2026-07-10 14:48", "discipline_note": "半导体集中度77.6%极度集中; 今日半导体材料设备-5.54%触发集群减仓; 东方AI单仓36.3%超30%上限; 防御仅剩债基9.6%; 禁止继续加半导体"}, "position": {"snapshot_note": "持仓实时净值 · T0 用户实盘（2026-07-10 14:37 OCR校准）", "index_kpis": [{"label": "上证", "value": "-0.76%", "cls": "down"}, {"label": "创业板", "value": "-3.94%", "cls": "down", "tag": "领跌"}, {"label": "半导体材料设备", "value": "-5.54%", "cls": "down", "tag": "领跌板块"}, {"label": "沪深300主力净流出", "value": "-312亿", "cls": "down", "tag": "主力出逃"}], "holdings": [{"name": "东方人工智能主题混合C", "sector": "半导体材料设备/AI", "weight_pct": 36.3, "hold_return_pct": 13.63, "related_index": "半导体", "related_index_chg": -5.54, "sector_tendency": "偏空", "instruction": "HOLD", "overweight": true, "stop_loss_pct": -8, "logic": "板块单日-5.54%触发集群减仓, 优先减此基降至≤30%; 单仓超限禁止加仓", "main_force": {"net_inflow": -143.5, "big_order_pct": null, "qualitative": "出货/洗盘偏空", "hint": "半导体主力净流出, 前期获利盘兑现"}, "tech_score": {"composite": 30, "level": "偏空", "trend": "偏空(收盘破MA20)", "vol_price": "价跌量增放量", "shape": "长阴破位"}, "kline_text": "基金净值T+1; 关联半导体材料设备今日-5.54%"}, {"name": "东方阿尔法科技优选混合C", "sector": "半导体材料设备/AI", "weight_pct": 25.6, "hold_return_pct": 11.93, "related_index": "半导体", "related_index_chg": -5.54, "sector_tendency": "偏空", "instruction": "HOLD", "stop_loss_pct": -8, "logic": "同属半导体集群, 板块-5.54%回撤; 不减仓但禁止加仓", "main_force": {"net_inflow": -60.9, "big_order_pct": null, "qualitative": "洗盘偏空", "hint": "光芯片主力净流出"}, "tech_score": {"composite": 35, "level": "偏空", "trend": "偏空", "vol_price": "放量下跌", "shape": "中阴"}, "kline_text": "关联光芯片今日-2.23%"}, {"name": "永赢先锋半导体智选混合C", "sector": "半导体材料设备/AI", "weight_pct": 14.1, "hold_return_pct": -0.94, "related_index": "半导体", "related_index_chg": -5.54, "sector_tendency": "偏空", "instruction": "HOLD", "stop_loss_pct": -8, "logic": "翻倍后绝对敞口1856, 每1%波动±18.5元; 今日板块-5.54%回撤约-100元; 距-8%硬止损尚有空间, 持有观察", "main_force": {"net_inflow": -204.0, "big_order_pct": null, "qualitative": "洗盘偏空", "hint": "半导体整体净流出"}, "tech_score": {"composite": 33, "level": "偏空", "trend": "偏空", "vol_price": "价跌量增", "shape": "破位"}, "kline_text": "关联半导体材料设备今日-5.54%"}, {"name": "鹏华丰诚债券C", "sector": "纯债安全垫(无权益板块)", "weight_pct": 9.6, "hold_return_pct": -0.04, "related_index": "纯债", "related_index_chg": 0, "sector_tendency": "中性", "instruction": "HOLD", "stop_loss_pct": -8, "logic": "唯一防御仓位, 市场暴跌时是稳定器, 持有", "main_force": {}, "tech_score": {"composite": 50, "level": "中性", "trend": "平稳", "vol_price": "近乎0波动", "shape": "横盘"}, "kline_text": "纯债, 近乎0波动"}, {"name": "广发港股创新药ETF联接(QDII)C", "sector": "创新药/港股创新药", "weight_pct": 10.6, "hold_return_pct": -3.75, "related_index": "港股创新药", "related_index_chg": null, "sector_tendency": "偏空", "instruction": "减仓", "stop_loss_pct": -8, "logic": "持续亏损-3.75%, 此前已减仓; 继续择机减仓降低单一港股敞口", "main_force": {}, "tech_score": {"composite": 32, "level": "偏空", "trend": "偏弱", "vol_price": "阴跌", "shape": "下行"}, "kline_text": "港股创新药持续偏弱"}, {"name": "财通集成电路产业股票C", "sector": "半导体/CPO", "weight_pct": 1.5, "hold_return_pct": 2.65, "related_index": "半导体", "related_index_chg": -5.54, "sector_tendency": "偏空", "instruction": "HOLD", "stop_loss_pct": -8, "logic": "新仓小比例, 板块回撤持有", "main_force": {}, "tech_score": {"composite": 38, "level": "偏空", "trend": "偏空", "vol_price": "量价齐跌", "shape": "小阴"}, "kline_text": "关联半导体材料设备-5.54%"}, {"name": "财通成长优选混合C", "sector": "半导体/CPO", "weight_pct": 1.5, "hold_return_pct": 2.62, "related_index": "半导体", "related_index_chg": -5.54, "sector_tendency": "偏空", "instruction": "HOLD", "stop_loss_pct": -8, "logic": "新仓小比例, 板块回撤持有", "main_force": {}, "tech_score": {"composite": 38, "level": "偏空", "trend": "偏空", "vol_price": "量价齐跌", "shape": "小阴"}, "kline_text": "关联半导体-5.54%"}, {"name": "广发纳斯达克100ETF联接(QDII)C", "sector": "纳斯达克100(美股QDII)", "weight_pct": 0.7, "hold_return_pct": -1.35, "related_index": "纳斯达克100", "related_index_chg": null, "sector_tendency": "中性", "instruction": "HOLD", "stop_loss_pct": -8, "logic": "美股QDII T+1, 小比例持有", "main_force": {}, "tech_score": {"composite": 50, "level": "中性", "trend": "中性", "vol_price": "—", "shape": "—"}, "kline_text": "美股QDII T+1"}, {"name": "天弘中证全指通信设备指数C", "sector": "通信设备/CPO", "weight_pct": 0.1, "hold_return_pct": 5.91, "related_index": "通信设备CPO", "related_index_chg": -1.68, "sector_tendency": "偏空", "instruction": "HOLD", "stop_loss_pct": -8, "logic": "微仓, 关联CPO -1.68%", "main_force": {}, "tech_score": {"composite": 40, "level": "偏空", "trend": "偏弱", "vol_price": "小跌", "shape": "—"}, "kline_text": "关联CPO -1.68%"}, {"name": "富国中证煤炭指数C", "sector": "煤炭开采", "weight_pct": 0.04, "hold_return_pct": 0.0, "related_index": "煤炭", "related_index_chg": null, "sector_tendency": "中性", "instruction": "HOLD", "stop_loss_pct": -8, "logic": "已清仓≈0%", "main_force": {}, "tech_score": {"composite": 50, "level": "中性", "trend": "—", "vol_price": "—", "shape": "—"}, "kline_text": "已清仓≈0%"}, {"name": "嘉实中证主要消费ETF发起联接C", "sector": "食品饮料/主要消费", "weight_pct": 0.03, "hold_return_pct": 0.0, "related_index": "主要消费", "related_index_chg": null, "sector_tendency": "中性", "instruction": "HOLD", "stop_loss_pct": -8, "logic": "已清仓≈0%", "main_force": {}, "tech_score": {"composite": 50, "level": "中性", "trend": "—", "vol_price": "—", "shape": "—"}, "kline_text": "已清仓≈0%"}]}, "sector": {"bars": [{"name": "半导体材料设备", "score": 30, "tendency": "偏空", "net_inflow": -204.0, "linked": true}, {"name": "光芯片", "score": 35, "tendency": "偏空", "net_inflow": -60.9, "linked": true}, {"name": "共封装光模块CPO", "score": 38, "tendency": "偏空", "net_inflow": -143.6, "linked": true}, {"name": "港股创新药", "score": 32, "tendency": "偏空", "net_inflow": null, "linked": true}], "detail": "半导体三细分今日全线净流出: CPO-143.6亿/光芯片-60.9亿/材料设备-204亿(估算), 主力获利兑现+外围(日韩科技走弱)传导; 抱团核心龙头抗跌, 伪科技小票集体回调", "bottom_signals": "半导体材料设备单日-5.54%>3% → 集群减仓信号触发", "top_signals": "无见顶确认, 但短期暴涨后反向修复中", "close_special": "临近半年报窗口, 资金规避业绩不及预期题材股"}, "risk": {"hard_stop": {"items": [{"name": "永赢先锋半导体", "cur_loss_pct": -0.94, "stop_pct": -8, "warn": false, "warn_label": "盯盘"}], "floor_text": "半导体77.6%集中度为最大风险源; 今日材料设备-5.54%触发集群减仓"}, "alerts": [{"level": "red", "text": "半导体材料设备单日-5.54%触发集群减仓信号(>3%)", "detail": "建议至少减1只半导体(优先东方AI降至≤30%)"}, {"level": "red", "text": "东方AI单仓36.3%超30%上限", "detail": "需降至≤30%"}, {"level": "orange", "text": "永赢半导翻倍至1856, 绝对敞口增大", "detail": "每1%波动±18.5元"}, {"level": "orange", "text": "防御仓位仅剩鹏华债9.6%", "detail": "几乎无下跌缓冲"}, {"level": "orange", "text": "半导体今日主力净流出", "detail": "CPO-143.6亿+光芯片-60.9亿, 出货迹象"}]}, "sentiment": {"index": 38, "level": "偏空", "divergence": "指数抗跌(上证-0.76%)但3500+个股下跌/中位数-1.17%/近200只跌超8%, 隐性背离严重", "action": "中性偏防御; 半导体暴跌触发减仓而非抄底", "factors": [{"name": "市场广度", "raw": "涨跌家数比≈0.4(3500+下跌)", "score": 30, "weight": "15%", "src": "T2"}, {"name": "极端跌幅", "raw": "近200只跌超8%/跌停数十家", "score": 20, "weight": "15%", "src": "T2"}, {"name": "成交额", "raw": "全天预计3.3万亿放量", "score": 55, "weight": "10%", "src": "T2"}, {"name": "创业板", "raw": "-3.94%破位", "score": 25, "weight": "15%", "src": "T2"}, {"name": "半导体", "raw": "材料设备-5.54%领跌", "score": 20, "weight": "15%", "src": "T2"}, {"name": "北向资金", "raw": "数据源未返回", "score": 50, "weight": "10%", "src": "T2"}, {"name": "融资余额", "raw": "数据源未返回", "score": 50, "weight": "10%", "src": "T2"}, {"name": "VIX", "raw": "数据源未返回", "score": 50, "weight": "10%", "src": "T2"}]}, "logic": {"tail_buy": "①半导体板块单日暴跌-5.54%(>3%)且主力净流出 → 禁止净买入半导体\n②加仓后单基≤30%总仓≤90%(东方AI已36.3%超限)\n③外围扰动+获利盘兑现, 不盲目抄底", "tail_sell": "①半导体材料设备-5.54%触发集群减仓→至少减1只半导体(优先东方AI降至≤30%)\n②东方AI单仓超30%上限, 择机降至≤30%\n③创业板-3.94%破位+板块放量下跌, 减仓信号有效", "tail_noadd": "①大盘跳水(创业板-3.94%>0.5%)\n②半导体主力净流出(CPO-143.6亿+光芯片-60.9亿)\n③半导体集中度77.6%无任何安全边际 → 全场禁止净买入半导体", "emotion": "恐惧升温(3500+下跌/近200只跌超8%): 但半导体-5.54%属获利盘兑现+外围扰动而非恐慌底, 不盲目抄底; 集中度过高时分散化本身就是长期主义", "action_rows": [{"fund": "东方人工智能C", "cmd": "HOLD(减仓)", "price": "择机降至≤30%", "adj": "减~804元(36.3%→30%)", "emo": "— 不干预", "logic": "板块-5.54%触发集群减仓+单仓超限"}, {"fund": "东方阿尔法C", "cmd": "HOLD", "price": "持有不加仓", "adj": "维持25.6%", "emo": "—", "logic": "同属半导体集群, 板块回撤持有"}, {"fund": "永赢半导C", "cmd": "HOLD", "price": "持有", "adj": "维持14.1%(敞口1856)", "emo": "盯盘", "logic": "距-8%尚有空间, 但绝对敞口大"}, {"fund": "港药C", "cmd": "减仓", "price": "择机减", "adj": "10.6%→更低", "emo": "—", "logic": "持续-3.75%亏损"}, {"fund": "鹏华债C", "cmd": "HOLD", "price": "持有", "adj": "防御9.6%", "emo": "—", "logic": "唯一稳定器"}, {"fund": "财通双基", "cmd": "HOLD", "price": "持有", "adj": "各1.5%", "emo": "—", "logic": "小比例新仓"}, {"fund": "煤炭/消费", "cmd": "HOLD", "price": "已清仓", "adj": "≈0%", "emo": "—", "logic": "清仓完毕"}]}, "sources": {"items": [{"item": "持仓实时净值", "note": "T0 用户实盘(腾讯自选股OCR校准 14:37)"}, {"item": "大盘/板块实时行情", "note": "neodata T2 (14:48 快照)"}, {"item": "市场情绪广度", "note": "资讯T2 (3500+下跌/近200只跌超8%)"}]}, "disclaimer": "本分析仅供参考, 不构成投资建议。行情为 T2 实时快照, 含跟踪误差与延迟; 基金以官方净值为准; 预测为模型研判, 历史不代表未来。"};
+const REPORT = {"date": "2026-07-10", "updated_at": "2026-07-10 收盘 15:00", "data_tier": "T2", "instruction": {"core_conclusion": "放量跳水·半导体单日-6.84%触发集群减仓, 优先减东方阿尔法降第一大仓", "core_conclusion_cls": "down", "active_action": "择机减东方阿尔法至≤22%(降#1仓+半导体集群减仓); 东方AI剩2/3持有锁本; 永赢/港药持有不动", "risk_floor": "单基 -8% 硬止损 + 半导体集群级减仓(-6.84%已触发) + 14:55截止铁律", "tail_scenario": "放量跳水", "timestamp_label": "数据截至 2026-07-10 收盘(15:00) · 账户T0快照14:37 [⚠ 无14:30基准, 以开盘/午盘代理]", "discipline_note": "半导体集中度占总资产65.5%/占持仓74.5%; 今日半导体材料设备-6.84%(振幅10.2%放量)触发集群减仓; 东方阿尔法25.61%新第一大仓逼近30%上限; 防御仅债基9.62%+现金12.11%(弹药); ⚠ 14:37账户+3.75%快照早于尾盘跳水, EOD实际收益或显著低于此值; 14:55后禁止新建仓位"}, "position": {"snapshot_note": "持仓实时净值 · T0 用户实盘(2026-07-10 卖出东方AI 1/3后, 14:37 OCR校准)", "index_kpis": [{"label": "上证", "value": "-1.00%", "cls": "down", "lv": "3996.16"}, {"label": "深证", "value": "-2.29%", "cls": "down", "lv": "15046.67"}, {"label": "创业板", "value": "-4.37%", "cls": "down", "tag": "领跌·光脚"}, {"label": "沪深300", "value": "-1.96%", "cls": "down", "lv": "4780.79"}, {"label": "科创50", "value": "-5.53%", "cls": "down", "tag": "光脚"}, {"label": "半导体材料设备", "value": "-6.84%", "cls": "down", "tag": "领跌板块·放量"}, {"label": "CPO光模块", "value": "-2.43%", "cls": "down", "tag": "主力净流出165亿"}, {"label": "港股创新药", "value": "+3.25%", "cls": "up", "tag": "逆势涨"}, {"label": "成交额", "value": "≈3.3万亿", "cls": "neu", "tag": "放量"}], "holdings": [{"name": "东方阿尔法科技优选混合C", "sector": "半导体材料设备/科技优选", "weight_pct": 25.61, "hold_return_pct": 11.93, "related_index": "半导体材料设备", "related_index_chg": -6.84, "sector_tendency": "偏空", "instruction": "减仓", "cls": "down", "overweight": true, "stop_loss_pct": -8, "logic": "新第一大仓(25.61%)逼近30%上限; 板块-6.84%触发集群减仓→优先减此基降#1仓至≤22%(约减800元), 同步触发profit_lock立即赎30%收回本金", "main_force": {"net_inflow": null, "big_order_pct": null, "qualitative": "高位放量派发(模型研判)", "hint": "半导体材料设备-6.84%振幅10.2%量比1.2, 获利盘兑现⚠待验证主力净额"}, "tech_score": {"composite": 28, "level": "偏空", "trend": "收盘破MA20(光脚阴)", "vol_price": "放量下跌", "shape": "长阴破位"}, "kline_text": "关联半导体材料设备今日-6.84%(振幅10.2%)"}, {"name": "东方人工智能主题混合C", "sector": "半导体材料设备/AI", "weight_pct": 24.21, "hold_return_pct": 13.63, "related_index": "半导体材料设备", "related_index_chg": -6.84, "sector_tendency": "偏空", "instruction": "HOLD", "cls": "hold", "overweight": false, "stop_loss_pct": -8, "logic": "已卖1/3解除超限(24.21%); 剩2/3持有锁本不追加; profit_lock: 涨至20%赎剩余50%收本金/回撤>5%赎50%/回撤至收益仅2%全清", "main_force": {"net_inflow": null, "big_order_pct": null, "qualitative": "出货/派发偏空", "hint": "半导体主力净流出, 前期获利盘兑现⚠待验证"}, "tech_score": {"composite": 30, "level": "偏空", "trend": "收盘破MA20", "vol_price": "价跌量增放量", "shape": "长阴破位"}, "kline_text": "关联半导体材料设备今日-6.84%"}, {"name": "永赢先锋半导体智选混合C", "sector": "半导体材料设备", "weight_pct": 14.12, "hold_return_pct": -0.94, "related_index": "半导体材料设备", "related_index_chg": -6.84, "sector_tendency": "偏空", "instruction": "HOLD", "cls": "hold", "stop_loss_pct": -8, "logic": "翻倍后绝对敞口1856, 每1%波动±18.5元; 今日板块-6.84%≈回撤-127元; 距-8%硬止损尚有空间(-0.94%未触-2%止损线), 持有观察不恐慌割肉", "main_force": {"net_inflow": null, "big_order_pct": null, "qualitative": "洗盘偏空", "hint": "半导体整体净流出⚠待验证净额"}, "tech_score": {"composite": 33, "level": "偏空", "trend": "偏空", "vol_price": "价跌量增", "shape": "破位"}, "kline_text": "关联半导体材料设备今日-6.84%"}, {"name": "广发港股创新药ETF联接(QDII)C", "sector": "创新药/港股创新药", "weight_pct": 10.58, "hold_return_pct": -3.75, "related_index": "港股创新药", "related_index_chg": 3.25, "sector_tendency": "偏多", "instruction": "HOLD", "cls": "hold", "stop_loss_pct": -8, "logic": "今日关联港股创新药+3.25%逆势反弹(主力抢筹); 市场先生逆向不割肉; profit_lock: 回撤至-5%减仓50%/回升至-1%内减仓1/3", "main_force": {"net_inflow": null, "big_order_pct": null, "qualitative": "逆势吸筹偏多", "hint": "港股创新药+3.25%领涨⚠待验证主力净额"}, "tech_score": {"composite": 55, "level": "偏多", "trend": "逆势走强", "vol_price": "缩量反弹", "shape": "阳线"}, "kline_text": "关联港股创新药今日+3.25%(逆势)"}, {"name": "鹏华丰诚债券C", "sector": "纯债安全垫(无权益板块)", "weight_pct": 9.62, "hold_return_pct": -0.04, "related_index": "纯债", "related_index_chg": 0, "sector_tendency": "中性", "instruction": "HOLD", "cls": "hold", "stop_loss_pct": -8, "logic": "唯一防御仓位, 市场暴跌时是稳定器, 持有", "main_force": {}, "tech_score": {"composite": 50, "level": "中性", "trend": "平稳", "vol_price": "近乎0波动", "shape": "横盘"}, "kline_text": "纯债, 近乎0波动"}, {"name": "财通集成电路产业股票C", "sector": "半导体/CPO", "weight_pct": 1.47, "hold_return_pct": 2.65, "related_index": "半导体/CPO", "related_index_chg": -6.84, "sector_tendency": "偏空", "instruction": "HOLD", "cls": "hold", "stop_loss_pct": -8, "logic": "观察仓小比例, 板块回撤持有; profit_lock: 收益达10%止盈一半", "main_force": {}, "tech_score": {"composite": 38, "level": "偏空", "trend": "偏空", "vol_price": "量价齐跌", "shape": "小阴"}, "kline_text": "关联半导体材料设备-6.84%"}, {"name": "财通成长优选混合C", "sector": "沪深300成长/混合", "weight_pct": 1.47, "hold_return_pct": 2.62, "related_index": "沪深300成长", "related_index_chg": -1.96, "sector_tendency": "偏空", "instruction": "HOLD", "cls": "hold", "stop_loss_pct": -8, "logic": "观察仓小比例, 关联沪深300成长-1.96%回撤持有; profit_lock: 收益达10%止盈一半", "main_force": {}, "tech_score": {"composite": 42, "level": "偏空", "trend": "偏空", "vol_price": "量价齐跌", "shape": "小阴"}, "kline_text": "关联沪深300成长-1.96%"}, {"name": "广发纳斯达克100ETF联接(QDII)C", "sector": "纳斯达克100(美股QDII)", "weight_pct": 0.68, "hold_return_pct": -1.35, "related_index": "纳斯达克100", "related_index_chg": null, "sector_tendency": "中性", "instruction": "HOLD", "cls": "hold", "stop_loss_pct": -8, "logic": "美股QDII T+1, 小比例防御底仓持有", "main_force": {}, "tech_score": {"composite": 50, "level": "中性", "trend": "中性", "vol_price": "—", "shape": "—"}, "kline_text": "美股QDII T+1"}, {"name": "天弘中证全指通信设备指数C", "sector": "通信设备/CPO", "weight_pct": 0.08, "hold_return_pct": 5.91, "related_index": "通信设备CPO", "related_index_chg": -2.43, "sector_tendency": "偏空", "instruction": "HOLD", "cls": "hold", "stop_loss_pct": -8, "logic": "迷你仓, 关联CPO -2.43%; profit_lock: 收益达10%止盈一半", "main_force": {}, "tech_score": {"composite": 40, "level": "偏空", "trend": "偏弱", "vol_price": "小跌", "shape": "—"}, "kline_text": "关联CPO -2.43%"}, {"name": "富国中证煤炭指数C", "sector": "煤炭开采", "weight_pct": 0.04, "hold_return_pct": 0.0, "related_index": "煤炭", "related_index_chg": null, "sector_tendency": "中性", "instruction": "HOLD", "cls": "hold", "stop_loss_pct": -8, "logic": "已清仓≈0%", "main_force": {}, "tech_score": {"composite": 50, "level": "中性", "trend": "—", "vol_price": "—", "shape": "—"}, "kline_text": "已清仓≈0%"}, {"name": "嘉实中证主要消费ETF发起联接C", "sector": "食品饮料/主要消费", "weight_pct": 0.03, "hold_return_pct": 0.0, "related_index": "主要消费", "related_index_chg": null, "sector_tendency": "中性", "instruction": "HOLD", "cls": "hold", "stop_loss_pct": -8, "logic": "已清仓≈0%", "main_force": {}, "tech_score": {"composite": 50, "level": "中性", "trend": "—", "vol_price": "—", "shape": "—"}, "kline_text": "已清仓≈0%"}]}, "sector": {"bars": [{"name": "半导体材料设备", "score": 28, "tendency": "偏空", "net_inflow": null, "linked": true, "chg": -6.84}, {"name": "共封装光模块CPO", "score": 38, "tendency": "偏空", "net_inflow": -165.0, "linked": true, "chg": -2.43}, {"name": "通信设备", "score": 40, "tendency": "偏空", "net_inflow": null, "linked": true, "chg": -2.43}, {"name": "港股创新药", "score": 55, "tendency": "偏多", "net_inflow": null, "linked": true, "chg": 3.25}], "detail": "半导体材料设备单日-6.84%(振幅10.2%量比1.2)高位放量长阴=获利盘派发; CPO-2.43%主力净流出165亿同步走弱; 三细分全线净流出(⚠主力净额部分待验证)。唯港股创新药+3.25%逆势吸筹, 资金从科技切向医药/资源/红利(盘面出现卫星/有色/医药涨停)。", "bottom_signals": "半导体材料设备单日-6.84%>3% → 集群减仓信号触发(强)", "top_signals": "无见顶新高的二次确认, 但短期暴涨后反向杀跌中继", "close_special": "创业板/科创50收盘=当日最低(光脚阴线)=尾盘加速赶底; 临近半年报窗口, 资金规避高估值伪科技", "cluster_alert": "半导体集中度占总资产65.5%/占持仓74.5%; 单日-6.84%>3%触发『至少减仓1只半导体(优先东方阿尔法降#1仓)』; 连续3日累跌未达5%(昨日+7.88%→今日-6.84%), 暂未触发『总仓降至≤60%』"}, "risk": {"hard_stop": {"items": [{"name": "永赢先锋半导体", "cur_loss_pct": -0.94, "stop_pct": -8, "warn": false, "warn_label": "盯盘"}, {"name": "东方AI(剩2/3)", "cur_loss_pct": null, "stop_pct": -8, "warn": false, "warn_label": "锁本回撤保护"}, {"name": "东方阿尔法", "cur_loss_pct": null, "stop_pct": -8, "warn": false, "warn_label": "减仓中"}], "floor_text": "半导体65.5%集中度为最大风险源; 今日材料设备-6.84%触发集群减仓; 单基-8%硬止损全程有效"}, "alerts": [{"level": "red", "text": "半导体材料设备单日-6.84%(振幅10.2%)触发集群减仓信号(>3%)", "detail": "建议至少减1只半导体(优先东方阿尔法降#1仓至≤22%)"}, {"level": "red", "text": "东方阿尔法25.61%为第一大仓, 逼近30%上限", "detail": "需择机降至≤22-30%区间"}, {"level": "orange", "text": "永赢半导大敞口1856, 每1%波动±18.5元", "detail": "今日板块-6.84%≈回撤-127元"}, {"level": "orange", "text": "港药持续亏损-3.75%", "detail": "但今日关联+3.25%反弹, 不割肉"}, {"level": "orange", "text": "防御仅债基9.62%", "detail": "现金12.11%(1589元)为尾盘/次日低吸弹药, 勿闲置"}, {"level": "orange", "text": "⚠ 14:37账户+3.75%快照早于尾盘跳水", "detail": "收盘半导体-6.84%或令EOD实际收益显著低于+3.75%"}]}, "sentiment": {"index": 40, "level": "偏空(恐惧升温)", "divergence": "指数暴跌(创业板-4.37%/科创50-5.53%光脚)但盘面现医药/资源/卫星涨停潮, 结构性背离: 资金从高估值科技向低位防御/医药轮动", "action": "中性偏防御; 半导体暴跌触发减仓而非抄底, 不盲目接飞刀", "factors": [{"name": "市场广度", "raw": "跌多涨少, 涨跌比≈0.4(半导体崩跌拖累)", "score": 25, "weight": "15%", "src": "T2⚠待验证"}, {"name": "涨跌停家数", "raw": "科技跌停增多, 但医药/资源/卫星涨停潮", "score": 38, "weight": "10%", "src": "T2⚠待验证"}, {"name": "主力资金净流入", "raw": "半导体净流出/CPO-165亿明确派发", "score": 18, "weight": "15%", "src": "T2"}, {"name": "北向资金", "raw": "数据源未返回", "score": 50, "weight": "12%", "src": "缺失"}, {"name": "融资余额", "raw": "数据源未返回", "score": 50, "weight": "8%", "src": "缺失"}, {"name": "量能亢奋度", "raw": "全天≈3.3万亿放量(恐慌性)", "score": 45, "weight": "10%", "src": "T2"}, {"name": "VIX", "raw": "数据源未返回", "score": 50, "weight": "15%", "src": "缺失"}, {"name": "股债风险溢价ERP", "raw": "10Y国债1.74%; 沪深300PE缺失", "score": 55, "weight": "15%", "src": "T2⚠待验证"}]}, "prediction_nextday": {"indices": [{"name": "创业板/科创50", "dir": "弱势震荡或惯性下探", "conf": "中", "logic": "光脚阴线+放量破位, 次日易低开惯性下探, 但急跌后或有技术反抽", "trigger": "半导体材料设备能否止跌(单日不再破-3%)"}, {"name": "沪深300/上证", "dir": "震荡企稳", "conf": "中高", "logic": "宽基跌幅小于科技, 红利/医药托底", "trigger": "北向与主力资金回流迹象"}, {"name": "半导体材料设备", "dir": "分歧加大, 探底", "conf": "中", "logic": "单日-6.84%获利盘宣泄后, 龙头或抗跌但伪科技续调", "trigger": "量能是否萎缩至地量(止跌信号)"}], "holdings": [{"name": "东方阿尔法/东方AI/永赢", "dir": "跟随半导体探底", "conf": "中", "logic": "板块未止跌前承压, 减仓后回撤可控", "trigger": "板块单日不再暴跌>3%"}, {"name": "港药", "dir": "偏强延续", "conf": "中", "logic": "逆势+3.25%吸筹, 或延续补涨", "trigger": "主力持续净流入"}, {"name": "鹏华债", "dir": "平稳", "conf": "高", "logic": "防御底仓不受影响", "trigger": "—"}]}, "main_force_decode": {"semiconductor": "高位放量长阴(半导体材料设备-6.84%振幅10.2%)=获利盘集中派发/出货, 主力净额待验证但价量已印证; 非洗盘(洗盘不破位放量)", "cpo": "CPO-2.43%主力净流出165亿, 同步高位兑现", "hk_innovation_drug": "港股创新药+3.25%逆势, 资金从科技切向低位医药, 呈现吸筹特征", "verdict": "主力从高估值科技向低位医药/资源/红利轮动; 半导体处于『拉升后派发』阶段, 警惕继续下探"}, "logic": {"tail_buy": "①半导体板块单日暴跌-6.84%(>3%)且主力净流出 → 禁止净买入半导体\n②加仓后单基≤30%总仓≤90%(东方阿尔法25.61%逼近上限)\n③尾盘跳水>0.5%(创业板-4.37%) → 严禁新建任何仓位\n④集中度65.5%无安全边际, 加仓=去掉安全网", "tail_sell": "①半导体材料设备-6.84%触发集群减仓→至少减1只半导体(优先东方阿尔法降至≤22%降#1仓)\n②东方阿尔法单仓25.61%逼近30%上限, 择机降至≤22-30%\n③创业板-4.37%光脚破位+板块放量下跌, 减仓信号有效\n④板块单日暴涨>5%滞涨才止盈, 当前为暴跌非止盈区", "tail_noadd": "①大盘跳水(创业板-4.37%>0.5%)\n②半导体主力净流出(CPO-165亿明确)\n③半导体集中度65.5%无任何安全边际 → 全场禁止净买入半导体", "cluster_risk": "65.5%集中度: 板块单日暴跌>3%(-6.84%已触发)→至少减1只半导体(优先东方阿尔法); 连续3日累跌>5%→强烈建议总仓降至≤60%(当前未触发); 永赢绝对亏损>150元→单基硬止损(当前-17.5元未触); 东方AI收益率回落<8%且技术转弱→强制降至30%以下(当前+13.63%未触)", "cutoff_1455": "14:55之后仅允许已有持仓的止盈止损被动委托, 严禁新建任何仓位(规避尾盘诱多/诱空陷阱); 本决策委托建议均可在下一交易时段挂出", "buffett": "①能力圈: 全押半导体需确认在能力圈内, 当前已超圈; ②安全边际: 65.5%单一板块+防御仅9.62%债基, 加仓半导体=去掉安全网; ③市场先生: 半导体单日-6.84%是恐慌抛售非贪婪区, 但集中度过高时减仓是理性; ④长期主义: 集中度过高时分散化本身就是长期主义; ⑤复利: 避免单一板块回撤20%导致账户回撤~13%(65.5%×20%)的致命打击", "emotion": "恐惧升温(创业板-4.37%光脚/半导体-6.84%): 但属获利盘兑现+高位派发而非黄金坑, 不盲目抄底; 集中度过高时分散化=长期主义, 减东方阿尔法降#1仓是当下最优解", "action_rows": [{"fund": "东方阿尔法C", "cmd": "减仓", "price": "择机降至≤22%", "adj": "减~800元(25.61%→≤22%)", "emo": "— 减仓", "logic": "板块-6.84%触发集群减仓+降#1仓+profit_lock立即赎30%"}, {"fund": "东方AI C", "cmd": "HOLD", "price": "剩2/3锁本", "adj": "维持24.21%", "emo": "—", "logic": "已卖1/3解超限, 回撤>5%赎50%/涨20%赎50%收本金"}, {"fund": "永赢半导C", "cmd": "HOLD", "price": "持有盯盘", "adj": "维持14.12%(敞口1856)", "emo": "盯盘", "logic": "距-8%有空间, 回撤-2%止损50%"}, {"fund": "港药C", "cmd": "HOLD", "price": "持有不割", "adj": "10.58%", "emo": "—", "logic": "今日+3.25%逆势反弹, 市场先生逆向"}, {"fund": "鹏华债C", "cmd": "HOLD", "price": "持有", "adj": "防御9.62%", "emo": "—", "logic": "唯一稳定器"}, {"fund": "财通双基", "cmd": "HOLD", "price": "持有", "adj": "各1.47%", "emo": "—", "logic": "小比例观察仓, 收益10%止盈一半"}, {"fund": "煤炭/消费", "cmd": "HOLD", "price": "已清仓", "adj": "≈0%", "emo": "—", "logic": "清仓完毕"}]}, "sources": {"items": [{"item": "持仓实时净值", "note": "T0 用户实盘(腾讯自选股OCR校准 14:37, 卖出东方AI 1/3后)"}, {"item": "大盘/板块收盘行情", "note": "neodata T2 (2026-07-10 收盘 15:00)"}, {"item": "市场情绪/广度", "note": "neodata T2 + 资讯(北向/融资/VIX/ERP部分缺失标注)"}, {"item": "尾盘基准", "note": "⚠ 无14:30基准文件, 以开盘/午盘代理"}]}, "disclaimer": "本分析仅供参考, 不构成投资建议。行情为 T2 实时/收盘快照, 含跟踪误差与延迟; 基金以官方净值为准; 预测为模型研判, 历史不代表未来。⚠ 北向资金/融资余额/VIX/沪深300PE当日未返回, 相关因子按中性(50)计入并标注缺失; 半导体主力净额部分待验证。", "profit_lock": {"赛道主题基金_半导体算力新能源": {"tier1": "累计收益达20% → 赎回30%仓位收回部分本金", "tier2": "累计收益达30% → 再赎回30%，剩余40%利润仓继续持有", "drawdown": "回撤超过已盈利部分50% → 清仓利润仓落袋", "principal_safe": "单只盈利>10%后设动态止损，回撤至成本线附近即赎回本金"}, "宽基均衡型基金": {"tier1": "累计收益达15% → 赎回20%仓位", "tier2": "累计收益达25% → 再赎回30%，保留底仓长期持有"}, "观察仓_百元级": {"tier1": "收益达10% → 止盈一半"}, "微亏_大敞口": {"stop_loss": "回撤至-2% → 止损50%", "rebound": "反弹至+5% → 止盈1/3"}, "弱势_QDII医药": {"stop_loss": "回撤至-5% → 减仓50%", "rebound": "回升至-1%内 → 减仓1/3降低高波动占比"}, "防御底仓": {"action": "鹏华债/纳斯达克/煤炭/消费 全部保留，分散配置底仓不调仓"}, "per_holding": {"东方人工智能主题混合C": {"type": "赛道主题基金", "tier1": {"trigger_pct": 20, "action": "赎回剩余仓位50%，本金全部收回，剩余纯利润仓继续持有博弈"}, "drawdown1": {"from_peak_pct": 5, "action": "赎回剩余仓位50%"}, "drawdown2": {"from_peak_pct": "收益仅剩2%", "action": "全部清仓保住本金"}, "principal_safe_line": "盈利>10%后设动态止损，回撤至成本线附近即赎回本金"}, "东方阿尔法科技优选混合C": {"type": "赛道主题基金", "tier1": {"trigger_pct": "立即", "action": "赎回30%收回部分本金"}, "tier2": {"trigger_pct": 18, "action": "再赎回30%"}, "drawdown1": {"from_peak_pct": 4, "action": "减仓一半"}}, "永赢先锋半导体智选混合C": {"type": "赛道主题基金(微亏)", "stop_loss": {"trigger_pct": -2, "action": "止损50%仓位"}, "tier1": {"trigger_pct": 5, "action": "止盈1/3"}}, "广发港股创新药ETF联接(QDII)C": {"type": "QDII/医药", "stop_loss": {"trigger_pct": -5, "action": "减仓50%控制亏损"}, "rebound": {"trigger_pct": -1, "action": "回升至-1%内减仓1/3降低高波动占比"}}, "鹏华丰诚债券C": {"type": "防御/底仓", "action": "保留，不做调仓"}, "财通集成电路产业股票C": {"type": "观察仓", "tier1": {"trigger_pct": 10, "action": "止盈一半"}}, "财通成长优选混合C": {"type": "观察仓", "tier1": {"trigger_pct": 10, "action": "止盈一半"}}, "广发纳斯达克100ETF联接(QDII)C": {"type": "防御/底仓", "action": "保留，不做调仓"}, "天弘中证全指通信设备指数C": {"type": "观察仓", "tier1": {"trigger_pct": 10, "action": "止盈一半"}}, "富国中证煤炭指数C": {"type": "防御/底仓", "action": "保留，不做调仓"}, "嘉实中证主要消费ETF发起联接C": {"type": "防御/底仓", "action": "保留，不做调仓"}}}, "rebalance": {"fund_source": "全部来自止盈/减仓回款，不新增投入", "sources": ["东方AI/东方阿尔法止盈资金(核心来源)", "半导体/港股创新药反弹后的减仓资金"], "allocation": [{"direction": "防御对冲类", "pct_of_proceeds": 40, "target": "沪深300/中证500宽基指数、中证红利高股息指数", "role": "对冲科技赛道波动，行情轮动时托底账户"}, {"direction": "低位轮动类", "pct_of_proceeds": 35, "target": "低位消费、A股创新药、高端制造等景气度触底方向", "role": "避免追高AI，布局补涨机会，分散赛道风险"}, {"direction": "机动现金", "pct_of_proceeds": 25, "target": "货币基金/短债", "role": "尾盘急跌时的低吸弹药，应对极端波动"}], "triggers": ["持仓板块连续3日资金净流出，且跑输大盘2%以上", "新崛起板块连续2日占据涨幅前列，量能持续放大(量比>1.2)", "持仓单只基金连续6个月跑输同类平均，或出现基金经理变更、风格漂移"], "priority_reduce": ["短期暴涨无业绩支撑的主题基金", "长期跑输基准的弱势基金", "重复持仓的同质化基金"], "priority_add": ["低位企稳、量能温和放大的景气赛道", "高股息防御品种", "业绩确定性强的细分龙头"], "pace": "总调仓资金分3-4批完成，每周执行一批；单日板块涨跌幅超3%时暂停操作避免追涨杀跌；单次调仓比例不超过总仓位15%，控制冲击成本"}, "tail_window": {"monitor_phase": "14:30-14:50 实时监控期：持续跟踪核心指标，记录量价异动信号", "decision_phase": "14:50-14:55 决策执行期：汇总全天+尾盘信号、生成最终决策、完成限价委托挂单", "cutoff": "14:55之后：仅允许已有持仓的止盈止损被动委托，不新建任何仓位，规避最后几分钟脉冲式诱多/诱空陷阱", "baseline_snapshot": "⚠ 无14:30基准文件, 本次以开盘/午盘价作代理基准", "monitoring": {"broad_market": ["沪深300/创业板指/科创50分时涨跌幅", "量比(≥1.2增量资金入场,≥3警惕异动诱盘)", "分时均线支撑/压力", "北向资金尾盘10分钟净流入额"], "sector_rotation": ["全市场一级行业指数涨幅排名", "成交额增幅(识别当日资金主攻/出逃方向)"], "holdings": ["持仓基金对应底层指数/ETF实时估值涨跌幅", "量价配合度"]}, "scenarios": [{"name": "尾盘放量拉升", "cond": "指数涨幅>1%,量比>1.2,站稳分时均线", "action": "持仓盈利标的持有不动；不追高加仓，仅保留底仓"}, {"name": "尾盘放量跳水", "cond": "指数跌幅>1%,量比>3,跌破分时均线", "action": "高仓位/高盈利标的减仓1/3锁定利润；弱势标的止损降仓"}, {"name": "缩量横盘震荡", "cond": "高低点价差<1%,成交量较日内均值萎缩50%", "action": "维持原有仓位，不做操作，等待次日方向选择"}, {"name": "板块分化轮动", "cond": "科技指数下跌，但宽基/消费/红利上涨", "action": "不盲目减仓科技，观察持续性，次日再执行调仓"}]}};
 const DARK = {tx:'#e6edf3', mut:'#8b98a9', up:'#f5564d', down:'#26c281', acc:'#4aa8ff', neu:'#d9a441'};
 function genMA(n, closes){
   var r=[];
