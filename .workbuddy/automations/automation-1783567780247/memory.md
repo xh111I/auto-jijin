@@ -1,5 +1,12 @@
 # 自动化执行记录 · 大盘·板块·日K研判
 
+## 2026-07-10 21:34 补跑摘要（修复模块⑦板块日K占位符）
+- 背景：18:38 补跑修复了指数 OHLC，但 market_raw_ohlc 的 sectors:[] 仍为空 → 模块⑦板块日K显示"暂略去日K"占位符（用户截图反馈"怎么解决"）。
+- 根因：4 个中证板块(csH30184 半导体 / cs931160 CPO·通信设备 / cs931787 港股创新药 / cs931071 人工智能应用端)经腾讯 newfqkline 公共端点均被截断为 1 行（中证 cs 前缀代码固有限制），旧路径无法注入。
+- 解决：① westock-mcp `data_kline` 单码拉 4 个中证板块 250 交易日 K 线(落盘 data/_sector_raw/<code>_wx.json，amount 单位为元)；② 公共端点补 5 个 sz/sh 板块 + 复用 bj899050 的北证50(inject_sector_ohlc.py，已先跑)；③ inject_sector_ohlc_cs.py 追加 4 个中证板块(amount 元→亿，剔除未来日期/去重/升序)；④ repair_sector_wx.py 修复 cs931160 一处 `"open":12428.31"` 误带尾引号的坏 JSON。
+- 结果：market_raw_ohlc 现 9 指数 + 9 板块(各 250 行)；tech_calc 产出 indices=8 sectors=9；make_market_html 重渲 HTML 565KB(原 289KB)，模块⑦板块日K 9 张蜡烛图全部渲染，占位符消失。
+- 复用结论：中证 cs 板块 K 线只能走 westock-mcp；腾讯 public/newfqkline、eastmoney、sina 对 cs 代码均不可用(截断/不可达/None)。
+
 ## 2026-07-10 18:38 补跑摘要（修复 OHLC 缺口）
 - 背景：15:30 主跑中 neodata「历史走势」对任意区间均截断中间行(仅留端点)，导致 market_raw_ohlc 仅 1 行 → tech_calc 产出 0 → 模块⑦指数日K/板块日K蜡烛图降级为迷你折线(series)。
 - 修复：改用 westock-mcp `data_kline` 单码调用(限频安全，5码批量会触发 SKILL_003 限频)逐指数拉全量 250 交易日 K 线(2025-07-01→2026-07-10)，落盘 `_raw_<CODE>.json`；`build_raw_ohlc.py` 汇总(含日期清洗/去重/剔除未来日期)生成 `market_raw_ohlc_2026-07-10.json`(9 指数, 含 hstech 单点兜底)。
