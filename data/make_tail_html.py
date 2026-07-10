@@ -863,16 +863,12 @@ def load_data(date):
 def main():
     args = sys.argv[1:]
     if "--plan" in args:
-        # 独立交付物：调仓止盈计划（止盈线表 + 调仓清单 + 尾盘窗口）
+        # 已弃用: 调仓止盈计划已合并到尾盘决策主报告
+        # 原 --plan 独立交付物不再生成, 所有内容统一在 尾盘决策-<DATE>.html 中
         rest = [a for a in args if a != "--plan"]
         date = rest[0] if rest else datetime.date.today().isoformat()
-        wl = load_wl()
-        out_dir = os.path.join(REPORTS, date)
-        os.makedirs(out_dir, exist_ok=True)
-        out = os.path.join(out_dir, "调仓止盈计划-%s.html" % date)
-        open(out, "w", encoding="utf-8").write(render_plan_html(wl, date))
-        print("saved", out, "size", os.path.getsize(out))
-        return
+        print(f"[deprecated] --plan 模式已取消。改为生成合并版尾盘决策报告。")
+        args = rest  # fall through to normal mode
     if args:
         date = args[0]
     else:
