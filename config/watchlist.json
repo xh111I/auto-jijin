@@ -7,19 +7,22 @@
     "account_hold_return_pct": 7.07,
     "account_cumulative_return": 761.51,
     "account_cumulative_return_pct": 5.79,
+    "cash": 1589.11,
+    "cash_pct": 12.11,
+    "realized_profit_today": 190.57,
     "pending_purchase": {
       "total": 0.0,
       "items": []
     },
     "snapshot_date": "2026-07-10T14:37",
-    "snapshot_source": "OCR校准(腾讯自选股持仓截图14:37盘中版) @ 2026-07-10",
+    "snapshot_source": "OCR校准(腾讯自选股持仓截图14:37盘中版) @ 2026-07-10 + 盘中卖出东方AI 1/3",
     "data_tier": "T0",
-    "updated_at": "2026-07-10T14:38:00+08:00",
-    "note": "14:38更新（腾讯自选股14:37截图盘中版）。总资产13129.26，日赚+475.06(+3.75%)，持有收益+866.62(+7.07%)。今日重大调仓：①永赢半导大幅加仓~971(885→1856, 权重6.7%→14.1%, 翻倍!)②煤炭几乎清仓(502→5, 权重3.8%→≈0%)③消费几乎清仓(497→3, 权重3.8%→≈0%)④港药继续减仓~176(1567→1391, 权重11.9%→10.6%)⑤财通两只加仓各~88(105→193各)⑥东方AI微增20(4747→4767)。半导体集中度暴升至77.6%(东方AI36.3+东财25.6+永赢14.1+财通集成1.5)，进攻性极强。永赢半导从-15.9%回撤至-0.94%(翻倍加仓摊薄成本)。【OCR校准2026-07-10 盘中】单图14:37确认。",
+    "updated_at": "2026-07-10T15:18:00+08:00",
+    "note": "14:37截图更新后，盘中已卖出东方人工智能 1/3（4767.32→3178.21，回收本金~1589转为现金，占总资产12.11%）。总资产保持13129.26（卖出=份额转现金，净值不变减手续费），东方AI权重由36.3%降至24.21%（已解除超30%上限）。半导体集中度由77.6%降至占总资产65.5%/占持仓74.5%。【OCR校准2026-07-10 盘中+卖出】。",
     "market_hotspot": "站对“光”靠 AI行情火爆全球 / CPO技术突破 / 光模块量产实锤",
     "strategy": {
       "principal": 15000,
-      "style": "进攻型",
+      "style": "进攻型(已加入锁本与分散约束)",
       "stop_loss_pct": -8,
       "take_profit_pct": 15,
       "max_single_position_pct": 30,
@@ -83,19 +86,45 @@
         "sector": "pt01801102",
         "sector_name": "通信设备/CPO"
       }
+    },
+    "data_calibration": {
+      "true_return_formula": "真实累计收益 = 期末总资产 - 期初总资产 - 期间净转入金额(转入 - 转出 - 现金分红再投)",
+      "note": "该口径不受场外转场内/份额拆分/分红方式影响，是唯一无偏差收益计算方式",
+      "underlying_index_penetration": "每只基金已建「场外联接→场内ETF→底层指数」映射(见 holdings[].underlying_index)，盘中估值穿透，收盘用官方净值校准一次修正偏差",
+      "alipay_alt_tools": [
+        "同花顺投资账本APP(持仓截图AI识别+自带场内穿透，10秒同步)",
+        "小倍养基 / 养基宝(轻量基金账本)",
+        "本地OCR脚本+安卓模拟器定时截图(可适配本日报系统)"
+      ],
+      "reconcile_items": [
+        "场外转场内未自动计入",
+        "分红再投",
+        "C类销售服务费计提",
+        "申购赎回手续费"
+      ]
     }
   },
   "holdings": [
     {
       "name": "东方人工智能主题混合C",
-      "market_value": 4767.32,
-      "yesterday_pnl": 314.44,
-      "hold_return_amount": 571.7,
+      "market_value": 3178.21,
+      "yesterday_pnl": 209.63,
+      "hold_return_amount": 381.13,
       "hold_return_pct": 13.63,
-      "weight_pct": 36.3,
+      "weight_pct": 24.21,
       "status": "active",
       "sector": "半导体材料设备/AI",
-      "related_index": "半导体材料设备"
+      "related_index": "半导体材料设备",
+      "underlying_index": "中证人工智能指数",
+      "rebalance_role": "核心锁本对象(已卖1/3收回部分本金,剩2/3)",
+      "overweight": false,
+      "profit_lock": {
+        "type": "赛道主题基金",
+        "tier1": {"trigger_pct": 20, "action": "赎回剩余仓位50%，本金全部收回，剩余纯利润仓继续持有博弈"},
+        "drawdown1": {"from_peak_pct": 5, "action": "赎回剩余仓位50%"},
+        "drawdown2": {"from_peak_pct": "收益仅剩2%", "action": "全部清仓保住本金"},
+        "principal_safe_line": "盈利>10%后设动态止损，回撤至成本线附近即赎回本金"
+      }
     },
     {
       "name": "东方阿尔法科技优选混合C",
@@ -103,10 +132,19 @@
       "yesterday_pnl": 189.51,
       "hold_return_amount": 358.57,
       "hold_return_pct": 11.93,
-      "weight_pct": 25.6,
+      "weight_pct": 25.61,
       "status": "active",
       "sector": "半导体材料设备/科技优选",
-      "related_index": "半导体材料设备"
+      "related_index": "半导体材料设备",
+      "underlying_index": "中证半导体材料设备指数",
+      "rebalance_role": "核心锁本对象(第二大仓位)",
+      "overweight": false,
+      "profit_lock": {
+        "type": "赛道主题基金",
+        "tier1": {"trigger_pct": "立即", "action": "赎回30%收回部分本金"},
+        "tier2": {"trigger_pct": 18, "action": "再赎回30%"},
+        "drawdown1": {"from_peak_pct": 4, "action": "减仓一半"}
+      }
     },
     {
       "name": "永赢先锋半导体智选混合C",
@@ -114,11 +152,18 @@
       "yesterday_pnl": -22.85,
       "hold_return_amount": -17.54,
       "hold_return_pct": -0.94,
-      "weight_pct": 14.1,
+      "weight_pct": 14.12,
       "status": "active",
       "sector": "半导体材料设备",
       "related_index": "半导体材料设备",
-      "risk_flag": "持续亏损"
+      "underlying_index": "中证半导体材料设备指数",
+      "rebalance_role": "微亏/大敞口(翻倍加仓后绝对敞口1856)",
+      "risk_flag": "持续亏损",
+      "profit_lock": {
+        "type": "赛道主题基金(微亏)",
+        "stop_loss": {"trigger_pct": -2, "action": "止损50%仓位"},
+        "tier1": {"trigger_pct": 5, "action": "止盈1/3"}
+      }
     },
     {
       "name": "广发港股创新药ETF联接(QDII)C",
@@ -126,11 +171,18 @@
       "yesterday_pnl": -2.09,
       "hold_return_amount": -54.26,
       "hold_return_pct": -3.75,
-      "weight_pct": 10.6,
+      "weight_pct": 10.58,
       "status": "active",
       "sector": "医药/港股创新药",
       "related_index": "恒生医疗保健",
-      "risk_flag": "持续亏损"
+      "underlying_index": "恒生港股通医疗保健指数",
+      "rebalance_role": "弱势/高波动(设置两级阈值)",
+      "risk_flag": "持续亏损",
+      "profit_lock": {
+        "type": "QDII/医药",
+        "stop_loss": {"trigger_pct": -5, "action": "减仓50%控制亏损"},
+        "rebound": {"trigger_pct": -1, "action": "回升至-1%内减仓1/3降低高波动占比"}
+      }
     },
     {
       "name": "鹏华丰诚债券C",
@@ -138,9 +190,13 @@
       "yesterday_pnl": -0.42,
       "hold_return_amount": -0.39,
       "hold_return_pct": -0.04,
-      "weight_pct": 9.6,
+      "weight_pct": 9.62,
       "status": "active",
-      "sector": "固定收益/纯债安全垫"
+      "sector": "固定收益/纯债安全垫",
+      "related_index": "中债综合财富指数",
+      "underlying_index": "无(纯债)",
+      "rebalance_role": "防御底仓(保留)",
+      "profit_lock": {"type": "防御/底仓", "action": "保留，不做调仓"}
     },
     {
       "name": "财通集成电路产业股票C",
@@ -148,10 +204,13 @@
       "yesterday_pnl": 5.0,
       "hold_return_amount": 4.98,
       "hold_return_pct": 2.65,
-      "weight_pct": 1.5,
+      "weight_pct": 1.47,
       "status": "active",
       "sector": "半导体/CPO光模块",
-      "related_index": "半导体"
+      "related_index": "半导体",
+      "underlying_index": "中证半导体产业指数",
+      "rebalance_role": "观察仓(百元级)",
+      "profit_lock": {"type": "观察仓", "tier1": {"trigger_pct": 10, "action": "止盈一半"}}
     },
     {
       "name": "财通成长优选混合C",
@@ -159,10 +218,13 @@
       "yesterday_pnl": 4.91,
       "hold_return_amount": 4.92,
       "hold_return_pct": 2.62,
-      "weight_pct": 1.5,
+      "weight_pct": 1.47,
       "status": "active",
       "sector": "成长风格/混合",
-      "related_index": "沪深300成长"
+      "related_index": "沪深300成长",
+      "underlying_index": "沪深300成长指数",
+      "rebalance_role": "观察仓(百元级)",
+      "profit_lock": {"type": "观察仓", "tier1": {"trigger_pct": 10, "action": "止盈一半"}}
     },
     {
       "name": "广发纳斯达克100ETF联接(QDII)C",
@@ -170,10 +232,13 @@
       "yesterday_pnl": -0.18,
       "hold_return_amount": -1.95,
       "hold_return_pct": -1.35,
-      "weight_pct": 0.7,
+      "weight_pct": 0.68,
       "status": "active",
       "sector": "海外/美股指数",
-      "related_index": "纳斯达克100"
+      "related_index": "纳斯达克100",
+      "underlying_index": "纳斯达克100指数",
+      "rebalance_role": "防御底仓(保留)",
+      "profit_lock": {"type": "防御/底仓", "action": "保留，不做调仓"}
     },
     {
       "name": "天弘中证全指通信设备指数C",
@@ -181,11 +246,14 @@
       "yesterday_pnl": 0.59,
       "hold_return_amount": 0.59,
       "hold_return_pct": 5.91,
-      "weight_pct": 0.1,
+      "weight_pct": 0.08,
       "status": "active",
       "sector": "通信/CPO",
       "related_index": "中证全指通信设备",
-      "risk_flag": "追高风险"
+      "underlying_index": "中证全指通信设备指数",
+      "rebalance_role": "观察仓(迷你)",
+      "risk_flag": "追高风险",
+      "profit_lock": {"type": "观察仓", "tier1": {"trigger_pct": 10, "action": "止盈一半"}}
     },
     {
       "name": "富国中证煤炭指数C",
@@ -193,10 +261,13 @@
       "yesterday_pnl": -9.17,
       "hold_return_amount": 0.0,
       "hold_return_pct": 0.0,
-      "weight_pct": 0.0,
+      "weight_pct": 0.04,
       "status": "converting",
       "sector": "资源/高股息防御",
-      "related_index": "中证煤炭"
+      "related_index": "中证煤炭",
+      "underlying_index": "中证煤炭指数",
+      "rebalance_role": "防御底仓(几乎清仓)",
+      "profit_lock": {"type": "防御/底仓", "action": "保留，不做调仓"}
     },
     {
       "name": "嘉实中证主要消费ETF发起联接C",
@@ -204,31 +275,100 @@
       "yesterday_pnl": -4.68,
       "hold_return_amount": 0.0,
       "hold_return_pct": 0.0,
-      "weight_pct": 0.0,
+      "weight_pct": 0.03,
       "status": "active",
       "sector": "指数/大消费",
-      "related_index": "中证主要消费指数"
+      "related_index": "中证主要消费指数",
+      "underlying_index": "中证主要消费指数",
+      "rebalance_role": "防御底仓(几乎清仓)",
+      "profit_lock": {"type": "防御/底仓", "action": "保留，不做调仓"}
     }
   ],
   "position_summary": {
     "active_funds_count": 11,
     "dormant_funds_count": 0,
     "cleared_funds_count": 1,
-    "total_active_market_value": 13129.26,
-    "top3_concentration_pct": 76.0,
-    "semiconductor_exposure_pct": 77.58,
-    "hk_innovation_drug_pct": 10.6,
+    "total_active_market_value": 11540.15,
+    "cash_pct": 12.11,
+    "top3_concentration_pct": 63.94,
+    "semiconductor_exposure_pct": 65.49,
+    "semiconductor_exposure_pct_of_invested": 74.54,
+    "hk_innovation_drug_pct": 10.58,
     "coal_defense_pct": 0.04,
     "bond_safety_pct": 9.62,
     "us_nasdaq_pct": 0.68,
     "consumption_pct": 0.03,
     "newly_confirmed_funds": [],
-    "key_moves_20260710": "①永赢半导翻倍+971(权重6.7→14.1%,成本摊薄-15.9%→-0.94%) ②煤炭清仓99%(502→5) ③消费清仓99%(497→3) ④港药继续减-176(11.9%→10.6%) ⑤财通双基加仓各+88 ⑥半导体集中度77.6%",
+    "key_moves_20260710": "①盘中卖出东方AI 1/3(4767→3178,权重36.3%→24.21%,回收~1589现金占12.11%) ②永赢半导翻倍+971(14.12%) ③港药-3.75%(10.58%) ④财通双基观察仓各~193 ⑤半导体集中度降至占总资产65.5%/占持仓74.5%",
     "risk_alerts": [
-      "半导体集中度77.6% 极度集中，单一板块风险敞口大",
-      "东方AI单仓36.3%超30%上限",
-      "永赢半导虽回撤至-0.94%，但翻倍后绝对敞口增至1856",
-      "港药持续亏损-3.75%"
+      "半导体集中度占总资产65.5%/占持仓74.5% 仍偏高，单一板块风险敞口大",
+      "东方阿尔法25.61%为第一大仓(逼近30%上限)",
+      "永赢半导虽收益率回撤至-0.94%，但绝对敞口1856，每跌1%亏18.5元",
+      "港药持续亏损-3.75%",
+      "现金12.11%为尾盘急跌低吸弹药，勿闲置"
+    ]
+  },
+  "profit_lock_rules": {
+    "赛道主题基金_半导体算力新能源": {
+      "tier1": "累计收益达20% → 赎回30%仓位收回部分本金",
+      "tier2": "累计收益达30% → 再赎回30%，剩余40%利润仓继续持有",
+      "drawdown": "回撤超过已盈利部分50% → 清仓利润仓落袋",
+      "principal_safe": "单只盈利>10%后设动态止损，回撤至成本线附近即赎回本金"
+    },
+    "宽基均衡型基金": {
+      "tier1": "累计收益达15% → 赎回20%仓位",
+      "tier2": "累计收益达25% → 再赎回30%，保留底仓长期持有"
+    },
+    "观察仓_百元级": {
+      "tier1": "收益达10% → 止盈一半"
+    },
+    "微亏_大敞口": {
+      "stop_loss": "回撤至-2% → 止损50%",
+      "rebound": "反弹至+5% → 止盈1/3"
+    },
+    "弱势_QDII医药": {
+      "stop_loss": "回撤至-5% → 减仓50%",
+      "rebound": "回升至-1%内 → 减仓1/3降低高波动占比"
+    },
+    "防御底仓": {
+      "action": "鹏华债/纳斯达克/煤炭/消费 全部保留，分散配置底仓不调仓"
+    }
+  },
+  "rebalance_plan": {
+    "fund_source": "全部来自止盈/减仓回款，不新增投入",
+    "sources": [
+      "东方AI/东方阿尔法止盈资金(核心来源)",
+      "半导体/港股创新药反弹后的减仓资金"
+    ],
+    "allocation": [
+      {"direction": "防御对冲类", "pct_of_proceeds": 40, "target": "沪深300/中证500宽基指数、中证红利高股息指数", "role": "对冲科技赛道波动，行情轮动时托底账户"},
+      {"direction": "低位轮动类", "pct_of_proceeds": 35, "target": "低位消费、A股创新药、高端制造等景气度触底方向", "role": "避免追高AI，布局补涨机会，分散赛道风险"},
+      {"direction": "机动现金", "pct_of_proceeds": 25, "target": "货币基金/短债", "role": "尾盘急跌时的低吸弹药，应对极端波动"}
+    ],
+    "triggers": [
+      "持仓板块连续3日资金净流出，且跑输大盘2%以上",
+      "新崛起板块连续2日占据涨幅前列，量能持续放大(量比>1.2)",
+      "持仓单只基金连续6个月跑输同类平均，或出现基金经理变更、风格漂移"
+    ],
+    "priority_reduce": ["短期暴涨无业绩支撑的主题基金", "长期跑输基准的弱势基金", "重复持仓的同质化基金"],
+    "priority_add": ["低位企稳、量能温和放大的景气赛道", "高股息防御品种", "业绩确定性强的细分龙头"],
+    "pace": "总调仓资金分3-4批完成，每周执行一批；单日板块涨跌幅超3%时暂停操作避免追涨杀跌；单次调仓比例不超过总仓位15%，控制冲击成本"
+  },
+  "tail_window": {
+    "monitor_phase": "14:30-14:50 实时监控期：持续跟踪核心指标，记录量价异动信号",
+    "decision_phase": "14:50-14:55 决策执行期：汇总全天+尾盘信号、生成最终决策、完成限价委托挂单",
+    "cutoff": "14:55之后：仅允许已有持仓的止盈止损被动委托，不新建任何仓位，规避最后几分钟脉冲式诱多/诱空陷阱",
+    "baseline_snapshot": "14:30 由『尾盘监控基准』任务记录创业板/科创50/沪深300实时涨跌幅+量比+北向尾盘10min净流入，供决策任务计算尾盘20分钟涨跌/量比变化",
+    "monitoring": {
+      "broad_market": ["沪深300/创业板指/科创50分时涨跌幅", "量比(≥1.2增量资金入场,≥3警惕异动诱盘)", "分时均线支撑/压力", "北向资金尾盘10分钟净流入额"],
+      "sector_rotation": ["全市场一级行业指数涨幅排名", "成交额增幅(识别当日资金主攻/出逃方向)"],
+      "holdings": ["持仓基金对应底层指数/ETF实时估值涨跌幅", "量价配合度"]
+    },
+    "scenarios": [
+      {"name": "尾盘放量拉升", "cond": "指数涨幅>1%,量比>1.2,站稳分时均线", "action": "持仓盈利标的持有不动；不追高加仓，仅保留底仓"},
+      {"name": "尾盘放量跳水", "cond": "指数跌幅>1%,量比>3,跌破分时均线", "action": "高仓位/高盈利标的减仓1/3锁定利润；弱势标的止损降仓"},
+      {"name": "缩量横盘震荡", "cond": "高低点价差<1%,成交量较日内均值萎缩50%", "action": "维持原有仓位，不做操作，等待次日方向选择"},
+      {"name": "板块分化轮动", "cond": "科技指数下跌，但宽基/消费/红利上涨", "action": "不盲目减仓科技，观察持续性，次日再执行调仓"}
     ]
   },
   "index_snapshot": {
@@ -256,7 +396,7 @@
   },
   "strategy": {
     "principal": 15000,
-    "style": "进攻型",
+    "style": "进攻型(已加入锁本与分散约束)",
     "stop_loss_pct": -8,
     "take_profit_pct": 15,
     "max_single_position_pct": 30,

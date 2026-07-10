@@ -137,6 +137,7 @@ def render_cmd_bar(instruction, date):
     disc_html = ('<div class="cmd-disc">%s</div>' % tip(disc)) if disc else ""
     nav = ('<nav class="cmd-nav">'
             '<a href="#hold">📦 持仓</a><a href="#sector">📊 板块</a><a href="#stop">🔻 止损</a>'
+            '<a href="#twin">🕒 窗口</a><a href="#pl">🔒 止盈</a><a href="#rb">🔄 调仓</a>'
             '<span class="nav-sep">|</span>'
             '<a href="早间全球分析-%s.html">🌅 早报</a>'
             '<a href="午盘收盘-%s.html">📊 午盘</a>'
@@ -442,6 +443,157 @@ def render_sources(src, disclaimer):
   {disc}
 </details>'''
 
+# ---------- 策略配置（止盈锁本 / 调仓 / 尾盘窗口）从 watchlist.json 读取 ----------
+def load_wl():
+    """读取持仓策略配置（止盈线/调仓框架/尾盘窗口为静态策略，以 watchlist.json 为准）。"""
+    p = os.path.normpath(os.path.join(BASE, "..", "config", "watchlist.json"))
+    if not os.path.exists(p):
+        return None
+    try:
+        return json.load(open(p, encoding="utf-8"))
+    except Exception:
+        return None
+
+def render_tail_window(wl, data):
+    """尾盘时间窗口与监控框架 + 今日场景高亮（今日场景来自 tail JSON instruction.tail_scenario）。"""
+    if not wl:
+        return ""
+    tw = wl.get("tail_window")
+    if not tw:
+        return ""
+    today_sc = ((data or {}).get("instruction") or {}).get("tail_scenario")
+    phases = [
+        ("① 实时监控期", tw.get("monitor_phase", "")),
+        ("② 决策执行期", tw.get("decision_phase", "")),
+        ("③ 截止铁律", tw.get("cutoff", "")),
+    ]
+    ph = ""
+    for t, d in phases:
+        ph += '<div class="tw-phase"><b>%s</b><span>%s</span></div>' % (esc(t), tip(d))
+    mon = tw.get("monitoring") or {}
+    mon_html = ""
+    for k, v in mon.items():
+        items = " / ".join(esc(x) for x in v)
+        mon_html += '<div class="tw-mon"><b>%s：</b>%s</div>' % (esc(k), items)
+    scs = tw.get("scenarios") or []
+    sc_html = ""
+    for s in scs:
+        name = s.get("name", "")
+        is_on = bool(today_sc) and (name in today_sc or today_sc in name)
+        cls = " tw-sc-on" if is_on else ""
+        sc_html += ('<div class="tw-sc%s"><div class="tw-sc-name">%s</div>'
+                    '<div class="tw-sc-cond">判定：%s</div>'
+                    '<div class="tw-sc-act">动作：%s</div></div>') % (
+            cls, esc(name), esc(s.get("cond", "")), tip(s.get("action", "")))
+    today_html = ('<div class="tw-today">🎯 今日尾盘场景：<b>%s</b></div>' % esc(today_sc)) if today_sc else ""
+    return f'''
+<section id="twin" class="card">
+  <h2>🕒 尾盘时间窗口与监控框架 <span class="badge">14:30监控→14:55决策→截止</span></h2>
+  {today_html}
+  <div class="tw-phases">{ph}</div>
+  <div class="tw-mon-box">{mon_html}</div>
+  <div class="tw-sc-title">尾盘场景分类（命中今日高亮）</div>
+  <div class="tw-scs">{sc_html}</div>
+</section>'''
+
+def _pl_entry(k, v):
+    if isinstance(v, dict):
+        trig = v.get("trigger_pct", v.get("from_peak_pct", "—"))
+        act = v.get("action", "—")
+        return "<b>%s</b>：%s → %s" % (esc(k), esc(trig), esc(act))
+    return "<b>%s</b>：%s" % (esc(k), esc(v))
+
+def render_profit_lock(wl):
+    """阶梯止盈锁本参数表：逐持仓展开上涨触发阶梯 + 回撤保护 + 本金安全线。"""
+    if not wl:
+        return ""
+    hs = wl.get("holdings") or []
+    rows = ""
+    for h in hs:
+        pl = h.get("profit_lock")
+        if not pl:
+            continue
+        name = tip(h.get("name", ""))
+        typ = esc(pl.get("type", "—"))
+        parts = []
+        for k, v in pl.items():
+            if k == "type":
+                continue
+            parts.append(_pl_entry(k, v))
+        body = "".join('<li>%s</li>' % p for p in parts) or "<li>—</li>"
+        rows += ('<div class="pl-row"><div class="pl-name">%s</div>'
+                  '<div class="pl-type">%s</div><ul class="pl-list">%s</ul></div>') % (name, typ, body)
+    if not rows:
+        return ""
+    rules = wl.get("profit_lock_rules") or {}
+    rule_html = ""
+    if rules:
+        r = ""
+        for typ, rv in rules.items():
+            if isinstance(rv, dict):
+                lines = " · ".join("%s：%s" % (esc(kk), esc(vv)) for kk, vv in rv.items())
+                r += "<div><b>%s</b>：%s</div>" % (esc(typ), lines)
+            else:
+                r += "<div><b>%s</b>：%s</div>" % (esc(typ), esc(rv))
+        rule_html = ('<details class="pl-rules"><summary>📋 阶梯止盈通用规则（点击展开）</summary>%s</details>') % r
+    return f'''
+<section id="pl" class="card">
+  <h2>🔒 阶梯止盈锁本参数表 <span class="badge">按持仓 · 分批收回本金</span></h2>
+  <div class="pl-rows">{rows}</div>
+  {rule_html}
+</section>'''
+
+def render_rebalance(wl):
+    """调仓清单：资金源 + 分配比例 + 触发条件 + 优先级 + 节奏。"""
+    if not wl:
+        return ""
+    rb = wl.get("rebalance_plan")
+    if not rb:
+        return ""
+    src = " / ".join(esc(s) for s in (rb.get("sources") or []))
+    alloc = rb.get("allocation") or []
+    bars = ""
+    for a in alloc:
+        pct = num(a.get("pct_of_proceeds")) or 0
+        bars += ('<div class="rb-bar"><div class="rb-name">%s <span class="rb-pct">%s%%</span></div>'
+                  '<div class="rb-track"><div class="rb-fill" style="width:%.0f%%"></div></div>'
+                  '<div class="rb-target">%s · <span class="rb-role">%s</span></div></div>') % (
+            esc(a.get("direction", "")), pct, pct, esc(a.get("target", "")), esc(a.get("role", "")))
+    trigs = " / ".join(esc(t) for t in (rb.get("triggers") or []))
+    pr = "".join('<li>%s</li>' % esc(x) for x in (rb.get("priority_reduce") or []))
+    pa = "".join('<li>%s</li>' % esc(x) for x in (rb.get("priority_add") or []))
+    pace = esc(rb.get("pace", ""))
+    return f'''
+<section id="rb" class="card">
+  <h2>🔄 调仓清单 <span class="badge">资金源 · 分配 · 触发 · 节奏</span></h2>
+  <div class="rb-src">💰 资金来源：{src or '—'}</div>
+  <div class="rb-bars">{bars}</div>
+  <div class="rb-trig">⚡ 调仓触发条件：{trigs or '—'}</div>
+  <div class="rb-prio">
+    <div class="rb-prio-col"><b class="down">优先减</b><ul>{pr or '<li>—</li>'}</ul></div>
+    <div class="rb-prio-col"><b class="up">优先加</b><ul>{pa or '<li>—</li>'}</ul></div>
+  </div>
+  <div class="rb-pace">🐢 执行节奏：{pace or '—'}</div>
+</section>'''
+
+def render_plan_html(wl, date):
+    """独立交付物：调仓止盈计划（止盈线表 + 调仓清单 + 尾盘窗口），深色统一板。"""
+    body = (render_tail_window(wl, {"instruction": {}}) +
+            render_profit_lock(wl) +
+            render_rebalance(wl))
+    intro = ('<section class="card"><div class="note">本计划由 watchlist.json 策略配置驱动，含每只基金阶梯止盈线、回撤保护、'
+              '本金安全线，以及「防御对冲40% / 低位轮动35% / 机动现金25%」三元调仓框架。'
+              '上方尾盘窗口卡的场景定义供日常尾盘决策报告填充当日实际场景。</div></section>')
+    head = (HEAD.replace("__DATE__", esc(date))
+             .replace("__UPD__", esc(date + " 策略快照"))
+             .replace("__TIER__", "策略")
+             .replace("<title>尾盘决策 __DATE__</title>", "<title>调仓止盈计划 __DATE__</title>")
+             .replace('<h1>🎯 尾盘决策</h1>',
+                      '<h1>🔒 调仓止盈计划</h1>')
+             .replace('<div class="sub">数据截止 __DATE__ 尾盘 · 更新 __UPD__ · 数据源 __TIER__（neodata/westock）· 收盘前操作预案 · 仅供参考不构成投资建议</div>',
+                      '<div class="sub">基于当前持仓策略配置 · 生成 __DATE__ · 阶梯止盈锁本 + 三元调仓框架 · 仅供参考不构成投资建议</div>'))
+    return head + intro + body + SCRIPT.replace("__DATA__", "{}")
+
 # ---------- 静态 HEAD（深色配色板，与早报/午报/晚报/大盘研判统一） ----------
 HEAD = """<!DOCTYPE html>
 <html lang="zh-CN">
@@ -463,6 +615,47 @@ h1{font-size:19px;margin-bottom:2px} .sub{color:var(--mut);font-size:12px;margin
 .legend{color:var(--mut);font-size:11px;margin-top:8px;line-height:1.6;border-top:1px dashed var(--line);padding-top:8px}
 .note{color:var(--mut);font-size:11.5px;margin-top:8px;line-height:1.5}
 .note.warn{background:rgba(217,164,65,.10);border:1px solid rgba(217,164,65,.3);border-radius:8px;padding:8px 10px;color:#d9a441}
+/* 尾盘窗口 */
+.tw-today{font-size:13px;background:rgba(74,168,255,.1);border:1px solid rgba(74,168,255,.35);border-radius:8px;padding:7px 10px;margin-bottom:8px}
+.tw-phases{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0}
+.tw-phase{flex:1;min-width:200px;background:var(--bg2);border:1px solid var(--line);border-radius:9px;padding:8px 10px}
+.tw-phase b{display:block;color:var(--acc);font-size:12px;margin-bottom:3px}
+.tw-phase span{font-size:11.5px;color:var(--mut);line-height:1.5}
+.tw-mon-box{display:flex;flex-direction:column;gap:3px;margin:6px 0;font-size:12px}
+.tw-mon b{color:var(--tx)}
+.tw-sc-title{font-size:12px;color:var(--mut);margin:8px 0 5px}
+.tw-scs{display:flex;gap:8px;flex-wrap:wrap}
+.tw-sc{flex:1;min-width:200px;background:var(--bg2);border:1px solid var(--line);border-radius:9px;padding:8px 10px}
+.tw-sc-on{border-color:var(--acc);background:rgba(74,168,255,.1);box-shadow:0 0 0 1px var(--acc)}
+.tw-sc-name{font-weight:800;font-size:13px;margin-bottom:3px}
+.tw-sc-cond,.tw-sc-act{font-size:11px;color:var(--mut);line-height:1.5;margin:2px 0}
+.tw-sc-act{color:#aab4c0}
+/* 止盈锁本 */
+.pl-rows{display:flex;flex-direction:column;gap:8px}
+.pl-row{background:var(--bg2);border:1px solid var(--line);border-radius:9px;padding:9px 11px}
+.pl-name{font-weight:800;font-size:13px}
+.pl-type{font-size:11px;color:var(--neu);margin:2px 0 5px}
+.pl-list{margin:0;padding-left:16px;font-size:11.5px;line-height:1.6}
+.pl-list b{color:var(--acc)}
+.pl-list li{margin:2px 0}
+.pl-rules{margin-top:8px;font-size:11.5px}
+.pl-rules summary{cursor:pointer;color:var(--mut)}
+.pl-rules>div{margin:3px 0;line-height:1.5}
+/* 调仓 */
+.rb-src{font-size:12.5px;margin-bottom:8px;color:#aab4c0}
+.rb-bars{display:flex;flex-direction:column;gap:7px}
+.rb-bar{background:var(--bg2);border:1px solid var(--line);border-radius:9px;padding:8px 10px}
+.rb-name{font-size:12.5px;font-weight:700}
+.rb-pct{color:var(--acc);font-weight:800;margin-left:4px}
+.rb-track{height:8px;background:rgba(0,0,0,.3);border-radius:5px;overflow:hidden;margin:5px 0}
+.rb-fill{height:100%;background:linear-gradient(90deg,var(--acc),#6ab0ff);border-radius:5px}
+.rb-target{font-size:11px;color:var(--mut)}
+.rb-role{color:#aab4c0}
+.rb-trig{font-size:12px;margin:8px 0;color:#aab4c0}
+.rb-prio{display:flex;gap:12px;margin:6px 0}
+.rb-prio-col{flex:1;font-size:11.5px}
+.rb-prio-col ul{margin:4px 0;padding-left:16px;line-height:1.5}
+.rb-pace{font-size:12px;color:var(--neu);background:rgba(217,164,65,.08);border-radius:8px;padding:7px 10px;margin-top:6px}
 /* 悬浮指令条 */
 .cmdbar{position:sticky;top:0;z-index:40;background:linear-gradient(135deg,#141d28,#0e141d);border:1px solid #2b4a6a;border-radius:12px;padding:10px 12px;margin-bottom:12px;box-shadow:0 4px 18px rgba(0,0,0,.5)}
 .cmdbar.core-sell{border-color:#6a2b2b}
@@ -668,12 +861,24 @@ def load_data(date):
     return json.load(open(p, encoding="utf-8")), date
 
 def main():
-    if len(sys.argv) > 1:
-        date = sys.argv[1]
+    args = sys.argv[1:]
+    if "--plan" in args:
+        # 独立交付物：调仓止盈计划（止盈线表 + 调仓清单 + 尾盘窗口）
+        rest = [a for a in args if a != "--plan"]
+        date = rest[0] if rest else datetime.date.today().isoformat()
+        wl = load_wl()
+        out_dir = os.path.join(REPORTS, date)
+        os.makedirs(out_dir, exist_ok=True)
+        out = os.path.join(out_dir, "调仓止盈计划-%s.html" % date)
+        open(out, "w", encoding="utf-8").write(render_plan_html(wl, date))
+        print("saved", out, "size", os.path.getsize(out))
+        return
+    if args:
+        date = args[0]
     else:
         fs = sorted(glob.glob(os.path.join(BASE, "tail_*.json")))
         if not fs:
-            raise SystemExit("用法: make_tail_html.py <YYYY-MM-DD>")
+            raise SystemExit("用法: make_tail_html.py <YYYY-MM-DD> [--plan]")
         date = os.path.basename(fs[-1])[5:-5]
     data, date = load_data(date)
 
@@ -681,12 +886,16 @@ def main():
     CRED_TIER = data.get("data_tier") or "T2"
     updated = data.get("updated_at") or (date + " 14:20")
     prev = yesterdate(date)
+    wl = load_wl()
 
     body = (render_cmd_bar(data.get("instruction"), date) +
+            render_tail_window(wl, data) +
             render_core_kpis((data.get("position") or {}).get("index_kpis")) +
             render_holdings((data.get("position") or {}).get("holdings")) +
             render_sector(data.get("sector")) +
             render_risk_stop(data.get("risk")) +
+            render_profit_lock(wl) +
+            render_rebalance(wl) +
             render_sentiment(data.get("sentiment")) +
             render_logic(data.get("logic")) +
             render_sources(data.get("sources"), data.get("disclaimer")))
