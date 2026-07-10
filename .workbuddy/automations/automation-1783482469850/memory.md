@@ -8,3 +8,13 @@
 - 信号结论：半导体双基(东方AI/东方阿尔法)/永赢/CPO(天弘/财通集成) 持有；港股创新药⚠滞后观望；消费/煤炭定投式持有。
 - 发布：rebuild_index.sh 重建收件箱；publish.sh 提交并 `git push --set-upstream origin main` 成功（首次需设 upstream）。
 - 注意：香港创新药/纳指100 为跨境内ETF，tdx 无 07-08 盘中数据，标注⚠待验证。
+
+## 2026-07-10（午盘快报）
+- 数据源：neodata-financial-search（脚本 query.py，首次需 connect_cloud_service 取 tempToken 并 --save-token；token 12h 有效）。指数/板块/ETF/资金流均成功返回 11:30 实时数据。
+- 关键数据(11:30)：上证+0.76%/深证+0.61%/创业板-0.65%；板块轮动分化——半导体-0.55%(ETF 512480 -1.36%)且主力净流出-55.2亿居首，创新药+4.44%、食品饮料+2.16%领涨；煤炭+0.41%企稳。
+- 行业资金流(neodata 行业主力统计)：净流入TOP3 IT服务Ⅱ+22.94/通用设备+18.77/化学制药+18.53亿；净流出TOP3 半导体-55.24/电池-31.82/光学光电子-26.24亿。
+- 信号结论(11只)：半导体双雄(东方AI/东方阿尔法)持有(core)；永赢半导减仓观察(core,深套-15.9%)；港药/纳指 QDII·T+1 持有；消费持有；煤炭企稳持有；天弘通信观望。无-8%硬止损触发，大盘未破位。
+- 落盘：data/midday_2026-07-10.json（T2）；追加 11 条 morning_close 预测到 prediction-log.json(total 42, morning_close 11, 累计验证仍 4/20)。
+- 渲染：make_midday_html.py → data/reports/2026-07-10/午盘收盘-2026-07-10.html(34.7KB)。rebuild_index 成功(2 reports)。publish 后台推送 origin/gitee(待通知)。
+- 提示：ETF 实时接口(基金实时行情查询)只返最新价/昨收，涨跌幅需自行计算(最新/昨收-1)。
+- 提示：neodata 首次查询须用"实时行情/今天涨跌幅"措辞，带具体日期的"午盘"措辞会触发历史K线回退且 token 过期时整批失败(先 TOKEN_EXPIRED)。
