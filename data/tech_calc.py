@@ -63,9 +63,11 @@ def calc_ma(ohlc):
     bias5 = round((c - m5) / m5 * 100, 2) if m5 else None
     bias20 = round((c - m20) / m20 * 100, 2) if m20 else None
     lv = [mas[5][-1], mas[10][-1], mas[20][-1], mas[60][-1], mas[250][-1]]
-    if all(lv[i] is not None and lv[i] >= lv[i + 1] for i in range(4)):
+    # 跳过尚未形成的长周期均线(如上市/采样<250日时 MA250 为 None)
+    present = [v for v in lv if v is not None]
+    if len(present) >= 2 and all(present[i] >= present[i + 1] for i in range(len(present) - 1)):
         pat = "多头排列"
-    elif all(lv[i] is not None and lv[i] <= lv[i + 1] for i in range(4)):
+    elif len(present) >= 2 and all(present[i] <= present[i + 1] for i in range(len(present) - 1)):
         pat = "空头排列"
     else:
         pat = "均线纠缠"
