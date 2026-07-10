@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<title>午盘收盘分析 2026-07-10</title>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+<style>
+:root{--up:#f5564d;--down:#26c281;--neu:#d9a441;--acc:#4aa8ff;--bg:#0e1117;--bg2:#161b24;--card:#1c232e;--line:#2a3340;--tx:#e6edf3;--mut:#8b98a9}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--tx);font:14px/1.6 -apple-system,"PingFang SC","Microsoft YaHei",sans-serif;padding:12px;max-width:1080px;margin:0 auto}
+.up{color:var(--up)} .down{color:var(--down)} .neu{color:var(--neu)} .acc{color:var(--acc)} .mut{color:var(--mut)}
+.b{font-weight:700} .r{text-align:right}
+h1{font-size:19px;margin-bottom:2px} .sub{color:var(--mut);font-size:12px;margin-bottom:10px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px;margin-bottom:12px;box-shadow:0 1px 2px rgba(0,0,0,.25)}
+.card h2{font-size:16px;margin-bottom:10px;display:flex;align-items:center;gap:6px;border-bottom:1px solid var(--line);padding-bottom:8px}
+.badge{font-size:11px;padding:1px 7px;border-radius:6px;background:var(--bg2);color:var(--mut);border:1px solid var(--line);font-weight:400}
+table{width:100%;border-collapse:collapse;font-size:12.5px}
+.tbl-scroll{max-height:520px;overflow:auto}
+th,td{padding:8px 6px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+th{color:var(--mut);font-weight:400;font-size:11.5px;position:sticky;top:0;background:var(--card);z-index:2}
+tbody tr:nth-child(even){background:rgba(255,255,255,.025)}
+.lname{font-weight:700}
+.cell-sub{font-size:10.5px;color:var(--mut);margin-bottom:2px}
+.tag{font-size:11px;padding:1px 7px;border-radius:6px;font-weight:700}
+/* 操作标签：持有绿 / 减仓观察红 / 待确认灰 / 观望浅灰 */
+.tag.o-hold{background:rgba(38,194,129,.16);color:#26c281}
+.tag.o-reduce{background:rgba(245,86,77,.16);color:#f5564d}
+.tag.o-pending{background:#3a4250;color:#aab4c0;font-weight:600}
+.tag.o-watch{background:#2a3340;color:#8b98a9;font-weight:600}
+/* 重点行分层 */
+tr.hl-core{background:rgba(38,194,129,.08)}
+tr.hl-core td:first-child{box-shadow:inset 3px 0 0 #26c281}
+tr.hl-reduce{background:rgba(245,86,77,.07)}
+tr.hl-reduce td:first-child{box-shadow:inset 3px 0 0 #f5564d}
+.core-badge{font-size:10px;font-weight:800;background:rgba(38,194,129,.22);color:#26c281;border-radius:5px;padding:1px 5px;margin-left:4px}
+.qdii{font-size:10px;background:rgba(217,164,65,.18);color:#d9a441;border-radius:6px;padding:1px 5px;margin-left:4px;font-weight:700}
+.ctags{margin-top:5px;display:flex;flex-wrap:wrap;gap:4px}
+.ctag{font-size:10.5px;background:var(--bg2);color:#aab4c0;border-radius:5px;padding:1px 6px}
+.note{color:var(--mut);font-size:11.5px;margin-top:8px;line-height:1.5}
+.note.warn{background:rgba(217,164,65,.10);border:1px solid rgba(217,164,65,.3);border-radius:8px;padding:8px 10px;color:#d9a441}
+.legend{color:var(--mut);font-size:11px;margin-top:8px;line-height:1.6;border-top:1px dashed var(--line);padding-top:8px}
+/* 核心速览卡 */
+.core-card{background:linear-gradient(135deg,#16202c,#111a24);border:1px solid #2b4a6a;border-radius:14px;padding:16px;margin-bottom:12px}
+.core-head{font-size:17px;font-weight:700;margin-bottom:10px;display:flex;align-items:center;gap:6px}
+.core-line{display:flex;gap:10px;padding:8px 0;font-size:13.5px;align-items:baseline;border-bottom:1px solid var(--line)}
+.cl-k{flex:0 0 70px;color:var(--acc);font-weight:600;font-size:12.5px}
+.cl-v{flex:1;color:var(--tx);line-height:1.7}
+.kpi-row{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0}
+.kpi{flex:1;min-width:150px;background:var(--bg2);border:1px solid var(--line);border-radius:10px;padding:12px;text-align:center}
+.kpi-v{font-size:21px;font-weight:800}
+.kpi-l{font-size:11.5px;color:var(--mut);margin-top:4px}
+.rule-box{background:rgba(74,168,255,.10);border-left:4px solid #4aa8ff;border-radius:8px;padding:10px 12px;margin-top:10px;font-size:13px;color:#bcd9f5}
+/* 资金流 */
+.flow-wrap{display:flex;gap:14px}
+.flow-col{flex:1;min-width:0}
+.flow-cap{font-size:13px;font-weight:700;margin-bottom:6px}
+.chart-wrap{margin:8px 0;background:rgba(0,0,0,.15);border-radius:10px;padding:6px;height:240px}
+.chart-wrap.sm{height:220px}
+/* 预测三栏卡片 */
+.pgrid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+.pcard{border:1px solid var(--line);border-radius:11px;padding:10px;background:var(--bg2)}
+.pc-up{border-top:3px solid var(--up)}
+.pc-down{border-top:3px solid var(--down)}
+.pc-flat{border-top:3px solid var(--neu)}
+.pc-head{font-size:14px;font-weight:800;margin-bottom:8px}
+.pc-item{border-top:1px solid var(--line);padding:7px 0;font-size:12px}
+.pc-item:first-child{border-top:none}
+.pc-top{display:flex;justify-content:space-between;align-items:center;gap:6px;margin-bottom:3px}
+.pc-name{font-weight:700;font-size:12.5px}
+.conf{font-size:10px;font-weight:700;border-radius:6px;padding:1px 6px;white-space:nowrap}
+.conf-high{background:rgba(38,194,129,.22);color:#26c281}
+.conf-mid{background:rgba(217,164,65,.22);color:#d9a441}
+.conf-low{background:rgba(139,152,169,.22);color:#8b98a9}
+.pc-reason{font-size:11.5px;color:#aab4c0;line-height:1.55}
+.warnbox{background:rgba(217,164,65,.10);border:1px solid rgba(217,164,65,.3);border-radius:8px;padding:8px 11px;font-size:11.5px;color:#d9a441;margin-top:10px}
+.hit-rate{font-size:12px;color:var(--acc);margin-top:10px;font-weight:600}
+/* 尾盘赛道要点 */
+.tracks{display:flex;flex-direction:column;gap:8px}
+.tl-track{display:flex;gap:10px;align-items:flex-start;font-size:13px;line-height:1.6;padding:8px 10px;background:var(--bg2);border-radius:9px;border-left:3px solid var(--acc)}
+.tl-tag{flex:0 0 auto;font-weight:800;font-size:12px;color:var(--acc);min-width:118px}
+.tl-body{flex:1;color:#cdd7e2}
+/* 数据校验 / 来源（折叠） */
+details.card summary{cursor:pointer;font-size:16px;font-weight:700;display:flex;align-items:center;gap:6px;list-style:none}
+details.card summary::-webkit-details-marker{display:none}
+details.card[open] summary{margin-bottom:10px;border-bottom:1px solid var(--line);padding-bottom:8px}
+.check{list-style:none;font-size:12.5px;line-height:1.6}
+.check li{margin:6px 0;padding-left:22px;position:relative}
+.check li.ok:before{content:"✓";position:absolute;left:0;color:#26c281;font-weight:800}
+.check li.warn:before{content:"!";position:absolute;left:0;color:#d9a441;font-weight:800}
+.check li.q:before{content:"?";position:absolute;left:0;color:var(--mut);font-weight:800}
+.check li b{color:var(--tx)}
+.src-box{font-size:12.5px;line-height:1.7;background:rgba(74,168,255,.05);border-radius:8px;padding:10px 12px}
+.kv{display:flex;justify-content:space-between;gap:10px;padding:5px 0;border-bottom:1px solid var(--line);font-size:12px}
+.kv .src-note{color:var(--mut);text-align:right;flex:1}
+/* 顶部导航 */
+.topnav{position:sticky;top:0;z-index:30;background:rgba(14,17,23,.95);backdrop-filter:blur(6px);border:1px solid var(--line);border-radius:10px;padding:6px 8px;margin-bottom:12px;display:flex;gap:4px;flex-wrap:wrap;align-items:center;font-size:12px}
+.topnav a{color:var(--mut);text-decoration:none;padding:3px 7px;border-radius:6px}
+.topnav a:hover{background:var(--bg2);color:var(--tx)}
+.nav-hist{margin-left:auto;display:flex;gap:4px}
+/* 术语悬停 */
+.tip{border-bottom:1px dotted var(--acc);cursor:help}
+.tip:hover{position:relative}
+.tip:hover::after{content:attr(data-tip);position:absolute;left:0;top:130%;z-index:50;background:#0b0f15;border:1px solid var(--line);color:var(--tx);font-size:11.5px;line-height:1.4;padding:6px 8px;border-radius:8px;width:260px;box-shadow:0 4px 14px rgba(0,0,0,.5);font-weight:400}
+@media (max-width:680px){.flow-wrap{grid-template-columns:1fr}.pgrid{grid-template-columns:1fr}.topnav{font-size:11px}.tl-tag{min-width:90px}}
+@media print{
+  body{background:#fff;color:#111;max-width:100%}
+  .topnav{display:none}.card{break-inside:avoid;box-shadow:none}
+  .chart-wrap{height:200px}.tip:hover::after{display:none}
+  details.card:not([open]){display:block}
+  details.card summary{margin-bottom:8px}
+  *{color:#111!important;border-color:#ccc!important}
+}
+</style>
+</head>
+<body>
+<h1>📊 午盘收盘分析</h1>
+<div class="sub">数据截止 2026-07-10 11:30 A股午盘 · 更新 2026-07-10 11:30 · 数据源 T2（westock/neodata）· 中场决策快报 · 仅供参考不构成投资建议</div>
+<nav class="topnav"><a href="#align">对齐表</a><a href="#flow">资金</a><a href="#predict">预判</a><a href="#tail">尾盘</a><span class="nav-hist"><a href="早间全球分析-2026-07-10.html">🌅当日早间</a><a href="../2026-07-09/晚间复盘-2026-07-09.html">🌙前日晚间</a><a href="../../index.html">📱收件箱</a></span></nav>
+<section id="core" class="core-card">
+  <div class="core-head">📊 午盘核心速览 <span class="badge">中场决策快报</span></div>
+  <div class="core-line"><span class="cl-k">市场定性</span><span class="cl-v">半导体高位分歧、资金净流出居首，创新药/消费接棒领涨的轮动分化行情</span></div>
+  <div class="kpi-row"><div class="kpi"><div class="kpi-v up">+4.44%</div><div class="kpi-l">领涨·创新药</div></div><div class="kpi"><div class="kpi-v down">-0.55%</div><div class="kpi-l">领跌·半导体(核心)</div></div><div class="kpi"><div class="kpi-v down">半导体 -55.2亿</div><div class="kpi-l">主力净流出Top1</div></div></div>
+  <div class="rule-box">🎯 下午操作总纲：核心半导体持仓不追高、警惕资金净流出延续；创新药/消费持有；煤炭企稳不追；严守单基-8%硬止损</div>
+  <div class="legend">涨跌配色 <b class="up">红=涨</b>/<b class="down">绿=跌</b>（A股惯例）· ±2% 加粗 · 操作标签 🟢持有/🔴减仓观察/⚪待确认/⚫观望 · 置信度 🟢高/🟠中/⚪低</div>
+</section>
+<section id="align" class="card">
+  <h2>① 板块↔基金对齐表 <span class="badge">交叉验证 · 核心</span></h2>
+  <div class="tbl-scroll">
+  <table>
+    <tr><th>基金名称</th><th>关联ETF午盘</th><th>申万行业</th><th>操作信号 / 成因</th></tr>
+    <tr class=" hl-core"><td class="lname">东方人工智能主题混合C <span class="core-badge">核心持仓</span></td><td><div class="cell-sub">半导体ETF国联安(512480)</div><span class="down">-1.36%</span></td><td><div class="cell-sub">半导体</div><span class="down">-0.55%</span></td><td><span class="tag o-hold">持有</span><div class="ctags"><span class="ctag">第一大重仓36.1%</span><span class="ctag">半导体主动主题</span><span class="ctag">资金净流出居首-55亿</span></div></td></tr><tr class=" hl-core"><td class="lname">东方阿尔法科技优选混合C <span class="core-badge">核心持仓</span></td><td><div class="cell-sub">半导体ETF国联安(512480)</div><span class="down">-1.36%</span></td><td><div class="cell-sub">半导体</div><span class="down">-0.55%</span></td><td><span class="tag o-hold">持有</span><div class="ctags"><span class="ctag">第二大重仓25.6%</span><span class="ctag">半导体主动主题</span><span class="ctag">随板块走弱</span></div></td></tr><tr class=""><td class="lname">鹏华丰诚债券C</td><td><div class="cell-sub">—</div><span class="mut">⚠ 数据源未返回</span></td><td><div class="cell-sub">纯债安全垫(无权益板块)</div><span class="mut">⚠ 数据源未返回</span></td><td><span class="tag o-hold">持有</span><div class="ctags"><span class="ctag">纯债安全垫</span><span class="ctag">第四大仓位9.6%</span><span class="ctag">与权益脱钩</span></div></td></tr><tr class=""><td class="lname">广发港股创新药ETF联接(QDII)C <span class="qdii tip" data-tip="QDII 基金净值滞后一个交易日(T+1)确认，午盘所见为前一交易日美股/港股表现">QDII·T+1</span></td><td><div class="cell-sub">港股创新药ETF(513120)</div><span class="up b">+3.94%</span></td><td><div class="cell-sub">创新药/港股创新药</div><span class="up b">+4.44%</span></td><td><span class="tag o-hold">持有</span><div class="ctags"><span class="ctag">QDII·T+1</span><span class="ctag">创新药领涨+4.44%</span><span class="ctag">化学制药净流入+18.5亿</span></div></td></tr><tr class=" hl-core"><td class="lname">永赢先锋半导体智选混合C <span class="core-badge">核心持仓</span></td><td><div class="cell-sub">半导体ETF国联安(512480)</div><span class="down">-1.36%</span></td><td><div class="cell-sub">半导体</div><span class="down">-0.55%</span></td><td><span class="tag o-reduce">减仓观察</span><div class="ctags"><span class="ctag">半导体主题</span><span class="ctag">持仓深套-15.9%逼近止损</span><span class="ctag">随板块走弱</span></div></td></tr><tr class=""><td class="lname">富国中证煤炭指数C</td><td><div class="cell-sub">煤炭ETF国泰(515220)</div><span class="up">+0.45%</span></td><td><div class="cell-sub">煤炭开采</div><span class="up">+0.41%</span></td><td><span class="tag o-hold">持有</span><div class="ctags"><span class="ctag">煤炭企稳+0.41%</span><span class="ctag">小仓3.8%</span><span class="ctag">债转已到位不追高</span></div></td></tr><tr class=""><td class="lname">嘉实中证主要消费ETF发起联接C</td><td><div class="cell-sub">消费ETF汇添富(159928)</div><span class="up b">+2.59%</span></td><td><div class="cell-sub">食品饮料/主要消费</div><span class="up b">+2.16%</span></td><td><span class="tag o-hold">持有</span><div class="ctags"><span class="ctag">消费估值低位修复</span><span class="ctag">食品饮料+2.16%</span><span class="ctag">小仓3.8%</span></div></td></tr><tr class=""><td class="lname">广发纳斯达克100ETF联接(QDII)C <span class="qdii tip" data-tip="QDII 基金净值滞后一个交易日(T+1)确认，午盘所见为前一交易日美股/港股表现">QDII·T+1</span></td><td><div class="cell-sub">纳指ETF国泰(513100)</div><span class="up">+0.83%</span></td><td><div class="cell-sub">纳斯达克100(美股QDII)</div><span class="mut">⚠ 数据源未返回</span></td><td><span class="tag o-hold">持有</span><div class="ctags"><span class="ctag">QDII·T+1</span><span class="ctag">纳指ETF+0.83%</span><span class="ctag">极小仓0.6%</span></div></td></tr><tr class=" hl-core"><td class="lname">财通集成电路产业股票C <span class="core-badge">核心持仓</span></td><td><div class="cell-sub">半导体ETF国联安(512480)</div><span class="down">-1.36%</span></td><td><div class="cell-sub">半导体/CPO</div><span class="down">-0.55%</span></td><td><span class="tag o-hold">持有</span><div class="ctags"><span class="ctag">半导体新仓</span><span class="ctag">小仓0.8%</span><span class="ctag">随板块偏弱</span></div></td></tr><tr class=""><td class="lname">财通成长优选混合C</td><td><div class="cell-sub">沪深300ETF华泰柏瑞(510300)</div><span class="up">+0.53%</span></td><td><div class="cell-sub">沪深300/成长宽基</div><span class="up">+0.49%</span></td><td><span class="tag o-hold">持有</span><div class="ctags"><span class="ctag">成长宽基</span><span class="ctag">沪深300+0.49%</span><span class="ctag">小仓0.8%</span></div></td></tr><tr class=""><td class="lname">天弘中证全指通信设备指数C</td><td><div class="cell-sub">通信ETF国泰(515880)</div><span class="down">-0.12%</span></td><td><div class="cell-sub">通信设备/CPO</div><span class="neu">0.00%</span></td><td><span class="tag o-watch">观望</span><div class="ctags"><span class="ctag">CPO主题退潮</span><span class="ctag">极小仓0.08%</span><span class="ctag">基金经理警示追高</span></div></td></tr>
+  </table>
+  </div>
+  <div class="note">红=涨/绿=跌(A股惯例)·±2%加粗；基金午间估算源 neodata 实时未返回净值→估值标「未连接」、偏离度标「N/A」不阻塞；申万行业zdf与关联ETF午盘涨跌均来自 neodata 实时(11:30)返回，非空可验；创新药/食品饮料申万行业zdf在返回集内；基金涨跌≠板块涨跌属正常（受仓位/重仓股α影响）</div>
+</section>
+<section id="flow" class="card">
+  <h2>② 主力资金流向 <span class="badge">westock zljlr</span></h2>
+  <div class="flow-wrap">
+    <div class="flow-col"><div class="flow-cap up">⬆ 净流入 TOP3</div><div class="chart-wrap sm"><canvas id="flowIn"></canvas></div></div>
+    <div class="flow-col"><div class="flow-cap down">⬇ 净流出 TOP3</div><div class="chart-wrap sm"><canvas id="flowOut"></canvas></div></div>
+  </div>
+  <div class="note">全市场呈轮动分化：资金撤离半导体(-55.2亿居首净流出)、电池、光学光电子，转投IT服务/通用设备/化学制药(医药创新药链条)。北向实时停披→数据源未返回。</div>
+  <div class="note warn">净流出TOP3为 neodata 行业主力统计(升序)真实返回，净流入TOP3为行业主力统计(降序)真实返回，单位均为亿元；图中数值用于展示排序。</div>
+</section>
+<section id="predict" class="card">
+  <h2>③ 下午走势预判 <span class="badge">三栏卡片矩阵</span></h2>
+  <div class="pgrid"><div class="pcard pc-up"><div class="pc-head">↑ 涨</div><div class="pc-item"><div class="pc-top"><span class="pc-name">广发港股创新药ETF联接(QDII)C</span><span class="conf conf-high">置信·高</span></div><div class="pc-reason">创新药板块+4.44%领涨、化学制药主力净流入+18.5亿，动量极强；午后或延续但T+1净值次日确认</div></div><div class="pc-item"><div class="pc-top"><span class="pc-name">嘉实中证主要消费ETF发起联接C</span><span class="conf conf-mid">置信·中</span></div><div class="pc-reason">食品饮料+2.16%、消费ETF+2.59%修复，估值低位补涨延续</div></div><div class="pc-item"><div class="pc-top"><span class="pc-name">广发纳斯达克100ETF联接(QDII)C</span><span class="conf conf-mid">置信·中</span></div><div class="pc-reason">纳指ETF+0.83%，美股强势T+1，净值次日确认</div></div></div><div class="pcard pc-down"><div class="pc-head">↓ 跌</div><div class="pc-item"><div class="pc-top"><span class="pc-name">东方人工智能主题混合C</span><span class="conf conf-mid">置信·中</span></div><div class="pc-reason">半导体-0.55%、ETF-1.36%、主力净流出-55亿居首，今日资金撤离半导体，午后或延续偏弱不追高</div></div><div class="pc-item"><div class="pc-top"><span class="pc-name">东方阿尔法科技优选混合C</span><span class="conf conf-mid">置信·中</span></div><div class="pc-reason">同半导体弱势+资金净流出，主动主题跟跌</div></div><div class="pc-item"><div class="pc-top"><span class="pc-name">永赢先锋半导体智选混合C</span><span class="conf conf-mid">置信·中</span></div><div class="pc-reason">半导体弱势+持仓深套-15.9%，承压</div></div><div class="pc-item"><div class="pc-top"><span class="pc-name">财通集成电路产业股票C</span><span class="conf conf-low">置信·低</span></div><div class="pc-reason">半导体小仓新配，随板块偏弱</div></div><div class="pc-item"><div class="pc-top"><span class="pc-name">天弘中证全指通信设备指数C</span><span class="conf conf-low">置信·低</span></div><div class="pc-reason">通信设备-0.00%平、CPO主题退潮，极小仓观望</div></div></div><div class="pcard pc-flat"><div class="pc-head">→ 震荡</div><div class="pc-item"><div class="pc-top"><span class="pc-name">富国中证煤炭指数C</span><span class="conf conf-mid">置信·中</span></div><div class="pc-reason">煤炭+0.41%企稳小涨、窄幅震荡，按计划不追高</div></div><div class="pc-item"><div class="pc-top"><span class="pc-name">鹏华丰诚债券C</span><span class="conf conf-low">置信·低</span></div><div class="pc-reason">纯债安全垫，日内≈平，与权益脱钩</div></div><div class="pc-item"><div class="pc-top"><span class="pc-name">财通成长优选混合C</span><span class="conf conf-low">置信·低</span></div><div class="pc-reason">沪深300仅+0.49%窄幅；模型震荡历史偏差大低置信</div></div></div></div>
+  <div class="warnbox">⚠️ 权重调整：历史「震荡」预测连续踏空，故下调震荡权重、上调动量方向。本批预测加权后计入命中率统计。</div>
+  <div class="hit-rate">📈 命中率：累计验证 4/20（本批预测加权后计入统计）</div>
+</section>
+<section id="tail" class="card">
+  <h2>④ 尾盘操作前瞻 <span class="badge">赛道要点</span></h2>
+  <div class="tracks"><div class="tl-track"><span class="tl-tag">半导体系(~69%)</span><span class="tl-body">上午半导体-0.55%、ETF-1.36%、主力净流出-55亿居首，资金撤离；核心持仓不追高，警惕获利回吐与净流出延续</span></div><div class="tl-track"><span class="tl-tag">煤炭</span><span class="tl-body">板块+0.41%企稳小涨，债转已到位，不追高；小仓持有</span></div><div class="tl-track"><span class="tl-tag">QDII类(港药/纳指)</span><span class="tl-body">T+1净值滞后，今日创新药+4.44%/纳指+0.83%修复延续，净值次日确认</span></div><div class="tl-track"><span class="tl-tag">其他小仓(消费/通信)</span><span class="tl-body">消费+2.16%强势持有；通信设备CPO平、极小仓观望</span></div><div class="tl-track"><span class="tl-tag">风控底线</span><span class="tl-body">轮动分化但半导体仍为最大单一赛道(69%)，单基-8%硬止损严守；永赢深套-15.9%重点观察</span></div></div>
+</section>
+<details id="valid" class="card">
+  <summary>⑤ 数据校验与来源说明 <span class="badge">默认折叠</span></summary>
+  <ul class="check"><li class="ok">✅ <b>对齐表数值非空</b> — 关联ETF午盘涨跌、申万行业zdf 均来自 neodata 实时返回(11:30)，非空可验</li><li class="warn">⚠️ <b>偏离度计算</b> — 基金午间估算源 neodata 未返回净值→估值标「未连接」、偏离度标「N/A」，不阻塞</li><li class="ok">✅ <b>缺失字段统一标注</b> — 北向实时净买入已标「数据源未返回」</li><li class="ok">✅ <b>QDII 时差标注</b> — 广发港股创新药、广发纳斯达克100 已置 qdii=true 渲染 QDII·T+1 标签</li><li class="warn">⚠️ <b>北向停披</b> — 陆股通实时净买入已停披，标「数据源未返回」</li></ul>
+  <div class="warnbox">⚠️ 基金涨跌 ≠ 板块涨跌很正常：受仓位/重仓股α/个股贡献影响。本对齐表用于交叉验证而非等同。</div>
+</details>
+<details id="src" class="card">
+  <summary>⑥ 数据来源与免责 <span class="badge">默认折叠</span></summary>
+  <div class="src-box"><div class="kv"><span>行情主源</span><span class="src-note">neodata-financial-search（westock 实时行情）—— 关联ETF午盘涨跌、申万行业zdf、主力资金流(zljlr)</span></div><div class="kv"><span>基金估值/新闻辅助源</span><span class="src-note">neodata-financial-search—— 基金午间估算标注「未连接」（未返回净值）</span></div><div class="kv"><span>北向</span><span class="src-note">陆股通实时净买入已停披，标注「数据源未返回」</span></div><div class="kv"><span>预测库</span><span class="src-note">prediction-log.json（回填昨日实际、追加今日上午预测）；情绪：sentiment-log.json；板块K：kline-log.json</span></div></div>
+  <div class="note warn">⚠️ 本分析由「每日基金自动报告系统」生成，仅供参考，不构成投资建议。模型研判，非交易建议。</div>
+</details>
+<script>
+const REPORT = {"date": "2026-07-10", "updated_at": "2026-07-10 11:30", "data_tier": "T2", "snapshot": "11:30 A股午盘", "core": {"one_liner": "半导体高位分歧、资金净流出居首，创新药/消费接棒领涨的轮动分化行情", "action_guide": "核心半导体持仓不追高、警惕资金净流出延续；创新药/消费持有；煤炭企稳不追；严守单基-8%硬止损", "kpis": [{"label": "领涨·创新药", "value": "+4.44%", "cls": "up"}, {"label": "领跌·半导体(核心)", "value": "-0.55%", "cls": "down"}, {"label": "主力净流出Top1", "value": "半导体 -55.2亿", "cls": "down"}]}, "alignment": [{"name": "东方人工智能主题混合C", "qdii": false, "etf": "半导体ETF国联安(512480)", "etf_chg": -1.36, "sw_sector": "半导体", "sw_chg": -0.55, "op_signal": "持有", "row_class": "core", "cause_tags": ["第一大重仓36.1%", "半导体主动主题", "资金净流出居首-55亿"]}, {"name": "东方阿尔法科技优选混合C", "qdii": false, "etf": "半导体ETF国联安(512480)", "etf_chg": -1.36, "sw_sector": "半导体", "sw_chg": -0.55, "op_signal": "持有", "row_class": "core", "cause_tags": ["第二大重仓25.6%", "半导体主动主题", "随板块走弱"]}, {"name": "鹏华丰诚债券C", "qdii": false, "etf": null, "etf_chg": null, "sw_sector": "纯债安全垫(无权益板块)", "sw_chg": null, "op_signal": "持有", "row_class": "normal", "cause_tags": ["纯债安全垫", "第四大仓位9.6%", "与权益脱钩"]}, {"name": "广发港股创新药ETF联接(QDII)C", "qdii": true, "etf": "港股创新药ETF(513120)", "etf_chg": 3.94, "sw_sector": "创新药/港股创新药", "sw_chg": 4.44, "op_signal": "持有", "row_class": "normal", "cause_tags": ["QDII·T+1", "创新药领涨+4.44%", "化学制药净流入+18.5亿"]}, {"name": "永赢先锋半导体智选混合C", "qdii": false, "etf": "半导体ETF国联安(512480)", "etf_chg": -1.36, "sw_sector": "半导体", "sw_chg": -0.55, "op_signal": "减仓观察", "row_class": "core", "cause_tags": ["半导体主题", "持仓深套-15.9%逼近止损", "随板块走弱"]}, {"name": "富国中证煤炭指数C", "qdii": false, "etf": "煤炭ETF国泰(515220)", "etf_chg": 0.45, "sw_sector": "煤炭开采", "sw_chg": 0.41, "op_signal": "持有", "row_class": "normal", "cause_tags": ["煤炭企稳+0.41%", "小仓3.8%", "债转已到位不追高"]}, {"name": "嘉实中证主要消费ETF发起联接C", "qdii": false, "etf": "消费ETF汇添富(159928)", "etf_chg": 2.59, "sw_sector": "食品饮料/主要消费", "sw_chg": 2.16, "op_signal": "持有", "row_class": "normal", "cause_tags": ["消费估值低位修复", "食品饮料+2.16%", "小仓3.8%"]}, {"name": "广发纳斯达克100ETF联接(QDII)C", "qdii": true, "etf": "纳指ETF国泰(513100)", "etf_chg": 0.83, "sw_sector": "纳斯达克100(美股QDII)", "sw_chg": null, "op_signal": "持有", "row_class": "normal", "cause_tags": ["QDII·T+1", "纳指ETF+0.83%", "极小仓0.6%"]}, {"name": "财通集成电路产业股票C", "qdii": false, "etf": "半导体ETF国联安(512480)", "etf_chg": -1.36, "sw_sector": "半导体/CPO", "sw_chg": -0.55, "op_signal": "持有", "row_class": "core", "cause_tags": ["半导体新仓", "小仓0.8%", "随板块偏弱"]}, {"name": "财通成长优选混合C", "qdii": false, "etf": "沪深300ETF华泰柏瑞(510300)", "etf_chg": 0.53, "sw_sector": "沪深300/成长宽基", "sw_chg": 0.49, "op_signal": "持有", "row_class": "normal", "cause_tags": ["成长宽基", "沪深300+0.49%", "小仓0.8%"]}, {"name": "天弘中证全指通信设备指数C", "qdii": false, "etf": "通信ETF国泰(515880)", "etf_chg": -0.12, "sw_sector": "通信设备/CPO", "sw_chg": 0.0, "op_signal": "观望", "row_class": "normal", "cause_tags": ["CPO主题退潮", "极小仓0.08%", "基金经理警示追高"]}], "align_note": "红=涨/绿=跌(A股惯例)·±2%加粗；基金午间估算源 neodata 实时未返回净值→估值标「未连接」、偏离度标「N/A」不阻塞；申万行业zdf与关联ETF午盘涨跌均来自 neodata 实时(11:30)返回，非空可验；创新药/食品饮料申万行业zdf在返回集内；基金涨跌≠板块涨跌属正常（受仓位/重仓股α影响）", "capital_flow": {"in_top3": [{"name": "IT服务Ⅱ", "value": 22.94}, {"name": "通用设备", "value": 18.77}, {"name": "化学制药", "value": 18.53}], "out_top3": [{"name": "半导体", "value": -55.24}, {"name": "电池", "value": -31.82}, {"name": "光学光电子", "value": -26.24}], "conclusion": "全市场呈轮动分化：资金撤离半导体(-55.2亿居首净流出)、电池、光学光电子，转投IT服务/通用设备/化学制药(医药创新药链条)。北向实时停披→数据源未返回。", "illustrative": "净流出TOP3为 neodata 行业主力统计(升序)真实返回，净流入TOP3为行业主力统计(降序)真实返回，单位均为亿元；图中数值用于展示排序。"}, "predict": {"note": "权重调整：历史「震荡」预测连续踏空，故下调震荡权重、上调动量方向。本批预测加权后计入命中率统计。", "hit_rate": "累计验证 4/20", "up": [{"name": "广发港股创新药ETF联接(QDII)C", "conf": "高", "reason": "创新药板块+4.44%领涨、化学制药主力净流入+18.5亿，动量极强；午后或延续但T+1净值次日确认"}, {"name": "嘉实中证主要消费ETF发起联接C", "conf": "中", "reason": "食品饮料+2.16%、消费ETF+2.59%修复，估值低位补涨延续"}, {"name": "广发纳斯达克100ETF联接(QDII)C", "conf": "中", "reason": "纳指ETF+0.83%，美股强势T+1，净值次日确认"}], "down": [{"name": "东方人工智能主题混合C", "conf": "中", "reason": "半导体-0.55%、ETF-1.36%、主力净流出-55亿居首，今日资金撤离半导体，午后或延续偏弱不追高"}, {"name": "东方阿尔法科技优选混合C", "conf": "中", "reason": "同半导体弱势+资金净流出，主动主题跟跌"}, {"name": "永赢先锋半导体智选混合C", "conf": "中", "reason": "半导体弱势+持仓深套-15.9%，承压"}, {"name": "财通集成电路产业股票C", "conf": "低", "reason": "半导体小仓新配，随板块偏弱"}, {"name": "天弘中证全指通信设备指数C", "conf": "低", "reason": "通信设备-0.00%平、CPO主题退潮，极小仓观望"}], "flat": [{"name": "富国中证煤炭指数C", "conf": "中", "reason": "煤炭+0.41%企稳小涨、窄幅震荡，按计划不追高"}, {"name": "鹏华丰诚债券C", "conf": "低", "reason": "纯债安全垫，日内≈平，与权益脱钩"}, {"name": "财通成长优选混合C", "conf": "低", "reason": "沪深300仅+0.49%窄幅；模型震荡历史偏差大低置信"}]}, "tail": {"tracks": [{"title": "半导体系(~69%)", "body": "上午半导体-0.55%、ETF-1.36%、主力净流出-55亿居首，资金撤离；核心持仓不追高，警惕获利回吐与净流出延续"}, {"title": "煤炭", "body": "板块+0.41%企稳小涨，债转已到位，不追高；小仓持有"}, {"title": "QDII类(港药/纳指)", "body": "T+1净值滞后，今日创新药+4.44%/纳指+0.83%修复延续，净值次日确认"}, {"title": "其他小仓(消费/通信)", "body": "消费+2.16%强势持有；通信设备CPO平、极小仓观望"}, {"title": "风控底线", "body": "轮动分化但半导体仍为最大单一赛道(69%)，单基-8%硬止损严守；永赢深套-15.9%重点观察"}]}, "validation": {"checks": [{"status": "ok", "item": "对齐表数值非空", "note": "关联ETF午盘涨跌、申万行业zdf 均来自 neodata 实时返回(11:30)，非空可验"}, {"status": "warn", "item": "偏离度计算", "note": "基金午间估算源 neodata 未返回净值→估值标「未连接」、偏离度标「N/A」，不阻塞"}, {"status": "ok", "item": "缺失字段统一标注", "note": "北向实时净买入已标「数据源未返回」"}, {"status": "ok", "item": "QDII 时差标注", "note": "广发港股创新药、广发纳斯达克100 已置 qdii=true 渲染 QDII·T+1 标签"}, {"status": "warn", "item": "北向停披", "note": "陆股通实时净买入已停披，标「数据源未返回」"}], "warnbox": "⚠️ 基金涨跌 ≠ 板块涨跌很正常：受仓位/重仓股α/个股贡献影响。本对齐表用于交叉验证而非等同。"}, "sources": {"items": [{"item": "行情主源", "note": "neodata-financial-search（westock 实时行情）—— 关联ETF午盘涨跌、申万行业zdf、主力资金流(zljlr)"}, {"item": "基金估值/新闻辅助源", "note": "neodata-financial-search—— 基金午间估算标注「未连接」（未返回净值）"}, {"item": "北向", "note": "陆股通实时净买入已停披，标注「数据源未返回」"}, {"item": "预测库", "note": "prediction-log.json（回填昨日实际、追加今日上午预测）；情绪：sentiment-log.json；板块K：kline-log.json"}]}, "disclaimer": "⚠️ 本分析由「每日基金自动报告系统」生成，仅供参考，不构成投资建议。模型研判，非交易建议。"};
+const DARK = {tx:'#e6edf3', mut:'#8b98a9', up:'#f5564d', down:'#26c281', acc:'#4aa8ff', neu:'#d9a441'};
+function barOpt(title, pairs, color){
+  const names = pairs.map(p=>p.name);
+  const vals = pairs.map(p=>p.value);
+  return {
+    backgroundColor:'transparent',
+    grid:{left:8,right:46,top:8,bottom:8,containLabel:true},
+    tooltip:{trigger:'axis',axisPointer:{type:'shadow'},formatter:'{b}: {c}亿'},
+    xAxis:{type:'value',axisLabel:{color:DARK.mut,fontSize:10,formatter:'{value}'},splitLine:{lineStyle:{color:'#222b36'}},axisLine:{show:false}},
+    yAxis:{type:'category',data:names.slice().reverse(),axisLabel:{color:DARK.tx,fontSize:11},axisLine:{lineStyle:{color:'#2a3340'}},axisTick:{show:false}},
+    series:[{type:'bar',data:vals.slice().reverse(),itemStyle:{color:color,borderRadius:[0,4,4,0]},
+      label:{show:true,position:'right',color:DARK.tx,fontSize:10,formatter:'{c}亿'}}]
+  };
+}
+function initCharts(){
+  try{
+    if(document.getElementById('flowIn')){
+      const cap = (REPORT.capital_flow||{});
+      const ins = cap.in_top3||[];
+      if(ins.length){
+        const c = echarts.init(document.getElementById('flowIn'), null, {renderer:'canvas'});
+        c.setOption(barOpt('in', ins, DARK.up));
+      }
+    }
+    if(document.getElementById('flowOut')){
+      const cap = (REPORT.capital_flow||{});
+      const outs = cap.out_top3||[];
+      if(outs.length){
+        const c = echarts.init(document.getElementById('flowOut'), null, {renderer:'canvas'});
+        c.setOption(barOpt('out', outs, DARK.down));
+      }
+    }
+  }catch(e){ console.error('chart error', e); }
+}
+window.addEventListener('load', initCharts);
+</script>
+</body>
+</html>
