@@ -1,1 +1,265 @@
-{"meta": {"account_total_asset": 13138.74, "account_daily_return": 289.5, "account_daily_return_pct": 2.26, "account_hold_return": 867.44, "account_hold_return_pct": 6.6, "account_cumulative_return": 761.51, "account_cumulative_return_pct": 5.79, "pending_purchase": {"total": 0.0, "items": []}, "snapshot_date": "2026-07-09T21:05", "snapshot_source": "OCR校准(腾讯自选股持仓截图21:05收盘净值版) @ 2026-07-09", "data_tier": "T0", "updated_at": "2026-07-09T21:14:00+08:00", "note": "21:14更新（腾讯自选股21:05截图T0，收盘净值版）。总资产13138.74(较00:54的14168↓1029)，日赚+289.50(+2.26%)，持有收益+867.44(+6.60%)，累计+761.51(+5.79%)。今日重大调仓：①东方AI减仓~555(5303→4747, 仍第一大但权重降至36.1%)②港药减仓~650(2217→1567, 权重11.9%)③永赢半导减仓~814(1699→885, 权重6.7%)④鹏华债大幅增仓~769(493→1263, 权重9.6%, 煤炭转债到位+额外加仓)。AI板块暴涨但用户高位锁利(东方AI+13.28%/阿尔法+11.95%)。天弘通信基金经理提示'买贵了追高太猛'。煤炭浮盈转亏。港药-3.75%'市场跌落港水分流充裕'。国泰半导体已清零不在列表。【OCR校准2026-07-09 T0】单图21:05收盘净值确认版。", "market_hotspot": "站对“光”靠 AI行情火爆全球 / CPO技术突破 / 光模块量产实锤", "strategy": {"principal": 15000, "style": "进攻型", "stop_loss_pct": -8, "take_profit_pct": 15, "max_single_position_pct": 30, "target_total_position_pct": 90}, "peizhibao_merged_at": "2026-07-09T21:14:39+08:00", "peizhibao_schema": "peizhibao.config/v1", "etf_sector_map": {"东方人工智能主题混合C": {"etf": "sh512480", "sector": "pt01801081", "sector_name": "半导体"}, "东方阿尔法科技优选混合C": {"etf": "sh512480", "sector": "pt01801081", "sector_name": "半导体"}, "广发港股创新药ETF联接(QDII)C": {"etf": "sh513120", "sector": "pt02131362", "sector_name": "创新药/港股创新药"}, "永赢先锋半导体智选混合C": {"etf": "sh512480", "sector": "pt01801081", "sector_name": "半导体"}, "富国中证煤炭指数C": {"etf": "sh515220", "sector": "pt01801951", "sector_name": "煤炭开采"}, "鹏华丰诚债券C": {"etf": null, "sector": null, "sector_name": "纯债安全垫(无权益板块)"}, "嘉实中证主要消费ETF发起联接C": {"etf": "sz159928", "sector": "pt01801120", "sector_name": "食品饮料/主要消费"}, "广发纳斯达克100ETF联接(QDII)C": {"etf": "sh513100", "sector": null, "sector_name": "纳斯达克100(美股QDII)"}, "财通集成电路产业股票C": {"etf": "sh512480", "sector": "pt01801081", "sector_name": "半导体/CPO"}, "财通成长优选混合C": {"etf": "sh510300", "sector": "pt01801120", "sector_name": "沪深300/成长宽基"}, "天弘中证全指通信设备指数C": {"etf": "sh515880", "sector": "pt01801102", "sector_name": "通信设备/CPO"}}}, "holdings": [{"name": "东方人工智能主题混合C", "full_name": "东方人工智能主题混合C", "sector": "半导体材料设备/AI", "market_value": 4747.32, "yesterday_pnl": 671.7, "yesterday_return_pct": 13.28, "hold_return_amount": 254.0, "hold_return_pct": 5.66, "related_index": "半导体材料设备", "tier": "T0", "status": "active", "weight_pct": 36.12, "note": "第一大重仓。今日+13.28%(+671.70)，受益CPO/AI热点爆发；较昨晨减仓~555元高位锁利(5303→4747)", "risk_flag": null}, {"name": "东方阿尔法科技优选混合C", "full_name": "东方阿尔法科技优选混合C", "sector": "半导体材料设备/科技优选", "market_value": 3358.57, "yesterday_pnl": 358.57, "yesterday_return_pct": 11.95, "hold_return_amount": 168.98, "hold_return_pct": 5.29, "related_index": "半导体材料设备", "tier": "T0", "status": "active", "weight_pct": 25.56, "note": "第二大重仓。今日+11.95%(+358.57)，市场解读'踩中了！德股获低吸进账超多'。市值略增(3169→3359)", "risk_flag": null}, {"name": "鹏华丰诚债券C", "full_name": "鹏华丰诚债券C", "sector": "固定收益/纯债安全垫", "market_value": 1262.55, "yesterday_pnl": -0.04, "yesterday_return_pct": -0.01, "hold_return_amount": 0.0, "hold_return_pct": 0.0, "related_index": null, "tier": "T0", "status": "active", "weight_pct": 9.61, "note": "固收安全垫大幅增厚(493→1263，+769)。煤炭→债转完成+可能额外加仓避险。今日微跌-0.04(-0.84%)≈平", "risk_flag": null}, {"name": "广发港股创新药ETF联接(QDII)C", "full_name": "广发港股创新药ETF联接(QDII)C", "sector": "医药/港股创新药", "market_value": 1566.81, "yesterday_pnl": -54.26, "yesterday_return_pct": -3.35, "hold_return_amount": -204.85, "hold_return_pct": -13.07, "related_index": "恒生医疗保健", "tier": "T0", "status": "active", "weight_pct": 11.92, "note": "大幅减仓~650(2217→1567)。今日-3.75%(-54.26)，'市场跌落港水分流充裕百市机如若何'。亏损扩大至-13.07%", "risk_flag": "持续亏损"}, {"name": "永赢先锋半导体智选混合C", "full_name": "永赢先锋半导体智选混合C", "sector": "半导体材料设备", "market_value": 885.22, "yesterday_pnl": -17.52, "yesterday_return_pct": -1.94, "hold_return_amount": -167.37, "hold_return_pct": -15.9, "related_index": "半导体材料设备", "tier": "T0", "status": "active", "weight_pct": 6.74, "note": "大幅减仓~814(1699→885)。今日-1.94%(-17.52)，受美存储/半导体波动冲击。亏损-15.9%接近-8%硬止损观察区", "risk_flag": "持续亏损"}, {"name": "富国中证煤炭指数C", "full_name": "富国中证煤炭指数C", "sector": "资源/高股息防御", "market_value": 502.23, "yesterday_pnl": -2.45, "yesterday_return_pct": -0.49, "hold_return_amount": 11.4, "hold_return_pct": 2.31, "related_index": "中证煤炭", "tier": "T0", "status": "converting", "weight_pct": 3.82, "note": "煤炭→鹏华丰诚债转进行中，小幅减仓(511→502)。今日浮盈转亏💰(-2.45)", "risk_flag": null}, {"name": "嘉实中证主要消费ETF发起联接C", "full_name": "嘉实中证主要消费ETF发起联接C", "sector": "指数/大消费", "market_value": 496.51, "yesterday_pnl": 0.0, "yesterday_return_pct": 0.0, "hold_return_amount": -3.35, "hold_return_pct": -0.68, "related_index": "中证主要消费指数", "tier": "T0", "status": "active", "weight_pct": 3.78, "note": "持有超30天👍。今日平收(0.00)，微亏-3.35(-0.68%)", "risk_flag": null}, {"name": "广发纳斯达克100ETF联接(QDII)C", "full_name": "广发纳斯达克100ETF联接(QDII)A", "sector": "海外/美股指数", "market_value": 78.92, "yesterday_pnl": 1.08, "yesterday_return_pct": 1.38, "hold_return_amount": 7.5, "hold_return_pct": 10.51, "related_index": "纳斯达克100", "tier": "T0", "status": "active", "weight_pct": 0.6, "note": "定投10元/日。今日+1.38%(+1.08)，纳指反弹", "risk_flag": null}, {"name": "财通集成电路产业股票C", "full_name": "财通集成电路产业股票C", "sector": "半导体/CPO光模块", "market_value": 105.0, "yesterday_pnl": 5.0, "yesterday_return_pct": 5.0, "hold_return_amount": 5.0, "hold_return_pct": 5.0, "related_index": "半导体", "tier": "T0", "status": "active", "weight_pct": 0.8, "note": "新建仓确认(昨日买100→今105)，今日+5.0%(+5.00)，CPO热点受益", "risk_flag": null}, {"name": "财通成长优选混合C", "full_name": "财通成长优选混合C", "sector": "成长风格/混合", "market_value": 104.91, "yesterday_pnl": 4.91, "yesterday_return_pct": 4.91, "hold_return_amount": 4.91, "hold_return_pct": 4.91, "related_index": "沪深300成长", "tier": "T0", "status": "active", "weight_pct": 0.8, "note": "新建仓确认(昨日买100→104.91)，今日+4.91%(+4.91)", "risk_flag": null}, {"name": "天弘中证全指通信设备指数C", "full_name": "天弘中证全指通信设备指数C", "sector": "通信/CPO", "market_value": 10.59, "yesterday_pnl": 0.59, "yesterday_return_pct": 5.91, "hold_return_amount": 0.59, "hold_return_pct": 5.91, "related_index": "中证全指通信设备", "tier": "T0", "status": "active", "weight_pct": 0.08, "note": "新建仓确认(昨日买10→10.59)。⚠️基金经理提示:'买贵了追高太猛无果觉！'", "risk_flag": "追高风险"}], "position_summary": {"active_funds_count": 11, "dormant_funds_count": 0, "cleared_funds_count": 1, "total_active_market_value": 13118.63, "top3_concentration_pct": 77.6, "semiconductor_exposure_pct": 69.42, "hk_innovation_drug_pct": 11.94, "coal_defense_pct": 3.83, "bond_safety_pct": 9.63, "us_nasdaq_pct": 0.61, "consumption_pct": 3.79, "newly_confirmed_funds": ["财通集成电路产业股票C", "财通成长优选混合C", "天弘中证全指通信设备指数C"], "key_moves_20260709": "①AI双雄高位锁利(东方AI-555/总仓降至36.1%) ②港药大减-650(权重15.7%→11.9%) ③永赢半导大减-814(权重12%→6.7%，接近止损线) ④鹏华债大幅增厚+769(权重3.5%→9.6%成第四大仓位) ⑤三只新仓确认(财通集成/财通成长/天弘通信)", "risk_alerts": ["永赢半导-15.9%接近-8%硬止损观察区", "港药-13.07%持续扩大", "天弘通信基金经理警告'追高太猛'"]}, "index_snapshot": {"上证指数": {"value": 3473.13, "change_pct": 0.02, "source": "搜索交叉验证", "tier": "T2", "date": "2026-07-09收盘"}, "深证成指": {"value": null, "change_pct": null, "source": "待更新", "tier": null, "date": "2026-07-09收盘"}, "创业板指": {"value": null, "change_pct": null, "source": "待更新", "tier": null, "date": "2026-07-09收盘"}}, "strategy": {"principal": 15000, "style": "进攻型", "stop_loss_pct": -8, "take_profit_pct": 15, "max_single_position_pct": 30, "target_total_position_pct": 90}}
+{
+  "meta": {
+    "account_total_asset": 13129.26,
+    "account_daily_return": 475.06,
+    "account_daily_return_pct": 3.75,
+    "account_hold_return": 866.62,
+    "account_hold_return_pct": 7.07,
+    "account_cumulative_return": 761.51,
+    "account_cumulative_return_pct": 5.79,
+    "pending_purchase": {
+      "total": 0.0,
+      "items": []
+    },
+    "snapshot_date": "2026-07-10T14:37",
+    "snapshot_source": "OCR校准(腾讯自选股持仓截图14:37盘中版) @ 2026-07-10",
+    "data_tier": "T0",
+    "updated_at": "2026-07-10T14:38:00+08:00",
+    "note": "14:38更新（腾讯自选股14:37截图盘中版）。总资产13129.26，日赚+475.06(+3.75%)，持有收益+866.62(+7.07%)。今日重大调仓：①永赢半导大幅加仓~971(885→1856, 权重6.7%→14.1%, 翻倍!)②煤炭几乎清仓(502→5, 权重3.8%→≈0%)③消费几乎清仓(497→3, 权重3.8%→≈0%)④港药继续减仓~176(1567→1391, 权重11.9%→10.6%)⑤财通两只加仓各~88(105→193各)⑥东方AI微增20(4747→4767)。半导体集中度暴升至77.6%(东方AI36.3+东财25.6+永赢14.1+财通集成1.5)，进攻性极强。永赢半导从-15.9%回撤至-0.94%(翻倍加仓摊薄成本)。【OCR校准2026-07-10 盘中】单图14:37确认。",
+    "market_hotspot": "站对“光”靠 AI行情火爆全球 / CPO技术突破 / 光模块量产实锤",
+    "strategy": {
+      "principal": 15000,
+      "style": "进攻型",
+      "stop_loss_pct": -8,
+      "take_profit_pct": 15,
+      "max_single_position_pct": 30,
+      "target_total_position_pct": 90
+    },
+    "peizhibao_merged_at": "2026-07-09T21:14:39+08:00",
+    "peizhibao_schema": "peizhibao.config/v1",
+    "etf_sector_map": {
+      "东方人工智能主题混合C": {
+        "etf": "sh512480",
+        "sector": "pt01801081",
+        "sector_name": "半导体"
+      },
+      "东方阿尔法科技优选混合C": {
+        "etf": "sh512480",
+        "sector": "pt01801081",
+        "sector_name": "半导体"
+      },
+      "广发港股创新药ETF联接(QDII)C": {
+        "etf": "sh513120",
+        "sector": "pt02131362",
+        "sector_name": "创新药/港股创新药"
+      },
+      "永赢先锋半导体智选混合C": {
+        "etf": "sh512480",
+        "sector": "pt01801081",
+        "sector_name": "半导体"
+      },
+      "富国中证煤炭指数C": {
+        "etf": "sh515220",
+        "sector": "pt01801951",
+        "sector_name": "煤炭开采"
+      },
+      "鹏华丰诚债券C": {
+        "etf": null,
+        "sector": null,
+        "sector_name": "纯债安全垫(无权益板块)"
+      },
+      "嘉实中证主要消费ETF发起联接C": {
+        "etf": "sz159928",
+        "sector": "pt01801120",
+        "sector_name": "食品饮料/主要消费"
+      },
+      "广发纳斯达克100ETF联接(QDII)C": {
+        "etf": "sh513100",
+        "sector": null,
+        "sector_name": "纳斯达克100(美股QDII)"
+      },
+      "财通集成电路产业股票C": {
+        "etf": "sh512480",
+        "sector": "pt01801081",
+        "sector_name": "半导体/CPO"
+      },
+      "财通成长优选混合C": {
+        "etf": "sh510300",
+        "sector": "pt01801120",
+        "sector_name": "沪深300/成长宽基"
+      },
+      "天弘中证全指通信设备指数C": {
+        "etf": "sh515880",
+        "sector": "pt01801102",
+        "sector_name": "通信设备/CPO"
+      }
+    }
+  },
+  "holdings": [
+    {
+      "name": "东方人工智能主题混合C",
+      "market_value": 4767.32,
+      "yesterday_pnl": 314.44,
+      "hold_return_amount": 571.7,
+      "hold_return_pct": 13.63,
+      "weight_pct": 36.3,
+      "status": "active",
+      "sector": "半导体材料设备/AI",
+      "related_index": "半导体材料设备"
+    },
+    {
+      "name": "东方阿尔法科技优选混合C",
+      "market_value": 3358.57,
+      "yesterday_pnl": 189.51,
+      "hold_return_amount": 358.57,
+      "hold_return_pct": 11.93,
+      "weight_pct": 25.6,
+      "status": "active",
+      "sector": "半导体材料设备/科技优选",
+      "related_index": "半导体材料设备"
+    },
+    {
+      "name": "永赢先锋半导体智选混合C",
+      "market_value": 1856.32,
+      "yesterday_pnl": -22.85,
+      "hold_return_amount": -17.54,
+      "hold_return_pct": -0.94,
+      "weight_pct": 14.1,
+      "status": "active",
+      "sector": "半导体材料设备",
+      "related_index": "半导体材料设备",
+      "risk_flag": "持续亏损"
+    },
+    {
+      "name": "广发港股创新药ETF联接(QDII)C",
+      "market_value": 1390.95,
+      "yesterday_pnl": -2.09,
+      "hold_return_amount": -54.26,
+      "hold_return_pct": -3.75,
+      "weight_pct": 10.6,
+      "status": "active",
+      "sector": "医药/港股创新药",
+      "related_index": "恒生医疗保健",
+      "risk_flag": "持续亏损"
+    },
+    {
+      "name": "鹏华丰诚债券C",
+      "market_value": 1262.55,
+      "yesterday_pnl": -0.42,
+      "hold_return_amount": -0.39,
+      "hold_return_pct": -0.04,
+      "weight_pct": 9.6,
+      "status": "active",
+      "sector": "固定收益/纯债安全垫"
+    },
+    {
+      "name": "财通集成电路产业股票C",
+      "market_value": 192.91,
+      "yesterday_pnl": 5.0,
+      "hold_return_amount": 4.98,
+      "hold_return_pct": 2.65,
+      "weight_pct": 1.5,
+      "status": "active",
+      "sector": "半导体/CPO光模块",
+      "related_index": "半导体"
+    },
+    {
+      "name": "财通成长优选混合C",
+      "market_value": 192.85,
+      "yesterday_pnl": 4.91,
+      "hold_return_amount": 4.92,
+      "hold_return_pct": 2.62,
+      "weight_pct": 1.5,
+      "status": "active",
+      "sector": "成长风格/混合",
+      "related_index": "沪深300成长"
+    },
+    {
+      "name": "广发纳斯达克100ETF联接(QDII)C",
+      "market_value": 89.05,
+      "yesterday_pnl": -0.18,
+      "hold_return_amount": -1.95,
+      "hold_return_pct": -1.35,
+      "weight_pct": 0.7,
+      "status": "active",
+      "sector": "海外/美股指数",
+      "related_index": "纳斯达克100"
+    },
+    {
+      "name": "天弘中证全指通信设备指数C",
+      "market_value": 10.59,
+      "yesterday_pnl": 0.59,
+      "hold_return_amount": 0.59,
+      "hold_return_pct": 5.91,
+      "weight_pct": 0.1,
+      "status": "active",
+      "sector": "通信/CPO",
+      "related_index": "中证全指通信设备",
+      "risk_flag": "追高风险"
+    },
+    {
+      "name": "富国中证煤炭指数C",
+      "market_value": 4.85,
+      "yesterday_pnl": -9.17,
+      "hold_return_amount": 0.0,
+      "hold_return_pct": 0.0,
+      "weight_pct": 0.0,
+      "status": "converting",
+      "sector": "资源/高股息防御",
+      "related_index": "中证煤炭"
+    },
+    {
+      "name": "嘉实中证主要消费ETF发起联接C",
+      "market_value": 3.3,
+      "yesterday_pnl": -4.68,
+      "hold_return_amount": 0.0,
+      "hold_return_pct": 0.0,
+      "weight_pct": 0.0,
+      "status": "active",
+      "sector": "指数/大消费",
+      "related_index": "中证主要消费指数"
+    }
+  ],
+  "position_summary": {
+    "active_funds_count": 11,
+    "dormant_funds_count": 0,
+    "cleared_funds_count": 1,
+    "total_active_market_value": 13129.26,
+    "top3_concentration_pct": 76.0,
+    "semiconductor_exposure_pct": 77.58,
+    "hk_innovation_drug_pct": 10.6,
+    "coal_defense_pct": 0.04,
+    "bond_safety_pct": 9.62,
+    "us_nasdaq_pct": 0.68,
+    "consumption_pct": 0.03,
+    "newly_confirmed_funds": [],
+    "key_moves_20260710": "①永赢半导翻倍+971(权重6.7→14.1%,成本摊薄-15.9%→-0.94%) ②煤炭清仓99%(502→5) ③消费清仓99%(497→3) ④港药继续减-176(11.9%→10.6%) ⑤财通双基加仓各+88 ⑥半导体集中度77.6%",
+    "risk_alerts": [
+      "半导体集中度77.6% 极度集中，单一板块风险敞口大",
+      "东方AI单仓36.3%超30%上限",
+      "永赢半导虽回撤至-0.94%，但翻倍后绝对敞口增至1856",
+      "港药持续亏损-3.75%"
+    ]
+  },
+  "index_snapshot": {
+    "上证指数": {
+      "value": 3473.13,
+      "change_pct": 0.02,
+      "source": "搜索交叉验证",
+      "tier": "T2",
+      "date": "2026-07-09收盘"
+    },
+    "深证成指": {
+      "value": null,
+      "change_pct": null,
+      "source": "待更新",
+      "tier": null,
+      "date": "2026-07-09收盘"
+    },
+    "创业板指": {
+      "value": null,
+      "change_pct": null,
+      "source": "待更新",
+      "tier": null,
+      "date": "2026-07-09收盘"
+    }
+  },
+  "strategy": {
+    "principal": 15000,
+    "style": "进攻型",
+    "stop_loss_pct": -8,
+    "take_profit_pct": 15,
+    "max_single_position_pct": 30,
+    "target_total_position_pct": 90
+  }
+}
