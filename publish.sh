@@ -6,6 +6,10 @@ set -e
 ROOT="$(cd "$(dirname "$0")" && pwd)"
 cd "$ROOT"
 
+# 优化 git 传输参数（多文件小体积报告场景；幂等，失败不影响主流程）
+git config --local http.postBuffer 524288000 2>/dev/null || true
+git config --local core.compression 9 2>/dev/null || true
+
 bash "$ROOT/rebuild_index.sh" || true
 
 # 带重试的推送函数（正确用 $? 判断退出码，杜绝管道假阳性）

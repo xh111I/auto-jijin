@@ -23,6 +23,9 @@ classify() {
 {
   echo '<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><title>基金报告收件箱</title>'
   echo '<meta name="viewport" content="width=device-width,initial-scale=1">'
+  echo '<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">'
+  echo '<meta http-equiv="Pragma" content="no-cache">'
+  echo '<meta http-equiv="Expires" content="0">'
   cat <<'CSS'
 <style>
 body{font-family:-apple-system,"PingFang SC",sans-serif;max-width:800px;margin:0 auto;padding:20px;background:#f7f8fa;color:#1f2937}
