@@ -1,0 +1,126 @@
+{
+  "_desc": "持仓基金 → 关联板块/底层指数的映射关系。来源: 同花顺投资账本板块穿透。",
+  "mappings": {
+    "东方人工智能主题混合C": {
+      "code": "017811",
+      "sector": "半导体材料设备/AI",
+      "xlsx_sectors": [
+        "半导体材料设备/AI",
+        "国家大基金持股",
+        "中证人工智能指数"
+      ],
+      "related_index": "半导体材料设备",
+      "underlying_index": "中证人工智能指数"
+    },
+    "东方阿尔法科技优选混合C": {
+      "code": "024424",
+      "sector": "半导体材料设备/科技优选",
+      "xlsx_sectors": [
+        "半导体材料设备/科技优选",
+        "国家大基金持股",
+        "中证半导体材料设备指数"
+      ],
+      "related_index": "半导体材料设备",
+      "underlying_index": "中证半导体材料设备指数"
+    },
+    "永赢先锋半导体智选混合C": {
+      "code": "025209",
+      "sector": "半导体材料设备",
+      "xlsx_sectors": [
+        "半导体材料设备",
+        "存储芯片",
+        "中证半导体材料设备指数"
+      ],
+      "related_index": "半导体材料设备",
+      "underlying_index": "中证半导体材料设备指数"
+    },
+    "广发港股创新药ETF联接(QDII)C": {
+      "code": "019671",
+      "sector": "医药/港股创新药",
+      "xlsx_sectors": [
+        "医药/港股创新药",
+        "广发中证香港创新药(QDII-ETF)",
+        "恒生港股通医疗保健指数"
+      ],
+      "related_index": "恒生医疗保健",
+      "underlying_index": "恒生港股通医疗保健指数"
+    },
+    "鹏华丰诚债券C": {
+      "code": "009022",
+      "sector": "固定收益/纯债安全垫",
+      "xlsx_sectors": [
+        "固定收益/纯债安全垫",
+        "中证转债",
+        "无(纯债)"
+      ],
+      "related_index": "中债综合财富指数",
+      "underlying_index": "无(纯债)"
+    },
+    "财通集成电路产业股票C": {
+      "code": "006503",
+      "sector": "半导体/CPO光模块",
+      "xlsx_sectors": [
+        "半导体/CPO光模块",
+        "PCB概念",
+        "中证半导体产业指数"
+      ],
+      "related_index": "半导体",
+      "underlying_index": "中证半导体产业指数"
+    },
+    "财通成长优选混合C": {
+      "code": "021528",
+      "sector": "成长风格/混合",
+      "xlsx_sectors": [
+        "成长风格/混合",
+        "PCB概念",
+        "沪深300成长指数"
+      ],
+      "related_index": "沪深300成长",
+      "underlying_index": "沪深300成长指数"
+    },
+    "广发纳斯达克100ETF联接(QDII)C": {
+      "code": "270042",
+      "sector": "海外/美股指数",
+      "xlsx_sectors": [
+        "海外/美股指数",
+        "广发纳指100ETF",
+        "纳斯达克100指数"
+      ],
+      "related_index": "纳斯达克100",
+      "underlying_index": "纳斯达克100指数"
+    },
+    "天弘中证全指通信设备指数C": {
+      "code": "020900",
+      "sector": "通信/CPO",
+      "xlsx_sectors": [
+        "通信/CPO",
+        "通信设备",
+        "中证全指通信设备指数"
+      ],
+      "related_index": "中证全指通信设备",
+      "underlying_index": "中证全指通信设备指数"
+    },
+    "富国中证煤炭指数C": {
+      "code": "013275",
+      "sector": "资源/高股息防御",
+      "xlsx_sectors": [
+        "资源/高股息防御",
+        "中证煤炭",
+        "中证煤炭指数"
+      ],
+      "related_index": "中证煤炭",
+      "underlying_index": "中证煤炭指数"
+    },
+    "嘉实中证主要消费ETF发起联接C": {
+      "code": "009180",
+      "sector": "指数/大消费",
+      "xlsx_sectors": [
+        "指数/大消费",
+        "嘉实中证主要消费ETF",
+        "中证主要消费指数"
+      ],
+      "related_index": "中证主要消费指数",
+      "underlying_index": "中证主要消费指数"
+    }
+  }
+}

@@ -1,0 +1,436 @@
+{
+  "_desc": "动态持仓快照。来源: 同花顺账本导出→sync_from_xlsx.py 自动同步。",
+  "meta": {
+    "account_total_asset": 13129.26,
+    "account_daily_return": 475.06,
+    "account_daily_return_pct": 3.75,
+    "account_hold_return": 866.62,
+    "account_hold_return_pct": 7.07,
+    "account_cumulative_return": 761.51,
+    "account_cumulative_return_pct": 5.79,
+    "cash": 1589.11,
+    "cash_pct": 12.11,
+    "realized_profit_today": 190.57,
+    "pending_purchase": {
+      "total": 0.0,
+      "items": []
+    },
+    "snapshot_date": "2026-07-10T14:37",
+    "snapshot_source": "OCR校准(腾讯自选股持仓截图14:37盘中版) @ 2026-07-10 + 盘中卖出东方AI 1/3",
+    "data_tier": "T0",
+    "updated_at": "2026-07-10T15:18:00+08:00",
+    "note": "14:37截图更新后，盘中已卖出东方人工智能 1/3（4767.32→3178.21，回收本金~1589转为现金，占总资产12.11%）。总资产保持13129.26（卖出=份额转现金，净值不变减手续费），东方AI权重由36.3%降至24.21%（已解除超30%上限）。半导体集中度由77.6%降至占总资产65.5%/占持仓74.5%。【OCR校准2026-07-10 盘中+卖出】。",
+    "market_hotspot": "站对“光”靠 AI行情火爆全球 / CPO技术突破 / 光模块量产实锤"
+  },
+  "holdings": [
+    {
+      "name": "东方人工智能主题混合C",
+      "market_value": 3178.21,
+      "yesterday_pnl": 209.63,
+      "hold_return_amount": 381.13,
+      "hold_return_pct": 13.63,
+      "weight_pct": 27.54,
+      "status": "active",
+      "sector": "半导体材料设备/AI",
+      "related_index": "半导体材料设备",
+      "underlying_index": "中证人工智能指数",
+      "rebalance_role": "核心锁本对象(已卖1/3收回部分本金,剩2/3)",
+      "overweight": false,
+      "profit_lock": {
+        "type": "赛道主题基金",
+        "tier1": {
+          "trigger_pct": 20,
+          "action": "赎回剩余仓位50%，本金全部收回，剩余纯利润仓继续持有博弈"
+        },
+        "drawdown1": {
+          "from_peak_pct": 5,
+          "action": "赎回剩余仓位50%"
+        },
+        "drawdown2": {
+          "from_peak_pct": "收益仅剩2%",
+          "action": "全部清仓保住本金"
+        },
+        "principal_safe_line": "盈利>10%后设动态止损，回撤至成本线附近即赎回本金"
+      },
+      "code": "017811",
+      "xlsx_sector": "国家大基金持股",
+      "cost_basis": 3.7942,
+      "breakeven_pct": 0,
+      "shares": 1105.8,
+      "xlsx_days_held": 1,
+      "return_1m": 0.6173,
+      "return_3m": 1.3272,
+      "return_6m": 1.3159,
+      "return_1y": 2.9275,
+      "xlsx_synced": "2026-07-10"
+    },
+    {
+      "name": "东方阿尔法科技优选混合C",
+      "market_value": 3358.57,
+      "yesterday_pnl": 189.51,
+      "hold_return_amount": 358.57,
+      "hold_return_pct": 0.1195,
+      "weight_pct": 29.1,
+      "status": "active",
+      "sector": "半导体材料设备/科技优选",
+      "related_index": "半导体材料设备",
+      "underlying_index": "中证半导体材料设备指数",
+      "rebalance_role": "核心锁本对象(第二大仓位)",
+      "overweight": false,
+      "profit_lock": {
+        "type": "赛道主题基金",
+        "tier1": {
+          "trigger_pct": "立即",
+          "action": "赎回30%收回部分本金"
+        },
+        "tier2": {
+          "trigger_pct": 18,
+          "action": "再赎回30%"
+        },
+        "drawdown1": {
+          "from_peak_pct": 4,
+          "action": "减仓一半"
+        }
+      },
+      "code": "024424",
+      "xlsx_sector": "国家大基金持股",
+      "cost_basis": 2.2122,
+      "breakeven_pct": 0,
+      "shares": 1356.12,
+      "xlsx_days_held": 1,
+      "return_1m": 0.579,
+      "return_3m": 1.1859,
+      "return_6m": 1.0759,
+      "return_1y": 1.5766,
+      "xlsx_synced": "2026-07-10"
+    },
+    {
+      "name": "永赢先锋半导体智选混合C",
+      "market_value": 1856.32,
+      "yesterday_pnl": -22.85,
+      "hold_return_amount": -17.54,
+      "hold_return_pct": -0.0094,
+      "weight_pct": 16.09,
+      "status": "active",
+      "sector": "半导体材料设备",
+      "related_index": "半导体材料设备",
+      "underlying_index": "中证半导体材料设备指数",
+      "rebalance_role": "微亏/大敞口(翻倍加仓后绝对敞口1856)",
+      "risk_flag": "持续亏损",
+      "profit_lock": {
+        "type": "赛道主题基金(微亏)",
+        "stop_loss": {
+          "trigger_pct": -2,
+          "action": "止损50%仓位"
+        },
+        "tier1": {
+          "trigger_pct": 5,
+          "action": "止盈1/3"
+        }
+      },
+      "code": "025209",
+      "xlsx_sector": "存储芯片",
+      "cost_basis": 3.1156,
+      "breakeven_pct": 0.0095,
+      "shares": 601.45,
+      "xlsx_days_held": 1,
+      "return_1m": 0.3247,
+      "return_3m": 0.8132,
+      "return_6m": 1.0819,
+      "return_1y": 2.0864,
+      "xlsx_synced": "2026-07-10"
+    },
+    {
+      "name": "广发港股创新药ETF联接(QDII)C",
+      "market_value": 1390.95,
+      "yesterday_pnl": -2.09,
+      "hold_return_amount": -54.26,
+      "hold_return_pct": -0.0375,
+      "weight_pct": 12.05,
+      "status": "active",
+      "sector": "医药/港股创新药",
+      "related_index": "恒生医疗保健",
+      "underlying_index": "恒生港股通医疗保健指数",
+      "rebalance_role": "弱势/高波动(设置两级阈值)",
+      "risk_flag": "持续亏损",
+      "profit_lock": {
+        "type": "QDII/医药",
+        "stop_loss": {
+          "trigger_pct": -5,
+          "action": "减仓50%控制亏损"
+        },
+        "rebound": {
+          "trigger_pct": -1,
+          "action": "回升至-1%内减仓1/3降低高波动占比"
+        }
+      },
+      "code": "019671",
+      "xlsx_sector": "广发中证香港创新药(QDII-ETF)",
+      "cost_basis": 1.2371,
+      "breakeven_pct": 0.039,
+      "shares": 1168.18,
+      "xlsx_days_held": 1,
+      "return_1m": 0.1478,
+      "return_3m": -0.1072,
+      "return_6m": -0.1554,
+      "return_1y": -0.0484,
+      "xlsx_synced": "2026-07-10"
+    },
+    {
+      "name": "鹏华丰诚债券C",
+      "market_value": 1262.55,
+      "yesterday_pnl": -0.42,
+      "hold_return_amount": -0.39,
+      "hold_return_pct": -0.0003,
+      "weight_pct": 10.94,
+      "status": "active",
+      "sector": "固定收益/纯债安全垫",
+      "related_index": "中债综合财富指数",
+      "underlying_index": "无(纯债)",
+      "rebalance_role": "防御底仓(保留)",
+      "profit_lock": {
+        "type": "防御/底仓",
+        "action": "保留，不做调仓"
+      },
+      "code": "009022",
+      "xlsx_sector": "中证转债",
+      "cost_basis": 1.2248,
+      "breakeven_pct": 0.0003,
+      "shares": 1031.16,
+      "xlsx_days_held": 1,
+      "return_1m": -0.0001,
+      "return_3m": 0.0004,
+      "return_6m": 0.0091,
+      "return_1y": 0.0304,
+      "xlsx_synced": "2026-07-10"
+    },
+    {
+      "name": "财通集成电路产业股票C",
+      "market_value": 192.91,
+      "yesterday_pnl": 5.0,
+      "hold_return_amount": 4.98,
+      "hold_return_pct": 0.0265,
+      "weight_pct": 1.67,
+      "status": "active",
+      "sector": "半导体/CPO光模块",
+      "related_index": "半导体",
+      "underlying_index": "中证半导体产业指数",
+      "rebalance_role": "观察仓(百元级)",
+      "profit_lock": {
+        "type": "观察仓",
+        "tier1": {
+          "trigger_pct": 10,
+          "action": "止盈一半"
+        }
+      },
+      "code": "006503",
+      "xlsx_sector": "PCB概念",
+      "cost_basis": 7.9598,
+      "breakeven_pct": 0,
+      "shares": 23.61,
+      "xlsx_days_held": 1,
+      "return_1m": 0.0332,
+      "return_3m": 0.8167,
+      "return_6m": 1.1644,
+      "return_1y": 3.4378,
+      "xlsx_synced": "2026-07-10"
+    },
+    {
+      "name": "财通成长优选混合C",
+      "market_value": 192.85,
+      "yesterday_pnl": 4.91,
+      "hold_return_amount": 4.92,
+      "hold_return_pct": 0.0262,
+      "weight_pct": 1.67,
+      "status": "active",
+      "sector": "成长风格/混合",
+      "related_index": "沪深300成长",
+      "underlying_index": "沪深300成长指数",
+      "rebalance_role": "观察仓(百元级)",
+      "profit_lock": {
+        "type": "观察仓",
+        "tier1": {
+          "trigger_pct": 10,
+          "action": "止盈一半"
+        }
+      },
+      "code": "021528",
+      "xlsx_sector": "PCB概念",
+      "cost_basis": 4.9222,
+      "breakeven_pct": 0,
+      "shares": 38.18,
+      "xlsx_days_held": 1,
+      "return_1m": 0.0536,
+      "return_3m": 0.8327,
+      "return_6m": 1.1885,
+      "return_1y": 3.6128,
+      "xlsx_synced": "2026-07-10"
+    },
+    {
+      "name": "广发纳斯达克100ETF联接(QDII)C",
+      "market_value": 89.05,
+      "yesterday_pnl": -0.18,
+      "hold_return_amount": -0.95,
+      "hold_return_pct": -0.0106,
+      "weight_pct": 0.77,
+      "status": "active",
+      "sector": "海外/美股指数",
+      "related_index": "纳斯达克100",
+      "underlying_index": "纳斯达克100指数",
+      "rebalance_role": "防御底仓(保留)",
+      "profit_lock": {
+        "type": "防御/底仓",
+        "action": "保留，不做调仓"
+      },
+      "code": "270042",
+      "xlsx_sector": "广发纳指100ETF",
+      "cost_basis": 8.2493,
+      "breakeven_pct": 0.0107,
+      "shares": 10.91,
+      "xlsx_days_held": 2,
+      "return_1m": -0.0099,
+      "return_3m": 0.1591,
+      "return_6m": 0.106,
+      "return_1y": 0.2107,
+      "xlsx_synced": "2026-07-10"
+    },
+    {
+      "name": "天弘中证全指通信设备指数C",
+      "market_value": 10.59,
+      "yesterday_pnl": 0.59,
+      "hold_return_amount": 0.59,
+      "hold_return_pct": 0.0591,
+      "weight_pct": 0.09,
+      "status": "active",
+      "sector": "通信/CPO",
+      "related_index": "中证全指通信设备",
+      "underlying_index": "中证全指通信设备指数",
+      "rebalance_role": "观察仓(迷你)",
+      "risk_flag": "追高风险",
+      "profit_lock": {
+        "type": "观察仓",
+        "tier1": {
+          "trigger_pct": 10,
+          "action": "止盈一半"
+        }
+      },
+      "code": "020900",
+      "xlsx_sector": "通信设备",
+      "cost_basis": 3.8314,
+      "breakeven_pct": 0,
+      "shares": 2.61,
+      "xlsx_days_held": 1,
+      "return_1m": -0.0439,
+      "return_3m": 0.3337,
+      "return_6m": 0.5271,
+      "return_1y": 2.1382,
+      "xlsx_synced": "2026-07-10"
+    },
+    {
+      "name": "富国中证煤炭指数C",
+      "market_value": 4.84,
+      "yesterday_pnl": -9.17,
+      "hold_return_amount": -0.01,
+      "hold_return_pct": -0.0011,
+      "weight_pct": 0.04,
+      "status": "converting",
+      "sector": "资源/高股息防御",
+      "related_index": "中证煤炭",
+      "underlying_index": "中证煤炭指数",
+      "rebalance_role": "防御底仓(几乎清仓)",
+      "profit_lock": {
+        "type": "防御/底仓",
+        "action": "保留，不做调仓"
+      },
+      "code": "013275",
+      "xlsx_sector": "中证煤炭",
+      "cost_basis": 2.0293,
+      "breakeven_pct": 0.0011,
+      "shares": 2.39,
+      "xlsx_days_held": 1,
+      "return_1m": -0.1682,
+      "return_3m": -0.0616,
+      "return_6m": 0.014,
+      "return_1y": 0.1318,
+      "xlsx_synced": "2026-07-10"
+    },
+    {
+      "name": "嘉实中证主要消费ETF发起联接C",
+      "market_value": 3.3,
+      "yesterday_pnl": -4.68,
+      "hold_return_amount": 0.0,
+      "hold_return_pct": 0.0002,
+      "weight_pct": 0.03,
+      "status": "active",
+      "sector": "指数/大消费",
+      "related_index": "中证主要消费指数",
+      "underlying_index": "中证主要消费指数",
+      "rebalance_role": "防御底仓(几乎清仓)",
+      "profit_lock": {
+        "type": "防御/底仓",
+        "action": "保留，不做调仓"
+      },
+      "code": "009180",
+      "xlsx_sector": "嘉实中证主要消费ETF",
+      "cost_basis": 0.7876,
+      "breakeven_pct": 0,
+      "shares": 4.19,
+      "xlsx_days_held": 1,
+      "return_1m": -0.0374,
+      "return_3m": -0.1604,
+      "return_6m": -0.2148,
+      "return_1y": -0.2165,
+      "xlsx_synced": "2026-07-10"
+    }
+  ],
+  "position_summary": {
+    "active_funds_count": 11,
+    "dormant_funds_count": 0,
+    "cleared_funds_count": 1,
+    "total_active_market_value": 11540.15,
+    "cash_pct": 12.11,
+    "top3_concentration_pct": 63.94,
+    "semiconductor_exposure_pct": 65.4,
+    "semiconductor_exposure_pct_of_invested": 74.54,
+    "hk_innovation_drug_pct": 10.58,
+    "coal_defense_pct": 0.04,
+    "bond_safety_pct": 9.62,
+    "us_nasdaq_pct": 0.68,
+    "consumption_pct": 0.03,
+    "newly_confirmed_funds": [],
+    "key_moves_20260710": "①盘中卖出东方AI 1/3(4767→3178,权重36.3%→24.21%,回收~1589现金占12.11%) ②永赢半导翻倍+971(14.12%) ③港药-3.75%(10.58%) ④财通双基观察仓各~193 ⑤半导体集中度降至占总资产65.5%/占持仓74.5%",
+    "risk_alerts": [
+      "半导体集中度占总资产65.5%/占持仓74.5% 仍偏高，单一板块风险敞口大",
+      "东方阿尔法25.61%为第一大仓(逼近30%上限)",
+      "永赢半导虽收益率回撤至-0.94%，但绝对敞口1856，每跌1%亏18.5元",
+      "港药持续亏损-3.75%",
+      "现金12.11%为尾盘急跌低吸弹药，勿闲置"
+    ],
+    "total_asset": 13129.25,
+    "total_hold_return": 677.04,
+    "total_cash": 1589.11
+  },
+  "index_snapshot": {
+    "上证指数": {
+      "value": 3473.13,
+      "change_pct": 0.02,
+      "source": "搜索交叉验证",
+      "tier": "T2",
+      "date": "2026-07-09收盘"
+    },
+    "深证成指": {
+      "value": null,
+      "change_pct": null,
+      "source": "待更新",
+      "tier": null,
+      "date": "2026-07-09收盘"
+    },
+    "创业板指": {
+      "value": null,
+      "change_pct": null,
+      "source": "待更新",
+      "tier": null,
+      "date": "2026-07-09收盘"
+    }
+  }
+}

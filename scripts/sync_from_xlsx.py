@@ -26,6 +26,8 @@ except ImportError:
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 WATCHLIST = os.path.join(ROOT, "config", "watchlist.json")
+PORTFOLIO = os.path.join(ROOT, "config", "portfolio.json")
+BUILD_WL = os.path.join(ROOT, "scripts", "build_watchlist.py")
 XLSX_DEFAULT = os.path.join(ROOT, "data", "汇总持仓.xlsx")
 
 
@@ -291,9 +293,22 @@ def sync(xlsx_path=None):
         semi_mv / grand_total * 100 if grand_total > 0 else 0, 2
     )
 
-    # ── 6) 写回 ──
+    # ── 6) 写回 watchlist.json（后向兼容）──
     with open(WATCHLIST, "w", encoding="utf-8") as f:
         json.dump(wl, f, ensure_ascii=False, indent=2)
+
+    # ── 7) 同步写 portfolio.json（权威持仓真源）──
+    portfolio = json.load(open(PORTFOLIO, encoding="utf-8")) if os.path.exists(PORTFOLIO) else {}
+    portfolio["holdings"] = wl.get("holdings", [])
+    portfolio["meta"] = wl.get("meta", portfolio.get("meta", {}))
+    portfolio["position_summary"] = wl.get("position_summary", {})
+    with open(PORTFOLIO, "w", encoding="utf-8") as f:
+        json.dump(portfolio, f, ensure_ascii=False, indent=2)
+
+    # ── 8) 重建 watchlist.json（保与拆分 config 一致）──
+    if os.path.exists(BUILD_WL):
+        import subprocess
+        subprocess.run(["python", BUILD_WL], cwd=ROOT, check=False)
 
     print(f"\n  ✓ 同步完成 → {WATCHLIST}")
     print(f"    更新 {updated} 只(金额自动同步) | 富化 {enriched} 只(保留手动金额)")

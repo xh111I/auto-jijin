@@ -1,0 +1,26 @@
+{
+  "_desc": "交易策略参数。调仓/止损/止盈/仓位上限。修改后影响所有自动化任务。",
+  "trading": {
+    "principal": 15000,
+    "style": "进攻型(已加入锁本与分散约束)",
+    "stop_loss_pct": -8,
+    "take_profit_pct": 15,
+    "max_single_position_pct": 30,
+    "target_total_position_pct": 90
+  },
+  "risk_controls": {
+    "semiconductor_cluster": {
+      "exposure_max_pct": 65,
+      "daily_drop_trigger_pct": -3,
+      "three_day_cumulative_trigger_pct": -5,
+      "action": "Reduce at least one semiconductor holding; force individual ≤30%"
+    },
+    "tail_cutoff_rule": "14:55后仅允许被动止盈止损委托,禁止新建仓位",
+    "max_daily_loss_account": -3
+  },
+  "data_calibration": {
+    "formula": "真实累计收益 = 期末总资产 − 期初总资产 − 期间净转入金额(转入−转出)",
+    "penetration_source": "同花顺投资账本导出 xlsx → sync_from_xlsx.py 注入 underlying_index/xlsx_sector/cost_basis",
+    "alipay_alt": "同花顺投资账本PC端截图OCR → 汇总持仓.xlsx → 自动同步"
+  }
+}
