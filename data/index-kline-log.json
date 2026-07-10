@@ -1,132 +1,860 @@
 {
-  "meta": {
-    "description": "每日大盘指数日K五维研判 + 涨跌时日预测记录库",
-    "protocol": "data/kline-protocol.md",
-    "indices": ["sh000001", "sz399001", "sz399006", "sh000016", "sh000300", "sh000905", "sh000688", "bj899050", "hstech"],
-    "dimensions": ["trend", "volume_price", "pattern", "main_force", "close_signal"],
-    "prediction_horizons": ["next_day", "t+2", "t+3"],
-    "created_at": "2026-07-09T15:30:00+08:00",
-    "last_update": "2026-07-09T15:30:00+08:00",
-    "data_source": "neodata-financial-search (T2)",
-    "fear_greed_index": 63
-  },
-  "records": [
-    {
-      "date": "2026-07-09",
-      "index": "sh000001", "name": "上证指数",
-      "close": 4036.59, "change_pct": 1.65, "amount_yi": 13641.77, "main_inflow_yi": 100.02,
-      "ma": {"ma5": 4016.52, "ma10": 4041.95, "ma20": 4066.27, "ma60": 4088.32},
-      "dimensions": {"trend": 45, "volume_price": 55, "pattern": 50, "main_force": 70},
-      "bias": "中性", "bias_score": 52.5,
-      "predictions": {
-        "next_day": {"dir": "偏多", "range": "+0.3~1%", "logic": "站上MA5,但MA20/60(4066/4088)压制", "conf": "中", "trigger": "放量突破MA20→转强"},
-        "t+2": {"dir": "中性", "range": "±1%", "logic": "均线纠缠", "conf": "中", "trigger": ""},
-        "t+3": {"dir": "中性", "range": "±1%", "logic": "等待方向选择", "conf": "低", "trigger": ""}
-      }
+ "meta": {
+  "description": "每日大盘指数日K五维研判 + 涨跌时日预测记录库",
+  "protocol": "data/kline-protocol.md",
+  "indices": [
+   "sh000001",
+   "sz399001",
+   "sz399006",
+   "sh000016",
+   "sh000300",
+   "sh000905",
+   "sh000688",
+   "bj899050",
+   "hstech"
+  ],
+  "dimensions": [
+   "trend",
+   "volume_price",
+   "pattern",
+   "main_force",
+   "close_signal"
+  ],
+  "prediction_horizons": [
+   "next_day",
+   "t+2",
+   "t+3"
+  ],
+  "created_at": "2026-07-09T15:30:00+08:00",
+  "last_update": "2026-07-09T15:30:00+08:00",
+  "data_source": "neodata-financial-search (T2)",
+  "fear_greed_index": 63
+ },
+ "records": [
+  {
+   "date": "2026-07-09",
+   "index": "sh000001",
+   "name": "上证指数",
+   "close": 4036.59,
+   "change_pct": 1.65,
+   "amount_yi": 13641.77,
+   "main_inflow_yi": 100.02,
+   "ma": {
+    "ma5": 4016.52,
+    "ma10": 4041.95,
+    "ma20": 4066.27,
+    "ma60": 4088.32
+   },
+   "dimensions": {
+    "trend": 45,
+    "volume_price": 55,
+    "pattern": 50,
+    "main_force": 70
+   },
+   "bias": "中性",
+   "bias_score": 52.5,
+   "predictions": {
+    "next_day": {
+     "dir": "偏多",
+     "range": "+0.3~1%",
+     "logic": "站上MA5,但MA20/60(4066/4088)压制",
+     "conf": "中",
+     "trigger": "放量突破MA20→转强"
     },
-    {
-      "date": "2026-07-09",
-      "index": "sz399001", "name": "深证成指",
-      "close": 15398.73, "change_pct": 3.07, "amount_yi": 15495.52, "main_inflow_yi": 167.42,
-      "ma": {"ma5": 15315.58, "ma10": 15599.65, "ma20": 15677.60, "ma60": 15446.81},
-      "dimensions": {"trend": 44, "volume_price": 55, "pattern": 55, "main_force": 68},
-      "bias": "中性", "bias_score": 52.55,
-      "predictions": {
-        "next_day": {"dir": "偏多", "range": "+0.5~1.5%", "logic": "探底回升长下影,但MA均线上方", "conf": "中", "trigger": "跌破14781前低→走弱"},
-        "t+2": {"dir": "中性", "range": "±1.5%", "logic": "反弹后消化", "conf": "中", "trigger": ""},
-        "t+3": {"dir": "中性", "range": "±1.5%", "logic": "MA20(15678)压制", "conf": "低", "trigger": ""}
-      }
+    "t+2": {
+     "dir": "中性",
+     "range": "±1%",
+     "logic": "均线纠缠",
+     "conf": "中",
+     "trigger": ""
     },
-    {
-      "date": "2026-07-09",
-      "index": "sz399006", "name": "创业板指",
-      "close": 4018.17, "change_pct": 4.49, "amount_yi": 7220.50, "main_inflow_yi": null,
-      "ma": {"ma5": 3948.84, "ma10": 4077.58, "ma20": 4107.42, "ma60": 3931.68},
-      "dimensions": {"trend": 50, "volume_price": 60, "pattern": 60, "main_force": 50},
-      "bias": "中性偏多", "bias_score": 54.5,
-      "predictions": {
-        "next_day": {"dir": "偏多", "range": "+0.5~2%", "logic": "探底回升大阳,站上MA5/60", "conf": "中", "trigger": "MA20(4107)压制→冲高回落"},
-        "t+2": {"dir": "震荡", "range": "±1.5%", "logic": "MA20压制", "conf": "中", "trigger": ""},
-        "t+3": {"dir": "中性", "range": "±1.5%", "logic": "等待MA20突破", "conf": "低", "trigger": ""}
-      }
-    },
-    {
-      "date": "2026-07-09",
-      "index": "sh000016", "name": "上证50",
-      "close": 2995.79, "change_pct": 2.57, "amount_yi": 2658.82, "main_inflow_yi": null,
-      "ma": {"ma5": 2945.55, "ma10": 2951.27, "ma20": 2941.31, "ma60": 2941.70},
-      "dimensions": {"trend": 82, "volume_price": 55, "pattern": 60, "main_force": 50},
-      "bias": "偏多", "bias_score": 65.1,
-      "predictions": {
-        "next_day": {"dir": "偏多", "range": "+0.3~1.5%", "logic": "站上全部均线+MACD金叉", "conf": "中高", "trigger": "跌破MA60(2942)→转弱"},
-        "t+2": {"dir": "偏多", "range": "+0.3~1%", "logic": "蓝筹修复延续", "conf": "中", "trigger": ""},
-        "t+3": {"dir": "偏多", "range": "±1%", "logic": "趋势多头", "conf": "中", "trigger": ""}
-      }
-    },
-    {
-      "date": "2026-07-09",
-      "index": "sh000300", "name": "沪深300",
-      "close": 4876.31, "change_pct": 2.54, "amount_yi": 9471.19, "main_inflow_yi": 262.82,
-      "ma": {"ma5": 4821.65, "ma10": 4865.41, "ma20": 4887.25, "ma60": 4850.42},
-      "dimensions": {"trend": 62, "volume_price": 55, "pattern": 58, "main_force": 75},
-      "bias": "偏多临界", "bias_score": 61.25,
-      "predictions": {
-        "next_day": {"dir": "偏多", "range": "+0.3~1.5%", "logic": "主力+263亿,逼近MA20", "conf": "中高", "trigger": "站稳MA20(4887)→偏多确认"},
-        "t+2": {"dir": "偏多", "range": "+0.3~1%", "logic": "资金持续流入", "conf": "中", "trigger": ""},
-        "t+3": {"dir": "偏多", "range": "±1%", "logic": "趋势延续", "conf": "中", "trigger": ""}
-      }
-    },
-    {
-      "date": "2026-07-09",
-      "index": "sh000905", "name": "中证500",
-      "close": 8652.79, "change_pct": 3.13, "amount_yi": 6027.27, "main_inflow_yi": null,
-      "ma": {"ma5": 8589.60, "ma10": 8722.71, "ma20": 8646.12, "ma60": 8487.37},
-      "dimensions": {"trend": 60, "volume_price": 55, "pattern": 58, "main_force": 50},
-      "bias": "中性偏多", "bias_score": 56.7,
-      "predictions": {
-        "next_day": {"dir": "偏多", "range": "+0.3~1.5%", "logic": "上MA5/20/60,20日+7.3%", "conf": "中", "trigger": "跌破MA60(8487)→转弱"},
-        "t+2": {"dir": "震荡", "range": "±1.5%", "logic": "MA10(8723)压制", "conf": "中", "trigger": ""},
-        "t+3": {"dir": "中性", "range": "±1.5%", "logic": "中小成长跟涨偏弱", "conf": "低", "trigger": ""}
-      }
-    },
-    {
-      "date": "2026-07-09",
-      "index": "sh000688", "name": "科创50",
-      "close": 2185.83, "change_pct": 8.41, "amount_yi": 2245.12, "main_inflow_yi": 113.37,
-      "ma": {"ma5": 2035.07, "ma10": 2068.18, "ma20": 1959.37, "ma60": 1742.50},
-      "dimensions": {"trend": 95, "volume_price": 90, "pattern": 90, "main_force": 80},
-      "bias": "强多", "bias_score": 90.5,
-      "predictions": {
-        "next_day": {"dir": "震荡", "range": "-0.5~1.5%", "logic": "单日+8.41%极端超买,获利盘兑现", "conf": "中", "trigger": "放量长上影/跌破MA5(2035)→短线回踩"},
-        "t+2": {"dir": "震荡", "range": "±1.5%", "logic": "MA10(2068)附近支撑", "conf": "中", "trigger": ""},
-        "t+3": {"dir": "偏多", "range": "+0~2%", "logic": "半导体主线未结束,均线多头", "conf": "中", "trigger": "量能维持→续强"}
-      }
-    },
-    {
-      "date": "2026-07-09",
-      "index": "bj899050", "name": "北证50",
-      "close": 1209.37, "change_pct": 0.44, "amount_yi": 187.17, "main_inflow_yi": null,
-      "ma": {"ma5": 1236.66, "ma10": 1245.80, "ma20": 1258.26, "ma60": 1313.16},
-      "dimensions": {"trend": 25, "volume_price": 50, "pattern": 30, "main_force": 50},
-      "bias": "偏空临界", "bias_score": 37.0,
-      "predictions": {
-        "next_day": {"dir": "偏空", "range": "-0.5~1%", "logic": "下全部均线,5日-4.49%", "conf": "中", "trigger": "跌破1172前低→加速"},
-        "t+2": {"dir": "偏弱", "range": "-1~0.5%", "logic": "均线空头排列", "conf": "中", "trigger": ""},
-        "t+3": {"dir": "中性", "range": "±1%", "logic": "超跌修复可能", "conf": "低", "trigger": ""}
-      }
-    },
-    {
-      "date": "2026-07-09",
-      "index": "hstech", "name": "恒生科技",
-      "close": 4753.05, "change_pct": 0.47, "amount_yi": 1185.52, "main_inflow_yi": null,
-      "ma": null,
-      "dimensions": {"trend": 55, "volume_price": 50, "pattern": 50, "main_force": 50},
-      "bias": "中性", "bias_score": 52.0,
-      "predictions": {
-        "next_day": {"dir": "中性", "range": "±0.5%", "logic": "5日强但今日平淡,港股观望", "conf": "中", "trigger": "美股/中东扰动→下行"},
-        "t+2": {"dir": "中性", "range": "±1%", "logic": "震荡整固", "conf": "中", "trigger": ""},
-        "t+3": {"dir": "中性", "range": "±1%", "logic": "等待催化", "conf": "低", "trigger": ""}
-      }
+    "t+3": {
+     "dir": "中性",
+     "range": "±1%",
+     "logic": "等待方向选择",
+     "conf": "低",
+     "trigger": ""
     }
-  ]
+   }
+  },
+  {
+   "date": "2026-07-09",
+   "index": "sz399001",
+   "name": "深证成指",
+   "close": 15398.73,
+   "change_pct": 3.07,
+   "amount_yi": 15495.52,
+   "main_inflow_yi": 167.42,
+   "ma": {
+    "ma5": 15315.58,
+    "ma10": 15599.65,
+    "ma20": 15677.6,
+    "ma60": 15446.81
+   },
+   "dimensions": {
+    "trend": 44,
+    "volume_price": 55,
+    "pattern": 55,
+    "main_force": 68
+   },
+   "bias": "中性",
+   "bias_score": 52.55,
+   "predictions": {
+    "next_day": {
+     "dir": "偏多",
+     "range": "+0.5~1.5%",
+     "logic": "探底回升长下影,但MA均线上方",
+     "conf": "中",
+     "trigger": "跌破14781前低→走弱"
+    },
+    "t+2": {
+     "dir": "中性",
+     "range": "±1.5%",
+     "logic": "反弹后消化",
+     "conf": "中",
+     "trigger": ""
+    },
+    "t+3": {
+     "dir": "中性",
+     "range": "±1.5%",
+     "logic": "MA20(15678)压制",
+     "conf": "低",
+     "trigger": ""
+    }
+   }
+  },
+  {
+   "date": "2026-07-09",
+   "index": "sz399006",
+   "name": "创业板指",
+   "close": 4018.17,
+   "change_pct": 4.49,
+   "amount_yi": 7220.5,
+   "main_inflow_yi": null,
+   "ma": {
+    "ma5": 3948.84,
+    "ma10": 4077.58,
+    "ma20": 4107.42,
+    "ma60": 3931.68
+   },
+   "dimensions": {
+    "trend": 50,
+    "volume_price": 60,
+    "pattern": 60,
+    "main_force": 50
+   },
+   "bias": "中性偏多",
+   "bias_score": 54.5,
+   "predictions": {
+    "next_day": {
+     "dir": "偏多",
+     "range": "+0.5~2%",
+     "logic": "探底回升大阳,站上MA5/60",
+     "conf": "中",
+     "trigger": "MA20(4107)压制→冲高回落"
+    },
+    "t+2": {
+     "dir": "震荡",
+     "range": "±1.5%",
+     "logic": "MA20压制",
+     "conf": "中",
+     "trigger": ""
+    },
+    "t+3": {
+     "dir": "中性",
+     "range": "±1.5%",
+     "logic": "等待MA20突破",
+     "conf": "低",
+     "trigger": ""
+    }
+   }
+  },
+  {
+   "date": "2026-07-09",
+   "index": "sh000016",
+   "name": "上证50",
+   "close": 2995.79,
+   "change_pct": 2.57,
+   "amount_yi": 2658.82,
+   "main_inflow_yi": null,
+   "ma": {
+    "ma5": 2945.55,
+    "ma10": 2951.27,
+    "ma20": 2941.31,
+    "ma60": 2941.7
+   },
+   "dimensions": {
+    "trend": 82,
+    "volume_price": 55,
+    "pattern": 60,
+    "main_force": 50
+   },
+   "bias": "偏多",
+   "bias_score": 65.1,
+   "predictions": {
+    "next_day": {
+     "dir": "偏多",
+     "range": "+0.3~1.5%",
+     "logic": "站上全部均线+MACD金叉",
+     "conf": "中高",
+     "trigger": "跌破MA60(2942)→转弱"
+    },
+    "t+2": {
+     "dir": "偏多",
+     "range": "+0.3~1%",
+     "logic": "蓝筹修复延续",
+     "conf": "中",
+     "trigger": ""
+    },
+    "t+3": {
+     "dir": "偏多",
+     "range": "±1%",
+     "logic": "趋势多头",
+     "conf": "中",
+     "trigger": ""
+    }
+   }
+  },
+  {
+   "date": "2026-07-09",
+   "index": "sh000300",
+   "name": "沪深300",
+   "close": 4876.31,
+   "change_pct": 2.54,
+   "amount_yi": 9471.19,
+   "main_inflow_yi": 262.82,
+   "ma": {
+    "ma5": 4821.65,
+    "ma10": 4865.41,
+    "ma20": 4887.25,
+    "ma60": 4850.42
+   },
+   "dimensions": {
+    "trend": 62,
+    "volume_price": 55,
+    "pattern": 58,
+    "main_force": 75
+   },
+   "bias": "偏多临界",
+   "bias_score": 61.25,
+   "predictions": {
+    "next_day": {
+     "dir": "偏多",
+     "range": "+0.3~1.5%",
+     "logic": "主力+263亿,逼近MA20",
+     "conf": "中高",
+     "trigger": "站稳MA20(4887)→偏多确认"
+    },
+    "t+2": {
+     "dir": "偏多",
+     "range": "+0.3~1%",
+     "logic": "资金持续流入",
+     "conf": "中",
+     "trigger": ""
+    },
+    "t+3": {
+     "dir": "偏多",
+     "range": "±1%",
+     "logic": "趋势延续",
+     "conf": "中",
+     "trigger": ""
+    }
+   }
+  },
+  {
+   "date": "2026-07-09",
+   "index": "sh000905",
+   "name": "中证500",
+   "close": 8652.79,
+   "change_pct": 3.13,
+   "amount_yi": 6027.27,
+   "main_inflow_yi": null,
+   "ma": {
+    "ma5": 8589.6,
+    "ma10": 8722.71,
+    "ma20": 8646.12,
+    "ma60": 8487.37
+   },
+   "dimensions": {
+    "trend": 60,
+    "volume_price": 55,
+    "pattern": 58,
+    "main_force": 50
+   },
+   "bias": "中性偏多",
+   "bias_score": 56.7,
+   "predictions": {
+    "next_day": {
+     "dir": "偏多",
+     "range": "+0.3~1.5%",
+     "logic": "上MA5/20/60,20日+7.3%",
+     "conf": "中",
+     "trigger": "跌破MA60(8487)→转弱"
+    },
+    "t+2": {
+     "dir": "震荡",
+     "range": "±1.5%",
+     "logic": "MA10(8723)压制",
+     "conf": "中",
+     "trigger": ""
+    },
+    "t+3": {
+     "dir": "中性",
+     "range": "±1.5%",
+     "logic": "中小成长跟涨偏弱",
+     "conf": "低",
+     "trigger": ""
+    }
+   }
+  },
+  {
+   "date": "2026-07-09",
+   "index": "sh000688",
+   "name": "科创50",
+   "close": 2185.83,
+   "change_pct": 8.41,
+   "amount_yi": 2245.12,
+   "main_inflow_yi": 113.37,
+   "ma": {
+    "ma5": 2035.07,
+    "ma10": 2068.18,
+    "ma20": 1959.37,
+    "ma60": 1742.5
+   },
+   "dimensions": {
+    "trend": 95,
+    "volume_price": 90,
+    "pattern": 90,
+    "main_force": 80
+   },
+   "bias": "强多",
+   "bias_score": 90.5,
+   "predictions": {
+    "next_day": {
+     "dir": "震荡",
+     "range": "-0.5~1.5%",
+     "logic": "单日+8.41%极端超买,获利盘兑现",
+     "conf": "中",
+     "trigger": "放量长上影/跌破MA5(2035)→短线回踩"
+    },
+    "t+2": {
+     "dir": "震荡",
+     "range": "±1.5%",
+     "logic": "MA10(2068)附近支撑",
+     "conf": "中",
+     "trigger": ""
+    },
+    "t+3": {
+     "dir": "偏多",
+     "range": "+0~2%",
+     "logic": "半导体主线未结束,均线多头",
+     "conf": "中",
+     "trigger": "量能维持→续强"
+    }
+   }
+  },
+  {
+   "date": "2026-07-09",
+   "index": "bj899050",
+   "name": "北证50",
+   "close": 1209.37,
+   "change_pct": 0.44,
+   "amount_yi": 187.17,
+   "main_inflow_yi": null,
+   "ma": {
+    "ma5": 1236.66,
+    "ma10": 1245.8,
+    "ma20": 1258.26,
+    "ma60": 1313.16
+   },
+   "dimensions": {
+    "trend": 25,
+    "volume_price": 50,
+    "pattern": 30,
+    "main_force": 50
+   },
+   "bias": "偏空临界",
+   "bias_score": 37.0,
+   "predictions": {
+    "next_day": {
+     "dir": "偏空",
+     "range": "-0.5~1%",
+     "logic": "下全部均线,5日-4.49%",
+     "conf": "中",
+     "trigger": "跌破1172前低→加速"
+    },
+    "t+2": {
+     "dir": "偏弱",
+     "range": "-1~0.5%",
+     "logic": "均线空头排列",
+     "conf": "中",
+     "trigger": ""
+    },
+    "t+3": {
+     "dir": "中性",
+     "range": "±1%",
+     "logic": "超跌修复可能",
+     "conf": "低",
+     "trigger": ""
+    }
+   }
+  },
+  {
+   "date": "2026-07-09",
+   "index": "hstech",
+   "name": "恒生科技",
+   "close": 4753.05,
+   "change_pct": 0.47,
+   "amount_yi": 1185.52,
+   "main_inflow_yi": null,
+   "ma": null,
+   "dimensions": {
+    "trend": 55,
+    "volume_price": 50,
+    "pattern": 50,
+    "main_force": 50
+   },
+   "bias": "中性",
+   "bias_score": 52.0,
+   "predictions": {
+    "next_day": {
+     "dir": "中性",
+     "range": "±0.5%",
+     "logic": "5日强但今日平淡,港股观望",
+     "conf": "中",
+     "trigger": "美股/中东扰动→下行"
+    },
+    "t+2": {
+     "dir": "中性",
+     "range": "±1%",
+     "logic": "震荡整固",
+     "conf": "中",
+     "trigger": ""
+    },
+    "t+3": {
+     "dir": "中性",
+     "range": "±1%",
+     "logic": "等待催化",
+     "conf": "低",
+     "trigger": ""
+    }
+   }
+  },
+  {
+   "date": "2026-07-10",
+   "index": "sh000001",
+   "name": "上证指数",
+   "close": 3996.16,
+   "change_pct": -1.0,
+   "amount_yi": 15631.1,
+   "main_inflow_yi": -205.4,
+   "ma": {
+    "ma5": 4007.022,
+    "ma10": 4038.84,
+    "ma20": 4066.726,
+    "ma60": 4088.441
+   },
+   "dimensions": {
+    "trend": 25,
+    "volume_price": 58,
+    "pattern": 50,
+    "main_force": 19.7
+   },
+   "bias": "偏空",
+   "bias_score": 38,
+   "predictions": {
+    "next_day": {
+     "dir": "偏空",
+     "range": "-0.3~1%",
+     "logic": "均线下方弱势震荡",
+     "conf": "中",
+     "trigger": "收复MA5(4007)转强"
+    },
+    "t+2": {
+     "dir": "震荡",
+     "range": "±1.5%",
+     "logic": "消化获利盘",
+     "conf": "中",
+     "trigger": ""
+    },
+    "t+3": {
+     "dir": "均线下方弱势震荡",
+     "range": "±1.5%",
+     "logic": "等待新催化",
+     "conf": "低",
+     "trigger": ""
+    }
+   }
+  },
+  {
+   "date": "2026-07-10",
+   "index": "sz399001",
+   "name": "深证成指",
+   "close": 15046.67,
+   "change_pct": -2.29,
+   "amount_yi": 18254.4,
+   "main_inflow_yi": -244.6,
+   "ma": {
+    "ma5": 15205.408,
+    "ma10": 15526.096,
+    "ma20": 15687.335,
+    "ma60": 15457.454
+   },
+   "dimensions": {
+    "trend": 25,
+    "volume_price": 20,
+    "pattern": 50,
+    "main_force": 17.8
+   },
+   "bias": "强空",
+   "bias_score": 26,
+   "predictions": {
+    "next_day": {
+     "dir": "偏空",
+     "range": "-0.5~1.5%",
+     "logic": "跌破全部均线",
+     "conf": "中",
+     "trigger": "收复MA20(15687)"
+    },
+    "t+2": {
+     "dir": "震荡",
+     "range": "±1.5%",
+     "logic": "消化获利盘",
+     "conf": "中",
+     "trigger": ""
+    },
+    "t+3": {
+     "dir": "跌破全部均线",
+     "range": "±1.5%",
+     "logic": "等待新催化",
+     "conf": "低",
+     "trigger": ""
+    }
+   }
+  },
+  {
+   "date": "2026-07-10",
+   "index": "sz399006",
+   "name": "创业板指",
+   "close": 3842.73,
+   "change_pct": -4.37,
+   "amount_yi": 8539.4,
+   "main_inflow_yi": -163.5,
+   "ma": {
+    "ma5": 3913.404,
+    "ma10": 4042.435,
+    "ma20": 4108.991,
+    "ma60": 3937.789
+   },
+   "dimensions": {
+    "trend": 25,
+    "volume_price": 20,
+    "pattern": 50,
+    "main_force": 21.8
+   },
+   "bias": "强空",
+   "bias_score": 27,
+   "predictions": {
+    "next_day": {
+     "dir": "偏空",
+     "range": "-0.5~2%",
+     "logic": "MA60(3938)支撑",
+     "conf": "中",
+     "trigger": "收复MA60转强"
+    },
+    "t+2": {
+     "dir": "震荡",
+     "range": "±1.5%",
+     "logic": "消化获利盘",
+     "conf": "中",
+     "trigger": ""
+    },
+    "t+3": {
+     "dir": "MA60",
+     "range": "±1.5%",
+     "logic": "等待新催化",
+     "conf": "低",
+     "trigger": ""
+    }
+   }
+  },
+  {
+   "date": "2026-07-10",
+   "index": "sh000016",
+   "name": "上证50",
+   "close": 2955.52,
+   "change_pct": -1.34,
+   "amount_yi": 3024.1,
+   "main_inflow_yi": -69.8,
+   "ma": {
+    "ma5": 2950.402,
+    "ma10": 2956.129,
+    "ma20": 2946.792,
+    "ma60": 2942.631
+   },
+   "dimensions": {
+    "trend": 68,
+    "volume_price": 58,
+    "pattern": 50,
+    "main_force": 26.5
+   },
+   "bias": "中性",
+   "bias_score": 56,
+   "predictions": {
+    "next_day": {
+     "dir": "震荡",
+     "range": "±0.8%",
+     "logic": "守住全部均线抗跌",
+     "conf": "中高",
+     "trigger": "失守MA60(2943)转弱"
+    },
+    "t+2": {
+     "dir": "震荡",
+     "range": "±1.5%",
+     "logic": "消化获利盘",
+     "conf": "中",
+     "trigger": ""
+    },
+    "t+3": {
+     "dir": "守住全部均线抗跌",
+     "range": "±1.5%",
+     "logic": "等待新催化",
+     "conf": "低",
+     "trigger": ""
+    }
+   }
+  },
+  {
+   "date": "2026-07-10",
+   "index": "sh000300",
+   "name": "沪深300",
+   "close": 4780.79,
+   "change_pct": -1.96,
+   "amount_yi": 10839.1,
+   "main_inflow_yi": -363.3,
+   "ma": {
+    "ma5": 4821.65,
+    "ma10": 4865.41,
+    "ma20": 4887.25,
+    "ma60": 4850.42
+   },
+   "dimensions": {
+    "trend": 25,
+    "volume_price": 58,
+    "pattern": 50,
+    "main_force": 15
+   },
+   "bias": "偏空",
+   "bias_score": 37,
+   "predictions": {
+    "next_day": {
+     "dir": "震荡",
+     "range": "±1%",
+     "logic": "等MA20(4887)方向",
+     "conf": "中",
+     "trigger": "站稳4887确认"
+    },
+    "t+2": {
+     "dir": "震荡",
+     "range": "±1.5%",
+     "logic": "消化获利盘",
+     "conf": "中",
+     "trigger": ""
+    },
+    "t+3": {
+     "dir": "等MA20",
+     "range": "±1.5%",
+     "logic": "等待新催化",
+     "conf": "低",
+     "trigger": ""
+    }
+   }
+  },
+  {
+   "date": "2026-07-10",
+   "index": "sh000905",
+   "name": "中证500",
+   "close": 8503.97,
+   "change_pct": -1.72,
+   "amount_yi": 7134.1,
+   "main_inflow_yi": null,
+   "ma": {
+    "ma5": 8541.34,
+    "ma10": 8702.754,
+    "ma20": 8669.527,
+    "ma60": 8496.307
+   },
+   "dimensions": {
+    "trend": 40,
+    "volume_price": 20,
+    "pattern": 50,
+    "main_force": 50
+   },
+   "bias": "偏空",
+   "bias_score": 37,
+   "predictions": {
+    "next_day": {
+     "dir": "偏弱",
+     "range": "-0.5~1%",
+     "logic": "下MA5/20",
+     "conf": "中",
+     "trigger": "收复MA20(8669)"
+    },
+    "t+2": {
+     "dir": "震荡",
+     "range": "±1.5%",
+     "logic": "消化获利盘",
+     "conf": "中",
+     "trigger": ""
+    },
+    "t+3": {
+     "dir": "下MA5/20",
+     "range": "±1.5%",
+     "logic": "等待新催化",
+     "conf": "低",
+     "trigger": ""
+    }
+   }
+  },
+  {
+   "date": "2026-07-10",
+   "index": "sh000688",
+   "name": "科创50",
+   "close": 2064.98,
+   "change_pct": -5.53,
+   "amount_yi": 2351.0,
+   "main_inflow_yi": -72.7,
+   "ma": {
+    "ma5": 2052.946,
+    "ma10": 2071.453,
+    "ma20": 1979.501,
+    "ma60": 1753.991
+   },
+   "dimensions": {
+    "trend": 68,
+    "volume_price": 20,
+    "pattern": 50,
+    "main_force": 26.4
+   },
+   "bias": "中性",
+   "bias_score": 45,
+   "predictions": {
+    "next_day": {
+     "dir": "震荡",
+     "range": "-1~2%",
+     "logic": "测MA5(2053)支撑",
+     "conf": "中",
+     "trigger": "跌破MA5转弱/守MA20(1979)偏多"
+    },
+    "t+2": {
+     "dir": "震荡",
+     "range": "±1.5%",
+     "logic": "消化获利盘",
+     "conf": "中",
+     "trigger": ""
+    },
+    "t+3": {
+     "dir": "测MA5",
+     "range": "±1.5%",
+     "logic": "等待新催化",
+     "conf": "低",
+     "trigger": ""
+    }
+   }
+  },
+  {
+   "date": "2026-07-10",
+   "index": "bj899050",
+   "name": "北证50",
+   "close": 1209.15,
+   "change_pct": -0.02,
+   "amount_yi": 223.3,
+   "main_inflow_yi": null,
+   "ma": {
+    "ma5": 1220.922,
+    "ma10": 1240.027,
+    "ma20": 1256.105,
+    "ma60": 1311.504
+   },
+   "dimensions": {
+    "trend": 25,
+    "volume_price": 20,
+    "pattern": 50,
+    "main_force": 50
+   },
+   "bias": "强空",
+   "bias_score": 31,
+   "predictions": {
+    "next_day": {
+     "dir": "偏空",
+     "range": "-0.5~1%",
+     "logic": "持续弱势",
+     "conf": "中",
+     "trigger": "跌破1203前低加速"
+    },
+    "t+2": {
+     "dir": "震荡",
+     "range": "±1.5%",
+     "logic": "消化获利盘",
+     "conf": "中",
+     "trigger": ""
+    },
+    "t+3": {
+     "dir": "持续弱势",
+     "range": "±1.5%",
+     "logic": "等待新催化",
+     "conf": "低",
+     "trigger": ""
+    }
+   }
+  },
+  {
+   "date": "2026-07-10",
+   "index": "hstech",
+   "name": "恒生科技",
+   "close": 4730.32,
+   "change_pct": -0.03,
+   "amount_yi": null,
+   "main_inflow_yi": null,
+   "ma": {
+    "ma5": 4648.234,
+    "ma10": 4531.528,
+    "ma20": 4560.372,
+    "ma60": 4817.966
+   },
+   "dimensions": {
+    "trend": 68,
+    "volume_price": 58,
+    "pattern": 50,
+    "main_force": 50
+   },
+   "bias": "中性",
+   "bias_score": 60,
+   "predictions": {
+    "next_day": {
+     "dir": "中性",
+     "range": "±1%",
+     "logic": "港股创新药对冲",
+     "conf": "中",
+     "trigger": "美股扰动→下行"
+    },
+    "t+2": {
+     "dir": "震荡",
+     "range": "±1.5%",
+     "logic": "消化获利盘",
+     "conf": "中",
+     "trigger": ""
+    },
+    "t+3": {
+     "dir": "港股创新药对冲",
+     "range": "±1.5%",
+     "logic": "等待新催化",
+     "conf": "低",
+     "trigger": ""
+    }
+   }
+  }
+ ],
+ "last_update": "2026-07-10T15:30:00+08:00",
+ "fear_greed_index": 50
 }

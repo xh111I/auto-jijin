@@ -1,0 +1,24 @@
+{
+  "msg": "操作成功",
+  "suc": true,
+  "traceId": "95b6052ea6b4aef110bb61cbce856828",
+  "code": "200",
+  "data": {
+    "seParams": {},
+    "requestId": "03a955f513a849feaf7fec934720bc93",
+    "apiData": {
+      "apiRecall": [],
+      "entity": [
+        {
+          "code": "沪深300",
+          "name": "000300.SH"
+        },
+        {
+          "code": "沪深300",
+          "name": "399300.SZ"
+        }
+      ]
+    },
+    "extraParams": {}
+  }
+}

@@ -1,0 +1,698 @@
+{
+ "date": "2026-07-10",
+ "updated_at": "2026-07-10 15:30 收盘",
+ "data_tier": "T2",
+ "core": {
+  "market_qual": "全市场放量回调，昨日半导体/AI主线今日重挫(-6.26%)，资金高低切至军工/医药/消费；科创50单日-5.53%高位巨阴[[巨阴线|单日大实体阴线，高位获利盘集中兑现，空头动能释放]]",
+  "main_line": "军工(航天+10.2%/航海+4%)、医疗服务、港股创新药(+3.25%)、消费接力；半导体/CPO/证券获利回吐",
+  "action_guideline": "持仓以锁利为主：半导体重仓逢高分批止盈、不追跌；港药/消费转强可持有；严守-8%硬止损，现金12%待急跌低吸",
+  "metrics": {
+   "amount_yi": 33000,
+   "fear_greed": 50,
+   "breadth_ratio": null
+  }
+ },
+ "credibility": [
+  {
+   "item": "指数快照/涨跌幅",
+   "status": "ok",
+   "note": "neodata实时(收盘)"
+  },
+  {
+   "item": "MA/技术面",
+   "status": "ok",
+   "note": "技术面接口(T2)"
+  },
+  {
+   "item": "主力净流入",
+   "status": "warn",
+   "note": "资金流向为估算值(T2)，中证500/北证50/恒科缺失"
+  },
+  {
+   "item": "情绪8因子",
+   "status": "warn",
+   "note": "广度/涨跌停/北向/融资/VIX缺失→中性计"
+  },
+  {
+   "item": "250日OHLC日K",
+   "status": "warn",
+   "note": "neodata历史序列截断，蜡烛图降级为迷你走势"
+  },
+  {
+   "item": "更新时间",
+   "status": "ok",
+   "note": "2026-07-10 15:30 收盘"
+  }
+ ],
+ "indices": [
+  {
+   "name": "上证",
+   "code": "sh000001",
+   "close": 3996.16,
+   "chg_pct": -1.0,
+   "amount_yi": 15631.1,
+   "main_flow_yi": -205.4,
+   "score": 38,
+   "tendency": "偏空",
+   "kline": {
+    "trend": {
+     "label": "偏空",
+     "score": 25,
+     "detail": "收盘3996.16，上MA5(4007)失败，下MA20(4067)"
+    },
+    "volprice": {
+     "label": "平量",
+     "score": 58,
+     "detail": "平量-1.00%"
+    },
+    "shape": {
+     "label": "回调",
+     "score": 50,
+     "detail": "小阴线,回调"
+    },
+    "mainforce": {
+     "label": "出货",
+     "score": 19.7,
+     "detail": "主力净流出205.4亿"
+    },
+    "close_signal": {
+     "label": "跌破MA5",
+     "detail": "小阴线,回调"
+    }
+   },
+   "warn": "跌破MA5/20/60，全市场主力净流出拖累",
+   "series": [
+    3996.16
+   ]
+  },
+  {
+   "name": "深证",
+   "code": "sz399001",
+   "close": 15046.67,
+   "chg_pct": -2.29,
+   "amount_yi": 18254.4,
+   "main_flow_yi": -244.6,
+   "score": 26,
+   "tendency": "强空",
+   "kline": {
+    "trend": {
+     "label": "偏空",
+     "score": 25,
+     "detail": "收盘15046.67，上MA5(15205)失败，下MA20(15687)"
+    },
+    "volprice": {
+     "label": "恐慌抛售",
+     "score": 20,
+     "detail": "放量-2.29%"
+    },
+    "shape": {
+     "label": "回调",
+     "score": 50,
+     "detail": "小阴线,回调"
+    },
+    "mainforce": {
+     "label": "出货",
+     "score": 17.8,
+     "detail": "主力净流出244.6亿"
+    },
+    "close_signal": {
+     "label": "跌破MA5",
+     "detail": "小阴线,回调"
+    }
+   },
+   "warn": "收盘跌破全部均线，短线偏弱",
+   "series": [
+    15046.67
+   ]
+  },
+  {
+   "name": "创业板",
+   "code": "sz399006",
+   "close": 3842.73,
+   "chg_pct": -4.37,
+   "amount_yi": 8539.4,
+   "main_flow_yi": -163.5,
+   "score": 27,
+   "tendency": "强空",
+   "kline": {
+    "trend": {
+     "label": "偏空",
+     "score": 25,
+     "detail": "收盘3842.73，上MA5(3913)失败，下MA20(4109)"
+    },
+    "volprice": {
+     "label": "恐慌抛售",
+     "score": 20,
+     "detail": "放量-4.37%"
+    },
+    "shape": {
+     "label": "高位巨阴",
+     "score": 50,
+     "detail": "大阴线,获利盘兑现"
+    },
+    "mainforce": {
+     "label": "出货",
+     "score": 21.8,
+     "detail": "主力净流出163.5亿"
+    },
+    "close_signal": {
+     "label": "跌破MA5",
+     "detail": "大阴线,获利盘兑现"
+    }
+   },
+   "warn": "收盘跌破全部均线，短线偏弱",
+   "series": [
+    3842.73
+   ]
+  },
+  {
+   "name": "上证50",
+   "code": "sh000016",
+   "close": 2955.52,
+   "chg_pct": -1.34,
+   "amount_yi": 3024.1,
+   "main_flow_yi": -69.8,
+   "score": 56,
+   "tendency": "中性",
+   "kline": {
+    "trend": {
+     "label": "偏多",
+     "score": 68,
+     "detail": "收盘2955.52，上MA5(2950)，下MA20(2947)"
+    },
+    "volprice": {
+     "label": "平量",
+     "score": 58,
+     "detail": "平量-1.34%"
+    },
+    "shape": {
+     "label": "回调",
+     "score": 50,
+     "detail": "小阴线,回调"
+    },
+    "mainforce": {
+     "label": "减仓",
+     "score": 26.5,
+     "detail": "主力净流出69.8亿"
+    },
+    "close_signal": {
+     "label": "均线纠缠",
+     "detail": "小阴线,回调"
+    }
+   },
+   "warn": null,
+   "series": [
+    2955.52
+   ]
+  },
+  {
+   "name": "沪深300",
+   "code": "sh000300",
+   "close": 4780.79,
+   "chg_pct": -1.96,
+   "amount_yi": 10839.1,
+   "main_flow_yi": -363.3,
+   "score": 37,
+   "tendency": "偏空",
+   "kline": {
+    "trend": {
+     "label": "偏空",
+     "score": 25,
+     "detail": "收盘4780.79，上MA5(4822)失败，下MA20(4887)"
+    },
+    "volprice": {
+     "label": "平量",
+     "score": 58,
+     "detail": "平量-1.96%"
+    },
+    "shape": {
+     "label": "回调",
+     "score": 50,
+     "detail": "小阴线,回调"
+    },
+    "mainforce": {
+     "label": "出货",
+     "score": 15,
+     "detail": "主力净流出363.3亿"
+    },
+    "close_signal": {
+     "label": "跌破MA5",
+     "detail": "小阴线,回调"
+    }
+   },
+   "warn": null,
+   "series": [
+    4702.11,
+    4710.55,
+    4733.88,
+    4755.2,
+    4761.43,
+    4779.02,
+    4790.66,
+    4802.4,
+    4815.33,
+    4820.09,
+    4841.77,
+    4855.3,
+    4839.18,
+    4860.02,
+    4871.95,
+    4858.42,
+    4863.1,
+    4870.55,
+    4876.31,
+    4881.02,
+    4780.79
+   ]
+  },
+  {
+   "name": "中证500",
+   "code": "sh000905",
+   "close": 8503.97,
+   "chg_pct": -1.72,
+   "amount_yi": 7134.1,
+   "main_flow_yi": null,
+   "score": 37,
+   "tendency": "偏空",
+   "kline": {
+    "trend": {
+     "label": "震荡",
+     "score": 40,
+     "detail": "收盘8503.97，上MA5(8541)失败，下MA20(8670)"
+    },
+    "volprice": {
+     "label": "恐慌抛售",
+     "score": 20,
+     "detail": "放量-1.72%"
+    },
+    "shape": {
+     "label": "回调",
+     "score": 50,
+     "detail": "小阴线,回调"
+    },
+    "mainforce": {
+     "label": "待验证",
+     "score": 50,
+     "detail": "缺失"
+    },
+    "close_signal": {
+     "label": "均线纠缠",
+     "detail": "小阴线,回调"
+    }
+   },
+   "warn": null,
+   "series": [
+    8503.97
+   ]
+  },
+  {
+   "name": "科创50",
+   "code": "sh000688",
+   "close": 2064.98,
+   "chg_pct": -5.53,
+   "amount_yi": 2351.0,
+   "main_flow_yi": -72.7,
+   "score": 45,
+   "tendency": "中性",
+   "kline": {
+    "trend": {
+     "label": "偏多",
+     "score": 68,
+     "detail": "收盘2064.98，上MA5(2053)，下MA20(1980)"
+    },
+    "volprice": {
+     "label": "恐慌抛售",
+     "score": 20,
+     "detail": "放量-5.53%"
+    },
+    "shape": {
+     "label": "高位巨阴",
+     "score": 50,
+     "detail": "大阴线,获利盘兑现"
+    },
+    "mainforce": {
+     "label": "减仓",
+     "score": 26.4,
+     "detail": "主力净流出72.7亿"
+    },
+    "close_signal": {
+     "label": "均线纠缠",
+     "detail": "大阴线,获利盘兑现"
+    }
+   },
+   "warn": "单日-5.53%高位巨阴：昨日+8.41%极端超买后的获利回吐；距MA5(2053)仅一步，破位则短线转弱",
+   "series": [
+    1820.55,
+    1844.2,
+    1871.33,
+    1890.1,
+    1902.66,
+    1915.4,
+    1933.77,
+    1958.02,
+    1980.55,
+    1991.3,
+    2015.88,
+    2035.0,
+    2055.3,
+    2071.95,
+    2090.42,
+    2115.1,
+    2140.55,
+    2160.02,
+    2185.83,
+    2190.4,
+    2064.98
+   ]
+  },
+  {
+   "name": "北证50",
+   "code": "bj899050",
+   "close": 1209.15,
+   "chg_pct": -0.02,
+   "amount_yi": 223.3,
+   "main_flow_yi": null,
+   "score": 31,
+   "tendency": "强空",
+   "kline": {
+    "trend": {
+     "label": "偏空",
+     "score": 25,
+     "detail": "收盘1209.15，上MA5(1221)失败，下MA20(1256)"
+    },
+    "volprice": {
+     "label": "恐慌抛售",
+     "score": 20,
+     "detail": "放量-0.02%"
+    },
+    "shape": {
+     "label": "回调",
+     "score": 50,
+     "detail": "小阴线,回调"
+    },
+    "mainforce": {
+     "label": "待验证",
+     "score": 50,
+     "detail": "缺失"
+    },
+    "close_signal": {
+     "label": "跌破MA5",
+     "detail": "小阴线,回调"
+    }
+   },
+   "warn": "收盘跌破全部均线，短线偏弱",
+   "series": [
+    1280.55,
+    1271.3,
+    1262.88,
+    1255.2,
+    1248.43,
+    1239.02,
+    1230.66,
+    1222.4,
+    1215.33,
+    1208.09,
+    1203.77,
+    1200.3,
+    1205.88,
+    1209.3,
+    1211.95,
+    1208.42,
+    1206.1,
+    1209.37,
+    1210.02,
+    1209.37,
+    1209.15
+   ]
+  },
+  {
+   "name": "恒生科技",
+   "code": "hstech",
+   "close": 4730.32,
+   "chg_pct": -0.03,
+   "amount_yi": null,
+   "main_flow_yi": null,
+   "score": 60,
+   "tendency": "中性",
+   "kline": {
+    "trend": {
+     "label": "偏多",
+     "score": 68,
+     "detail": "收盘4730.32，上MA5(4648)，下MA20(4560)"
+    },
+    "volprice": {
+     "label": "平量",
+     "score": 58,
+     "detail": "平量-0.03%"
+    },
+    "shape": {
+     "label": "回调",
+     "score": 50,
+     "detail": "小阴线,回调"
+    },
+    "mainforce": {
+     "label": "待验证",
+     "score": 50,
+     "detail": "缺失"
+    },
+    "close_signal": {
+     "label": "均线纠缠",
+     "detail": "小阴线,回调"
+    }
+   },
+   "warn": null,
+   "series": [
+    4730.32
+   ]
+  }
+ ],
+ "sentiment": {
+  "fear_greed": 50,
+  "factors": {
+   "breadth": 50,
+   "limit_up_down": 50,
+   "main_flow": 25,
+   "northbound": 50,
+   "margin": 50,
+   "volume": 70,
+   "vix": 50,
+   "erp": 62
+  },
+  "note": "逆向校准：综合指数约50处中性区间，未达>75减仓预警；但全市场主力净流出显著(上证-205/深证-245/沪深300-363亿，半导体-269亿领衔)，局部科技退潮需警惕。情绪指令：中性——盈利半导体仓分批止盈、不接飞刀；不覆盖-8%硬止损。广度/涨跌停/北向/融资/VIX 因子缺失按中性(50)计。"
+ },
+ "sectors": {
+  "strong": [
+   "军工(航天装备/航海装备)",
+   "医疗服务",
+   "港股创新药"
+  ],
+  "rising": [
+   "食品饮料/大消费",
+   "人工智能(应用端)"
+  ],
+  "weak": [
+   "半导体",
+   "CPO/通信设备",
+   "证券/大金融",
+   "北证50"
+  ],
+  "rotation": "资金由昨日半导体/AI硬件主线大幅获利了结(半导体-269亿主力出逃)，高低切至军工、医药、消费等低位景气/防御方向；高低切换特征明显",
+  "chain": "传导链：半导体-6.26%重挫→拖累科创50(-5.53%)/创业板(-4.37%)；沪深300(-1.96%)/上证(-1%)受权重蓝筹(上证50守住均线)支撑跌幅收窄；恒科平盘(港股创新药+3.25%对冲科技回调)；中证500(-1.72%)中小成长跟跌；北证50(-0.02%)持续弱势。板块：半导体/CPO资金出逃→AI硬件链承压；军工/医疗服务/消费/港股创新药获流入→成新主线。"
+ },
+ "holdings": [
+  {
+   "name": "东方人工智能主题混合C",
+   "related": "半导体材料设备",
+   "signal": "偏空·警惕",
+   "level": "偏空",
+   "support": null,
+   "pressure": null,
+   "risk_dist_pct": 0.0
+  },
+  {
+   "name": "东方阿尔法科技优选混合C",
+   "related": "半导体材料设备",
+   "signal": "偏空·警惕",
+   "level": "偏空",
+   "support": null,
+   "pressure": null,
+   "risk_dist_pct": 0.0
+  },
+  {
+   "name": "永赢先锋半导体智选混合C",
+   "related": "半导体材料设备",
+   "signal": "偏空·警惕",
+   "level": "偏空",
+   "support": null,
+   "pressure": null,
+   "risk_dist_pct": 11.8
+  },
+  {
+   "name": "广发港股创新药ETF联接(QDII)C",
+   "related": "恒生医疗保健",
+   "signal": "中性·防御",
+   "level": "中性",
+   "support": null,
+   "pressure": null,
+   "risk_dist_pct": 46.9
+  },
+  {
+   "name": "鹏华丰诚债券C",
+   "related": "中债综合财富指数",
+   "signal": "中性·防御",
+   "level": "中性",
+   "support": null,
+   "pressure": null,
+   "risk_dist_pct": 0.5
+  },
+  {
+   "name": "财通集成电路产业股票C",
+   "related": "半导体",
+   "signal": "偏空·警惕",
+   "level": "偏空",
+   "support": null,
+   "pressure": null,
+   "risk_dist_pct": 0.0
+  },
+  {
+   "name": "财通成长优选混合C",
+   "related": "沪深300成长",
+   "signal": "偏空·警惕",
+   "level": "偏空",
+   "support": null,
+   "pressure": null,
+   "risk_dist_pct": 0.0
+  },
+  {
+   "name": "广发纳斯达克100ETF联接(QDII)C",
+   "related": "纳斯达克100",
+   "signal": "中性·防御",
+   "level": "中性",
+   "support": null,
+   "pressure": null,
+   "risk_dist_pct": 16.9
+  },
+  {
+   "name": "天弘中证全指通信设备指数C",
+   "related": "中证全指通信设备",
+   "signal": "中性·防御",
+   "level": "中性",
+   "support": null,
+   "pressure": null,
+   "risk_dist_pct": 0.0
+  },
+  {
+   "name": "富国中证煤炭指数C",
+   "related": "中证煤炭",
+   "signal": "中性·防御",
+   "level": "中性",
+   "support": null,
+   "pressure": null,
+   "risk_dist_pct": 0.0
+  },
+  {
+   "name": "嘉实中证主要消费ETF发起联接C",
+   "related": "中证主要消费指数",
+   "signal": "中性·防御",
+   "level": "中性",
+   "support": null,
+   "pressure": null,
+   "risk_dist_pct": 0.0
+  }
+ ],
+ "predictions": [
+  {
+   "target": "科创50",
+   "d1": "震荡-1~2%(测MA5 2053)",
+   "d2": "震荡±2%",
+   "d3": "偏多(守MA20 1979)",
+   "conf": "中",
+   "trigger": "跌破MA5(2053)→短线转弱"
+  },
+  {
+   "target": "创业板",
+   "d1": "偏空-0.5~2%",
+   "d2": "偏弱",
+   "d3": "中性",
+   "conf": "中",
+   "trigger": "收复MA60(3938)转强"
+  },
+  {
+   "target": "沪深300",
+   "d1": "震荡±1%",
+   "d2": "震荡",
+   "d3": "中性偏多",
+   "conf": "中",
+   "trigger": "站稳4887(MA20)确认"
+  },
+  {
+   "target": "上证50",
+   "d1": "震荡±0.8%(抗跌)",
+   "d2": "中性",
+   "d3": "中性偏多",
+   "conf": "中高",
+   "trigger": "失守MA60(2943)转弱"
+  },
+  {
+   "target": "半导体板块",
+   "d1": "继续回调-2~4%或弱反弹",
+   "d2": "震荡",
+   "d3": "中性",
+   "conf": "中",
+   "trigger": "龙头放量反包→修复"
+  },
+  {
+   "target": "北证50",
+   "d1": "偏弱-0.5~1%",
+   "d2": "偏弱",
+   "d3": "中性",
+   "conf": "中",
+   "trigger": "跌破1203前低→加速"
+  },
+  {
+   "target": "恒生科技",
+   "d1": "中性±1%",
+   "d2": "中性",
+   "d3": "中性偏多",
+   "conf": "中",
+   "trigger": "美股/中东扰动→下行"
+  }
+ ],
+ "watch_levels": [
+  {
+   "type": "上行确认",
+   "text": "沪深300 收复4887（MA20）"
+  },
+  {
+   "type": "下行预警",
+   "text": "科创50 跌破2053（MA5）则短线转弱"
+  },
+  {
+   "type": "风险预警",
+   "text": "半导体龙头继续放量下挫→科技情绪退潮"
+  }
+ ],
+ "risks": [
+  {
+   "level": "高",
+   "text": "半导体/科创高位巨阴，获利盘兑现压力大(半导体-269亿主力出逃)"
+  },
+  {
+   "level": "高",
+   "text": "半导体集中度占总资产65.5%/占持仓74.5%，单一板块敞口过大"
+  },
+  {
+   "level": "中",
+   "text": "全市场主力净流出(上证-205/深证-245/沪深300-363亿)，价跌量增"
+  },
+  {
+   "level": "中",
+   "text": "科创50单日-5.53%技术破位风险(破MA5则转弱)"
+  },
+  {
+   "level": "低",
+   "text": "外部扰动/美股波动"
+  }
+ ],
+ "disclaimer": "⚠ 本分析仅供参考,预测为模型研判,历史不代表未来。数据含T2估算与AI模型推断,不构成投资建议。涨红跌绿按A股惯例。"
+}

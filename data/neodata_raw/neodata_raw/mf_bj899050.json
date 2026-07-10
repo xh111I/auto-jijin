@@ -1,0 +1,22 @@
+{
+  "msg": "操作成功",
+  "suc": true,
+  "traceId": "bce88b754ae31f5796f223d7b13f3b2a",
+  "code": "200",
+  "data": {
+    "seParams": {},
+    "requestId": "9b6ed7a628744c29a0ee00d18fd8984d",
+    "apiData": {
+      "apiRecall": [
+        {
+          "tag": "股票数据库",
+          "type": "今日资金流向",
+          "content": "|\n|\n|",
+          "desc": "今日资金流向"
+        }
+      ],
+      "entity": []
+    },
+    "extraParams": {}
+  }
+}

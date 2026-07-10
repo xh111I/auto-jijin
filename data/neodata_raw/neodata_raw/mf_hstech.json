@@ -1,0 +1,27 @@
+{
+  "msg": "操作成功",
+  "suc": true,
+  "traceId": "266a09f23d593b09850d97a539ff2d45",
+  "code": "200",
+  "data": {
+    "seParams": {},
+    "requestId": "7832aec3c6164a9b84aaac929efd4211",
+    "apiData": {
+      "apiRecall": [
+        {
+          "tag": "股票数据库",
+          "type": "今日资金流向",
+          "content": "|\n|\n|",
+          "desc": "今日资金流向"
+        }
+      ],
+      "entity": [
+        {
+          "code": "恒生科技指数",
+          "name": "HSTECH.HK"
+        }
+      ]
+    },
+    "extraParams": {}
+  }
+}
