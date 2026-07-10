@@ -1,0 +1,222 @@
+# -*- coding: utf-8 -*-
+"""快速生成 尾盘决策-2026-07-10.json（基于 14:48 实时快照 + 刚更新的持仓）"""
+import json, os
+
+BASE = r"C:\Users\LEGION\Nutstore\1\daily-report\data"
+DATE = "2026-07-10"
+
+data = {
+    "date": DATE,
+    "updated_at": "2026-07-10 14:48",
+    "data_tier": "T2",
+    "instruction": {
+        "core_conclusion": "全场 HOLD · 半导体暴跌触发减仓信号",
+        "core_conclusion_cls": "hold",
+        "active_action": "择机减东方人工智能至 ≤30%（当前36.3%超限）",
+        "risk_floor": "单基 -8% 硬止损 + 半导体集群级减仓(-5.54%已触发)",
+        "timestamp_label": "数据截至 2026-07-10 14:48",
+        "discipline_note": "半导体集中度77.6%极度集中; 今日半导体材料设备-5.54%触发集群减仓; 东方AI单仓36.3%超30%上限; 防御仅剩债基9.6%; 禁止继续加半导体"
+    },
+    "position": {
+        "snapshot_note": "持仓实时净值 · T0 用户实盘（2026-07-10 14:37 OCR校准）",
+        "index_kpis": [
+            {"label": "上证", "value": "-0.76%", "cls": "down"},
+            {"label": "创业板", "value": "-3.94%", "cls": "down", "tag": "领跌"},
+            {"label": "半导体材料设备", "value": "-5.54%", "cls": "down", "tag": "领跌板块"},
+            {"label": "沪深300主力净流出", "value": "-312亿", "cls": "down", "tag": "主力出逃"}
+        ],
+        "holdings": [
+            {
+                "name": "东方人工智能主题混合C", "sector": "半导体材料设备/AI",
+                "weight_pct": 36.3, "hold_return_pct": 13.63,
+                "related_index": "半导体", "related_index_chg": -5.54,
+                "sector_tendency": "偏空", "instruction": "HOLD", "overweight": True,
+                "stop_loss_pct": -8,
+                "logic": "板块单日-5.54%触发集群减仓, 优先减此基降至≤30%; 单仓超限禁止加仓",
+                "main_force": {"net_inflow": -143.5, "big_order_pct": None, "qualitative": "出货/洗盘偏空", "hint": "半导体主力净流出, 前期获利盘兑现"},
+                "tech_score": {"composite": 30, "level": "偏空", "trend": "偏空(收盘破MA20)", "vol_price": "价跌量增放量", "shape": "长阴破位"},
+                "kline_text": "基金净值T+1; 关联半导体材料设备今日-5.54%"
+            },
+            {
+                "name": "东方阿尔法科技优选混合C", "sector": "半导体材料设备/AI",
+                "weight_pct": 25.6, "hold_return_pct": 11.93,
+                "related_index": "半导体", "related_index_chg": -5.54,
+                "sector_tendency": "偏空", "instruction": "HOLD",
+                "stop_loss_pct": -8,
+                "logic": "同属半导体集群, 板块-5.54%回撤; 不减仓但禁止加仓",
+                "main_force": {"net_inflow": -60.9, "big_order_pct": None, "qualitative": "洗盘偏空", "hint": "光芯片主力净流出"},
+                "tech_score": {"composite": 35, "level": "偏空", "trend": "偏空", "vol_price": "放量下跌", "shape": "中阴"},
+                "kline_text": "关联光芯片今日-2.23%"
+            },
+            {
+                "name": "永赢先锋半导体智选混合C", "sector": "半导体材料设备/AI",
+                "weight_pct": 14.1, "hold_return_pct": -0.94,
+                "related_index": "半导体", "related_index_chg": -5.54,
+                "sector_tendency": "偏空", "instruction": "HOLD",
+                "stop_loss_pct": -8,
+                "logic": "翻倍后绝对敞口1856, 每1%波动±18.5元; 今日板块-5.54%回撤约-100元; 距-8%硬止损尚有空间, 持有观察",
+                "main_force": {"net_inflow": -204.0, "big_order_pct": None, "qualitative": "洗盘偏空", "hint": "半导体整体净流出"},
+                "tech_score": {"composite": 33, "level": "偏空", "trend": "偏空", "vol_price": "价跌量增", "shape": "破位"},
+                "kline_text": "关联半导体材料设备今日-5.54%"
+            },
+            {
+                "name": "鹏华丰诚债券C", "sector": "纯债安全垫(无权益板块)",
+                "weight_pct": 9.6, "hold_return_pct": -0.04,
+                "related_index": "纯债", "related_index_chg": 0,
+                "sector_tendency": "中性", "instruction": "HOLD",
+                "stop_loss_pct": -8,
+                "logic": "唯一防御仓位, 市场暴跌时是稳定器, 持有",
+                "main_force": {},
+                "tech_score": {"composite": 50, "level": "中性", "trend": "平稳", "vol_price": "近乎0波动", "shape": "横盘"},
+                "kline_text": "纯债, 近乎0波动"
+            },
+            {
+                "name": "广发港股创新药ETF联接(QDII)C", "sector": "创新药/港股创新药",
+                "weight_pct": 10.6, "hold_return_pct": -3.75,
+                "related_index": "港股创新药", "related_index_chg": None,
+                "sector_tendency": "偏空", "instruction": "减仓",
+                "stop_loss_pct": -8,
+                "logic": "持续亏损-3.75%, 此前已减仓; 继续择机减仓降低单一港股敞口",
+                "main_force": {},
+                "tech_score": {"composite": 32, "level": "偏空", "trend": "偏弱", "vol_price": "阴跌", "shape": "下行"},
+                "kline_text": "港股创新药持续偏弱"
+            },
+            {
+                "name": "财通集成电路产业股票C", "sector": "半导体/CPO",
+                "weight_pct": 1.5, "hold_return_pct": 2.65,
+                "related_index": "半导体", "related_index_chg": -5.54,
+                "sector_tendency": "偏空", "instruction": "HOLD",
+                "stop_loss_pct": -8,
+                "logic": "新仓小比例, 板块回撤持有",
+                "main_force": {},
+                "tech_score": {"composite": 38, "level": "偏空", "trend": "偏空", "vol_price": "量价齐跌", "shape": "小阴"},
+                "kline_text": "关联半导体材料设备-5.54%"
+            },
+            {
+                "name": "财通成长优选混合C", "sector": "半导体/CPO",
+                "weight_pct": 1.5, "hold_return_pct": 2.62,
+                "related_index": "半导体", "related_index_chg": -5.54,
+                "sector_tendency": "偏空", "instruction": "HOLD",
+                "stop_loss_pct": -8,
+                "logic": "新仓小比例, 板块回撤持有",
+                "main_force": {},
+                "tech_score": {"composite": 38, "level": "偏空", "trend": "偏空", "vol_price": "量价齐跌", "shape": "小阴"},
+                "kline_text": "关联半导体-5.54%"
+            },
+            {
+                "name": "广发纳斯达克100ETF联接(QDII)C", "sector": "纳斯达克100(美股QDII)",
+                "weight_pct": 0.7, "hold_return_pct": -1.35,
+                "related_index": "纳斯达克100", "related_index_chg": None,
+                "sector_tendency": "中性", "instruction": "HOLD",
+                "stop_loss_pct": -8,
+                "logic": "美股QDII T+1, 小比例持有",
+                "main_force": {},
+                "tech_score": {"composite": 50, "level": "中性", "trend": "中性", "vol_price": "—", "shape": "—"},
+                "kline_text": "美股QDII T+1"
+            },
+            {
+                "name": "天弘中证全指通信设备指数C", "sector": "通信设备/CPO",
+                "weight_pct": 0.1, "hold_return_pct": 5.91,
+                "related_index": "通信设备CPO", "related_index_chg": -1.68,
+                "sector_tendency": "偏空", "instruction": "HOLD",
+                "stop_loss_pct": -8,
+                "logic": "微仓, 关联CPO -1.68%",
+                "main_force": {},
+                "tech_score": {"composite": 40, "level": "偏空", "trend": "偏弱", "vol_price": "小跌", "shape": "—"},
+                "kline_text": "关联CPO -1.68%"
+            },
+            {
+                "name": "富国中证煤炭指数C", "sector": "煤炭开采",
+                "weight_pct": 0.04, "hold_return_pct": 0.0,
+                "related_index": "煤炭", "related_index_chg": None,
+                "sector_tendency": "中性", "instruction": "HOLD",
+                "stop_loss_pct": -8,
+                "logic": "已清仓≈0%",
+                "main_force": {},
+                "tech_score": {"composite": 50, "level": "中性", "trend": "—", "vol_price": "—", "shape": "—"},
+                "kline_text": "已清仓≈0%"
+            },
+            {
+                "name": "嘉实中证主要消费ETF发起联接C", "sector": "食品饮料/主要消费",
+                "weight_pct": 0.03, "hold_return_pct": 0.0,
+                "related_index": "主要消费", "related_index_chg": None,
+                "sector_tendency": "中性", "instruction": "HOLD",
+                "stop_loss_pct": -8,
+                "logic": "已清仓≈0%",
+                "main_force": {},
+                "tech_score": {"composite": 50, "level": "中性", "trend": "—", "vol_price": "—", "shape": "—"},
+                "kline_text": "已清仓≈0%"
+            }
+        ]
+    },
+    "sector": {
+        "bars": [
+            {"name": "半导体材料设备", "score": 30, "tendency": "偏空", "net_inflow": -204.0, "linked": True},
+            {"name": "光芯片", "score": 35, "tendency": "偏空", "net_inflow": -60.9, "linked": True},
+            {"name": "共封装光模块CPO", "score": 38, "tendency": "偏空", "net_inflow": -143.6, "linked": True},
+            {"name": "港股创新药", "score": 32, "tendency": "偏空", "net_inflow": None, "linked": True}
+        ],
+        "detail": "半导体三细分今日全线净流出: CPO-143.6亿/光芯片-60.9亿/材料设备-204亿(估算), 主力获利兑现+外围(日韩科技走弱)传导; 抱团核心龙头抗跌, 伪科技小票集体回调",
+        "bottom_signals": "半导体材料设备单日-5.54%>3% → 集群减仓信号触发",
+        "top_signals": "无见顶确认, 但短期暴涨后反向修复中",
+        "close_special": "临近半年报窗口, 资金规避业绩不及预期题材股"
+    },
+    "risk": {
+        "hard_stop": {
+            "items": [
+                {"name": "永赢先锋半导体", "cur_loss_pct": -0.94, "stop_pct": -8, "warn": False, "warn_label": "盯盘"}
+            ],
+            "floor_text": "半导体77.6%集中度为最大风险源; 今日材料设备-5.54%触发集群减仓"
+        },
+        "alerts": [
+            {"level": "red", "text": "半导体材料设备单日-5.54%触发集群减仓信号(>3%)", "detail": "建议至少减1只半导体(优先东方AI降至≤30%)"},
+            {"level": "red", "text": "东方AI单仓36.3%超30%上限", "detail": "需降至≤30%"},
+            {"level": "orange", "text": "永赢半导翻倍至1856, 绝对敞口增大", "detail": "每1%波动±18.5元"},
+            {"level": "orange", "text": "防御仓位仅剩鹏华债9.6%", "detail": "几乎无下跌缓冲"},
+            {"level": "orange", "text": "半导体今日主力净流出", "detail": "CPO-143.6亿+光芯片-60.9亿, 出货迹象"}
+        ]
+    },
+    "sentiment": {
+        "index": 38, "level": "偏空",
+        "divergence": "指数抗跌(上证-0.76%)但3500+个股下跌/中位数-1.17%/近200只跌超8%, 隐性背离严重",
+        "action": "中性偏防御; 半导体暴跌触发减仓而非抄底",
+        "factors": [
+            {"name": "市场广度", "raw": "涨跌家数比≈0.4(3500+下跌)", "score": 30, "weight": "15%", "src": "T2"},
+            {"name": "极端跌幅", "raw": "近200只跌超8%/跌停数十家", "score": 20, "weight": "15%", "src": "T2"},
+            {"name": "成交额", "raw": "全天预计3.3万亿放量", "score": 55, "weight": "10%", "src": "T2"},
+            {"name": "创业板", "raw": "-3.94%破位", "score": 25, "weight": "15%", "src": "T2"},
+            {"name": "半导体", "raw": "材料设备-5.54%领跌", "score": 20, "weight": "15%", "src": "T2"},
+            {"name": "北向资金", "raw": "数据源未返回", "score": 50, "weight": "10%", "src": "T2"},
+            {"name": "融资余额", "raw": "数据源未返回", "score": 50, "weight": "10%", "src": "T2"},
+            {"name": "VIX", "raw": "数据源未返回", "score": 50, "weight": "10%", "src": "T2"}
+        ]
+    },
+    "logic": {
+        "tail_buy": "①半导体板块单日暴跌-5.54%(>3%)且主力净流出 → 禁止净买入半导体\n②加仓后单基≤30%总仓≤90%(东方AI已36.3%超限)\n③外围扰动+获利盘兑现, 不盲目抄底",
+        "tail_sell": "①半导体材料设备-5.54%触发集群减仓→至少减1只半导体(优先东方AI降至≤30%)\n②东方AI单仓超30%上限, 择机降至≤30%\n③创业板-3.94%破位+板块放量下跌, 减仓信号有效",
+        "tail_noadd": "①大盘跳水(创业板-3.94%>0.5%)\n②半导体主力净流出(CPO-143.6亿+光芯片-60.9亿)\n③半导体集中度77.6%无任何安全边际 → 全场禁止净买入半导体",
+        "emotion": "恐惧升温(3500+下跌/近200只跌超8%): 但半导体-5.54%属获利盘兑现+外围扰动而非恐慌底, 不盲目抄底; 集中度过高时分散化本身就是长期主义",
+        "action_rows": [
+            {"fund": "东方人工智能C", "cmd": "HOLD(减仓)", "price": "择机降至≤30%", "adj": "减~804元(36.3%→30%)", "emo": "— 不干预", "logic": "板块-5.54%触发集群减仓+单仓超限"},
+            {"fund": "东方阿尔法C", "cmd": "HOLD", "price": "持有不加仓", "adj": "维持25.6%", "emo": "—", "logic": "同属半导体集群, 板块回撤持有"},
+            {"fund": "永赢半导C", "cmd": "HOLD", "price": "持有", "adj": "维持14.1%(敞口1856)", "emo": "盯盘", "logic": "距-8%尚有空间, 但绝对敞口大"},
+            {"fund": "港药C", "cmd": "减仓", "price": "择机减", "adj": "10.6%→更低", "emo": "—", "logic": "持续-3.75%亏损"},
+            {"fund": "鹏华债C", "cmd": "HOLD", "price": "持有", "adj": "防御9.6%", "emo": "—", "logic": "唯一稳定器"},
+            {"fund": "财通双基", "cmd": "HOLD", "price": "持有", "adj": "各1.5%", "emo": "—", "logic": "小比例新仓"},
+            {"fund": "煤炭/消费", "cmd": "HOLD", "price": "已清仓", "adj": "≈0%", "emo": "—", "logic": "清仓完毕"}
+        ]
+    },
+    "sources": {
+        "items": [
+            {"item": "持仓实时净值", "note": "T0 用户实盘(腾讯自选股OCR校准 14:37)"},
+            {"item": "大盘/板块实时行情", "note": "neodata T2 (14:48 快照)"},
+            {"item": "市场情绪广度", "note": "资讯T2 (3500+下跌/近200只跌超8%)"}
+        ]
+    },
+    "disclaimer": "本分析仅供参考, 不构成投资建议。行情为 T2 实时快照, 含跟踪误差与延迟; 基金以官方净值为准; 预测为模型研判, 历史不代表未来。"
+}
+
+out = os.path.join(BASE, "tail_%s.json" % DATE)
+with open(out, "w", encoding="utf-8") as f:
+    json.dump(data, f, ensure_ascii=False, indent=2)
+print("written", out)
