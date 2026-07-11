@@ -18,3 +18,10 @@
 - 渲染：make_midday_html.py → data/reports/2026-07-10/午盘收盘-2026-07-10.html(34.7KB)。rebuild_index 成功(2 reports)。publish 后台推送 origin/gitee(待通知)。
 - 提示：ETF 实时接口(基金实时行情查询)只返最新价/昨收，涨跌幅需自行计算(最新/昨收-1)。
 - 提示：neodata 首次查询须用"实时行情/今天涨跌幅"措辞，带具体日期的"午盘"措辞会触发历史K线回退且 token 过期时整批失败(先 TOKEN_EXPIRED)。
+
+## 2026-07-11（周六·休市·跳过）
+- 触发时刻 11:25，date 校验为 Saturday → A股非交易日，无 11:30 午盘数据。
+- 决策：跳过 neodata 拉取 + make_midday_html + rebuild/publish + orchestrator 收口，**不编造行情**（遵守 T0–T3 可信度规范）。
+- 产出：data/reports/2026-07-11/休市通知-2026-07-11.md（提醒用，不入收件箱索引，因非 .html）。
+- 下一交易日 2026-07-13（周一），届时自动化正常生成午盘报告。
+- 备注：本自动化按"每日11:30"调度，周末/法定节假日会照常触发，需靠 weekday 校验静默跳过（目前无 trading-calendar 配置，仅用周一到周五判断）。
