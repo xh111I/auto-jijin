@@ -156,6 +156,122 @@ for k in CALC.get("kline", []):
 
 news_html = "".join(f"<li>{n}</li>" for n in C.get("news", [])[:12])
 
+# ---------------- 休市特刊 / 新增分析板块（仅当 calc 含对应字段时渲染，非交易日不影响原逻辑） ----------------
+holiday = C.get("holiday") or CALC.get("holiday")
+holiday_banner = ""
+if holiday:
+    holiday_banner = f'''<div class="holiday">📴 <b>休市特刊</b> · {CALC.get('holiday_note','2026-07-11 周六·A股休市，本复盘为周末特刊。')}</div>'''
+
+# 1. 全天资金迁徙路线回顾
+migration_html = ""
+if CALC.get("migration"):
+    m = CALC["migration"]
+    seg_html = ""
+    for s in m.get("segments", []):
+        seg_html += f'''<div class="mig-seg">
+          <div class="mig-phase">{s['phase']}</div>
+          <div class="mig-flow">{s['flow']}</div>
+          <div class="mig-detail">{s['detail']}</div>
+          <div class="mig-net">资金：{s.get('net','—')}</div>
+          <div class="mig-pos">持仓位置：{s.get('pos','—')}</div></div>'''
+    migration_html = f'''<section class="sec" id="migration">
+  <h2>🔥 一、全天资金迁徙路线回顾（核心） <span class="tg">▾</span></h2>
+  <div class="sec-body">
+  <div class="cap">数据基底：{m.get('base_date')}（2026-07-11 周六休市，无实盘，以下为最近交易日真实收盘回顾）。</div>
+  <div class="mig-route">{seg_html}</div>
+  <div class="keyword">全天关键词：<b>{m.get('keyword')}</b></div>
+  <div class="mig-my"><b>你的持仓在迁徙路线中的位置：</b>{m.get('my_position')}</div>
+  <div class="mig-verdict"><b>结论（跟减 or 扛）：</b>{m.get('verdict')}</div>
+  </div></section>'''
+
+# 2. 主线验证
+theme_html = ""
+if CALC.get("theme_validate"):
+    t = CALC["theme_validate"]
+    sub_html = ""
+    for s in t.get("subscores", []):
+        sub_html += f'''<div class="subscore"><span class="ss-dim">{s['dim']}</span>
+        <span class="ss-bar"><i style="width:{s['score']/s['max']*100:.0f}%"></i></span>
+        <span class="ss-num">{s['score']}/{s['max']}</span>
+        <div class="ss-note">{s.get('note','')}</div></div>'''
+    theme_html = f'''<section class="sec" id="theme">
+  <h2>🎯 二、主线验证 · 商业航天 <span class="tg">▾</span></h2>
+  <div class="sec-body">
+  <div class="theme-grade">持续性得分：<b>{t.get('grade')}</b> <span class="sub">（涨停梯队+产业链覆盖+催化力度+资金沉淀）</span></div>
+  <div class="subscores">{sub_html}</div>
+  <div class="cap"><b>历史参照：</b>{t.get('history_ref')}</div>
+  <div class="theme-outlook"><b>下周(07-13)展望：</b>{t.get('outlook')}</div>
+  </div></section>'''
+
+# 3. 持仓绩效 · 被抽血量化
+holdperf_html = ""
+if CALC.get("holdings_perf"):
+    hp = CALC["holdings_perf"]
+    rows = ""
+    for r in hp.get("rows", []):
+        rows += f'''<tr><td><b>{r['short']}</b><br><span class="sub">{r['sector']}</span></td>
+          <td class="r {cls(r['day_ret'])}">{pct(r['day_ret'])}</td>
+          <td class="r {cls(r['alpha'])}"><b>{pct(r['alpha'])}</b></td>
+          <td class="r">{r['weight']}%</td>
+          <td class="r {cls(r['contrib'])}">{pct(r['contrib'])}</td></tr>'''
+    holdperf_html = f'''<section class="sec" id="holdperf">
+  <h2>📊 三、持仓绩效 · 被抽血量化（基底 2026-07-10） <span class="tg">▾</span></h2>
+  <div class="sec-body">
+  <table><tr><th>基金/板块</th><th class="r">当日收益</th><th class="r">α(超额)</th><th class="r">权重</th><th class="r">对账户贡献</th></tr>
+  {rows}</table>
+  <div class="bleed"><b>半导体被抽血多少？</b> {hp.get('bleed')}</div>
+  <div class="cap">{hp.get('note')}</div>
+  </div></section>'''
+
+# 4. 决策链路回溯
+decision_html = ""
+if CALC.get("decision_chain"):
+    dc = CALC["decision_chain"]
+    steps = ""
+    for s in dc.get("steps", []):
+        steps += f'''<div class="dec-step dec-{s['verdict']}">
+          <div class="dec-phase">{s['phase']}</div>
+          <div class="dec-act">{s['action']}</div>
+          <div class="dec-verdict">判定：{s['verdict_label']}</div>
+          <div class="dec-reason">{s['reason']}</div></div>'''
+    decision_html = f'''<section class="sec" id="decision">
+  <h2>🔍 四、早间→午盘→尾盘 决策链路回溯 <span class="tg">▾</span></h2>
+  <div class="sec-body">{steps}
+  <div class="dec-bias"><b>最大偏差归因：</b>{dc.get('bias')}</div>
+  <div class="cap">{dc.get('lesson')}</div></div></section>'''
+
+# 5. 次日预案（下个交易日）
+nextday_html = ""
+if CALC.get("next_day_plan"):
+    nd = CALC["next_day_plan"]
+    sc = nd.get("scenarios", {})
+    kl = "".join(f"<li>{k}</li>" for k in nd.get("key_levels", []))
+    ev = "".join(f"<li>{e}</li>" for e in nd.get("events", []))
+    nextday_html = f'''<section class="sec" id="nextday">
+  <h2>🗓 五、次日预案（下个交易日 {nd.get('next_trading_day')}） <span class="tg">▾</span></h2>
+  <div class="sec-body">
+  <div class="sub" style="margin-bottom:4px">关键价位 / 事件</div>
+  <ul class="news">{kl}</ul>
+  <div class="sub" style="margin:8px 0 2px">情景推演</div>
+  <div class="scn scn-opt"><b>乐观：</b>{sc.get('optimistic')}</div>
+  <div class="scn scn-base"><b>基准：</b>{sc.get('base')}</div>
+  <div class="scn scn-pess"><b>悲观：</b>{sc.get('pessimistic')}</div>
+  <div class="cap">事件面：{''.join(ev)}</div>
+  </div></section>'''
+
+# 命中率·待验证表（休市日无新增回填，展示滚至下交易日的预测）
+pending_html = ""
+if CALC.get("pending_list"):
+    prow = ""
+    for p in CALC["pending_list"]:
+        prow += f'''<tr><td>{p['target']}</td><td class="r"><span class="pdir">{p['direction']}</span></td>
+          <td>{p.get('confidence','')}</td><td class="r"><span class="badge pend">待07-13验证</span></td></tr>'''
+    pending_html = f'''<div class="anomaly" style="background:#16242e;border-color:#244a5c;margin-top:12px">
+    <b style="color:#7fc8ff">⏳ {CALC.get('pending_count',0)} 条预测待下个交易日(07-13)验证</b>
+    <div class="sub">以下预测于 07-10 做出、verify_date=07-11，但 07-11 周六休市无实盘，将于 07-13(周一)收盘回填：</div>
+    <table style="margin-top:8px"><tr><th>标的</th><th class="r">预测方向</th><th>置信</th><th class="r">状态</th></tr>{prow}</table></div>'''
+hit_holiday_note = CALC.get("hit_holiday_note", "")
+
 # ---------------- 首屏核心摘要（自动派生） ----------------
 acct_ret = C.get("account_est_return_0708_pct")
 acct_pnl = C.get("account_est_pnl_0708")
@@ -183,7 +299,7 @@ kpi_cards = f'''
     <div class="kstat {kpi_acct[2]}">{kpi_acct[3]} · ≈{fnum(acct_pnl,0)}元</div></div>
   <div class="kpi-card"><div class="klbl">综合预测命中率</div>
     <div class="kbig">{kpi_hit[0]}</div>
-    <div class="kstat {kpi_hit[2]}">{kpi_hit[3]} · {hits}/{backfilled}命中</div></div>
+    <div class="kstat {kpi_hit[2]}">{kpi_hit[3]} · {'%d/%d累计命中' % (CALC.get('cum_hits', hits), CALC.get('cum_verified', backfilled)) if holiday else '%d/%d命中' % (hits, backfilled)}</div></div>
   <div class="kpi-card"><div class="klbl">收盘恐惧贪婪</div>
     <div class="kbig neu">{kpi_fg[0]}</div>
     <div class="kstat neu">{kpi_fg[3]}</div></div>
@@ -330,6 +446,44 @@ ul.news li{margin:5px 0}
 .chart-box{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px;margin:10px 0;height:320px}
 @media(max-width:680px){.kpi-grid{grid-template-columns:repeat(2,1fr)}.cards,.acct,.kcards{flex-direction:column}h1{font-size:21px}}
 @media print{body{background:#fff;color:#000}.nav,.totop{display:none!important}.sec.collapsed .sec-body{display:block}.card,.reb,.kcard,.ritem,.act,.gauge,.chart-box{break-inside:avoid;border-color:#ccc}.up{color:#c0392b!important}.down{color:#1e7e44!important}.neu{color:#b8860b!important}h2{color:#000;border-left-color:#333}}
+.holiday{background:#1a2230;border:1px solid #2c3c5c;border-left:4px solid #4aa8ff;border-radius:10px;padding:12px 16px;margin:14px 0;font-size:13.5px;color:#cfe2f5;line-height:1.7}
+.holiday b{color:#7fc8ff}
+.mig-route{display:flex;flex-direction:column;gap:10px;margin:10px 0}
+.mig-seg{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:11px 14px;position:relative}
+.mig-seg:before{content:"";position:absolute;left:18px;top:-10px;width:2px;height:10px;background:var(--line)}
+.mig-phase{font-size:12px;color:var(--acc);font-weight:700}
+.mig-flow{font-size:15px;font-weight:700;margin:3px 0;color:#fff}
+.mig-detail{font-size:13px;color:#d4dde6;line-height:1.6}
+.mig-net{font-size:12px;color:#cdd7e2;margin-top:4px}
+.mig-pos{font-size:12px;color:var(--neu);margin-top:2px}
+.keyword{background:#16242e;border:1px solid #244a5c;border-radius:8px;padding:9px 13px;margin:10px 0;font-size:13.5px}
+.mig-my{font-size:13px;color:#d4dde6;margin:6px 0}
+.mig-verdict{font-size:13px;color:#cfe2f5;margin-top:4px;padding:8px 12px;background:#143026;border:1px solid #1f6e47;border-radius:8px}
+.theme-grade{font-size:15px;margin:8px 0;color:#fff}.theme-grade b{color:var(--neu);font-size:20px}
+.subscores{margin:10px 0}
+.subscore{margin:8px 0}
+.ss-dim{display:inline-block;width:90px;font-weight:700;color:#fff;font-size:13px}
+.ss-bar{display:inline-block;width:160px;height:10px;background:#222b38;border-radius:6px;vertical-align:middle;overflow:hidden}
+.ss-bar i{display:block;height:100%;background:linear-gradient(90deg,#d9a441,#26c281)}
+.ss-num{display:inline-block;width:54px;text-align:right;color:var(--neu);font-weight:700;font-size:12px}
+.ss-note{font-size:12px;color:#cdd7e2;margin:2px 0 0 90px;line-height:1.5}
+.theme-outlook{font-size:13.5px;color:#cfe2f5;margin-top:10px;padding:9px 13px;background:#16242e;border:1px solid #244a5c;border-radius:8px;line-height:1.65}
+.bleed{font-size:13.5px;color:#ffb0a8;margin:10px 0;padding:10px 13px;background:#3a1717;border:1px solid #6b2b2b;border-radius:8px;line-height:1.7}
+.dec-step{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--mut);border-radius:8px;padding:10px 14px;margin:9px 0}
+.dec-step.dec-hit{border-left-color:var(--down)}
+.dec-step.dec-miss{border-left-color:var(--up)}
+.dec-phase{font-weight:700;color:var(--acc);font-size:13px}
+.dec-act{font-size:13px;color:#d4dde6;margin:4px 0;line-height:1.6}
+.dec-verdict{font-size:12.5px;color:var(--neu);font-weight:700}
+.dec-reason{font-size:12px;color:#cdd7e2;line-height:1.5}
+.dec-bias{font-size:13.5px;color:#ffb0a8;margin:10px 0;padding:10px 13px;background:#3a1717;border:1px solid #6b2b2b;border-radius:8px;line-height:1.7}
+.scn{font-size:13px;padding:9px 13px;border-radius:8px;margin:7px 0;line-height:1.6}
+.scn b{margin-right:4px}
+.scn-opt{background:#143026;color:#9ff0c4;border:1px solid #1f6e47}
+.scn-base{background:#2a2415;color:#f0d79a;border:1px solid #5c4a1d}
+.scn-pess{background:#3a1717;color:#ffb0a8;border:1px solid #6b2b2b}
+.badge.pend{background:#16242e;color:#7fc8ff;border:1px solid #244a5c}
+.hit-note{font-size:12.5px;color:var(--mut);margin:6px 0}
 </style></head>
 <body>
 <nav class="nav"><span class="brand">📊 复盘</span>
@@ -343,7 +497,9 @@ ul.news li{margin:5px 0}
 # BODY：f-string，仅含 HTML（不含 <script>），单花括号即占位符
 BODY = f'''
 <h1>📊 每日基金晚间复盘</h1>
-<div class="meta">日期 <b>{DATE}</b> · 数据截止：当日收盘 + 21:00 后净值(T0) · 生成 {GEN_TIME} · 数据源 <b>neodata-financial-search</b> · 仅供参考，不构成投资建议</div>
+<div class="meta">日期 <b>{DATE}</b> · 数据截止：最近交易日收盘 + 周末扫描 · 生成 {GEN_TIME} · 数据源 <b>neodata-financial-search</b> · 仅供参考，不构成投资建议</div>
+
+{holiday_banner}
 
 <section class="sec" id="summary">
   <div class="summary">
@@ -374,6 +530,11 @@ BODY = f'''
   <div class="cap">解读：账户收益由关联板块真实收盘代理，大盘回调背景下整体小幅承压；广度显示个股普跌、情绪偏冷。</div>
   </div>
 </section>
+
+{migration_html}
+{theme_html}
+{holdperf_html}
+{decision_html}
 
 <section class="sec" id="flow">
   <h2>二、资金流（资金面） <span class="tg">▾</span></h2>
@@ -408,6 +569,8 @@ BODY = f'''
   </div>
 </section>
 
+{nextday_html}
+
 <section class="sec" id="hit">
   <h2>五、预测命中率（问题归因） <span class="tg">▾</span></h2>
   <div class="sec-body">
@@ -421,6 +584,8 @@ BODY = f'''
   <tr><th>预测标的</th><th class="r">预测方向</th><th class="r">实际(板块代理)</th><th>置信</th><th class="r">结果</th></tr>
   {pred_rows}
   </table>
+  {pending_html}
+  <div class="hit-note">{hit_holiday_note}</div>
   <div class="cap">解读：命中率偏低主因是大盘系统性回调，非个基基本面恶化；情绪恐惧+高集中度下不宜加仓。</div>
   </div>
 </section>
