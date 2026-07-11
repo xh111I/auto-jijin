@@ -253,10 +253,11 @@ summary .sc{font-size:12px;color:var(--mut)}
   </table>
 </section>
 <section id="tech" class="card">
-  <h2>⑥ 持仓关联指数技术面 <span class="badge">MA20/MA60 · neodata</span></h2>
+  <h2>⑥ 持仓关联指数技术面 <span class="badge">日K·月K·MA20/MA60 · neodata</span></h2>
   
 <details>
   <summary>中证半导(931865) <span class="sc">收盘 10,613.29 · 单日 <span class="down b">-6.72%</span></span></summary>
+  <div style="margin:6px 0;font-size:12.5px;color:#8b98a9;background:rgba(255,255,255,.03);padding:8px 12px;border-radius:6px;">💡 日K/月K线图：需 agent 在 tech[].kline 字段提供 {dates, ohlc} 数据</div>
   <div class="tech-grid">
     <div class="dim"><b>MA20</b><span>远高于(20日+32.84%→价格远超MA20/MA60,严重超买后回落)</span></div>
     <div class="dim"><b>MA60</b><span>远高于(年内+114%)</span></div>
@@ -269,6 +270,7 @@ summary .sc{font-size:12px;color:var(--mut)}
 </details>
 <details>
   <summary>人工智能(931071) <span class="sc">收盘 3,211.93 · 单日 <span class="down b">-2.66%</span></span></summary>
+  <div style="margin:6px 0;font-size:12.5px;color:#8b98a9;background:rgba(255,255,255,.03);padding:8px 12px;border-radius:6px;">💡 日K/月K线图：需 agent 在 tech[].kline 字段提供 {dates, ohlc} 数据</div>
   <div class="tech-grid">
     <div class="dim"><b>MA20</b><span>高于(20日+14.75%)</span></div>
     <div class="dim"><b>MA60</b><span>高于(年内+41.78%)</span></div>
@@ -281,6 +283,7 @@ summary .sc{font-size:12px;color:var(--mut)}
 </details>
 <details>
   <summary>纳斯达克100 <span class="sc">收盘 29,825.11 · 单日 <span class="up">+0.33%</span></span></summary>
+  <div style="margin:6px 0;font-size:12.5px;color:#8b98a9;background:rgba(255,255,255,.03);padding:8px 12px;border-radius:6px;">💡 日K/月K线图：需 agent 在 tech[].kline 字段提供 {dates, ohlc} 数据</div>
   <div class="tech-grid">
     <div class="dim"><b>MA20</b><span>高于(20日+4.62%)</span></div>
     <div class="dim"><b>MA60</b><span>高于(年内+18.12%)</span></div>
@@ -293,6 +296,7 @@ summary .sc{font-size:12px;color:var(--mut)}
 </details>
 <details>
   <summary>恒生科技 <span class="sc">收盘 4,721.66 · 单日 <span class="down">-0.21%</span></span></summary>
+  <div style="margin:6px 0;font-size:12.5px;color:#8b98a9;background:rgba(255,255,255,.03);padding:8px 12px;border-radius:6px;">💡 日K/月K线图：需 agent 在 tech[].kline 字段提供 {dates, ohlc} 数据</div>
   <div class="tech-grid">
     <div class="dim"><b>MA20</b><span>附近(20日-0.07%)</span></div>
     <div class="dim"><b>MA60</b><span>下方(年内-14.40%)</span></div>
@@ -305,6 +309,7 @@ summary .sc{font-size:12px;color:var(--mut)}
 </details>
 <details>
   <summary>半导体ETF 512480 <span class="sc">收盘 1.369/净值1.3563 · 单日 <span class="down b">-6.38%</span></span></summary>
+  <div style="margin:6px 0;font-size:12.5px;color:#8b98a9;background:rgba(255,255,255,.03);padding:8px 12px;border-radius:6px;">💡 日K/月K线图：需 agent 在 tech[].kline 字段提供 {dates, ohlc} 数据</div>
   <div class="tech-grid">
     <div class="dim"><b>MA20</b><span>远高于(近1月+29.36%)</span></div>
     <div class="dim"><b>MA60</b><span>远高于(YTD+85.38%)</span></div>
@@ -399,6 +404,69 @@ function initCharts(){
           if(el){ el.innerHTML = '半导体情绪 近10日趋势 · 5日Δ=<span style="color:'+(d5<0?DARK.down:DARK.up)+';font-weight:700">'+(d5>0?'+':'')+d5.toFixed(0)+'</span>'+(d5<-10?'⚠️ 加速恐慌':(d5>10?' 🔥 情绪过热':'')); }
         }
       }
+    }
+    // ④ 日K线 + 月K线（技术面，每个持仓关联指数）
+    if(REPORT.tech && REPORT.tech.length){
+      REPORT.tech.forEach(t => {
+        const kline = t.kline;
+        if(!kline || !kline.dates || !kline.ohlc || !kline.dates.length) return;
+        const cid = (t.index||"").replace(/[^a-zA-Z0-9]/g, '_');
+        const dates = kline.dates;
+        const ohlc = kline.ohlc;
+        
+        // 日K（最近60日）+ MA20/MA60 overlay
+        const dEl = document.getElementById('kx_'+cid);
+        if(dEl){
+          const dDates = dates.slice(-60);
+          const dOhlc = ohlc.slice(-60);
+          const ma20 = (kline.ma20||[]).slice(-60);
+          const ma60 = (kline.ma60||[]).slice(-60);
+          const c = echarts.init(dEl, null, {renderer:'canvas'});
+          const series = [{type:'candlestick',name:'日K',data:dOhlc,
+            itemStyle:{color:DARK.up,color0:DARK.down,borderColor:DARK.up,borderColor0:DARK.down}}];
+          if(ma20.length) series.push({type:'line',name:'MA20',data:ma20,smooth:false,
+            lineStyle:{color:'#d9a441',width:1},symbol:'none'});
+          if(ma60.length) series.push({type:'line',name:'MA60',data:ma60,smooth:false,
+            lineStyle:{color:'#4aa8ff',width:1},symbol:'none'});
+          c.setOption({
+            backgroundColor:'transparent',
+            grid:{left:48,right:16,top:10,bottom:24},
+            tooltip:{trigger:'axis',axisPointer:{type:'cross'},
+              formatter:function(p){const d=p[0];if(!d)return'';const o=d.data;return d.name+'<br/>开:'+o[0]+' 收:'+o[1]+'<br/>低:'+o[2]+' 高:'+o[3];}},
+            legend:{show:true,top:0,textStyle:{color:DARK.mut,fontSize:9}},
+            xAxis:{type:'category',data:dDates,axisLabel:{color:DARK.mut,fontSize:8},axisLine:{lineStyle:{color:'#2a3340'}}},
+            yAxis:{type:'value',scale:true,axisLabel:{color:DARK.mut,fontSize:9},splitLine:{lineStyle:{color:'#222b36'}}},
+            series:series
+          });
+        }
+        
+        // 月K聚合（从全部日K数据按月份分组）
+        const months={};
+        dates.forEach((d,i)=>{
+          const m=d.substring(0,7);
+          const c=ohlc[i];
+          if(!months[m]){months[m]={open:c[0],close:c[1],low:c[2],high:c[3]};}
+          else{months[m].close=c[1];months[m].low=Math.min(months[m].low,c[2]);months[m].high=Math.max(months[m].high,c[3]);}
+        });
+        const mKeys=Object.keys(months).sort();
+        const mDates=mKeys.slice(-12);
+        const mData=mDates.map(m=>[months[m].open,months[m].close,months[m].low,months[m].high]);
+        
+        const mEl = document.getElementById('km_'+cid);
+        if(mEl){
+          const c = echarts.init(mEl, null, {renderer:'canvas'});
+          c.setOption({
+            backgroundColor:'transparent',
+            grid:{left:48,right:16,top:10,bottom:24},
+            tooltip:{trigger:'axis',axisPointer:{type:'cross'},
+              formatter:function(p){const d=p[0];if(!d)return'';const o=d.data;return d.name+'<br/>开:'+o[0].toFixed(2)+' 收:'+o[1].toFixed(2)+'<br/>低:'+o[2].toFixed(2)+' 高:'+o[3].toFixed(2);}},
+            xAxis:{type:'category',data:mDates,axisLabel:{color:DARK.mut,fontSize:8},axisLine:{lineStyle:{color:'#2a3340'}}},
+            yAxis:{type:'value',scale:true,axisLabel:{color:DARK.mut,fontSize:9},splitLine:{lineStyle:{color:'#222b36'}}},
+            series:[{type:'candlestick',name:'月K',data:mData,
+              itemStyle:{color:DARK.up,color0:DARK.down,borderColor:DARK.up,borderColor0:DARK.down}}]
+          });
+        }
+      });
     }
   }catch(e){ console.error('chart error', e); }
 }
