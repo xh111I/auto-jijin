@@ -143,7 +143,7 @@ def wt_cell(v):
     v = num(v)
     if v is None:
         return '<td class="neu">—</td>'
-    over = " over" if v > 30 else ""
+    over = " wt-over" if v > 25 else ""
     return '<td class="r%s">%.1f%%</td>' % (over, v)
 
 def ret_cell(v):
@@ -174,6 +174,36 @@ def risk_dist(rd):
 def render_core(core, sentiment):
     if not core:
         return ""
+    # === 紧急警示条（浮动在导航下方） ===
+    emerg = core.get("emergency")
+    emerg_html = ""
+    if emerg:
+        ecls = "emergency-banner" + (" orange" if emerg.get("level") == "orange" else "")
+        e_icon = emerg.get("icon", "🔴")
+        e_text = tip(emerg.get("text", ""))
+        emerg_html = f'''<div class="{ecls}"><span class="eb-icon">{e_icon}</span><span>{e_text}</span><span class="eb-close" onclick="this.parentElement.remove()">✕</span></div>'''
+    # === 风险加权综合评分 ===
+    rs = core.get("risk_score")
+    rs_html = ""
+    if rs is not None:
+        rs = num(rs) or 50
+        if rs <= 35:
+            r_cls, r_color, r_label = "r-low", "#26c281", "低风险"
+        elif rs <= 55:
+            r_cls, r_color, r_label = "r-mid", "#d9a441", "中等风险"
+        elif rs <= 75:
+            r_cls, r_color, r_label = "r-high", "#f5564d", "偏高风险"
+        else:
+            r_cls, r_color, r_label = "r-high", "#ff6b61", "高风险"
+        rs_desc = tip(core.get("risk_score_note", ""))
+        rs_html = f'''<div class="risk-score-block {r_cls}">
+          <div class="risk-score"><div class="rs-num" style="color:{r_color}">{int(round(rs))}</div><div class="rs-label">{r_label}</div></div>
+          <div class="rs-desc">{rs_desc}</div></div>'''
+    # === 今日一句话指令 ===
+    today_inst = core.get("today_instruction")
+    inst_html = ""
+    if today_inst:
+        inst_html = f'<div class="today-instruction">🎯 {tip(today_inst)}</div>'
     # 情绪进度条
     bars = ""
     for mb in (core.get("mood_bars") or []):
@@ -192,20 +222,18 @@ def render_core(core, sentiment):
     one = tip(core.get("one_liner", ""))
     rule = tip(core.get("action_rules", ""))
     top = tip(core.get("top_risk", ""))
-    # 情绪仪表盘（半导体情绪，次级）
-    semi = (sentiment or {}).get("semiconductor") or {}
-    semi_score = num(semi.get("score"))
-    semi_html = ""
-    if semi_score is not None:
-        semi_html = ('<div class="gauge-mini"><div id="sentGauge" style="width:200px;height:120px"></div>'
-                     '<div class="gauge-cap">半导体情绪 <b class="lv-down">%s</b> · %s</div></div>') % (
-            esc(semi.get("score", "")), esc(semi.get("label", "")))
+    # 情绪迷你折线（10日时序，替代原仪表盘）
+    sent_trend_html = ('<div class="gauge-mini"><div id="sentTrend" style="width:300px;height:120px"></div>'
+                       '<div class="gauge-cap">半导体情绪 近10日趋势</div></div>')
     return f'''
+{emerg_html}
 <section id="core" class="core-card">
   <div class="core-head">🌅 盘前核心定调 <span class="badge">开盘前30秒决策</span></div>
+  {rs_html}
+  {inst_html}
   <div class="mood-bars">
     {bars}
-    {semi_html}
+    {sent_trend_html}
   </div>
   <div class="core-line"><span class="cl-k">一句话结论</span><span class="cl-v">{one}</span></div>
   <div class="rule-box">🔴 操作铁律：{rule}</div>
@@ -258,7 +286,7 @@ def render_global(groups):
 def render_conflicts(conflicts):
     if not conflicts:
         return ""
-    boxes = ""
+    red_boxes = ""; other_boxes = ""
     for c in conflicts:
         lv = c.get("level") or "orange"
         cls = {"red": "cf-red", "orange": "cf-orange", "yellow": "cf-yellow"}.get(lv, "cf-orange")
@@ -268,17 +296,27 @@ def render_conflicts(conflicts):
         impact = tip(c.get("impact", ""))
         chain_html = ('<div class="cf-chain"><b>传导链：</b>%s</div>' % chain) if chain else ""
         impact_html = ('<div class="cf-impact"><b>持仓影响：</b>%s</div>' % impact) if impact else ""
-        boxes += '''
+        box = '''
 <div class="cf-box %s">
   <div class="cf-title">%s %s</div>
   <div class="cf-body">%s</div>
   %s
   %s
 </div>''' % (cls, icon, tip(c.get("title", "")), fact, chain_html, impact_html)
+        if lv == "red":
+            red_boxes += box
+        else:
+            other_boxes += box
+    # 🔴 红级直接展开；🟠🟡 折叠（summary 显示标题）
+    fold_html = ""
+    if other_boxes:
+        fold_html = '<details><summary>🟠🟡 次级风险事件 <span class="sc">%d 条 · 点击展开</span></summary>%s</details>' % (
+            sum(1 for c in conflicts if c.get("level") != "red"), other_boxes)
     return f'''
 <section id="conflict" class="card">
   <h2>② 风险事件结构化 <span class="badge">事件等级→事实→传导→影响</span></h2>
-  {boxes}
+  {red_boxes}
+  {fold_html}
 </section>'''
 
 def render_bullbear(bulls, bears):
@@ -431,7 +469,10 @@ def render_cred(cred, disclaimer):
     return f'''
 <section id="cred" class="card">
   <h2>⑧ 数据来源与可信度 <span class="badge">{esc(CRED_TIER)}</span></h2>
+  <details>
+  <summary>展开数据来源 <span class="sc">neodata {esc(CRED_TIER)} · 点击查看</span></summary>
   <div class="src-box">{rows}</div>
+  </details>
   {disc}
 </section>'''
 
@@ -486,6 +527,29 @@ tr.hl-row{background:rgba(74,168,255,.07)}
 .tag.a-warn{background:rgba(217,164,65,.16);color:#d9a441}
 .tag.a-watch{background:rgba(74,168,255,.16);color:#4aa8ff}
 .rk-high{color:#ff6b61;font-weight:700} .rk-mid{color:#d9a441;font-weight:600} .rk-low{color:#e8c33a}
+/* === P0 视觉微调 === */
+/* 高仓位占比(>25%)自动加粗+放大+底色微红 */
+td .wt-over{font-weight:700;font-size:15px;background:rgba(245,86,77,.08);padding:2px 6px;border-radius:4px}
+/* 涨跌幅列字号提升 */
+td.up,td.down{font-size:14px}
+/* === 紧急警示浮动条 === */
+.emergency-banner{position:sticky;top:0;z-index:40;background:linear-gradient(90deg,#7f1d1d,#991b1b);color:#fecaca;padding:10px 16px;border-radius:10px;margin-bottom:12px;display:flex;align-items:center;gap:10px;font-size:13.5px;font-weight:700;box-shadow:0 2px 12px rgba(127,29,29,.5);animation:pulse 2s infinite}
+.emergency-banner.orange{background:linear-gradient(90deg,#78350f,#92400e)}
+.emergency-banner .eb-icon{font-size:20px;flex-shrink:0}
+.emergency-banner .eb-close{flex-shrink:0;margin-left:auto;cursor:pointer;color:#fca5a5;font-size:16px;font-weight:400;padding:2px 8px;border-radius:4px}
+.emergency-banner .eb-close:hover{background:rgba(255,255,255,.15);color:#fff}
+@keyframes pulse{0%,100%{opacity:1} 50%{opacity:.85}}
+/* === 风险评分大字块 === */
+.risk-score-block{display:flex;align-items:center;gap:16px;margin-bottom:14px;padding:14px;border-radius:10px}
+.risk-score-block.r-low{background:rgba(38,194,129,.12);border:1px solid rgba(38,194,129,.3)}
+.risk-score-block.r-mid{background:rgba(217,164,65,.12);border:1px solid rgba(217,164,65,.3)}
+.risk-score-block.r-high{background:rgba(245,86,77,.12);border:1px solid rgba(245,86,77,.3)}
+.risk-score{text-align:center;min-width:80px}
+.risk-score .rs-num{font-size:42px;font-weight:800;line-height:1}
+.risk-score .rs-label{font-size:12px;color:var(--mut);margin-top:2px}
+.risk-score-block .rs-desc{flex:1;font-size:13.5px;line-height:1.7;color:#cdd7e2}
+/* === 今日指令 === */
+.today-instruction{background:rgba(74,168,255,.08);border:1px solid rgba(74,168,255,.25);border-radius:8px;padding:10px 14px;margin-bottom:10px;font-size:14px;font-weight:700;color:#93c5fd}
 /* 盘前核心定调卡 */
 .core-card{background:linear-gradient(135deg,#16202c,#111a24);border:1px solid #2b4a6a;border-radius:14px;padding:16px;margin-bottom:12px}
 .core-head{font-size:17px;font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:6px}
@@ -611,26 +675,35 @@ function initCharts(){
         });
       }
     }
-    // ③ 情绪仪表盘（半导体情绪，次级）
-    if(document.getElementById('sentGauge')){
-      const s = (REPORT.sentiment||{}).semiconductor;
-      if(s && s.score!==undefined && s.score!==null){
-        const v = s.score;
-        const c = echarts.init(document.getElementById('sentGauge'), null, {renderer:'canvas'});
-        c.setOption({
+    // ③ 情绪趋势折线图（近10日，替代原仪表盘）
+    if(document.getElementById('sentTrend')){
+      const st = (REPORT.sentiment||{}).semiconductor_trend;
+      const trend_dates = (st||{}).dates || [];
+      const trend_vals = (st||{}).values || [];
+      const current = (REPORT.sentiment||{}).semiconductor;
+      if(trend_dates.length){
+        const ct = echarts.init(document.getElementById('sentTrend'), null, {renderer:'canvas'});
+        ct.setOption({
           backgroundColor:'transparent',
-          series:[{type:'gauge',min:0,max:100,radius:'92%',center:['50%','58%'],
-            startAngle:210,endAngle:-30,
-            progress:{show:false},
-            axisLine:{lineStyle:{width:12,color:[[0.4,'#f5564d'],[0.6,'#d9a441'],[1,'#26c281']]}},
-            pointer:{width:4,length:'60%',itemStyle:{color:'#e6edf3'}},
-            axisTick:{show:false},splitLine:{length:10,lineStyle:{color:'#2a3340'}},
-            axisLabel:{color:DARK.mut,fontSize:8,distance:12},
-            detail:{valueAnimation:false,fontSize:20,color:'#e6edf3',offsetCenter:[0,'38%']},
-            title:{show:false},
-            data:[{value:v}]
+          grid:{left:40,right:16,top:10,bottom:20},
+          tooltip:{trigger:'axis',formatter:'{b}<br/>情绪分: {c}'},
+          xAxis:{type:'category',data:trend_dates,axisLabel:{color:DARK.mut,fontSize:9},axisLine:{lineStyle:{color:'#2a3340'}}},
+          yAxis:{type:'value',min:0,max:100,axisLabel:{color:DARK.mut,fontSize:9},splitLine:{lineStyle:{color:'#222b36'}}},
+          series:[{type:'line',data:trend_vals,smooth:true,
+            lineStyle:{color:DARK.acc,width:2},itemStyle:{color:DARK.acc},
+            areaStyle:{color:{type:'linear',x:0,y:0,x2:0,y2:1,
+              colorStops:[{offset:0,color:'rgba(74,168,255,.3)'},{offset:1,color:'rgba(74,168,255,.02)'}]}},
+            markLine:{silent:true,symbol:'none',
+              data:[{yAxis:20,label:{formatter:'恐惧 20',color:DARK.down,fontSize:9},lineStyle:{color:DARK.down,type:'dashed'}},
+                    {yAxis:80,label:{formatter:'贪婪 80',color:DARK.up,fontSize:9},lineStyle:{color:DARK.up,type:'dashed'}}]}
           }]
         });
+        // 底部5日Δ标签
+        if(trend_vals.length>=5){
+          const d5 = trend_vals[trend_vals.length-1] - trend_vals[trend_vals.length-5];
+          const el = document.querySelector('.gauge-cap');
+          if(el){ el.innerHTML = '半导体情绪 近10日趋势 · 5日Δ=<span style="color:'+(d5<0?DARK.down:DARK.up)+';font-weight:700">'+(d5>0?'+':'')+d5.toFixed(0)+'</span>'+(d5<-10?'⚠️ 加速恐慌':(d5>10?' 🔥 情绪过热':'')); }
+        }
       }
     }
   }catch(e){ console.error('chart error', e); }
