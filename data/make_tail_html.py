@@ -194,10 +194,11 @@ def render_holdings(holdings):
         ocls = op_cls(instr, h.get("overweight"))
         ow = h.get("overweight")
         ow_badge = '<span class="ow-badge">⚠ 单仓超限</span>' if ow else ""
-        # 左 1/3 日K
+        # 左 1/3 日K + 月K
         k = h.get("kline")
         if k and k.get("ohlc") and len(k.get("ohlc")):
-            kline_html = '<canvas id="kline_%d"></canvas>' % i
+            kline_html = ('<div style="height:140px"><canvas id="kline_%d"></canvas></div>'
+                          '<div style="height:100px;margin-top:6px"><canvas id="kmonth_%d"></canvas></div>') % (i, i)
         else:
             kt = h.get("kline_text") or "⚠ 日K数据未返回"
             kline_html = '<div class="kline-text">%s</div>' % esc(kt)
@@ -841,6 +842,30 @@ function initKlines(){
           {type:'line',data:ma20,smooth:true,showSymbol:false,lineStyle:{color:DARK.neu,width:1},name:'MA20'}
         ]
       });
+      
+      // 月K（从日K聚合）
+      var mCanvas = document.getElementById('kmonth_'+idx);
+      if(mCanvas && ohlc.length > 0){
+        var months = {}, mdates = [];
+        dates.forEach(function(d, i){
+          var m = d.substring(0,7);
+          var c = ohlc[i];
+          if(!months[m]){ months[m] = {open:c[0],close:c[1],low:c[2],high:c[3]}; mdates.push(m); }
+          else{ months[m].close = c[1]; months[m].low = Math.min(months[m].low, c[2]); months[m].high = Math.max(months[m].high, c[3]); }
+        });
+        mdates = mdates.slice(-12);
+        var mData = mdates.map(function(m){ return [months[m].open, months[m].close, months[m].low, months[m].high]; });
+        var mChart = echarts.init(mCanvas, null, {renderer:'canvas'});
+        mChart.setOption({
+          backgroundColor:'transparent',
+          grid:{left:4,right:10,top:8,bottom:16,containLabel:true},
+          xAxis:{type:'category',data:mdates,axisLabel:{color:DARK.mut,fontSize:8},axisLine:{lineStyle:{color:'#2a3340'}},axisTick:{show:false}},
+          yAxis:{scale:true,axisLabel:{color:DARK.mut,fontSize:8},splitLine:{lineStyle:{color:'#1c232e'}},axisLine:{show:false}},
+          tooltip:{trigger:'axis',axisPointer:{type:'cross'},backgroundColor:'#0b0f15',borderColor:'#2a3340',textStyle:{color:'#e6edf3',fontSize:10}},
+          series:[{type:'candlestick',data:mData,
+            itemStyle:{color:DARK.up,color0:DARK.down,borderColor:DARK.up,borderColor0:DARK.down}}]
+        });
+      }
     });
   }catch(e){ console.error('kline error', e); }
 }

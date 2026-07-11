@@ -412,9 +412,28 @@ def render_tech(tech):
         return ""
     blocks = ""
     for t in tech:
+        idx = esc(t.get("index", ""))
+        # 生成安全的 canvas id（用于 kline 图表）
+        cid = re.sub(r'[^a-zA-Z0-9]', '_', t.get("index", "idx"))
+        # kline 数据（日K OHLC，可选）
+        kline = t.get("kline")
+        has_kline = kline and kline.get("dates") and kline.get("ohlc")
+        kline_html = ""
+        if has_kline:
+            kline_html = ('<div style="margin:6px 0;font-size:12px;color:var(--mut)">'
+                          '📈 日K线（近60日）· 📊 月K线（近12月）<span class="sc"> 展开可见</span></div>'
+                          '<div class="chart-wrap" style="height:220px;margin:4px 0;">'
+                          '<canvas id="kx_%s"></canvas></div>'
+                          '<div class="chart-wrap" style="height:180px;margin:4px 0;">'
+                          '<canvas id="km_%s"></canvas></div>') % (cid, cid)
+        else:
+            kline_html = ('<div style="margin:6px 0;font-size:12.5px;color:#8b98a9;'
+                          'background:rgba(255,255,255,.03);padding:8px 12px;border-radius:6px;">'
+                          '💡 日K/月K线图：需 agent 在 tech[].kline 字段提供 {dates, ohlc} 数据</div>')
         blocks += '''
 <details>
   <summary>%s <span class="sc">收盘 %s · 单日 %s</span></summary>
+  %s
   <div class="tech-grid">
     <div class="dim"><b>MA20</b><span>%s</span></div>
     <div class="dim"><b>MA60</b><span>%s</span></div>
@@ -427,12 +446,13 @@ def render_tech(tech):
 </details>''' % (
             tip(t.get("index", "")), esc(t.get("close", "—")),
             chg_span(t.get("chg"), 2.0),
+            kline_html,
             esc(t.get("ma20", "—")), esc(t.get("ma60", "—")),
             tip(t.get("interpret", "")),
             tip(t.get("macd", "—")), tip(t.get("kdj", "—")))
     return f'''
 <section id="tech" class="card">
-  <h2>⑥ 持仓关联指数技术面 <span class="badge">MA20/MA60 · neodata</span></h2>
+  <h2>⑥ 持仓关联指数技术面 <span class="badge">日K·月K·MA20/MA60 · neodata</span></h2>
   {blocks}
 </section>'''
 
@@ -705,6 +725,69 @@ function initCharts(){
           if(el){ el.innerHTML = '半导体情绪 近10日趋势 · 5日Δ=<span style="color:'+(d5<0?DARK.down:DARK.up)+';font-weight:700">'+(d5>0?'+':'')+d5.toFixed(0)+'</span>'+(d5<-10?'⚠️ 加速恐慌':(d5>10?' 🔥 情绪过热':'')); }
         }
       }
+    }
+    // ④ 日K线 + 月K线（技术面，每个持仓关联指数）
+    if(REPORT.tech && REPORT.tech.length){
+      REPORT.tech.forEach(t => {
+        const kline = t.kline;
+        if(!kline || !kline.dates || !kline.ohlc || !kline.dates.length) return;
+        const cid = (t.index||"").replace(/[^a-zA-Z0-9]/g, '_');
+        const dates = kline.dates;
+        const ohlc = kline.ohlc;
+        
+        // 日K（最近60日）+ MA20/MA60 overlay
+        const dEl = document.getElementById('kx_'+cid);
+        if(dEl){
+          const dDates = dates.slice(-60);
+          const dOhlc = ohlc.slice(-60);
+          const ma20 = (kline.ma20||[]).slice(-60);
+          const ma60 = (kline.ma60||[]).slice(-60);
+          const c = echarts.init(dEl, null, {renderer:'canvas'});
+          const series = [{type:'candlestick',name:'日K',data:dOhlc,
+            itemStyle:{color:DARK.up,color0:DARK.down,borderColor:DARK.up,borderColor0:DARK.down}}];
+          if(ma20.length) series.push({type:'line',name:'MA20',data:ma20,smooth:false,
+            lineStyle:{color:'#d9a441',width:1},symbol:'none'});
+          if(ma60.length) series.push({type:'line',name:'MA60',data:ma60,smooth:false,
+            lineStyle:{color:'#4aa8ff',width:1},symbol:'none'});
+          c.setOption({
+            backgroundColor:'transparent',
+            grid:{left:48,right:16,top:10,bottom:24},
+            tooltip:{trigger:'axis',axisPointer:{type:'cross'},
+              formatter:function(p){const d=p[0];if(!d)return'';const o=d.data;return d.name+'<br/>开:'+o[0]+' 收:'+o[1]+'<br/>低:'+o[2]+' 高:'+o[3];}},
+            legend:{show:true,top:0,textStyle:{color:DARK.mut,fontSize:9}},
+            xAxis:{type:'category',data:dDates,axisLabel:{color:DARK.mut,fontSize:8},axisLine:{lineStyle:{color:'#2a3340'}}},
+            yAxis:{type:'value',scale:true,axisLabel:{color:DARK.mut,fontSize:9},splitLine:{lineStyle:{color:'#222b36'}}},
+            series:series
+          });
+        }
+        
+        // 月K聚合（从全部日K数据按月份分组）
+        const months={};
+        dates.forEach((d,i)=>{
+          const m=d.substring(0,7);
+          const c=ohlc[i];
+          if(!months[m]){months[m]={open:c[0],close:c[1],low:c[2],high:c[3]};}
+          else{months[m].close=c[1];months[m].low=Math.min(months[m].low,c[2]);months[m].high=Math.max(months[m].high,c[3]);}
+        });
+        const mKeys=Object.keys(months).sort();
+        const mDates=mKeys.slice(-12);
+        const mData=mDates.map(m=>[months[m].open,months[m].close,months[m].low,months[m].high]);
+        
+        const mEl = document.getElementById('km_'+cid);
+        if(mEl){
+          const c = echarts.init(mEl, null, {renderer:'canvas'});
+          c.setOption({
+            backgroundColor:'transparent',
+            grid:{left:48,right:16,top:10,bottom:24},
+            tooltip:{trigger:'axis',axisPointer:{type:'cross'},
+              formatter:function(p){const d=p[0];if(!d)return'';const o=d.data;return d.name+'<br/>开:'+o[0].toFixed(2)+' 收:'+o[1].toFixed(2)+'<br/>低:'+o[2].toFixed(2)+' 高:'+o[3].toFixed(2);}},
+            xAxis:{type:'category',data:mDates,axisLabel:{color:DARK.mut,fontSize:8},axisLine:{lineStyle:{color:'#2a3340'}}},
+            yAxis:{type:'value',scale:true,axisLabel:{color:DARK.mut,fontSize:9},splitLine:{lineStyle:{color:'#222b36'}}},
+            series:[{type:'candlestick',name:'月K',data:mData,
+              itemStyle:{color:DARK.up,color0:DARK.down,borderColor:DARK.up,borderColor0:DARK.down}}]
+          });
+        }
+      });
     }
   }catch(e){ console.error('chart error', e); }
 }

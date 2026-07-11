@@ -431,7 +431,10 @@ def _render_kx_card(i, ix, t, cls, lbl, cid="candle"):
   <summary>%s · %s <span class="sc">综合 %s</span></summary>
   <div class="kx-card">
     <div class="kx-left">
+      <div style="font-size:11px;color:var(--mut);margin-bottom:4px">📈 日K（近250日）</div>
       <div class="chart-wrap sm"><canvas id="%s%d"></canvas></div>
+      <div style="font-size:11px;color:var(--mut);margin:8px 0 4px">📊 月K（近12月）</div>
+      <div class="chart-wrap" style="height:180px"><canvas id="m%s%d"></canvas></div>
       <div class="badges">%s</div>
       %s
     </div>
@@ -442,7 +445,7 @@ def _render_kx_card(i, ix, t, cls, lbl, cid="candle"):
     </div>
   </div>
  %s
-</details>''' % (name, lbl, score, cid, i, badges, sp, lx, sr, warn)
+</details>''' % (name, lbl, score, cid, i, cid, i, badges, sp, lx, sr, warn)
 
 
 def render_kline(indices):
@@ -747,6 +750,26 @@ function initCharts(){
             {type:'line',data:ma('MA250'),name:'MA250(年)',showSymbol:false,lineStyle:{color:'#8b98a9',width:1,type:'dashed'}}
           ]
         });
+        // 月K聚合渲染
+        const mEl = document.getElementById('mcandle'+i);
+        if(mEl && Array.isArray(t.candle) && t.candle.length){
+          const months={}, mds=[];
+          (t.dates||[]).forEach((d,j)=>{
+            const m=d.substring(0,7); const c=t.candle[j];
+            if(!months[m]){months[m]={open:c[0],close:c[1],low:c[2],high:c[3]};mds.push(m);}
+            else{months[m].close=c[1];months[m].low=Math.min(months[m].low,c[2]);months[m].high=Math.max(months[m].high,c[3]);}
+          });
+          const use=mds.slice(-12);
+          const mData=use.map(m=>[months[m].open,months[m].close,months[m].low,months[m].high]);
+          const mc=echarts.init(mEl,null,{renderer:'canvas'});
+          mc.setOption({
+            backgroundColor:'transparent',grid:{left:48,right:12,top:8,bottom:18},
+            tooltip:{trigger:'axis'},xAxis:{type:'category',data:use,axisLabel:{color:DARK.mut,fontSize:9},axisLine:{lineStyle:{color:'#2a3340'}}},
+            yAxis:{type:'value',scale:true,axisLabel:{color:DARK.mut,fontSize:9},splitLine:{lineStyle:{color:'#1d2530'}}},
+            series:[{type:'candlestick',name:'月K',data:mData,
+              itemStyle:{color:DARK.up,color0:DARK.down,borderColor:DARK.up,borderColor0:DARK.down}}]
+          });
+        }
       }
     });
     // 板块日K蜡烛图（全周期均线，含年线）
@@ -775,6 +798,26 @@ function initCharts(){
             {type:'line',data:ma('MA250'),name:'MA250(年)',showSymbol:false,lineStyle:{color:'#8b98a9',width:1,type:'dashed'}}
           ]
         });
+        // 板块月K
+        const mEl = document.getElementById('mscandle'+i);
+        if(mEl && Array.isArray(t.candle) && t.candle.length){
+          const months={}, mds=[];
+          (t.dates||[]).forEach((d,j)=>{
+            const m=d.substring(0,7); const c=t.candle[j];
+            if(!months[m]){months[m]={open:c[0],close:c[1],low:c[2],high:c[3]};mds.push(m);}
+            else{months[m].close=c[1];months[m].low=Math.min(months[m].low,c[2]);months[m].high=Math.max(months[m].high,c[3]);}
+          });
+          const use=mds.slice(-12);
+          const mData=use.map(m=>[months[m].open,months[m].close,months[m].low,months[m].high]);
+          const mc=echarts.init(mEl,null,{renderer:'canvas'});
+          mc.setOption({
+            backgroundColor:'transparent',grid:{left:48,right:12,top:8,bottom:18},
+            tooltip:{trigger:'axis'},xAxis:{type:'category',data:use,axisLabel:{color:DARK.mut,fontSize:9},axisLine:{lineStyle:{color:'#2a3340'}}},
+            yAxis:{type:'value',scale:true,axisLabel:{color:DARK.mut,fontSize:9},splitLine:{lineStyle:{color:'#1d2530'}}},
+            series:[{type:'candlestick',name:'月K',data:mData,
+              itemStyle:{color:DARK.up,color0:DARK.down,borderColor:DARK.up,borderColor0:DARK.down}}]
+          });
+        }
       }
     });
   }catch(e){ console.error('chart error', e); }
