@@ -246,14 +246,20 @@ def render_global(groups):
         return ""
     rows_html = ""
     flat = []
-    for g in groups:
+    # 分组条形图（每个组一张图表，避免37个标的全堆一起）
+    bar_charts = ""
+    bar_data_js = []  # 收集各组数据供JS渲染
+    for gi, g in enumerate(groups):
         gname = esc(g.get("group", ""))
         grows = g.get("rows") or []
         if not grows:
             continue
         rows_html += '<tr class="grp"><td colspan="5">%s</td></tr>' % gname
+        g_names = []; g_vals = []
         for r in grows:
             chg = num(r.get("chg"))
+            g_names.append(r.get("name"))
+            g_vals.append(chg or 0)
             flat.append({"name": r.get("name"), "chg": chg})
             tier = r.get("tier") or "T1"
             tcls = "tag-t1" if tier == "T1" else "tag-t2"
@@ -268,12 +274,12 @@ def render_global(groups):
                 hl, tip(r.get("name", "")), esc(r.get("close", "—")),
                 chg_cell(chg, 2.0),
                 src, keybadge, warnbadge, signal)
-    # 动态计算 chart 高度：min(500, 40 + count*18)
-    bar_height = min(520, 40 + len(flat) * 18)
-    bar_cls = "chart-wrap lg" if len(flat) > 20 else "chart-wrap"
-    note = ('<div class="note">📌 涨跌配色遵循 A 股惯例：<b class="up">红=涨</b> / <b class="down">绿=跌</b>；'
-            '±2% 加粗；重点行（关键标的/地缘相关）已高亮；置信度 T1=实时行情/T2=新闻交叉。</div>')
-    # 关键标的分时趋势图 HTML（JS 端从 REPORT.tech[].kline 提取渲染）
+        bh = max(120, 30 + len(grows) * 24)
+        bar_charts += ('<div style="margin-bottom:8px"><div style="font-size:12px;color:var(--acc);padding:4px 0">%s</div>'
+                       '<div class="chart-wrap" style="height:%dpx"><canvas id="chgBar_%d"></canvas></div></div>') % (gname, bh, gi)
+        bar_data_js.append({"group": gname, "names": g_names, "vals": g_vals})
+    note = ('<div class="note">📌 涨跌配色：<b class="up">红=涨</b>/<b class="down">绿=跌</b>；±2%加粗；重点行已高亮。</div>')
+    # 关键标的分时趋势图
     trend_html = '<div style="margin-top:10px"><div style="font-size:12px;color:var(--mut);margin-bottom:6px">📈 关键标的近10日走势</div><div class="trend-mini" id="trendBar">' \
                  '<div class="trend-item"><div class="trend-title">中证半导</div><canvas id="trend_0"></canvas></div>' \
                  '<div class="trend-item"><div class="trend-title">人工智能</div><canvas id="trend_1"></canvas></div>' \
@@ -282,7 +288,7 @@ def render_global(groups):
     return f'''
 <section id="global" class="card">
   <h2>① 全球股市 / 大宗 / 汇率 涨跌 <span class="badge">{len(flat)} 标的</span></h2>
-  <div class="{bar_cls}" style="height:{bar_height}px"><canvas id="chgBar"></canvas></div>
+  {bar_charts}
   {trend_html}
   <div class="tbl-scroll">
   <table>
@@ -386,6 +392,12 @@ def render_holdings(hs, constraint):
             lvl_cls, lvl_txt,
             rd_val, rd_col, rd_css, rd_txt)
     cons_html = ('<div class="constraint-bar">⚠️ 今日核心约束：%s</div>' % tip(constraint)) if constraint else ""
+    # 持仓迷你趋势图
+    mini_trends = '<div style="margin-top:8px"><div style="font-size:12px;color:var(--mut);margin-bottom:4px">📈 持仓关联指数近10日走势</div><div class="trend-mini" id="holdTrendBar">' \
+                  '<div class="trend-item"><div class="trend-title">中证半导(东方AI/阿尔法/永赢)</div><canvas id="htrend_0"></canvas></div>' \
+                  '<div class="trend-item"><div class="trend-title">人工智能(东方AI)</div><canvas id="htrend_1"></canvas></div>' \
+                  '<div class="trend-item"><div class="trend-title">港股创新药(港药)</div><canvas id="htrend_2"></canvas></div>' \
+                  '</div></div>'
     return f'''
 <section id="hold" class="card">
   <h2>④ 持仓盘前指引 <span class="badge">watchlist T0</span></h2>
@@ -397,6 +409,7 @@ def render_holdings(hs, constraint):
   </table>
   </div>
   {cons_html}
+  {mini_trends}
 </section>'''
 
 def render_earnings(earnings):
@@ -676,40 +689,90 @@ const REPORT = __DATA__;
 const DARK = {bg:'transparent', tx:'#e6edf3', mut:'#8b98a9', up:'#f5564d', down:'#26c281', acc:'#4aa8ff', neu:'#d9a441'};
 function initCharts(){
   try{
-    // ① 全球涨跌幅条形图（优化版：防重叠 + 标签截断）
-    if(document.getElementById('chgBar')){
+    // ① 全球涨跌幅分组条形图（每组独立图表，防止堆叠）
+    if(document.getElementById('chgBar_0')){
       const groups = (REPORT.global||[]);
-      let names=[], vals=[], categories=[];
-      groups.forEach(g=>{
-        const gname = g.group||'';
-        (g.rows||[]).forEach(r=>{
-          names.push(r.name);
-          vals.push(r.chg||0);
-          categories.push(gname);
-        });
-      });
-      if(names.length){
-        const c = echarts.init(document.getElementById('chgBar'), null, {renderer:'canvas'});
-        // 截断过长标签（超过10字符显示前8+...）
-        const shortNames = names.map(n=> n.length>10 ? n.substring(0,8)+'...' : n);
+      const gColors = ['#4aa8ff','#26c281','#d9a441','#a78bfa','#f472b6','#22d3ee','#fb923c','#94a3b8'];
+      groups.forEach((g, gi)=>{
+        const canvas = document.getElementById('chgBar_'+gi);
+        if(!canvas) return;
+        const rows = g.rows||[];
+        if(!rows.length) return;
+        const names = rows.map(r=>r.name);
+        const vals = rows.map(r=>r.chg||0);
+        const c = echarts.init(canvas, null, {renderer:'canvas'});
         c.setOption({
           backgroundColor:'transparent',
-          grid:{left:150,right:60,top:10,bottom:10},
+          grid:{left:155,right:50,top:4,bottom:4},
           tooltip:{trigger:'axis',axisPointer:{type:'shadow'},
             formatter:function(p){const d=p[0];return d.name+'<br/>涨跌: '+d.value.toFixed(2)+'%';}},
           xAxis:{type:'value',axisLabel:{color:DARK.mut,formatter:'{value}%'},splitLine:{lineStyle:{color:'#222b36'}}},
-          yAxis:{type:'category',data:shortNames.slice().reverse(),
-            axisLabel:{color:DARK.tx,fontSize:10,width:140,overflow:'truncate',interval:0},
-            axisLine:{lineStyle:{color:'#2a3340'}},
-            axisTick:{show:false}},
-          series:[{type:'bar',data:vals.slice().reverse().map(v=>({value:v,itemStyle:{color:v>0?DARK.up:(v<0?DARK.down:DARK.neu)}})),
-            barCategoryGap:'25%',
-            label:{show:true,position:vals.length>25?'insideRight':'right',color:DARK.tx,fontSize:10,formatter:'{c}%',
-              distance:4}}]
+          yAxis:{type:'category',data:names.slice().reverse(),
+            axisLabel:{color:DARK.tx,fontSize:10.5,width:150,overflow:'none',interval:0},
+            axisLine:{lineStyle:{color:'#2a3340'}},axisTick:{show:false}},
+          series:[{type:'bar',data:vals.slice().reverse().map(v=>({value:v,
+            itemStyle:{color:v>0?DARK.up:(v<0?DARK.down:DARK.neu)}})),
+            barCategoryGap:'30%',
+            label:{show:true,position:'right',color:DARK.tx,fontSize:10,distance:5,formatter:'{c}%'}}]
         });
-      }
+      });
     }
     // ①b 关键标的分时走势（从 tech[].kline 提取近10日收盘价折线）
+    if(document.getElementById('trendBar')){
+      const techArr = (REPORT.tech||[]);
+      let trendIdx = 0;
+      techArr.forEach(t=>{
+        if(!t.kline || !t.kline.dates || t.kline.dates.length===0) return;
+        const el = document.getElementById('trend_'+trendIdx);
+        if(!el) return;
+        const closes = t.kline.ohlc.map(d=>d[1]);
+        const dates = t.kline.dates;
+        if(closes.length < 2) return;
+        const ct = echarts.init(el, null, {renderer:'canvas'});
+        ct.setOption({
+          backgroundColor:'transparent',
+          grid:{left:36,right:8,top:8,bottom:18},
+          tooltip:{trigger:'axis',formatter:'{b}<br/>收盘: {c}'},
+          xAxis:{type:'category',data:dates.slice(-10),axisLabel:{color:DARK.mut,fontSize:8,rotate:30},axisLine:{lineStyle:{color:'#2a3340'}}},
+          yAxis:{type:'value',scale:true,axisLabel:{color:DARK.mut,fontSize:8},splitLine:{lineStyle:{color:'#222b36'}}},
+          series:[{type:'line',data:closes.slice(-10),smooth:true,symbol:'circle',symbolSize:4,
+            lineStyle:{color:DARK.acc,width:1.5},itemStyle:{color:DARK.acc},
+            areaStyle:{color:{type:'linear',x:0,y:0,x2:0,y2:1,
+              colorStops:[{offset:0,color:'rgba(74,168,255,.2)'},{offset:1,color:'rgba(74,168,255,.01)'}]}}}]
+        });
+        trendIdx++;
+      });
+    }
+    // 持仓关联指数趋势图（htrend_0/1/2）
+    if(document.getElementById('htrend_0')){
+      const techArr2 = (REPORT.tech||[]);
+      // 匹配：中证半导、人工智能、恒生科技/港股创新药
+      const hTargets = ['中证半导','931865','人工智能','931071','恒生科技','港股','创新药'];
+      const hMatched = [null,null,null]; // [中证半导, 人工智能, 恒生科技]
+      techArr2.forEach(t=>{
+        const idx = t.index||'';
+        if(!t.kline || !t.kline.dates || t.kline.dates.length===0) return;
+        if(idx.includes('中证半导')||idx.includes('931865')) hMatched[0] = t;
+        if(idx.includes('人工智能')||idx.includes('931071')) hMatched[1] = t;
+        if(idx.includes('恒生科技')||idx.includes('创新药')) hMatched[2] = t;
+      });
+      hMatched.forEach((t,i)=>{
+        const el = document.getElementById('htrend_'+i);
+        if(!el || !t) return;
+        const closes = t.kline.ohlc.map(d=>d[1]);
+        const ct = echarts.init(el, null, {renderer:'canvas'});
+        ct.setOption({
+          backgroundColor:'transparent',
+          grid:{left:36,right:8,top:4,bottom:16},
+          tooltip:{trigger:'axis'},
+          xAxis:{type:'category',data:(t.kline.dates||[]).slice(-10),axisLabel:{color:DARK.mut,fontSize:8,rotate:30},axisLine:{lineStyle:{color:'#2a3340'}}},
+          yAxis:{type:'value',scale:true,axisLabel:{color:DARK.mut,fontSize:8},splitLine:{lineStyle:{color:'#222b36'}}},
+          series:[{type:'line',data:closes.slice(-10),smooth:true,symbol:'circle',symbolSize:4,
+            lineStyle:{color:DARK.acc,width:1.5},itemStyle:{color:DARK.acc},
+            areaStyle:{color:{type:'linear',x:0,y:0,x2:0,y2:1,colorStops:[{offset:0,color:'rgba(74,168,255,.25)'},{offset:1,color:'rgba(74,168,255,.01)'}]}}}]
+        });
+      });
+    }
     if(document.getElementById('trendBar')){
       const techArr = (REPORT.tech||[]);
       let trendIdx = 0;
