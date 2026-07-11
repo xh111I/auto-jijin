@@ -127,3 +127,91 @@ def bare_completion(task_name: str, message: str = 'done', publish: bool = False
                 subprocess.run(['bash', sp], cwd=ROOT, check=False)
     elapsed = (time.time() - started) * 1000
     audit_log(task_name, 'OK' if message else 'DONE', message, elapsed)
+
+
+# ── 规则引擎校验 ──
+def validate_decision(decision_data: dict, strategy: dict = None) -> list:
+    """
+    DeepSeek V4 Flash 输出落盘前的规则引擎强制校验。
+    修正突破硬约束的数值，返回修正记录列表供埋点统计。
+    :param decision_data: 模型输出的完整JSON字典
+    :param strategy: strategy.json 加载的硬约束配置；None时自动加载
+    :return: corrections 修正记录列表
+    """
+    if strategy is None:
+        try:
+            _SRC = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+            if _SRC not in sys.path:
+                sys.path.insert(0, _SRC)
+            from data_service.fetcher import load_strategy
+            strategy = load_strategy()
+        except Exception:
+            strategy = {}
+
+    trading = strategy.get('trading', {})
+    single_limit = trading.get('max_single_position_pct', 30)
+    total_limit = trading.get('target_total_position_pct', 90)
+    stop_loss_limit = trading.get('stop_loss_pct', -8)
+    take_profit_limit = trading.get('take_profit_pct', 15)
+
+    corrections = []
+    position_adjust = decision_data.get('position_adjust', [])
+    total_target_pct = 0
+
+    # 1. 单仓上限校验
+    for item in position_adjust:
+        pct = item.get('target_position_pct', 0)
+        if pct > single_limit:
+            corrections.append({
+                'field': 'target_position_pct',
+                'symbol': item.get('symbol', ''),
+                'original': pct,
+                'corrected': single_limit,
+                'reason': f'单仓突破上限{single_limit}%'
+            })
+            item['target_position_pct'] = single_limit
+        total_target_pct += item.get('target_position_pct', 0)
+
+    # 2. 总仓上限校验（超标则等比例压缩）
+    if total_target_pct > total_limit:
+        corrections.append({
+            'field': 'total_position_pct',
+            'original': round(total_target_pct, 2),
+            'corrected': total_limit,
+            'reason': f'总仓突破上限{total_limit}%'
+        })
+        ratio = total_limit / total_target_pct
+        for item in position_adjust:
+            item['target_position_pct'] = round(item['target_position_pct'] * ratio, 2)
+
+    # 3. 止损阈值校验
+    stop_loss_pct = decision_data.get('stop_loss_pct', 0)
+    if stop_loss_pct > stop_loss_limit and stop_loss_pct != 0:
+        corrections.append({
+            'field': 'stop_loss_pct',
+            'original': stop_loss_pct,
+            'corrected': stop_loss_limit,
+            'reason': f'止损阈值宽松于硬约束{stop_loss_limit}%'
+        })
+        decision_data['stop_loss_pct'] = stop_loss_limit
+
+    # 4. 止盈阈值校验
+    take_profit_pct = decision_data.get('take_profit_pct', 0)
+    if 0 < take_profit_pct < take_profit_limit:
+        corrections.append({
+            'field': 'take_profit_pct',
+            'original': take_profit_pct,
+            'corrected': take_profit_limit,
+            'reason': f'止盈阈值宽松于硬约束{take_profit_limit}%'
+        })
+        decision_data['take_profit_pct'] = take_profit_limit
+
+    # 修正记录写入埋点
+    decision_data['_telemetry'] = decision_data.get('_telemetry', {})
+    decision_data['_telemetry']['rule_corrections'] = corrections
+    decision_data['_telemetry']['validate_ts'] = datetime.now().isoformat()
+
+    if corrections:
+        print(f'[validate] {len(corrections)} correction(s) applied')
+
+    return corrections
