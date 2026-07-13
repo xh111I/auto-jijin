@@ -1,0 +1,467 @@
+{
+  "meta": {
+    "title": "尾盘决策报告",
+    "date": "2026-07-13",
+    "time": "14:45",
+    "market_date": "2026-07-13",
+    "market_status": "trading",
+    "snapshot_time": "2026-07-13 14:40-14:45",
+    "data_tier": "T2(neodata实时行情14:40快照)",
+    "note": "今日A股全线下挫。三大冲击因素：①韩国KOSPI跌超8%触发熔断 ②美伊冲突升级、霍尔木兹海峡通航受扰、油价涨超3% ③AI硬件/CPO/存储获利兑现。沪指-2.23%, 创业板-3.68%, 科创50-3.98%。近4800股下跌, 630+股跌超9%。半导体材料设备-5.20%(振幅7.97%), CPO-7.33%, 通信设备-5.53%。银行/中药逆势护盘。",
+    "strategy": {
+      "style": "进攻型(已加入锁本与分散约束)",
+      "stop_loss_pct": -8,
+      "take_profit_pct": 15,
+      "max_single_position_pct": 30,
+      "target_total_position_pct": 90
+    }
+  },
+  "instruction": {
+    "tail_scenario": "放量跳水—外围冲击触发科技全面回调",
+    "scene_detail": "韩国KOSPI熔断+美伊冲突双重冲击，半导体材料设备-5.20%/CPO-7.33%/通信-5.53%集体下挫，半导体集群触发减仓条件",
+    "active_action": "减东方阿尔法至≤22%+永赢半导执行止损",
+    "active_detail": "①永赢半导(预估累计亏损约-9.5%)触发-8%硬止损→尾盘赎回50%仓位 ②东方阿尔法(25.05%)降仓至≤22%以降低半导体集中度 ③东方AI(剩2/3锁本)持有不动 ④港股创新药(-0.77%今日)持有不动 ⑤鹏华债/纳指防御底仓持有不动",
+    "risk_rules": [
+      "永赢半导-8%硬止损触发,必须尾盘减仓50%",
+      "14:55后禁新建仓位",
+      "全天禁净买入半导体/CPO",
+      "单仓≤30%/总仓≤90%",
+      "东方阿尔法25.05%逼近30%上限,需降至≤22%",
+      "总现金24.11%充裕,今日不建新仓"
+    ],
+    "next_day": {
+      "watch_points": [
+        "韩国KOSPI是否企稳(已触发熔断)",
+        "美伊冲突是否升级(油价走势)",
+        "半导体材料设备能否在MA20(11458)附近企稳",
+        "北向资金尾盘及次日净流向",
+        "CPO板块能否止跌(今日-7.33%极端)"
+      ],
+      "plans": [
+        "若缩量企稳→永赢半导止损执行剩余50%观察",
+        "若继续放量下跌→东方阿尔法继续降至≤18%+东方AI减半",
+        "若半导体反弹修复→东方阿尔法留在≤22%不再追减",
+        "港股创新药若跌超-3%→触发-5%止损,减仓50%"
+      ]
+    }
+  },
+  "position": {
+    "account_total_asset": 12697.88,
+    "cash": 3061.79,
+    "cash_pct": 24.11,
+    "total_active_market_value": 9636.09,
+    "total_hold_return": 131.37,
+    "total_hold_return_pct": 1.3822,
+    "holdings": [
+      {
+        "name": "东方人工智能主题混合C",
+        "market_value": 1487.56,
+        "weight_pct": 11.72,
+        "hold_return_pct": 4.15,
+        "overweight": false,
+        "sector": "半导体材料设备/AI",
+        "related_index": "半导体材料设备",
+        "kline": {
+          "ma5": 12086,
+          "ma10": 12203,
+          "ma20": 11458,
+          "ma60": 8874,
+          "macd_dif": 856.59,
+          "macd_dea": 970.92,
+          "macd_hist": -228.67,
+          "kdj_k": 34.25,
+          "kdj_d": 44.18,
+          "kdj_j": 14.39
+        },
+        "instruction": "持有不动(已锁本1/3,剩余368.6份锁本仓;回撤>5%赎50%/涨20%赎50%)",
+        "logic": "已通过7/13赎回368.6份锁本,今日半导体-5.2%冲击下预估收益回撤,但在锁本保护范围内,不追加操作",
+        "estimated_today_pnl_pct": -5.2,
+        "estimated_hold_pct": -1.05
+      },
+      {
+        "name": "东方阿尔法科技优选混合C",
+        "market_value": 3180.92,
+        "weight_pct": 25.05,
+        "hold_return_pct": 6.03,
+        "overweight": true,
+        "sector": "半导体材料设备/科技优选",
+        "related_index": "半导体材料设备",
+        "kline": {
+          "ma5": 12086,
+          "ma10": 12203,
+          "ma20": 11458,
+          "ma60": 8874,
+          "macd_dif": 856.59,
+          "macd_dea": 970.92,
+          "macd_hist": -228.67,
+          "kdj_k": 34.25,
+          "kdj_d": 44.18,
+          "kdj_j": 14.39
+        },
+        "instruction": "减仓至≤22%(今日半导体-5.2%>3%触发集群减仓规则)",
+        "logic": "25.05%逼近30%上限,半导体集群持仓过大;板块-5.2%确认高位派发/获利兑现,需降低集中度对冲重仓风险",
+        "estimated_today_pnl_pct": -5.2,
+        "estimated_hold_pct": 0.83
+      },
+      {
+        "name": "永赢先锋半导体智选混合C",
+        "market_value": 1785.04,
+        "weight_pct": 14.06,
+        "hold_return_pct": -4.74,
+        "overweight": false,
+        "risk_flag": "持续亏损",
+        "sector": "半导体材料设备",
+        "related_index": "半导体材料设备",
+        "kline": {
+          "ma5": 12086,
+          "ma10": 12203,
+          "ma20": 11458,
+          "ma60": 8874,
+          "macd_dif": 856.59,
+          "macd_dea": 970.92,
+          "macd_hist": -228.67,
+          "kdj_k": 34.25,
+          "kdj_d": 44.18,
+          "kdj_j": 14.39
+        },
+        "instruction": "执行止损—赎回50%仓位(触发-8%硬止损)",
+        "logic": "昨日亏损-4.74%+今日半导体-5.2%≈累计亏损约-9.5%~-10%,触发-8%硬止损;MACD死叉+KDJ超卖+板块放量下跌,果断减仓控损",
+        "estimated_today_pnl_pct": -5.2,
+        "estimated_hold_pct": -9.94
+      },
+      {
+        "name": "广发港股创新药ETF联接(QDII)C",
+        "market_value": 1432.42,
+        "weight_pct": 11.28,
+        "hold_return_pct": -0.88,
+        "overweight": false,
+        "risk_flag": "持续亏损",
+        "sector": "医药/港股创新药",
+        "related_index": "恒生医疗保健",
+        "kline": {
+          "ma5": 1251,
+          "ma10": 1236,
+          "ma20": 1166,
+          "ma60": 1236,
+          "macd_dif": 25.36,
+          "macd_dea": 7.38,
+          "macd_hist": 35.96,
+          "kdj_k": 66.33,
+          "kdj_d": 69.21,
+          "kdj_j": 60.57
+        },
+        "instruction": "持有不动(今日-0.72%相对抗跌,未触-5%止损线)",
+        "logic": "港股创新药今日-0.72%跌幅温和,MA5/10多头排列,MACD金叉持续;医药板块受政策利好+资金高低切换支撑,作为防御配置持有不动",
+        "estimated_today_pnl_pct": -0.72,
+        "estimated_hold_pct": -1.6
+      },
+      {
+        "name": "鹏华丰诚债券C",
+        "market_value": 1261.09,
+        "weight_pct": 9.93,
+        "hold_return_pct": -0.04,
+        "overweight": false,
+        "sector": "固定收益/纯债安全垫",
+        "related_index": "中债综合财富指数",
+        "kline": null,
+        "instruction": "防御底仓保留,不做调仓",
+        "logic": "纯债防御属性,今日股市大跌下债券受益避险资金,持有不动",
+        "estimated_today_pnl_pct": null,
+        "estimated_hold_pct": -0.04
+      },
+      {
+        "name": "财通集成电路产业股票C",
+        "market_value": 184.46,
+        "weight_pct": 1.45,
+        "hold_return_pct": -1.84,
+        "overweight": false,
+        "sector": "半导体/CPO光模块",
+        "related_index": "半导体",
+        "kline": {
+          "ma5": 10538,
+          "ma10": 10556,
+          "ma20": 9987,
+          "ma60": 7978,
+          "macd_dif": 681.32,
+          "macd_dea": 752.80,
+          "macd_hist": -142.97,
+          "kdj_k": 39.50,
+          "kdj_d": 46.97,
+          "kdj_j": 24.55
+        },
+        "instruction": "观察仓-132元级,今日CPO-7.33%冲击大,建议清仓观察",
+        "logic": "CPO板块-7.33%确认高位出货;观察仓仓位仅1.45%市值184元,清仓不影响组合,避免持续亏损",
+        "estimated_today_pnl_pct": -7.33,
+        "estimated_hold_pct": -9.17
+      },
+      {
+        "name": "财通成长优选混合C",
+        "market_value": 184.22,
+        "weight_pct": 1.45,
+        "hold_return_pct": -1.97,
+        "overweight": false,
+        "sector": "成长风格/混合",
+        "related_index": "沪深300成长",
+        "kline": {
+          "ma5": 4563,
+          "ma10": 4643,
+          "ma20": 4734,
+          "ma60": 5169,
+          "macd_dif": -148.18,
+          "macd_dea": -145.16,
+          "macd_hist": -6.03,
+          "kdj_k": 24.55,
+          "kdj_d": 34.19,
+          "kdj_j": 5.27
+        },
+        "instruction": "观察仓持有,不做操作",
+        "logic": "沪深300成长今日-3.61%但观察仓仅184元,持有观察即可",
+        "estimated_today_pnl_pct": -3.61,
+        "estimated_hold_pct": -5.58
+      },
+      {
+        "name": "广发纳斯达克100ETF联接(QDII)C",
+        "market_value": 110.11,
+        "weight_pct": 0.87,
+        "hold_return_pct": 0.12,
+        "overweight": false,
+        "sector": "海外/美股指数",
+        "related_index": "纳斯达克100",
+        "kline": null,
+        "instruction": "防御底仓保留,不做调仓",
+        "logic": "上周五纳指100收盘+0.33%站上29825,今日美股未开盘;底仓仅110元不动",
+        "estimated_today_pnl_pct": null,
+        "estimated_hold_pct": 0.12
+      },
+      {
+        "name": "天弘中证全指通信设备指数C",
+        "market_value": 10.27,
+        "weight_pct": 0.08,
+        "hold_return_pct": 2.68,
+        "overweight": false,
+        "risk_flag": "追高风险",
+        "sector": "通信/CPO",
+        "related_index": "中证全指通信设备",
+        "kline": {
+          "ma5": null,
+          "ma10": null,
+          "ma20": null,
+          "ma60": null,
+          "macd_dif": null,
+          "macd_dea": null,
+          "macd_hist": null,
+          "kdj_k": null,
+          "kdj_d": null,
+          "kdj_j": null
+        },
+        "instruction": "观察仓清仓(触止盈+CPO板块-7.33%确认见顶)",
+        "logic": "通信设备-5.53%,CPO-7.33%;本仓+2.68%已是盈利观察仓,迷你仓位10元,清仓收回现金",
+        "estimated_today_pnl_pct": -5.53,
+        "estimated_hold_pct": -2.85
+      }
+    ]
+  },
+  "sector": {
+    "bars": [
+      {
+        "name": "半导体材料设备",
+        "price": 11528.77,
+        "change_pct": -5.37,
+        "amplitude": 7.97,
+        "volume_ratio": 0.94,
+        "score": 28,
+        "tendency": "偏空",
+        "net_inflow": null,
+        "linked": ["东方人工智能","东方阿尔法","永赢半导"],
+        "tag": "高位出货/放量下跌",
+        "kline_analysis": {
+          "trend": "偏空(28/100)",
+          "trend_detail": "MA5(12086)<MA10(12203),死叉形成;收盘11528跌破MA5/MA10,在MA20(11458)上方暂获支撑",
+          "vp": "价跌量缩(50/100)",
+          "vp_detail": "量比0.94缩量下跌,抛压减轻但空头主导;不排除短线超卖后止跌",
+          "pattern": "高位见顶⚠",
+          "pattern_detail": "振幅7.97%长上影+长下影,高位宽幅震荡确认见顶;KDJ的J=14.39超卖但MACD柱-228.67空头动能强",
+          "main_force": "出货",
+          "main_force_detail": "半导体权重股集体下挫(北方华创-5.28%/沪硅-2.77%),TMT成交额占比创历史新高后获利兑现",
+          "close_signal": "跌破MA5/MA10,长下影探MA20后小幅回升",
+          "bias": "15(偏空)"
+        }
+      },
+      {
+        "name": "CPO/光模块",
+        "price": 8857.09,
+        "change_pct": -7.33,
+        "amplitude": 7.37,
+        "volume_ratio": 1.05,
+        "score": 18,
+        "tendency": "偏空",
+        "net_inflow": null,
+        "linked": ["财通集成电路","天弘通信设备"],
+        "tag": "极空/放量出货",
+        "kline_analysis": {
+          "trend": "强空(18/100)",
+          "trend_detail": "5日-9.68%/20日-4.97%,短期跌幅极端;PE69.8仍偏高",
+          "vp": "价跌量增(20/100)",
+          "vp_detail": "量比1.05放量下跌,恐慌抛售+获利兑现叠加",
+          "pattern": "强见顶⚠",
+          "pattern_detail": "7月初以来连续大跌,今日-7.33%创近期最大单日跌幅,确认AI硬件获利兑现潮",
+          "main_force": "大规模出货",
+          "main_force_detail": "CPO板块自年涨幅71.39%高位遭遇资金集体出逃;Meta算力过剩担忧+韩国半导体暴跌是催化剂",
+          "close_signal": "巨大阴线,收盘接近最低",
+          "bias": "10(强空)"
+        }
+      },
+      {
+        "name": "港股创新药",
+        "price": 1263.64,
+        "change_pct": -0.77,
+        "amplitude": 3.62,
+        "volume_ratio": 0.82,
+        "score": 52,
+        "tendency": "中性偏多",
+        "net_inflow": null,
+        "linked": ["广发港股创新药"],
+        "tag": "震荡/相对抗跌",
+        "kline_analysis": {
+          "trend": "震荡偏多(52/100)",
+          "trend_detail": "MA5(1251)>MA10(1236)>MA20(1166),多头排列;收盘1264站上所有短期均线",
+          "vp": "价跌量缩(60/100)",
+          "vp_detail": "量比0.82缩量下跌,抛压减轻;前期自低位反弹后正常回调",
+          "pattern": "无明确信号",
+          "pattern_detail": "今日-0.77%温和回调,6月中旬反弹超17%后进入震荡消化",
+          "main_force": "洗盘/震荡",
+          "main_force_detail": "港股医药板块受南向资金流入+创新药出海催化支撑,A股大跌下创新药防御性凸显",
+          "close_signal": "回踩MA5附近获支撑",
+          "bias": "50(中性)"
+        }
+      },
+      {
+        "name": "中证人工智能",
+        "price": 3075.06,
+        "change_pct": -4.13,
+        "amplitude": 6.48,
+        "volume_ratio": 1.06,
+        "score": 25,
+        "tendency": "偏空",
+        "net_inflow": null,
+        "linked": ["东方人工智能"],
+        "tag": "高位回调/放量下跌",
+        "kline_analysis": {
+          "trend": "偏空(25/100)",
+          "trend_detail": "收盘3075跌破MA5(3153)/MA10(3189)/MA20(3182);20日涨幅10.04%回吐殆尽",
+          "vp": "价跌量增(20/100)",
+          "vp_detail": "量比1.06放量;年初至今涨幅35.92%积累巨大获利盘",
+          "pattern": "见顶⚠",
+          "pattern_detail": "KDJ死叉K=29.9,D=34.7,J=20.5进入超卖区;MACD柱-42.75",          
+          "main_force": "获利兑现",
+          "main_force_detail": "AI概念自6月以来涨幅巨大,Meta算力过剩担忧+外围暴跌触发集中抛售",
+          "close_signal": "跌破20日均线",
+          "bias": "20(偏空)"
+        }
+      },
+      {
+        "name": "中证煤炭",
+        "price": 2126.33,
+        "change_pct": -0.18,
+        "amplitude": 2.61,
+        "volume_ratio": 0.93,
+        "score": 45,
+        "tendency": "中性",
+        "net_inflow": null,
+        "linked": [],
+        "tag": "震荡/已清仓",
+        "kline_analysis": null,
+        "bias": 45
+      }
+    ],
+    "monthly_kline": null,
+    "market_breadth": {
+      "up_stocks": null,
+      "down_stocks": null,
+      "down_pct_gt_9pct": 630,
+      "total_down": 4800,
+      "total_up": null,
+      "note": "近4800只个股下跌,630+股跌超9%,市场广度极差(来源:财联社14:37)"
+    }
+  },
+  "sentiment": {
+    "fear_greed_index": 32,
+    "level": "恐惧",
+    "factors": [
+      {"name": "市场广度", "score": 15, "raw": "近4800跌·630+跌超9%", "weight": "15%", "src": "T2"},
+      {"name": "涨跌停家数", "score": 25, "raw": "涨停极少·跌停大量", "weight": "10%", "src": "T2"},
+      {"name": "主力资金净流入", "score": 20, "raw": "全市场主力净流出预估-511亿+", "weight": "15%", "src": "T2"},
+      {"name": "北向资金净买入", "score": 50, "raw": "数据缺失·中性计入", "weight": "12%", "src": "缺失"},
+      {"name": "融资余额变化", "score": 50, "raw": "数据缺失·中性计入", "weight": "8%", "src": "缺失"},
+      {"name": "量能亢奋度", "score": 45, "raw": "成交额放量,恐慌抛售+抄底博弈", "weight": "10%", "src": "T2"},
+      {"name": "VIX恐慌指数", "score": 30, "raw": "美股VIX偏高;韩国熔断恐慌蔓延", "weight": "15%", "src": "T2"},
+      {"name": "股债风险溢价ERP", "score": 50, "raw": "沪深300 PE 14.21×偏低", "weight": "15%", "src": "T2"}
+    ],
+    "note": "三大冲击叠加(韩国熔断+美伊冲突+AI获利兑现),市场恐慌情绪显著升温;沪深300 PE 14.21×估值偏低提供一定安全垫",
+    "action": "恐惧区间(20-40)—按规则不额外加仓,也不因恐慌而恐慌性清仓;严格执行硬止损,持有防御底仓"
+  },
+  "risk": {
+    "hard_stop": {
+      "items": [
+        {
+          "fund": "永赢先锋半导体智选混合C",
+          "cur_loss_pct": -9.94,
+          "stop_loss_pct": -8,
+          "triggered": true,
+          "warn": "触-8%硬止损！今日半导体-5.2%拖累,预估累计亏损约-9.5%~-10%",
+          "warn_label": "⚠ 止损触发"
+        },
+        {
+          "fund": "财通集成电路产业股票C",
+          "cur_loss_pct": -9.17,
+          "stop_loss_pct": -8,
+          "triggered": true,
+          "warn": "触-8%硬止损！CPO板块-7.33%拖累",
+          "warn_label": "⚠ 止损触发(观察仓)"
+        },
+        {
+          "fund": "东方阿尔法科技优选混合C",
+          "cur_loss_pct": 0.83,
+          "stop_loss_pct": -8,
+          "triggered": false,
+          "warn": "预估盈利大幅回撤至+0.83%,但未转亏;需注意回撤保护规则",
+          "warn_label": "关注"
+        },
+        {
+          "fund": "广发港股创新药ETF联接(QDII)C",
+          "cur_loss_pct": -1.60,
+          "stop_loss_pct": -5,
+          "triggered": false,
+          "warn": "未触-5%止损线,继续观察",
+          "warn_label": null
+        },
+        {
+          "fund": "财通成长优选混合C",
+          "cur_loss_pct": -5.58,
+          "stop_loss_pct": -8,
+          "triggered": false,
+          "warn": "观察仓,亏损可控",
+          "warn_label": null
+        },
+        {
+          "fund": "天弘中证全指通信设备指数C",
+          "cur_loss_pct": -2.85,
+          "stop_loss_pct": -8,
+          "triggered": false,
+          "warn": "迷你仓10元,建议清仓",
+          "warn_label": null
+        }
+      ]
+    },
+    "concentration": {
+      "semiconductor_pct": 52.36,
+      "semiconductor_warning": "半导体集中度52.36%仍偏高,今日-5.2%重挫下回撤显著",
+      "top1_pct": 25.05,
+      "top1_warning": "东方阿尔法25.05%逼近30%上限,需降至≤22%",
+      "cash_pct": 24.11,
+      "total_position_pct": 75.89,
+      "total_warning": "总仓75.89%(含预估今日回撤)<90%上限,有重新配置空间"
+    }
+  },
+  "generated_at": "2026-07-13T14:45:00+08:00"
+}
