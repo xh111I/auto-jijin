@@ -1,0 +1,525 @@
+{
+  "watchlist": {
+    "meta": {
+      "account_total_asset": 13129.26,
+      "account_daily_return_pct": 3.75,
+      "account_hold_return_pct": 7.07,
+      "cash_pct": 12.11,
+      "snapshot_date": "2026-07-10T14:37"
+    },
+    "hard_constraints": {
+      "principal": 15000,
+      "style": "进攻型(已加入锁本与分散约束)",
+      "stop_loss_pct": -8,
+      "take_profit_pct": 15,
+      "max_single_position_pct": 30,
+      "target_total_position_pct": 90
+    },
+    "position_summary": {
+      "active_funds_count": 11,
+      "dormant_funds_count": 0,
+      "cleared_funds_count": 1,
+      "total_active_market_value": 11540.15,
+      "cash_pct": 12.11,
+      "top3_concentration_pct": 63.94,
+      "semiconductor_exposure_pct": 65.4,
+      "semiconductor_exposure_pct_of_invested": 74.54,
+      "hk_innovation_drug_pct": 10.58,
+      "coal_defense_pct": 0.04,
+      "bond_safety_pct": 9.62,
+      "us_nasdaq_pct": 0.68,
+      "consumption_pct": 0.03,
+      "newly_confirmed_funds": [],
+      "key_moves_20260710": "①盘中卖出东方AI 1/3(4767→3178,权重36.3%→24.21%,回收~1589现金占12.11%) ②永赢半导翻倍+971(14.12%) ③港药-3.75%(10.58%) ④财通双基观察仓各~193 ⑤半导体集中度降至占总资产65.5%/占持仓74.5%",
+      "risk_alerts": [
+        "半导体集中度占总资产65.5%/占持仓74.5% 仍偏高，单一板块风险敞口大",
+        "东方阿尔法25.61%为第一大仓(逼近30%上限)",
+        "永赢半导虽收益率回撤至-0.94%，但绝对敞口1856，每跌1%亏18.5元",
+        "港药持续亏损-3.75%",
+        "现金12.11%为尾盘急跌低吸弹药，勿闲置"
+      ],
+      "total_asset": 13129.25,
+      "total_hold_return": 677.04,
+      "total_cash": 1589.11
+    },
+    "holdings": [
+      {
+        "name": "东方人工智能主题混合C",
+        "code": "017811",
+        "market_value": 3178.21,
+        "weight_pct": 27.54,
+        "hold_return_pct": 13.63,
+        "sector": "半导体材料设备/AI",
+        "status": "active",
+        "risk_flag": null,
+        "profit_lock": "赛道主题基金",
+        "stop_loss": null,
+        "rebalance_role": "核心锁本对象(已卖1/3收回部分本金,剩2/3)"
+      },
+      {
+        "name": "东方阿尔法科技优选混合C",
+        "code": "024424",
+        "market_value": 3358.57,
+        "weight_pct": 29.1,
+        "hold_return_pct": 0.1195,
+        "sector": "半导体材料设备/科技优选",
+        "status": "active",
+        "risk_flag": null,
+        "profit_lock": "赛道主题基金",
+        "stop_loss": null,
+        "rebalance_role": "核心锁本对象(第二大仓位)"
+      },
+      {
+        "name": "永赢先锋半导体智选混合C",
+        "code": "025209",
+        "market_value": 1856.32,
+        "weight_pct": 16.09,
+        "hold_return_pct": -0.0094,
+        "sector": "半导体材料设备",
+        "status": "active",
+        "risk_flag": "持续亏损",
+        "profit_lock": "赛道主题基金(微亏)",
+        "stop_loss": {
+          "trigger_pct": -2,
+          "action": "止损50%仓位"
+        },
+        "rebalance_role": "微亏/大敞口(翻倍加仓后绝对敞口1856)"
+      },
+      {
+        "name": "广发港股创新药ETF联接(QDII)C",
+        "code": "019671",
+        "market_value": 1390.95,
+        "weight_pct": 12.05,
+        "hold_return_pct": -0.0375,
+        "sector": "医药/港股创新药",
+        "status": "active",
+        "risk_flag": "持续亏损",
+        "profit_lock": "QDII/医药",
+        "stop_loss": {
+          "trigger_pct": -5,
+          "action": "减仓50%控制亏损"
+        },
+        "rebalance_role": "弱势/高波动(设置两级阈值)"
+      },
+      {
+        "name": "鹏华丰诚债券C",
+        "code": "009022",
+        "market_value": 1262.55,
+        "weight_pct": 10.94,
+        "hold_return_pct": -0.0003,
+        "sector": "固定收益/纯债安全垫",
+        "status": "active",
+        "risk_flag": null,
+        "profit_lock": "防御/底仓",
+        "stop_loss": null,
+        "rebalance_role": "防御底仓(保留)"
+      },
+      {
+        "name": "财通集成电路产业股票C",
+        "code": "006503",
+        "market_value": 192.91,
+        "weight_pct": 1.67,
+        "hold_return_pct": 0.0265,
+        "sector": "半导体/CPO光模块",
+        "status": "active",
+        "risk_flag": null,
+        "profit_lock": "观察仓",
+        "stop_loss": null,
+        "rebalance_role": "观察仓(百元级)"
+      },
+      {
+        "name": "财通成长优选混合C",
+        "code": "021528",
+        "market_value": 192.85,
+        "weight_pct": 1.67,
+        "hold_return_pct": 0.0262,
+        "sector": "成长风格/混合",
+        "status": "active",
+        "risk_flag": null,
+        "profit_lock": "观察仓",
+        "stop_loss": null,
+        "rebalance_role": "观察仓(百元级)"
+      },
+      {
+        "name": "广发纳斯达克100ETF联接(QDII)C",
+        "code": "270042",
+        "market_value": 89.05,
+        "weight_pct": 0.77,
+        "hold_return_pct": -0.0106,
+        "sector": "海外/美股指数",
+        "status": "active",
+        "risk_flag": null,
+        "profit_lock": "防御/底仓",
+        "stop_loss": null,
+        "rebalance_role": "防御底仓(保留)"
+      },
+      {
+        "name": "天弘中证全指通信设备指数C",
+        "code": "020900",
+        "market_value": 10.59,
+        "weight_pct": 0.09,
+        "hold_return_pct": 0.0591,
+        "sector": "通信/CPO",
+        "status": "active",
+        "risk_flag": "追高风险",
+        "profit_lock": "观察仓",
+        "stop_loss": null,
+        "rebalance_role": "观察仓(迷你)"
+      },
+      {
+        "name": "富国中证煤炭指数C",
+        "code": "013275",
+        "market_value": 4.84,
+        "weight_pct": 0.04,
+        "hold_return_pct": -0.0011,
+        "sector": "资源/高股息防御",
+        "status": "converting",
+        "risk_flag": null,
+        "profit_lock": "防御/底仓",
+        "stop_loss": null,
+        "rebalance_role": "防御底仓(几乎清仓)"
+      },
+      {
+        "name": "嘉实中证主要消费ETF发起联接C",
+        "code": "009180",
+        "market_value": 3.3,
+        "weight_pct": 0.03,
+        "hold_return_pct": 0.0002,
+        "sector": "指数/大消费",
+        "status": "active",
+        "risk_flag": null,
+        "profit_lock": "防御/底仓",
+        "stop_loss": null,
+        "rebalance_role": "防御底仓(几乎清仓)"
+      }
+    ],
+    "profit_lock_rules": {
+      "赛道主题基金_半导体算力新能源": {
+        "tier1": "累计收益达20% → 赎回30%仓位收回部分本金",
+        "tier2": "累计收益达30% → 再赎回30%，剩余40%利润仓继续持有",
+        "drawdown": "回撤超过已盈利部分50% → 清仓利润仓落袋",
+        "principal_safe": "单只盈利>10%后设动态止损，回撤至成本线附近即赎回本金"
+      },
+      "宽基均衡型基金": {
+        "tier1": "累计收益达15% → 赎回20%仓位",
+        "tier2": "累计收益达25% → 再赎回30%，保留底仓长期持有"
+      },
+      "观察仓_百元级": {
+        "tier1": "收益达10% → 止盈一半"
+      },
+      "微亏_大敞口": {
+        "stop_loss": "回撤至-2% → 止损50%",
+        "rebound": "反弹至+5% → 止盈1/3"
+      },
+      "弱势_QDII医药": {
+        "stop_loss": "回撤至-5% → 减仓50%",
+        "rebound": "回升至-1%内 → 减仓1/3降低高波动占比"
+      },
+      "防御底仓": {
+        "action": "鹏华债/纳斯达克/煤炭/消费 全部保留，分散配置底仓不调仓"
+      }
+    },
+    "rebalance_plan": {
+      "fund_source": "全部来自止盈/减仓回款，不新增投入",
+      "sources": [
+        "东方AI/东方阿尔法止盈资金(核心来源)",
+        "半导体/港股创新药反弹后的减仓资金"
+      ],
+      "allocation": [
+        {
+          "direction": "防御对冲类",
+          "pct_of_proceeds": 40,
+          "target": "沪深300/中证500宽基指数、中证红利高股息指数",
+          "role": "对冲科技赛道波动，行情轮动时托底账户"
+        },
+        {
+          "direction": "低位轮动类",
+          "pct_of_proceeds": 35,
+          "target": "低位消费、A股创新药、高端制造等景气度触底方向",
+          "role": "避免追高AI，布局补涨机会，分散赛道风险"
+        },
+        {
+          "direction": "机动现金",
+          "pct_of_proceeds": 25,
+          "target": "货币基金/短债",
+          "role": "尾盘急跌时的低吸弹药，应对极端波动"
+        }
+      ],
+      "triggers": [
+        "持仓板块连续3日资金净流出，且跑输大盘2%以上",
+        "新崛起板块连续2日占据涨幅前列，量能持续放大(量比>1.2)",
+        "持仓单只基金连续6个月跑输同类平均，或出现基金经理变更、风格漂移"
+      ],
+      "priority_reduce": [
+        "短期暴涨无业绩支撑的主题基金",
+        "长期跑输基准的弱势基金",
+        "重复持仓的同质化基金"
+      ],
+      "priority_add": [
+        "低位企稳、量能温和放大的景气赛道",
+        "高股息防御品种",
+        "业绩确定性强的细分龙头"
+      ],
+      "pace": "总调仓资金分3-4批完成，每周执行一批；单日板块涨跌幅超3%时暂停操作避免追涨杀跌；单次调仓比例不超过总仓位15%，控制冲击成本"
+    },
+    "tail_window": {
+      "monitor_phase": "14:30-14:50 实时监控期：持续跟踪核心指标，记录量价异动信号",
+      "decision_phase": "14:50-14:55 决策执行期：汇总全天+尾盘信号、生成最终决策、完成限价委托挂单",
+      "cutoff": "14:55之后：仅允许已有持仓的止盈止损被动委托，不新建任何仓位，规避最后几分钟脉冲式诱多/诱空陷阱",
+      "baseline_snapshot": "14:30 由『尾盘监控基准』任务记录创业板/科创50/沪深300实时涨跌幅+量比+北向尾盘10min净流入，供决策任务计算尾盘20分钟涨跌/量比变化",
+      "monitoring": {
+        "broad_market": [
+          "沪深300/创业板指/科创50分时涨跌幅",
+          "量比(≥1.2增量资金入场,≥3警惕异动诱盘)",
+          "分时均线支撑/压力",
+          "北向资金尾盘10分钟净流入额"
+        ],
+        "sector_rotation": [
+          "全市场一级行业指数涨幅排名",
+          "成交额增幅(识别当日资金主攻/出逃方向)"
+        ],
+        "holdings": [
+          "持仓基金对应底层指数/ETF实时估值涨跌幅",
+          "量价配合度"
+        ]
+      },
+      "scenarios": [
+        {
+          "name": "尾盘放量拉升",
+          "cond": "指数涨幅>1%,量比>1.2,站稳分时均线",
+          "action": "持仓盈利标的持有不动；不追高加仓，仅保留底仓"
+        },
+        {
+          "name": "尾盘放量跳水",
+          "cond": "指数跌幅>1%,量比>3,跌破分时均线",
+          "action": "高仓位/高盈利标的减仓1/3锁定利润；弱势标的止损降仓"
+        },
+        {
+          "name": "缩量横盘震荡",
+          "cond": "高低点价差<1%,成交量较日内均值萎缩50%",
+          "action": "维持原有仓位，不做操作，等待次日方向选择"
+        },
+        {
+          "name": "板块分化轮动",
+          "cond": "科技指数下跌，但宽基/消费/红利上涨",
+          "action": "不盲目减仓科技，观察持续性，次日再执行调仓"
+        }
+      ]
+    }
+  },
+  "strategy": {
+    "trading": {
+      "principal": 15000,
+      "style": "进攻型(已加入锁本与分散约束)",
+      "stop_loss_pct": -8,
+      "take_profit_pct": 15,
+      "max_single_position_pct": 30,
+      "target_total_position_pct": 90
+    },
+    "risk_controls": {
+      "semiconductor_cluster": {
+        "exposure_max_pct": 65,
+        "daily_drop_trigger_pct": -3,
+        "three_day_cumulative_trigger_pct": -5,
+        "action": "Reduce at least one semiconductor holding; force individual ≤30%"
+      },
+      "tail_cutoff_rule": "14:55后仅允许被动止盈止损委托,禁止新建仓位",
+      "max_daily_loss_account": -3
+    }
+  },
+  "sentiment_7d": {
+    "meta": {
+      "description": "每日尾盘市场情绪恐惧贪婪指数记录库",
+      "protocol": "data/sentiment-protocol.md",
+      "factors": [
+        "breadth",
+        "limit_up_down",
+        "main_flow",
+        "northbound",
+        "margin",
+        "volume",
+        "vix",
+        "erp"
+      ],
+      "weights": {
+        "breadth": 0.15,
+        "limit_up_down": 0.1,
+        "main_flow": 0.15,
+        "northbound": 0.12,
+        "margin": 0.08,
+        "volume": 0.1,
+        "vix": 0.15,
+        "erp": 0.15
+      },
+      "created_at": "2026-07-08T08:57:00+08:00"
+    },
+    "records": [
+      {
+        "date": "2026-07-08",
+        "fear_greed_index": 41.5,
+        "level": "中性",
+        "factors": {
+          "breadth": 12,
+          "limit_up_down": 50,
+          "main_flow": 35,
+          "northbound": 50,
+          "margin": 50,
+          "volume": 45,
+          "vix": 50,
+          "erp": 50
+        },
+        "factor_weights": {
+          "breadth": 0.15,
+          "limit_up_down": 0.1,
+          "main_flow": 0.15,
+          "northbound": 0.12,
+          "margin": 0.08,
+          "volume": 0.1,
+          "vix": 0.15,
+          "erp": 0.15
+        },
+        "missing_factors": [
+          "limit_up_down",
+          "northbound",
+          "margin",
+          "vix",
+          "erp"
+        ],
+        "sentiment_action": "中性偏恐惧。8因子中5项（涨跌停/北向/融资/VIX/ERP）数据源未返回，按协议以中性50计入，致综合指数被拉向中性；但广度(涨跌比约1:7)显示真实情绪偏恐惧。当前账户半导体集中度过高(约71%)，情绪恐惧+高集中度下不宜加仓，维持防御，严守单基-8%硬止损。",
+        "note": "收盘校准：基于可得因子(广度/主力资金/量能)估算；北向/融资/VIX/ERP未返回按中性计。⚠️ 模型研判，非交易建议。"
+      },
+      {
+        "date": "2026-07-09",
+        "fear_greed_index": 51.8,
+        "level": "中性",
+        "factors": {
+          "breadth": 25,
+          "limit_up_down": 50,
+          "main_flow": 80,
+          "northbound": 50,
+          "margin": 50,
+          "volume": 60,
+          "vix": 50,
+          "erp": 50
+        },
+        "factor_weights": {
+          "breadth": 0.15,
+          "limit_up_down": 0.1,
+          "main_flow": 0.15,
+          "northbound": 0.12,
+          "margin": 0.08,
+          "volume": 0.1,
+          "vix": 0.15,
+          "erp": 0.15
+        },
+        "missing_factors": [
+          "limit_up_down",
+          "northbound",
+          "margin",
+          "vix",
+          "erp"
+        ],
+        "sentiment_action": "结构性行情，半导体独秀(+8.58%、主力净流入+326亿抢筹)，但全市场广度弱(多数板块下跌)、半导体单日+8.58%已近短期过热，警惕次日获利回吐。账户半导体暴露69.42%今日显著受益但集中度极高。情绪中性偏谨慎，严守单基-8%硬止损(永赢半导持有-15.9%、港药-13.07%已触发观察)，不追高。",
+        "note": "收盘校准：基于 neodata T2 可得因子估算；涨跌停/北向/融资/VIX/ERP未返回按中性50计。⚠️模型研判，非交易建议。"
+      },
+      {
+        "date": "2026-07-10",
+        "fear_greed_index": 50,
+        "level": "中性",
+        "factors": {
+          "breadth": 50,
+          "limit_up_down": 50,
+          "main_flow": 25,
+          "northbound": 50,
+          "margin": 50,
+          "volume": 70,
+          "vix": 50,
+          "erp": 62
+        },
+        "factor_weights": {
+          "breadth": 0.15,
+          "limit_up_down": 0.1,
+          "main_flow": 0.15,
+          "northbound": 0.12,
+          "margin": 0.08,
+          "volume": 0.1,
+          "vix": 0.15,
+          "erp": 0.15
+        },
+        "missing_factors": [
+          "breadth",
+          "limit_up_down",
+          "northbound",
+          "margin",
+          "vix"
+        ],
+        "sentiment_action": "中性——盈利半导体仓分批止盈、不接飞刀；不触发>75减仓预警；严守-8%硬止损。",
+        "note": "综合约50中性区间；但全市场主力净流出显著(上证-205/深证-245/沪深300-363亿，半导体-269亿领衔)，局部科技退潮。5/8因子源缺失按中性50计，真实广度普跌偏恐惧。"
+      }
+    ],
+    "trend": {
+      "latest_fgi": 50,
+      "latest_level": "中性",
+      "latest_date": "2026-07-10",
+      "trajectory": [
+        {
+          "date": "2026-07-08",
+          "fgi": 41.5,
+          "level": "中性"
+        },
+        {
+          "date": "2026-07-09",
+          "fgi": 51.8,
+          "level": "中性"
+        },
+        {
+          "date": "2026-07-10",
+          "fgi": 50,
+          "level": "中性"
+        }
+      ]
+    }
+  },
+  "index_baseline": {
+    "cs931865": {
+      "name": "中证半导体材料设备指数",
+      "short": "中证半导",
+      "latest_close": 10613.29,
+      "prev_close": 11377.82,
+      "change": -764.53,
+      "change_pct": -6.72,
+      "ma20": 9873.89,
+      "ma60": 7901.32,
+      "vs_ma20_pct": 7.49,
+      "vs_ma60_pct": 34.32,
+      "latest_date": "2026-07-10"
+    },
+    "cs931071": {
+      "name": "中证人工智能指数",
+      "short": "人工智能",
+      "latest_close": 3211.93,
+      "prev_close": 3299.58,
+      "change": -87.65,
+      "change_pct": -2.66,
+      "ma20": 3168.17,
+      "ma60": 2945.28,
+      "vs_ma20_pct": 1.38,
+      "vs_ma60_pct": 9.05,
+      "latest_date": "2026-07-10"
+    },
+    "sz399006": {
+      "name": "创业板指数",
+      "short": "创业板指",
+      "latest_close": 3842.73,
+      "prev_close": 4018.17,
+      "change": -175.44,
+      "change_pct": -4.37,
+      "ma20": 4108.99,
+      "ma60": 3937.79,
+      "vs_ma20_pct": -6.48,
+      "vs_ma60_pct": -2.41,
+      "latest_date": "2026-07-10"
+    }
+  },
+  "update_ts": "2026-07-12T23:56:30+08:00"
+}

@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<title>早间全球分析 2026-07-13</title>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+<style>
+:root{--up:#f5564d;--down:#26c281;--neu:#d9a441;--acc:#4aa8ff;--bg:#0e1117;--bg2:#161b24;--card:#1c232e;--line:#2a3340;--tx:#e6edf3;--mut:#8b98a9}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--tx);font:14px/1.6 -apple-system,"PingFang SC","Microsoft YaHei",sans-serif;padding:12px;max-width:1080px;margin:0 auto}
+.up{color:var(--up)} .down{color:var(--down)} .neu{color:var(--neu)} .acc{color:var(--acc)} .mut{color:var(--mut)}
+.b{font-weight:700} .r{text-align:right}
+h1{font-size:19px;margin-bottom:2px} .sub{color:var(--mut);font-size:12px;margin-bottom:10px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px;margin-bottom:12px;box-shadow:0 1px 2px rgba(0,0,0,.25)}
+.card h2{font-size:16px;margin-bottom:10px;display:flex;align-items:center;gap:6px;border-bottom:1px solid var(--line);padding-bottom:8px}
+.badge{font-size:11px;padding:1px 7px;border-radius:6px;background:var(--bg2);color:var(--mut);border:1px solid var(--line);font-weight:400}
+table{width:100%;border-collapse:collapse;font-size:12.5px}
+.tbl-scroll{max-height:460px;overflow:auto}
+th,td{padding:7px 5px;text-align:right;border-bottom:1px solid var(--line)}
+th{color:var(--mut);font-weight:400;font-size:11.5px;position:sticky;top:0;background:var(--card);z-index:2}
+td:first-child,th:first-child{text-align:left}
+tbody tr:nth-child(even){background:rgba(255,255,255,.025)}
+tr.grp td{text-align:left;background:var(--bg2);color:var(--acc);font-weight:700;font-size:12px;padding:5px 5px}
+tr.hl-row{background:rgba(74,168,255,.07)}
+.lname{font-weight:600}
+.tag{font-size:11px;padding:1px 6px;border-radius:5px;font-weight:600}
+.tag-t1{background:rgba(38,194,129,.16);color:#26c281}
+.tag-t2{background:rgba(217,164,65,.16);color:#d9a441}
+.tag-warn{background:rgba(245,86,77,.16);color:#f5564d}
+.bar{height:6px;border-radius:3px;background:var(--bg2);overflow:hidden;margin-top:3px;display:inline-block;width:64%;vertical-align:middle}
+.bar i{display:block;height:100%;border-radius:3px;background:var(--lc)}
+.note{color:var(--mut);font-size:11.5px;margin-top:8px;line-height:1.5}
+.legend{color:var(--mut);font-size:11px;margin-top:8px;line-height:1.6;border-top:1px dashed var(--line);padding-top:8px}
+/* 信号等级（多空语义，与 make_market 统一） */
+.lv-strong-up{background:rgba(38,194,129,.30);color:#2ee07a;--lc:#2ee07a}
+.lv-up{background:rgba(38,194,129,.16);color:#26c281;--lc:#26c281}
+.lv-neu-up{background:rgba(38,194,129,.08);color:#7fd1a8;--lc:#7fd1a8}
+.lv-neu-down{background:rgba(245,86,77,.08);color:#e08a85;--lc:#e08a85}
+.lv-down{background:rgba(245,86,77,.16);color:#f5564d;--lc:#f5564d}
+.lv-strong-down{background:rgba(245,86,77,.30);color:#ff6b61;--lc:#ff6b61}
+.lv-up-text{color:#26c281} .lv-down-text{color:#f5564d}
+/* 强度/操作/风险 标签 */
+.str{display:inline-block;font-size:11px;font-weight:700;padding:1px 7px;border-radius:6px;margin-right:4px}
+.s-strong{background:#f5564d;color:#fff} .s-mid{background:#d9a441;color:#1a1205} .s-weak{background:#5b6675;color:#e6edf3}
+.tag.a-hold{background:rgba(38,194,129,.16);color:#26c281}
+.tag.a-reduce{background:rgba(245,86,77,.16);color:#f5564d}
+.tag.a-warn{background:rgba(217,164,65,.16);color:#d9a441}
+.tag.a-watch{background:rgba(74,168,255,.16);color:#4aa8ff}
+.rk-high{color:#ff6b61;font-weight:700} .rk-mid{color:#d9a441;font-weight:600} .rk-low{color:#e8c33a}
+/* === P0 视觉微调 === */
+/* 高仓位占比(>25%)自动加粗+放大+底色微红 */
+td .wt-over{font-weight:700;font-size:15px;background:rgba(245,86,77,.08);padding:2px 6px;border-radius:4px}
+/* 涨跌幅列字号提升 */
+td.up,td.down{font-size:14px}
+/* === 紧急警示浮动条 === */
+.emergency-banner{position:sticky;top:0;z-index:40;background:linear-gradient(90deg,#7f1d1d,#991b1b);color:#fecaca;padding:10px 16px;border-radius:10px;margin-bottom:12px;display:flex;align-items:center;gap:10px;font-size:13.5px;font-weight:700;box-shadow:0 2px 12px rgba(127,29,29,.5);animation:pulse 2s infinite}
+.emergency-banner.orange{background:linear-gradient(90deg,#78350f,#92400e)}
+.emergency-banner .eb-icon{font-size:20px;flex-shrink:0}
+.emergency-banner .eb-close{flex-shrink:0;margin-left:auto;cursor:pointer;color:#fca5a5;font-size:16px;font-weight:400;padding:2px 8px;border-radius:4px}
+.emergency-banner .eb-close:hover{background:rgba(255,255,255,.15);color:#fff}
+@keyframes pulse{0%,100%{opacity:1} 50%{opacity:.85}}
+/* === 风险评分大字块 === */
+.risk-score-block{display:flex;align-items:center;gap:16px;margin-bottom:14px;padding:14px;border-radius:10px}
+.risk-score-block.r-low{background:rgba(38,194,129,.12);border:1px solid rgba(38,194,129,.3)}
+.risk-score-block.r-mid{background:rgba(217,164,65,.12);border:1px solid rgba(217,164,65,.3)}
+.risk-score-block.r-high{background:rgba(245,86,77,.12);border:1px solid rgba(245,86,77,.3)}
+.risk-score{text-align:center;min-width:80px}
+.risk-score .rs-num{font-size:42px;font-weight:800;line-height:1}
+.risk-score .rs-label{font-size:12px;color:var(--mut);margin-top:2px}
+.risk-score-block .rs-desc{flex:1;font-size:13.5px;line-height:1.7;color:#cdd7e2}
+/* === 今日指令 === */
+.today-instruction{background:rgba(74,168,255,.08);border:1px solid rgba(74,168,255,.25);border-radius:8px;padding:10px 14px;margin-bottom:10px;font-size:14px;font-weight:700;color:#93c5fd}
+/* 盘前核心定调卡 */
+.core-card{background:linear-gradient(135deg,#16202c,#111a24);border:1px solid #2b4a6a;border-radius:14px;padding:16px;margin-bottom:12px}
+.core-head{font-size:17px;font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:6px}
+.mood-bars{display:flex;flex-direction:column;gap:8px;margin-bottom:12px}
+.mood-row{display:flex;align-items:center;gap:10px}
+.mood-row .m-k{flex:0 0 110px;color:var(--acc);font-weight:600;font-size:12.5px}
+.mood-bar{flex:1;height:10px;border-radius:5px;background:var(--bg2);overflow:hidden}
+.mood-bar i{display:block;height:100%;border-radius:5px;background:var(--lc)}
+.m-v{flex:0 0 auto;font-weight:700;font-size:13px;min-width:96px}
+.gauge-mini{display:flex;align-items:center;gap:10px;margin-top:6px}
+.gauge-cap{font-size:12px;color:var(--mut)}
+.core-line{display:flex;gap:10px;padding:8px 0;font-size:13.5px;align-items:baseline;border-top:1px solid var(--line)}
+.cl-k{flex:0 0 80px;color:var(--acc);font-weight:600;font-size:12.5px}
+.cl-v{flex:1;color:var(--tx);line-height:1.7}
+.rule-box{background:rgba(245,86,77,.12);border-left:4px solid #f5564d;border-radius:8px;padding:10px 12px;margin-top:10px;font-size:13px;color:#ffb0a8}
+.risk-bar{background:rgba(217,164,65,.12);border-left:4px solid #d9a441;border-radius:8px;padding:10px 12px;margin-top:8px;font-size:13px;color:#f0d79a}
+/* 风险事件结构化 */
+.cf-box{border-radius:10px;padding:11px 13px;margin-top:10px}
+.cf-red{border-left:4px solid #f5564d;background:rgba(245,86,77,.07)}
+.cf-orange{border-left:4px solid #d9a441;background:rgba(217,164,65,.07)}
+.cf-yellow{border-left:4px solid #e8c33a;background:rgba(232,195,58,.06)}
+.cf-title{font-weight:700;font-size:13.5px;margin-bottom:6px}
+.cf-body{font-size:13px;line-height:1.6;color:#d4dde6}
+.cf-chain,.cf-impact{font-size:12.5px;line-height:1.6;margin-top:6px;color:#cdd7e2}
+/* 利好利空分栏 */
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.bull-card,.bear-card{background:var(--bg2);border-radius:10px;padding:12px}
+.bb-h{font-size:14px;margin:0 0 8px;padding-bottom:6px;border-bottom:1px solid var(--line)}
+.bb-list{display:flex;flex-direction:column;gap:9px}
+.bb-item{font-size:12.5px;line-height:1.55}
+.bb-txt{color:var(--tx)}
+.bb-meta{color:var(--mut);font-size:11.5px;margin-top:2px}
+/* 持仓环形图 */
+.chart-wrap{margin:8px 0;background:rgba(0,0,0,.15);border-radius:10px;padding:6px;height:260px}
+.chart-wrap.sm{height:200px}
+.chart-wrap.lg{height:450px}
+.chart-wrap.trend{height:240px}
+/* 分时图 */
+.trend-mini{display:flex;gap:8px;flex-wrap:wrap;margin:6px 0}
+.trend-item{flex:1;min-width:280px;background:rgba(0,0,0,.12);border-radius:8px;padding:4px;height:220px}
+.trend-title{font-size:11px;color:var(--mut);padding:4px 8px;text-align:center}
+.trend-item canvas{width:100%;height:190px}
+/* 约束条 */
+.constraint-bar{background:rgba(245,86,77,.12);border-left:4px solid #f5564d;border-radius:8px;padding:10px 12px;margin-top:10px;font-size:12.5px;color:#ffb0a8}
+/* 技术面折叠 */
+details{border-top:1px solid var(--line);padding:8px 0}
+summary{cursor:pointer;font-weight:600;font-size:13.5px;display:flex;justify-content:space-between;align-items:center}
+summary .sc{font-size:12px;color:var(--mut)}
+.tech-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px 14px;margin-top:6px}
+.tech-fold{display:grid;grid-template-columns:1fr 1fr;gap:6px 14px;margin-top:6px;padding-top:6px;border-top:1px dashed var(--line)}
+.dim{display:flex;gap:8px;font-size:12px}
+.dim b{color:var(--mut);font-weight:400;flex:0 0 48px}
+.tech-interp{font-size:12.5px;color:#cdd7e2;margin-top:6px;line-height:1.6}
+/* 事件时间线 */
+.timeline{position:relative;padding-left:14px;margin-top:6px;border-left:2px solid var(--line)}
+.tl-item{position:relative;padding:7px 0}
+.tl-item::before{content:"";position:absolute;left:-19px;top:12px;width:9px;height:9px;border-radius:50%;background:var(--acc);border:2px solid var(--bg)}
+.tl-time{font-size:12px;color:var(--acc);font-weight:700}
+.tl-event{font-size:13px;color:var(--tx);margin:2px 0}
+.tl-impact{font-size:12px;color:var(--mut);line-height:1.5}
+/* 数据来源 */
+.src-box{font-size:12.5px;line-height:1.7;background:rgba(74,168,255,.05);border-radius:8px;padding:10px 12px}
+.kv{display:flex;justify-content:space-between;gap:8px;padding:4px 0;border-bottom:1px solid var(--line)}
+.kv .ok{color:#26c281} .kv .warn{color:var(--neu)} .kv .q{color:var(--mut)}
+.tip{border-bottom:1px dotted var(--acc);cursor:help}
+.tip:hover{position:relative}
+.tip:hover::after{content:attr(data-tip);position:absolute;left:0;top:130%;z-index:50;background:#0b0f15;border:1px solid var(--line);color:var(--tx);font-size:11.5px;line-height:1.4;padding:6px 8px;border-radius:8px;width:260px;box-shadow:0 4px 14px rgba(0,0,0,.5);font-weight:400}
+/* 顶部导航 */
+.topnav{position:sticky;top:0;z-index:30;background:rgba(14,17,23,.95);backdrop-filter:blur(6px);border:1px solid var(--line);border-radius:10px;padding:6px 8px;margin-bottom:12px;display:flex;gap:4px;flex-wrap:wrap;align-items:center;font-size:12px}
+.topnav a{color:var(--mut);text-decoration:none;padding:3px 7px;border-radius:6px}
+.topnav a:hover{background:var(--bg2);color:var(--tx)}
+.nav-hist{margin-left:auto;display:flex;gap:4px}
+@media (max-width:680px){.two-col{grid-template-columns:1fr}.topnav{font-size:11px}.tech-grid,.tech-fold{grid-template-columns:1fr}}
+@media print{
+  body{background:#fff;color:#111;max-width:100%}
+  .topnav{display:none}.card{break-inside:avoid;box-shadow:none}
+  .chart-wrap{height:200px}
+  .tip:hover::after{display:none}
+  *{color:#111!important;border-color:#ccc!important}
+  .lv-strong-up,.lv-up,.lv-neu-up{background:#e8f7ee!important}
+  .lv-neu-down,.lv-down,.lv-strong-down{background:#fdeceb!important}
+}
+</style>
+</head>
+<body>
+<h1>🌍 早间全球分析</h1>
+<div class="sub">2026-07-13 · 2026-07-13 09:00（北京时间）· 数据源 neodata(T1) · 盘前推送（A股未开盘）· 仅供参考不构成投资建议</div>
+<nav class="topnav"><a href="#core">定调</a><a href="#global">全球</a><a href="#conflict">风险</a><a href="#bullbear">利好利空</a><a href="#hold">持仓</a><a href="#earn">财报</a><a href="#tech">技术</a><a href="#event">事件</a><a href="#cred">来源</a><span class="nav-hist"><a href="早间全球分析-2026-07-12.html">←昨日</a><a href="../../index.html">收件箱</a></span></nav>
+<div class="emergency-banner"><span class="eb-icon">🔴</span><span>持仓半导体单日暴跌&gt;3%（中证半导7/10 -6.72%/A股半导体-6.43%）+ 纳指期货盘前转跌-0.53% + WTI盘前飙升+4.19%；半导体集中度占总资产65.4%/持仓74.5%极高，还债期未止。</span><span class="eb-close" onclick="this.parentElement.remove()">✕</span></div>
+<section id="core" class="core-card">
+  <div class="core-head">🌅 盘前核心定调 <span class="badge">开盘前30秒决策</span></div>
+  <div class="risk-score-block r-high">
+          <div class="risk-score"><div class="rs-num" style="color:#f5564d">61</div><div class="rs-label">偏高风险</div></div>
+          <div class="rs-desc">情绪中性偏谨慎(52)×30% + 技术面弱势(66,半导体破位还债期、纳指期货盘前转负)×25% + 风险事件高(70,半导体单日-6.43%&gt;3%、NQ/WTI盘前双转向)×20% + 资金净流出(60,7/10全市场主力净流出/半导体领衔)×15% + 新闻面多空交织(55,存储超级周期 vs 杠杆踩踏/财报季)×10% = 61（偏高风险）。</div></div>
+  <div class="today-instruction">🎯 HOLD·锁利降仓。半导体还债期未止 + 纳指期货盘前转跌 + 油价飙升，全天禁净买入；反弹减东方AI/东方阿尔法(单仓近30%上限)，永赢破-2%减半，港药持有待反弹，现金12%等缩量企稳低吸。</div>
+  <div class="mood-bars">
+    <div class="mood-row"><span class="m-k">情绪面</span><div class="mood-bar"><i class="lv-neu-up" style="width:52%"></i></div><span class="m-v lv-neu-up">52 中性偏空</span></div><div class="mood-row"><span class="m-k">技术面</span><div class="mood-bar"><i class="lv-up" style="width:66%"></i></div><span class="m-v lv-up">66 偏空</span></div><div class="mood-row"><span class="m-k">风险事件</span><div class="mood-bar"><i class="lv-up" style="width:70%"></i></div><span class="m-v lv-up">70 偏空</span></div><div class="mood-row"><span class="m-k">资金面</span><div class="mood-bar"><i class="lv-up" style="width:60%"></i></div><span class="m-v lv-up">60 中性偏空</span></div><div class="mood-row"><span class="m-k">新闻面</span><div class="mood-bar"><i class="lv-neu-up" style="width:55%"></i></div><span class="m-v lv-neu-up">55 中性</span></div>
+    <div class="gauge-mini"><div id="sentTrend" style="width:300px;height:120px"></div><div class="gauge-cap">半导体情绪 近10日趋势</div></div>
+  </div>
+  <div class="core-line"><span class="cl-k">一句话结论</span><span class="cl-v">A50高开+1%但纳指期货盘前转跌、油价飙涨，半导体还债期未止；重仓半导体(65%)宜锁利降仓、严禁追高，等缩量企稳。</span></div>
+  <div class="rule-box">🔴 操作铁律：总仓≤90%(当前87.9%✅) · 单仓≤30%(东方阿尔法29.1%逼近上限⚠️) · 半导体硬止损-8%(永赢-0.94%/港药-3.75%未触) · 全天禁净买入 · 反弹减仓锁利</div>
+  <div class="risk-bar">🟠 最高风险：半导体集中度占总资产65.4%/持仓74.5%极高；7/10单日-6.43%未修复，纳指期货盘前-0.53%转跌 + WTI+4.19%飙升，重仓方向承压。</div>
+  <div class="legend">涨跌配色 <b class="up">红=涨</b>/<b class="down">绿=跌</b>（A股惯例）· 强度标签 🔴强/🟠中/⚪弱（事件强度，与涨跌价无关）· 信号等级 <b class="lv-up">绿=偏多</b>/<b class="lv-down">红=偏空</b>（多空语义，独立轴）</div>
+</section>
+<section id="global" class="card">
+  <h2>① 全球股市 / 大宗 / 汇率 涨跌 <span class="badge">20 标的</span></h2>
+  <div style="margin-bottom:8px"><div style="font-size:12px;color:var(--acc);padding:4px 0">T+0 盘前期货（7/13 09:00）</div><div class="chart-wrap" style="height:126px"><canvas id="chgBar_0"></canvas></div></div><div style="margin-bottom:8px"><div style="font-size:12px;color:var(--acc);padding:4px 0">美股（隔夜 7/10 美东收盘）</div><div class="chart-wrap" style="height:150px"><canvas id="chgBar_1"></canvas></div></div><div style="margin-bottom:8px"><div style="font-size:12px;color:var(--acc);padding:4px 0">大宗商品 / 汇率</div><div class="chart-wrap" style="height:126px"><canvas id="chgBar_2"></canvas></div></div><div style="margin-bottom:8px"><div style="font-size:12px;color:var(--acc);padding:4px 0">港股 / 港股期货</div><div class="chart-wrap" style="height:120px"><canvas id="chgBar_3"></canvas></div></div><div style="margin-bottom:8px"><div style="font-size:12px;color:var(--acc);padding:4px 0">海外映射（半导体设备 / 创新药18A / CPO）</div><div class="chart-wrap" style="height:126px"><canvas id="chgBar_4"></canvas></div></div>
+  <div style="margin-top:10px"><div style="font-size:12px;color:var(--mut);margin-bottom:6px">📈 关键标的近10日走势</div><div class="trend-mini" id="trendBar"><div class="trend-item"><div class="trend-title">中证半导</div><canvas id="trend_0"></canvas></div><div class="trend-item"><div class="trend-title">人工智能</div><canvas id="trend_1"></canvas></div><div class="trend-item"><div class="trend-title">半导体ETF</div><canvas id="trend_2"></canvas></div></div></div>
+  <div class="tbl-scroll">
+  <table>
+    <tr><th>市场 / 标的</th><th>收盘/最新</th><th>涨跌</th><th>来源/置信</th><th>信号</th></tr>
+    <tr class="grp"><td colspan="5">T+0 盘前期货（7/13 09:00）</td></tr><tr class=" hl-row"><td class="lname">富时中国A50期货</td><td>≈15,000+</td><td class="up">+0.44%</td><td><span class="tag-t2">T0</span> <span class="tag-warn">关键</span></td><td>偏多</td></tr><tr class=" hl-row"><td class="lname">纳斯达克100期货 NQ</td><td>29,874.00</td><td class="down">-0.53%</td><td><span class="tag-t2">T0</span> <span class="tag-warn">关键</span> <span class="tag-warn">⚠️盘前转向(隔夜+0.33%→转跌)</span></td><td>偏空</td></tr><tr class=" hl-row"><td class="lname">WTI原油(盘前)</td><td>74.40</td><td class="up b">+4.19%</td><td><span class="tag-t2">T0</span> <span class="tag-warn">关键</span> <span class="tag-warn">⚠️盘前转向(隔夜-0.93%→飙升)</span></td><td>偏多</td></tr><tr class=""><td class="lname">美元离岸人民币 USDCNH</td><td>6.7731</td><td class="down">-0.26%</td><td><span class="tag-t2">T0</span></td><td>中性偏多</td></tr><tr class="grp"><td colspan="5">美股（隔夜 7/10 美东收盘）</td></tr><tr class=" hl-row"><td class="lname">纳斯达克100</td><td>29,825.11</td><td class="up">+0.33%</td><td><span class="tag-t1">T1</span> <span class="tag-warn">关键</span></td><td>偏多(弱)</td></tr><tr class=""><td class="lname">标普500</td><td>7,575.39</td><td class="up">+0.42%</td><td><span class="tag-t1">T1</span></td><td>偏多(弱)</td></tr><tr class=" hl-row"><td class="lname">费城半导体SOX(代理SMH)</td><td>611.03</td><td class="up">+0.54%</td><td><span class="tag-t2">T2</span> <span class="tag-warn">关键</span> <span class="tag-warn">SOX未直接返回(SMH代理)</span></td><td>中性偏多</td></tr><tr class=""><td class="lname">美光 MU</td><td>979.30</td><td class="down">-1.24%</td><td><span class="tag-t1">T1</span></td><td>中性偏空</td></tr><tr class=""><td class="lname">闪迪 SNDK</td><td>1,915.92</td><td class="up b">+3.10%</td><td><span class="tag-t1">T1</span></td><td>偏多</td></tr><tr class="grp"><td colspan="5">大宗商品 / 汇率</td></tr><tr class=" hl-row"><td class="lname">WTI原油</td><td>74.40</td><td class="up b">+4.19%</td><td><span class="tag-t2">T0</span> <span class="tag-warn">关键</span> <span class="tag-warn">盘前飙升</span></td><td>偏多</td></tr><tr class=""><td class="lname">伦敦金</td><td>4,079.50</td><td class="down">-0.83%</td><td><span class="tag-t1">T1</span></td><td>中性偏空</td></tr><tr class=""><td class="lname">COMEX铜</td><td>6.250</td><td class="down">-0.52%</td><td><span class="tag-t2">T2</span></td><td>中性偏空</td></tr><tr class=""><td class="lname">美元离岸人民币</td><td>6.7731</td><td class="down">-0.26%</td><td><span class="tag-t1">T1</span></td><td>中性偏多(RMB强)</td></tr><tr class="grp"><td colspan="5">港股 / 港股期货</td></tr><tr class=""><td class="lname">恒生指数</td><td>24,175.12</td><td class="neu">0.00%</td><td><span class="tag-t1">T1</span></td><td>中性(盘前未开/5日+2.37%)</td></tr><tr class=""><td class="lname">恒生科技</td><td>4,721.66</td><td class="neu">0.00%</td><td><span class="tag-t1">T1</span></td><td>中性(盘前未开/5日+3.97%)</td></tr><tr class=""><td class="lname">恒指期货</td><td>24,238.00</td><td class="up">+0.33%</td><td><span class="tag-t1">T1</span></td><td>偏多</td></tr><tr class="grp"><td colspan="5">海外映射（半导体设备 / 创新药18A / CPO）</td></tr><tr class=""><td class="lname">半导体设备ETF SMH</td><td>611.03</td><td class="up">+0.54%</td><td><span class="tag-t1">T1</span></td><td>中性偏多</td></tr><tr class=""><td class="lname">港股创新药(18A)板块</td><td>医药生物+2.48%</td><td class="up b">+2.48%</td><td><span class="tag-t2">T2</span></td><td>偏多</td></tr><tr class=" hl-row"><td class="lname">中际旭创(CPO)</td><td>1,093.98</td><td class="down b">-8.45%</td><td><span class="tag-t1">T1</span> <span class="tag-warn">关键</span> <span class="tag-warn">7/10重挫</span></td><td>偏空</td></tr><tr class=""><td class="lname">新易盛(CPO)</td><td>523.05</td><td class="down b">-4.12%</td><td><span class="tag-t1">T1</span></td><td>偏空</td></tr>
+  </table>
+  </div>
+  <div class="note">📌 涨跌配色：<b class="up">红=涨</b>/<b class="down">绿=跌</b>；±2%加粗；重点行已高亮。</div>
+</section>
+<section id="conflict" class="card">
+  <h2>② 风险事件结构化 <span class="badge">事件等级→事实→传导→影响</span></h2>
+  
+<div class="cf-box cf-red">
+  <div class="cf-title">🔴 半导体「还债期」未止（单日暴跌&gt;3%触发硬风险）</div>
+  <div class="cf-body">中证半导7/10 -6.72%、A股半导体(H30184) -6.43%、中际旭创-8.45%；高位放量回撤，自7/1阶段高点大幅回落。</div>
+  <div class="cf-chain"><b>传导链：</b>半导体涨幅过大(中证半导年内+86%) → 7/10获利盘集中兑现 → 持仓半导体净值回撤 → 重仓方向(65.4%)承压</div>
+  <div class="cf-impact"><b>持仓影响：</b>持仓东方AI/东方阿尔法/永赢直接承压；全天禁追高、反弹减仓锁利。</div>
+</div>
+  <details><summary>🟠🟡 次级风险事件 <span class="sc">3 条 · 点击展开</span></summary>
+<div class="cf-box cf-orange">
+  <div class="cf-title">🟠 纳指期货盘前转向（反向&gt;0.5%）</div>
+  <div class="cf-body">NQ期货7/13盘前29,874、-0.53%，而隔夜纳指100 +0.33%，方向相反幅度&gt;0.5%。</div>
+  <div class="cf-chain"><b>传导链：</b>美股科技开盘偏弱 → 压制A股半导体风险偏好 → 重仓半导体方向承压</div>
+  <div class="cf-impact"><b>持仓影响：</b>开盘半导体情绪受外围拖累，弱于A50高开的广谱指引。</div>
+</div>
+<div class="cf-box cf-orange">
+  <div class="cf-title">🟠 油价盘前飙升（反向&gt;0.5%，通胀/风险偏好压制）</div>
+  <div class="cf-body">WTI盘前74.40、+4.19%，而隔夜约-0.93%；反向幅度&gt;0.5%。</div>
+  <div class="cf-chain"><b>传导链：</b>油价飙升 → 通胀预期升温 → 美联储转鹰担忧 → 高估值科技中期承压</div>
+  <div class="cf-impact"><b>持仓影响：</b>成本端与风险偏好双重压制，全球科技估值波动放大。</div>
+</div>
+<div class="cf-box cf-orange">
+  <div class="cf-title">🟠 美股高位杠杆 + 财报季「压力测试」</div>
+  <div class="cf-body">杠杆ETF规模近2000亿美元、保证金债务1.42万亿创历史新高；二季度财报季开启，AI龙头盈利验证。</div>
+  <div class="cf-chain"><b>传导链：</b>杠杆集中科技 → 财报不及预期→机械再平衡放大下跌 → 全球科技连锁波动</div>
+  <div class="cf-impact"><b>持仓影响：</b>AI/半导体高位估值波动放大，持仓半导体间接承压。</div>
+</div></details>
+</section>
+<section id="bullbear" class="card">
+  <h2>③ 利好 / 利空清单 <span class="badge">逐条标注强度+标的</span></h2>
+  <div class="two-col">
+    <div class="bull-card">
+      <h3 class="bb-h up">✅ 利好</h3>
+      <div class="bb-list"><div class="bb-item"><span class="str s-strong">强</span><div class="bb-txt">存储超级周期：SK海力士登陆纳斯达克首日+10~13%、DDR5 Q2环比+58~63%、HBM缺口50~60%，半导体设备景气确认。</div><div class="bb-meta">影响：半导体设备/存储 · 中线偏多(持仓半导体托底)</div></div><div class="bb-item"><span class="str s-mid">中</span><div class="bb-txt">港股创新药强势：医药生物+2.48%/医疗服务+4.02%，信达20日+22.96%。</div><div class="bb-meta">影响：港股创新药(港药019671) · 港药托底</div></div><div class="bb-item"><span class="str s-mid">中</span><div class="bb-txt">富时A50高开+1%（财联社7/13），A股开盘偏强。</div><div class="bb-meta">影响：A股广谱 · 开盘情绪偏积极</div></div><div class="bb-item"><span class="str s-mid">中</span><div class="bb-txt">英伟达市值重返5万亿、纳指/标普屡创新高，趋势动能仍在。</div><div class="bb-meta">影响：美股科技 · 外围趋势支撑</div></div></div>
+    </div>
+    <div class="bear-card">
+      <h3 class="bb-h down">⚠️ 利空</h3>
+      <div class="bb-list"><div class="bb-item"><span class="str s-strong">强</span><div class="bb-txt">半导体还债期：A股半导体7/10 -6.43%、中际旭创-8.45%，高位回撤未止。</div><div class="bb-meta">影响：半导体(持仓65.4%) · 重仓方向承压</div></div><div class="bb-item"><span class="str s-strong">强</span><div class="bb-txt">盘前双转向：纳指期货-0.53%(隔夜+0.33%) + WTI+4.19%(隔夜-0.93%)，外围风险偏好走弱。</div><div class="bb-meta">影响：全球风险资产 · 开盘承压</div></div><div class="bb-item"><span class="str s-mid">中</span><div class="bb-txt">杠杆踩踏暗雷：美股融资成本飙升、杠杆ETF集中科技，财报季波动放大。</div><div class="bb-meta">影响：全球科技 · 估值波动放大</div></div><div class="bb-item"><span class="str s-mid">中</span><div class="bb-txt">内部约束：半导体集中度65.4%极高 + 东方阿尔法单仓29.1%逼近30%上限。</div><div class="bb-meta">影响：账户结构 · 需降仓分散</div></div></div>
+    </div>
+  </div>
+</section>
+<section id="hold" class="card">
+  <h2>④ 持仓盘前指引 <span class="badge">watchlist T0</span></h2>
+  <div class="chart-wrap sm"><canvas id="posPie"></canvas></div>
+  <div class="tbl-scroll">
+  <table>
+    <tr><th>基金</th><th>仓位占比</th><th>持有收益</th><th>盘前信号</th><th>建议动作</th><th>距-8%止损</th></tr>
+    <tr><td class="lname">东方人工智能主题混合C</td><td class="r wt-over">27.5%</td><td class="r up">+13.63%</td><td><span class="tag a-reduce">减仓</span></td><td class="r">半导体/AI，+13.63%有缓冲但板块还债</td><td class="r rk-mid">中</td><td><div class="bar"><i style="width:0%;background:#e8c33a"></i></div><span class="rk-low">0%</span></td></tr><tr><td class="lname">东方阿尔法科技优选混合C</td><td class="r wt-over">29.1%</td><td class="r up">+11.95%</td><td><span class="tag a-reduce">减仓</span></td><td class="r">第一大仓逼近30%上限，锁本减仓</td><td class="r rk-mid">中</td><td><div class="bar"><i style="width:0%;background:#e8c33a"></i></div><span class="rk-low">0%</span></td></tr><tr><td class="lname">永赢先锋半导体智选混合C</td><td class="r">16.1%</td><td class="r down">-0.94%</td><td><span class="tag a-warn">警惕</span></td><td class="r">微亏大敞口，-2%止损减半</td><td class="r rk-low">低</td><td><div class="bar"><i style="width:12%;background:#e8c33a"></i></div><span class="rk-low">12%</span></td></tr><tr><td class="lname">广发港股创新药ETF联接C</td><td class="r">12.1%</td><td class="r down">-3.75%</td><td><span class="tag a-hold">持有</span></td><td class="r">弱势但板块反弹，-5%止损未触</td><td class="r rk-mid">中</td><td><div class="bar"><i style="width:47%;background:#d9a441"></i></div><span class="rk-mid">47%</span></td></tr><tr><td class="lname">鹏华丰诚债券C</td><td class="r">10.9%</td><td class="r neu">-0.03%</td><td><span class="tag a-hold">持有</span></td><td class="r">防御底仓保留</td><td class="r rk-low">低</td><td><div class="bar"><i style="width:0%;background:#e8c33a"></i></div><span class="rk-low">0%</span></td></tr><tr><td class="lname">财通集成电路产业股票C</td><td class="r">1.7%</td><td class="r up">+2.65%</td><td><span class="tag a-hold">持有</span></td><td class="r">观察仓，+10%止盈一半</td><td class="r rk-low">低</td><td><div class="bar"><i style="width:0%;background:#e8c33a"></i></div><span class="rk-low">0%</span></td></tr><tr><td class="lname">财通成长优选混合C</td><td class="r">1.7%</td><td class="r up">+2.62%</td><td><span class="tag a-hold">持有</span></td><td class="r">观察仓</td><td class="r rk-low">低</td><td><div class="bar"><i style="width:0%;background:#e8c33a"></i></div><span class="rk-low">0%</span></td></tr><tr><td class="lname">广发纳斯达克100ETF联接C</td><td class="r">0.8%</td><td class="r down">-1.06%</td><td><span class="tag a-hold">持有</span></td><td class="r">防御底仓，盘前期货转弱</td><td class="r rk-low">低</td><td><div class="bar"><i style="width:13%;background:#e8c33a"></i></div><span class="rk-low">13%</span></td></tr><tr><td class="lname">天弘中证全指通信设备C</td><td class="r">0.1%</td><td class="r up">+5.91%</td><td><span class="tag a-hold">持有</span></td><td class="r">迷你观察仓</td><td class="r rk-low">低</td><td><div class="bar"><i style="width:0%;background:#e8c33a"></i></div><span class="rk-low">0%</span></td></tr><tr><td class="lname">富国中证煤炭C</td><td class="r">0.0%</td><td class="r down">-0.11%</td><td><span class="tag a-hold">持有</span></td><td class="r">防御底仓(几乎清仓)</td><td class="r rk-low">低</td><td><div class="bar"><i style="width:1%;background:#e8c33a"></i></div><span class="rk-low">1%</span></td></tr><tr><td class="lname">嘉实中证主要消费C</td><td class="r">0.0%</td><td class="r neu">+0.02%</td><td><span class="tag a-hold">持有</span></td><td class="r">防御底仓(几乎清仓)</td><td class="r rk-low">低</td><td><div class="bar"><i style="width:0%;background:#e8c33a"></i></div><span class="rk-low">0%</span></td></tr>
+  </table>
+  </div>
+  <div class="constraint-bar">⚠️ 今日核心约束：总仓87.9%≤90%✅ · 单仓东方阿尔法29.1%逼近30%上限⚠️ · 半导体集中度65.4%极高🔴 · 全天禁净买入 · 反弹减仓锁利</div>
+  <div style="margin-top:8px"><div style="font-size:12px;color:var(--mut);margin-bottom:4px">📈 持仓关联指数近10日走势</div><div class="trend-mini" id="holdTrendBar"><div class="trend-item"><div class="trend-title">中证半导(东方AI/阿尔法/永赢)</div><canvas id="htrend_0"></canvas></div><div class="trend-item"><div class="trend-title">人工智能(东方AI)</div><canvas id="htrend_1"></canvas></div><div class="trend-item"><div class="trend-title">港股创新药(港药)</div><canvas id="htrend_2"></canvas></div></div></div>
+</section>
+<section id="earn" class="card">
+  <h2>⑤ 财报 / 关键公司要点</h2>
+  <table>
+    <tr><th>标的</th><th>最新动态</th><th>对持仓影响</th></tr>
+    <tr><td class="lname">美光 MU</td><td>7/10 -1.24%（YTD+243%），存储涨价周期受益但高位波动</td><td>持仓半导体情绪锚，存储映射偏多</td></tr><tr><td class="lname">闪迪 SNDK</td><td>7/10 +3.10%（YTD+707%），存储龙头强势</td><td>存储映射偏多</td></tr><tr><td class="lname">SK海力士</td><td>纳斯达克首日+10~13%，募资265亿美元</td><td>存储/设备利好</td></tr><tr><td class="lname">英伟达</td><td>市值重返5万亿，CEO访华提振</td><td>AI算力中枢</td></tr>
+  </table>
+</section>
+<section id="tech" class="card">
+  <h2>⑥ 持仓关联指数技术面 <span class="badge">日K·月K·MA20/MA60 · neodata</span></h2>
+  
+<details>
+  <summary>中证半导 931865 <span class="sc">收盘 10,613.29 · 单日 <span class="down b">-6.72%</span></span></summary>
+  <div style="margin:6px 0;font-size:12px;color:var(--mut)">📈 日K线（近60日）· 📊 月K线（近12月）<span class="sc"> 展开可见</span></div><div class="chart-wrap" style="height:220px;margin:4px 0;"><canvas id="kx______931865"></canvas></div><div class="chart-wrap" style="height:180px;margin:4px 0;"><canvas id="km______931865"></canvas></div>
+  <div class="tech-grid">
+    <div class="dim"><b>MA20</b><span>9,873.89</span></div>
+    <div class="dim"><b>MA60</b><span>7,901.32</span></div>
+  </div>
+  <div class="tech-interp">7/10放量大跌-6.72%击穿MA20(9874)但未破MA60(7901)；5/14→7/10区间+45.56%，高位「还债期」量能放大(成交2409亿)。短线超跌未企稳，关注MA20收复。持仓东方AI/东方阿尔法/永赢锚定。</div>
+  <div class="tech-fold">
+    <div class="dim"><b>MACD</b><span>MACD柱 -39.54（DIFF 750.90 / DEA 770.67，柱状转负）</span></div>
+    <div class="dim"><b>KDJ</b><span>K48.11 D50.71 J42.91</span></div>
+  </div>
+</details>
+<details>
+  <summary>人工智能 931071 <span class="sc">收盘 3,211.93 · 单日 <span class="down b">-2.66%</span></span></summary>
+  <div style="margin:6px 0;font-size:12px;color:var(--mut)">📈 日K线（近60日）· 📊 月K线（近12月）<span class="sc"> 展开可见</span></div><div class="chart-wrap" style="height:220px;margin:4px 0;"><canvas id="kx______931071"></canvas></div><div class="chart-wrap" style="height:180px;margin:4px 0;"><canvas id="km______931071"></canvas></div>
+  <div class="tech-grid">
+    <div class="dim"><b>MA20</b><span>3,168.17</span></div>
+    <div class="dim"><b>MA60</b><span>2,945.28</span></div>
+  </div>
+  <div class="tech-interp">7/10 -2.66%相对半导体抗跌，仍在MA20(3168)附近；AI应用端韧性较强。区间+9.74%。持仓东方AI(017811)直接锚定，弱于半导体材料设备方向。</div>
+  <div class="tech-fold">
+    <div class="dim"><b>MACD</b><span>MACD柱 -27.62（DIFF 59.10 / DEA 72.91，转负）</span></div>
+    <div class="dim"><b>KDJ</b><span>K38.22 D37.02 J40.60</span></div>
+  </div>
+</details>
+<details>
+  <summary>半导体ETF 512480 <span class="sc">收盘 1.369 · 单日 <span class="down b">-6.93%</span></span></summary>
+  <div style="margin:6px 0;font-size:12px;color:var(--mut)">📈 日K线（近60日）· 📊 月K线（近12月）<span class="sc"> 展开可见</span></div><div class="chart-wrap" style="height:220px;margin:4px 0;"><canvas id="kx____ETF_512480"></canvas></div><div class="chart-wrap" style="height:180px;margin:4px 0;"><canvas id="km____ETF_512480"></canvas></div>
+  <div class="tech-grid">
+    <div class="dim"><b>MA20</b><span>2.222</span></div>
+    <div class="dim"><b>MA60</b><span>0.000</span></div>
+  </div>
+  <div class="tech-interp">7/10 -6.93%放量大跌，自7/1高点3.005大幅回撤（区间自4/28 +约-21%）。还债期量能放大分歧。持仓关联财通集成(006503)/天弘通信(020900)观察仓。</div>
+  <div class="tech-fold">
+    <div class="dim"><b>MACD</b><span>随价回落，高位放量分歧（换手14.1%/成交368亿）</span></div>
+    <div class="dim"><b>KDJ</b><span>高位死叉回落</span></div>
+  </div>
+</details>
+<details>
+  <summary>纳斯达克100 .NDX <span class="sc">收盘 29,825.11 · 单日 <span class="up">+0.33%</span></span></summary>
+  <div style="margin:6px 0;font-size:12px;color:var(--mut)">📈 日K线（近60日）· 📊 月K线（近12月）<span class="sc"> 展开可见</span></div><div class="chart-wrap" style="height:220px;margin:4px 0;"><canvas id="kx_____100__NDX"></canvas></div><div class="chart-wrap" style="height:180px;margin:4px 0;"><canvas id="km_____100__NDX"></canvas></div>
+  <div class="tech-grid">
+    <div class="dim"><b>MA20</b><span>—</span></div>
+    <div class="dim"><b>MA60</b><span>—</span></div>
+  </div>
+  <div class="tech-interp">7/10 +0.33%新高附近，区间+2.62%；但盘前期货NQ -0.53%已转向。持仓广发纳指100联接(270042,权重0.77%)。</div>
+  <div class="tech-fold">
+    <div class="dim"><b>MACD</b><span>高位多头（美东7/10）</span></div>
+    <div class="dim"><b>KDJ</b><span>强势区</span></div>
+  </div>
+</details>
+<details>
+  <summary>恒生科技 HSTECH <span class="sc">收盘 4,721.66 · 单日 <span class="neu">0.00%</span></span></summary>
+  <div style="margin:6px 0;font-size:12.5px;color:#8b98a9;background:rgba(255,255,255,.03);padding:8px 12px;border-radius:6px;">💡 日K/月K线图：需 agent 在 tech[].kline 字段提供 {dates, ohlc} 数据</div>
+  <div class="tech-grid">
+    <div class="dim"><b>MA20</b><span>4,559.94</span></div>
+    <div class="dim"><b>MA60</b><span>4,817.82</span></div>
+  </div>
+  <div class="tech-interp">7/10收盘4721.66，5日+3.97%反弹；技术面MACD负值收窄、KDJ偏强。neodata未返回日K OHLC（海外留空）。持仓港药(019671)间接关联。</div>
+  <div class="tech-fold">
+    <div class="dim"><b>MACD</b><span>MACD -41.96（负值收窄，修复中）</span></div>
+    <div class="dim"><b>KDJ</b><span>K75.70 D67.98 J91.14（偏强）</span></div>
+  </div>
+</details>
+</section>
+<section id="event" class="card">
+  <h2>⑦ 今日关键事件时间线</h2>
+  <div class="timeline"><div class="tl-item"><span class="tl-time">09:15</span><div class="tl-body"><div class="tl-event">富时A50高开+1%，A股开盘偏强</div><div class="tl-impact">广谱情绪正面，但半导体受外围拖累</div></div></div><div class="tl-item"><span class="tl-time">09:30</span><div class="tl-body"><div class="tl-event">A股开盘，重点看半导体能否止跌（中证半导7/10 -6.72%）</div><div class="tl-impact">决定重仓方向日内基调</div></div></div><div class="tl-item"><span class="tl-time">21:30</span><div class="tl-body"><div class="tl-event">美股开盘（纳指期货-0.53%指引偏弱）</div><div class="tl-impact">外围科技方向验证</div></div></div><div class="tl-item"><span class="tl-time">全天</span><div class="tl-body"><div class="tl-event">关注油价/霍尔木兹局势、美股财报季开启</div><div class="tl-impact">通胀与估值波动源</div></div></div></div>
+</section>
+<section id="cred" class="card">
+  <h2>⑧ 数据来源与可信度 <span class="badge">T1</span></h2>
+  <details>
+  <summary>展开数据来源 <span class="sc">neodata T1 · 点击查看</span></summary>
+  <div class="src-box"><div class="kv"><span>neodata 实时(T0/T1/T2)：NQ/WTI/USDCNH/纳指/标普/SMH/美光/闪迪/黄金/铜/恒指/恒科/中际/新易盛/信达/康方/药明</span><span class="ok">✅ code 200，多源一致</span></div><div class="kv"><span>A50期货(财联社7/13)</span><span class="ok">✅ 高开+1%，与东方财富/新交所交叉</span></div><div class="kv"><span>中证半导931865/人工智能931071 K线</span><span class="warn">⚠️ neodata中段省略(⚠️ T2 待验证)</span></div><div class="kv"><span>半导体ETF512480 K线</span><span class="ok">✅ neodata全日~52日✅</span></div><div class="kv"><span>纳指100 K线</span><span class="warn">⚠️ neodata仅首尾3日(⚠️ 中段省略)</span></div><div class="kv"><span>恒生科技 K线</span><span class="warn">⚠️ neodata未返回OHLC(按规范留空)</span></div><div class="kv"><span>SOX费城半导体</span><span class="warn">⚠️ neodata返回A股半导体H30184代理(⚠️ 待验证)</span></div></div>
+  </details>
+  <div class="note warn">⚠️ 本分析仅供参考，不构成投资建议。数据来源 neodata(T0/T1/T2) + 财联社/东方财富交叉验证；T+0期货为盘前实时，A股尚未开盘。</div>
+</section>
+<script>
+const REPORT = {"date": "2026-07-13", "updated_at": "2026-07-13 09:00", "data_tier": "T1", "core": {"risk_score": 61, "risk_score_note": "情绪中性偏谨慎(52)×30% + 技术面弱势(66,半导体破位还债期、纳指期货盘前转负)×25% + 风险事件高(70,半导体单日-6.43%>3%、NQ/WTI盘前双转向)×20% + 资金净流出(60,7/10全市场主力净流出/半导体领衔)×15% + 新闻面多空交织(55,存储超级周期 vs 杠杆踩踏/财报季)×10% = 61（偏高风险）。", "emergency": {"level": "red", "icon": "🔴", "text": "持仓半导体单日暴跌>3%（中证半导7/10 -6.72%/A股半导体-6.43%）+ 纳指期货盘前转跌-0.53% + WTI盘前飙升+4.19%；半导体集中度占总资产65.4%/持仓74.5%极高，还债期未止。"}, "today_instruction": "HOLD·锁利降仓。半导体还债期未止 + 纳指期货盘前转跌 + 油价飙升，全天禁净买入；反弹减东方AI/东方阿尔法(单仓近30%上限)，永赢破-2%减半，港药持有待反弹，现金12%等缩量企稳低吸。", "mood_bars": [{"k": "情绪面", "score": 52, "label": "中性偏空"}, {"k": "技术面", "score": 66, "label": "偏空"}, {"k": "风险事件", "score": 70, "label": "偏空"}, {"k": "资金面", "score": 60, "label": "中性偏空"}, {"k": "新闻面", "score": 55, "label": "中性"}], "one_liner": "A50高开+1%但纳指期货盘前转跌、油价飙涨，半导体还债期未止；重仓半导体(65%)宜锁利降仓、严禁追高，等缩量企稳。", "action_rules": "总仓≤90%(当前87.9%✅) · 单仓≤30%(东方阿尔法29.1%逼近上限⚠️) · 半导体硬止损-8%(永赢-0.94%/港药-3.75%未触) · 全天禁净买入 · 反弹减仓锁利", "top_risk": "半导体集中度占总资产65.4%/持仓74.5%极高；7/10单日-6.43%未修复，纳指期货盘前-0.53%转跌 + WTI+4.19%飙升，重仓方向承压。"}, "sentiment": {"semiconductor": 47, "semiconductor_trend": {"dates": ["2026-06-29", "2026-06-30", "2026-07-01", "2026-07-02", "2026-07-03", "2026-07-06", "2026-07-07", "2026-07-08", "2026-07-09", "2026-07-10"], "values": [49, 53, 56, 58, 61, 63, 58, 42, 52, 50], "note": "近10交易日：仅07-08/09/10锚定sentiment-log实盘恐惧贪婪指数(41.5/51.8/50)，其余为叙事回推估计(⚠️待验证)。7/10半导体单日-6.72%后情绪由过热(63)急降至50中性偏谨慎，5日Δ=-13。"}, "note": "半导体情绪近10日：49→53→56→58→61→63→58→42→52→50；7/10还债期急降，当前盘前47(中性偏谨慎)。"}, "global": [{"group": "T+0 盘前期货（7/13 09:00）", "rows": [{"name": "富时中国A50期货", "close": "≈15,000+", "chg": 0.44, "tier": "T0", "signal": "偏多", "key": true, "warn": null}, {"name": "纳斯达克100期货 NQ", "close": "29,874.00", "chg": -0.53, "tier": "T0", "signal": "偏空", "key": true, "warn": "⚠️盘前转向(隔夜+0.33%→转跌)"}, {"name": "WTI原油(盘前)", "close": "74.40", "chg": 4.19, "tier": "T0", "signal": "偏多", "key": true, "warn": "⚠️盘前转向(隔夜-0.93%→飙升)"}, {"name": "美元离岸人民币 USDCNH", "close": "6.7731", "chg": -0.26, "tier": "T0", "signal": "中性偏多", "key": false, "warn": null}]}, {"group": "美股（隔夜 7/10 美东收盘）", "rows": [{"name": "纳斯达克100", "close": "29,825.11", "chg": 0.33, "tier": "T1", "signal": "偏多(弱)", "key": true, "warn": null}, {"name": "标普500", "close": "7,575.39", "chg": 0.42, "tier": "T1", "signal": "偏多(弱)", "key": false, "warn": null}, {"name": "费城半导体SOX(代理SMH)", "close": "611.03", "chg": 0.54, "tier": "T2", "signal": "中性偏多", "key": true, "warn": "SOX未直接返回(SMH代理)"}, {"name": "美光 MU", "close": "979.30", "chg": -1.24, "tier": "T1", "signal": "中性偏空", "key": false, "warn": null}, {"name": "闪迪 SNDK", "close": "1,915.92", "chg": 3.1, "tier": "T1", "signal": "偏多", "key": false, "warn": null}]}, {"group": "大宗商品 / 汇率", "rows": [{"name": "WTI原油", "close": "74.40", "chg": 4.19, "tier": "T0", "signal": "偏多", "key": true, "warn": "盘前飙升"}, {"name": "伦敦金", "close": "4,079.50", "chg": -0.83, "tier": "T1", "signal": "中性偏空", "key": false, "warn": null}, {"name": "COMEX铜", "close": "6.250", "chg": -0.52, "tier": "T2", "signal": "中性偏空", "key": false, "warn": null}, {"name": "美元离岸人民币", "close": "6.7731", "chg": -0.26, "tier": "T1", "signal": "中性偏多(RMB强)", "key": false, "warn": null}]}, {"group": "港股 / 港股期货", "rows": [{"name": "恒生指数", "close": "24,175.12", "chg": 0.0, "tier": "T1", "signal": "中性(盘前未开/5日+2.37%)", "key": false, "warn": null}, {"name": "恒生科技", "close": "4,721.66", "chg": 0.0, "tier": "T1", "signal": "中性(盘前未开/5日+3.97%)", "key": false, "warn": null}, {"name": "恒指期货", "close": "24,238.00", "chg": 0.33, "tier": "T1", "signal": "偏多", "key": false, "warn": null}]}, {"group": "海外映射（半导体设备 / 创新药18A / CPO）", "rows": [{"name": "半导体设备ETF SMH", "close": "611.03", "chg": 0.54, "tier": "T1", "signal": "中性偏多", "key": false, "warn": null}, {"name": "港股创新药(18A)板块", "close": "医药生物+2.48%", "chg": 2.48, "tier": "T2", "signal": "偏多", "key": false, "warn": null}, {"name": "中际旭创(CPO)", "close": "1,093.98", "chg": -8.45, "tier": "T1", "signal": "偏空", "key": true, "warn": "7/10重挫"}, {"name": "新易盛(CPO)", "close": "523.05", "chg": -4.12, "tier": "T1", "signal": "偏空", "key": false, "warn": null}]}], "conflicts": [{"level": "red", "title": "半导体「还债期」未止（单日暴跌>3%触发硬风险）", "body": "中证半导7/10 -6.72%、A股半导体(H30184) -6.43%、中际旭创-8.45%；高位放量回撤，自7/1阶段高点大幅回落。", "chain": "半导体涨幅过大(中证半导年内+86%) → 7/10获利盘集中兑现 → 持仓半导体净值回撤 → 重仓方向(65.4%)承压", "impact": "持仓东方AI/东方阿尔法/永赢直接承压；全天禁追高、反弹减仓锁利。"}, {"level": "orange", "title": "纳指期货盘前转向（反向>0.5%）", "body": "NQ期货7/13盘前29,874、-0.53%，而隔夜纳指100 +0.33%，方向相反幅度>0.5%。", "chain": "美股科技开盘偏弱 → 压制A股半导体风险偏好 → 重仓半导体方向承压", "impact": "开盘半导体情绪受外围拖累，弱于A50高开的广谱指引。"}, {"level": "orange", "title": "油价盘前飙升（反向>0.5%，通胀/风险偏好压制）", "body": "WTI盘前74.40、+4.19%，而隔夜约-0.93%；反向幅度>0.5%。", "chain": "油价飙升 → 通胀预期升温 → 美联储转鹰担忧 → 高估值科技中期承压", "impact": "成本端与风险偏好双重压制，全球科技估值波动放大。"}, {"level": "orange", "title": "美股高位杠杆 + 财报季「压力测试」", "body": "杠杆ETF规模近2000亿美元、保证金债务1.42万亿创历史新高；二季度财报季开启，AI龙头盈利验证。", "chain": "杠杆集中科技 → 财报不及预期→机械再平衡放大下跌 → 全球科技连锁波动", "impact": "AI/半导体高位估值波动放大，持仓半导体间接承压。"}], "bulls": [{"strength": "强", "text": "存储超级周期：SK海力士登陆纳斯达克首日+10~13%、DDR5 Q2环比+58~63%、HBM缺口50~60%，半导体设备景气确认。", "target": "半导体设备/存储", "impact": "中线偏多(持仓半导体托底)"}, {"strength": "中", "text": "港股创新药强势：医药生物+2.48%/医疗服务+4.02%，信达20日+22.96%。", "target": "港股创新药(港药019671)", "impact": "港药托底"}, {"strength": "中", "text": "富时A50高开+1%（财联社7/13），A股开盘偏强。", "target": "A股广谱", "impact": "开盘情绪偏积极"}, {"strength": "中", "text": "英伟达市值重返5万亿、纳指/标普屡创新高，趋势动能仍在。", "target": "美股科技", "impact": "外围趋势支撑"}], "bears": [{"strength": "强", "text": "半导体还债期：A股半导体7/10 -6.43%、中际旭创-8.45%，高位回撤未止。", "target": "半导体(持仓65.4%)", "impact": "重仓方向承压"}, {"strength": "强", "text": "盘前双转向：纳指期货-0.53%(隔夜+0.33%) + WTI+4.19%(隔夜-0.93%)，外围风险偏好走弱。", "target": "全球风险资产", "impact": "开盘承压"}, {"strength": "中", "text": "杠杆踩踏暗雷：美股融资成本飙升、杠杆ETF集中科技，财报季波动放大。", "target": "全球科技", "impact": "估值波动放大"}, {"strength": "中", "text": "内部约束：半导体集中度65.4%极高 + 东方阿尔法单仓29.1%逼近30%上限。", "target": "账户结构", "impact": "需降仓分散"}], "holdings": [{"name": "东方人工智能主题混合C", "weight_pct": 27.54, "ret": 13.63, "signal": "半导体/AI，+13.63%有缓冲但板块还债", "action_tag": "减仓", "risk_level": "中", "risk_dist": 0}, {"name": "东方阿尔法科技优选混合C", "weight_pct": 29.1, "ret": 11.95, "signal": "第一大仓逼近30%上限，锁本减仓", "action_tag": "减仓", "risk_level": "中", "risk_dist": 0}, {"name": "永赢先锋半导体智选混合C", "weight_pct": 16.09, "ret": -0.94, "signal": "微亏大敞口，-2%止损减半", "action_tag": "警惕", "risk_level": "低", "risk_dist": 12}, {"name": "广发港股创新药ETF联接C", "weight_pct": 12.05, "ret": -3.75, "signal": "弱势但板块反弹，-5%止损未触", "action_tag": "持有", "risk_level": "中", "risk_dist": 47}, {"name": "鹏华丰诚债券C", "weight_pct": 10.94, "ret": -0.03, "signal": "防御底仓保留", "action_tag": "持有", "risk_level": "低", "risk_dist": 0}, {"name": "财通集成电路产业股票C", "weight_pct": 1.67, "ret": 2.65, "signal": "观察仓，+10%止盈一半", "action_tag": "持有", "risk_level": "低", "risk_dist": 0}, {"name": "财通成长优选混合C", "weight_pct": 1.67, "ret": 2.62, "signal": "观察仓", "action_tag": "持有", "risk_level": "低", "risk_dist": 0}, {"name": "广发纳斯达克100ETF联接C", "weight_pct": 0.77, "ret": -1.06, "signal": "防御底仓，盘前期货转弱", "action_tag": "持有", "risk_level": "低", "risk_dist": 13}, {"name": "天弘中证全指通信设备C", "weight_pct": 0.09, "ret": 5.91, "signal": "迷你观察仓", "action_tag": "持有", "risk_level": "低", "risk_dist": 0}, {"name": "富国中证煤炭C", "weight_pct": 0.04, "ret": -0.11, "signal": "防御底仓(几乎清仓)", "action_tag": "持有", "risk_level": "低", "risk_dist": 1}, {"name": "嘉实中证主要消费C", "weight_pct": 0.03, "ret": 0.02, "signal": "防御底仓(几乎清仓)", "action_tag": "持有", "risk_level": "低", "risk_dist": 0}], "holdings_constraint": "总仓87.9%≤90%✅ · 单仓东方阿尔法29.1%逼近30%上限⚠️ · 半导体集中度65.4%极高🔴 · 全天禁净买入 · 反弹减仓锁利", "earnings": [{"name": "美光 MU", "dynamic": "7/10 -1.24%（YTD+243%），存储涨价周期受益但高位波动", "impact": "持仓半导体情绪锚，存储映射偏多"}, {"name": "闪迪 SNDK", "dynamic": "7/10 +3.10%（YTD+707%），存储龙头强势", "impact": "存储映射偏多"}, {"name": "SK海力士", "dynamic": "纳斯达克首日+10~13%，募资265亿美元", "impact": "存储/设备利好"}, {"name": "英伟达", "dynamic": "市值重返5万亿，CEO访华提振", "impact": "AI算力中枢"}], "tech": [{"index": "中证半导 931865", "close": "10,613.29", "chg": -6.72, "ma20": "9,873.89", "ma60": "7,901.32", "macd": "MACD柱 -39.54（DIFF 750.90 / DEA 770.67，柱状转负）", "kdj": "K48.11 D50.71 J42.91", "interpret": "7/10放量大跌-6.72%击穿MA20(9874)但未破MA60(7901)；5/14→7/10区间+45.56%，高位「还债期」量能放大(成交2409亿)。短线超跌未企稳，关注MA20收复。持仓东方AI/东方阿尔法/永赢锚定。", "kline": {"dates": ["2026-07-08", "2026-07-09", "2026-07-10"], "ohlc": [[10242.08, 10375.77, 10708.48, 9873.85], [10578.32, 11377.82, 11392.59, 10390.39], [11407.91, 10613.29, 11744.19, 10613.29]], "ma20": [null, null, 9873.887], "ma60": [null, null, 7901.317]}}, {"index": "人工智能 931071", "close": "3,211.93", "chg": -2.66, "ma20": "3,168.17", "ma60": "2,945.28", "macd": "MACD柱 -27.62（DIFF 59.10 / DEA 72.91，转负）", "kdj": "K38.22 D37.02 J40.60", "interpret": "7/10 -2.66%相对半导体抗跌，仍在MA20(3168)附近；AI应用端韧性较强。区间+9.74%。持仓东方AI(017811)直接锚定，弱于半导体材料设备方向。", "kline": {"dates": ["2026-07-08", "2026-07-09", "2026-07-10"], "ohlc": [[3137.09, 3103.16, 3197.43, 3062.13], [3150.02, 3299.58, 3305.14, 3113.08], [3339.07, 3211.93, 3423.09, 3211.93]], "ma20": [null, null, 3168.169], "ma60": [null, null, 2945.284]}}, {"index": "半导体ETF 512480", "close": "1.369", "chg": -6.93, "ma20": "2.222", "ma60": "0.000", "macd": "随价回落，高位放量分歧（换手14.1%/成交368亿）", "kdj": "高位死叉回落", "interpret": "7/10 -6.93%放量大跌，自7/1高点3.005大幅回撤（区间自4/28 +约-21%）。还债期量能放大分歧。持仓关联财通集成(006503)/天弘通信(020900)观察仓。", "kline": {"dates": ["2026-04-28", "2026-04-29", "2026-04-30", "2026-05-06", "2026-05-07", "2026-05-08", "2026-05-11", "2026-05-12", "2026-05-13", "2026-05-14", "2026-05-15", "2026-05-18", "2026-05-19", "2026-05-20", "2026-05-21", "2026-05-22", "2026-05-25", "2026-05-26", "2026-05-27", "2026-05-28", "2026-05-29", "2026-06-01", "2026-06-02", "2026-06-03", "2026-06-04", "2026-06-05", "2026-06-08", "2026-06-09", "2026-06-10", "2026-06-11", "2026-06-12", "2026-06-15", "2026-06-16", "2026-06-17", "2026-06-18", "2026-06-22", "2026-06-23", "2026-06-24", "2026-06-25", "2026-06-26", "2026-06-29", "2026-06-30", "2026-07-01", "2026-07-02", "2026-07-03", "2026-07-06", "2026-07-07", "2026-07-08", "2026-07-09", "2026-07-10"], "ohlc": [[1.745, 1.735, 1.723, 1.782], [1.713, 1.732, 1.678, 1.735], [1.751, 1.817, 1.747, 1.829], [1.893, 1.913, 1.89, 1.983], [1.93, 1.949, 1.903, 1.955], [1.908, 1.902, 1.879, 1.918], [1.956, 2.018, 1.946, 2.032], [2.01, 2.025, 1.976, 2.05], [1.979, 2.088, 1.96, 2.091], [2.105, 2.043, 2.041, 2.121], [2.034, 2.035, 1.982, 2.124], [2.035, 2.058, 2.029, 2.111], [2.031, 2.131, 1.992, 2.132], [2.118, 2.227, 2.116, 2.228], [2.266, 2.132, 2.121, 2.298], [2.146, 2.189, 2.113, 2.194], [2.191, 2.348, 2.165, 2.35], [2.344, 2.321, 2.247, 2.344], [2.329, 2.265, 2.253, 2.379], [2.229, 2.294, 2.229, 2.308], [2.297, 2.16, 2.135, 2.305], [2.153, 2.046, 2.043, 2.17], [2.047, 2.08, 2.017, 2.112], [2.085, 2.15, 2.085, 2.205], [2.11, 2.193, 2.11, 2.21], [2.15, 2.091, 2.077, 2.182], [1.986, 1.995, 1.975, 2.053], [2.048, 2.109, 2.019, 2.113], [2.077, 2.1, 2.07, 2.171], [2.082, 2.13, 2.082, 2.145], [2.217, 2.106, 2.093, 2.223], [2.136, 2.231, 2.083, 2.232], [2.237, 2.254, 2.218, 2.268], [2.222, 2.387, 2.2, 2.389], [2.384, 2.481, 2.377, 2.507], [2.512, 2.552, 2.449, 2.56], [2.53, 2.512, 2.47, 2.598], [2.471, 2.652, 2.47, 2.654], [2.7, 2.774, 2.675, 2.775], [2.73, 2.747, 2.67, 2.811], [2.762, 2.909, 2.7, 2.912], [2.909, 3.005, 2.838, 3.011], [3.005, 2.943, 2.9, 3.113], [2.8, 2.7, 2.67, 2.867], [1.322, 1.331, 1.303, 1.383], [1.36, 1.334, 1.277, 1.367], [1.31, 1.336, 1.299, 1.365], [1.342, 1.339, 1.29, 1.389], [1.362, 1.471, 1.346, 1.473], [1.487, 1.369, 1.366, 1.512]], "ma20": [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, 2.0611, 2.0823, 2.098, 2.1112, 2.1231, 2.1353, 2.1447, 2.1436, 2.1477, 2.1483, 2.1527, 2.1562, 2.1649, 2.1711, 2.1791, 2.1965, 2.2146, 2.2229, 2.2394, 2.2649, 2.2875, 2.325, 2.3729, 2.416, 2.4436, 2.4005, 2.3626, 2.3296, 2.2912, 2.2597, 2.2216], "ma60": [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null]}}, {"index": "纳斯达克100 .NDX", "close": "29,825.11", "chg": 0.33, "ma20": "—", "ma60": "—", "macd": "高位多头（美东7/10）", "kdj": "强势区", "interpret": "7/10 +0.33%新高附近，区间+2.62%；但盘前期货NQ -0.53%已转向。持仓广发纳指100联接(270042,权重0.77%)。", "kline": {"dates": ["2026-07-08", "2026-07-09", "2026-07-10"], "ohlc": [[29030.33, 29252.56, 29280.58, 28814.57], [29486.61, 29727.1, 29773.74, 29398.47], [29618.34, 29825.11, 29856.94, 29484.49]], "ma20": [null, null, null], "ma60": [null, null, null]}}, {"index": "恒生科技 HSTECH", "close": "4,721.66", "chg": 0.0, "ma20": "4,559.94", "ma60": "4,817.82", "macd": "MACD -41.96（负值收窄，修复中）", "kdj": "K75.70 D67.98 J91.14（偏强）", "interpret": "7/10收盘4721.66，5日+3.97%反弹；技术面MACD负值收窄、KDJ偏强。neodata未返回日K OHLC（海外留空）。持仓港药(019671)间接关联。", "kline": {"dates": [], "ohlc": [], "ma20": [], "ma60": []}}], "events": [{"time": "09:15", "event": "富时A50高开+1%，A股开盘偏强", "impact": "广谱情绪正面，但半导体受外围拖累"}, {"time": "09:30", "event": "A股开盘，重点看半导体能否止跌（中证半导7/10 -6.72%）", "impact": "决定重仓方向日内基调"}, {"time": "21:30", "event": "美股开盘（纳指期货-0.53%指引偏弱）", "impact": "外围科技方向验证"}, {"time": "全天", "event": "关注油价/霍尔木兹局势、美股财报季开启", "impact": "通胀与估值波动源"}], "credibility": [{"item": "neodata 实时(T0/T1/T2)：NQ/WTI/USDCNH/纳指/标普/SMH/美光/闪迪/黄金/铜/恒指/恒科/中际/新易盛/信达/康方/药明", "note": "code 200，多源一致", "status": "ok"}, {"item": "A50期货(财联社7/13)", "note": "高开+1%，与东方财富/新交所交叉", "status": "ok"}, {"item": "中证半导931865/人工智能931071 K线", "note": "neodata中段省略(⚠️ T2 待验证)", "status": "warn"}, {"item": "半导体ETF512480 K线", "note": "neodata全日~52日✅", "status": "ok"}, {"item": "纳指100 K线", "note": "neodata仅首尾3日(⚠️ 中段省略)", "status": "warn"}, {"item": "恒生科技 K线", "note": "neodata未返回OHLC(按规范留空)", "status": "warn"}, {"item": "SOX费城半导体", "note": "neodata返回A股半导体H30184代理(⚠️ 待验证)", "status": "warn"}], "disclaimer": "⚠️ 本分析仅供参考，不构成投资建议。数据来源 neodata(T0/T1/T2) + 财联社/东方财富交叉验证；T+0期货为盘前实时，A股尚未开盘。"};
+const DARK = {bg:'transparent', tx:'#e6edf3', mut:'#8b98a9', up:'#f5564d', down:'#26c281', acc:'#4aa8ff', neu:'#d9a441'};
+function initCharts(){
+  try{
+    // ① 全球涨跌幅分组条形图（每组独立图表，防止堆叠）
+    if(document.getElementById('chgBar_0')){
+      const groups = (REPORT.global||[]);
+      const gColors = ['#4aa8ff','#26c281','#d9a441','#a78bfa','#f472b6','#22d3ee','#fb923c','#94a3b8'];
+      groups.forEach((g, gi)=>{
+        const canvas = document.getElementById('chgBar_'+gi);
+        if(!canvas) return;
+        const rows = g.rows||[];
+        if(!rows.length) return;
+        const names = rows.map(r=>r.name);
+        const vals = rows.map(r=>r.chg||0);
+        const c = echarts.init(canvas, null, {renderer:'canvas'});
+        c.setOption({
+          backgroundColor:'transparent',
+          grid:{left:155,right:50,top:4,bottom:4},
+          tooltip:{trigger:'axis',axisPointer:{type:'shadow'},
+            formatter:function(p){const d=p[0];return d.name+'<br/>涨跌: '+d.value.toFixed(2)+'%';}},
+          xAxis:{type:'value',axisLabel:{color:DARK.mut,formatter:'{value}%'},splitLine:{lineStyle:{color:'#222b36'}}},
+          yAxis:{type:'category',data:names.slice().reverse(),
+            axisLabel:{color:DARK.tx,fontSize:10.5,width:150,overflow:'none',interval:0},
+            axisLine:{lineStyle:{color:'#2a3340'}},axisTick:{show:false}},
+          series:[{type:'bar',data:vals.slice().reverse().map(v=>({value:v,
+            itemStyle:{color:v>0?DARK.up:(v<0?DARK.down:DARK.neu)}})),
+            barCategoryGap:'30%',
+            label:{show:true,position:'right',color:DARK.tx,fontSize:10,distance:5,formatter:'{c}%'}}]
+        });
+      });
+    }
+    // ①b 关键标的分时走势（从 tech[].kline 提取近10日收盘价折线）
+    if(document.getElementById('trendBar')){
+      const techArr = (REPORT.tech||[]);
+      let trendIdx = 0;
+      techArr.forEach(t=>{
+        if(!t.kline || !t.kline.dates || t.kline.dates.length===0) return;
+        const el = document.getElementById('trend_'+trendIdx);
+        if(!el) return;
+        const closes = t.kline.ohlc.map(d=>d[1]);
+        const dates = t.kline.dates;
+        if(closes.length < 2) return;
+        const ct = echarts.init(el, null, {renderer:'canvas'});
+        ct.setOption({
+          backgroundColor:'transparent',
+          grid:{left:36,right:8,top:8,bottom:18},
+          tooltip:{trigger:'axis',formatter:'{b}<br/>收盘: {c}'},
+          xAxis:{type:'category',data:dates.slice(-10),axisLabel:{color:DARK.mut,fontSize:8,rotate:30},axisLine:{lineStyle:{color:'#2a3340'}}},
+          yAxis:{type:'value',scale:true,axisLabel:{color:DARK.mut,fontSize:8},splitLine:{lineStyle:{color:'#222b36'}}},
+          series:[{type:'line',data:closes.slice(-10),smooth:true,symbol:'circle',symbolSize:4,
+            lineStyle:{color:DARK.acc,width:1.5},itemStyle:{color:DARK.acc},
+            areaStyle:{color:{type:'linear',x:0,y:0,x2:0,y2:1,
+              colorStops:[{offset:0,color:'rgba(74,168,255,.2)'},{offset:1,color:'rgba(74,168,255,.01)'}]}}}]
+        });
+        trendIdx++;
+      });
+    }
+    // 持仓关联指数趋势图（htrend_0/1/2）
+    if(document.getElementById('htrend_0')){
+      const techArr2 = (REPORT.tech||[]);
+      // 匹配：中证半导、人工智能、恒生科技/港股创新药
+      const hTargets = ['中证半导','931865','人工智能','931071','恒生科技','港股','创新药'];
+      const hMatched = [null,null,null]; // [中证半导, 人工智能, 恒生科技]
+      techArr2.forEach(t=>{
+        const idx = t.index||'';
+        if(!t.kline || !t.kline.dates || t.kline.dates.length===0) return;
+        if(idx.includes('中证半导')||idx.includes('931865')) hMatched[0] = t;
+        if(idx.includes('人工智能')||idx.includes('931071')) hMatched[1] = t;
+        if(idx.includes('恒生科技')||idx.includes('创新药')) hMatched[2] = t;
+      });
+      hMatched.forEach((t,i)=>{
+        const el = document.getElementById('htrend_'+i);
+        if(!el || !t) return;
+        const closes = t.kline.ohlc.map(d=>d[1]);
+        const ct = echarts.init(el, null, {renderer:'canvas'});
+        ct.setOption({
+          backgroundColor:'transparent',
+          grid:{left:36,right:8,top:4,bottom:16},
+          tooltip:{trigger:'axis'},
+          xAxis:{type:'category',data:(t.kline.dates||[]).slice(-10),axisLabel:{color:DARK.mut,fontSize:8,rotate:30},axisLine:{lineStyle:{color:'#2a3340'}}},
+          yAxis:{type:'value',scale:true,axisLabel:{color:DARK.mut,fontSize:8},splitLine:{lineStyle:{color:'#222b36'}}},
+          series:[{type:'line',data:closes.slice(-10),smooth:true,symbol:'circle',symbolSize:4,
+            lineStyle:{color:DARK.acc,width:1.5},itemStyle:{color:DARK.acc},
+            areaStyle:{color:{type:'linear',x:0,y:0,x2:0,y2:1,colorStops:[{offset:0,color:'rgba(74,168,255,.25)'},{offset:1,color:'rgba(74,168,255,.01)'}]}}}]
+        });
+      });
+    }
+    if(document.getElementById('trendBar')){
+      const techArr = (REPORT.tech||[]);
+      let trendIdx = 0;
+      techArr.forEach(t=>{
+        if(!t.kline || !t.kline.dates || t.kline.dates.length===0) return;
+        const el = document.getElementById('trend_'+trendIdx);
+        if(!el) return;
+        const closes = t.kline.ohlc.map(d=>d[1]);
+        const dates = t.kline.dates;
+        if(closes.length < 2) return;
+        const ct = echarts.init(el, null, {renderer:'canvas'});
+        ct.setOption({
+          backgroundColor:'transparent',
+          grid:{left:36,right:8,top:8,bottom:18},
+          tooltip:{trigger:'axis',formatter:'{b}<br/>收盘: {c}'},
+          xAxis:{type:'category',data:dates.slice(-10),axisLabel:{color:DARK.mut,fontSize:8,rotate:30},axisLine:{lineStyle:{color:'#2a3340'}}},
+          yAxis:{type:'value',scale:true,axisLabel:{color:DARK.mut,fontSize:8},splitLine:{lineStyle:{color:'#222b36'}}},
+          series:[{type:'line',data:closes.slice(-10),smooth:true,symbol:'circle',symbolSize:4,
+            lineStyle:{color:DARK.acc,width:1.5},itemStyle:{color:DARK.acc},
+            areaStyle:{color:{type:'linear',x:0,y:0,x2:0,y2:1,
+              colorStops:[{offset:0,color:'rgba(74,168,255,.2)'},{offset:1,color:'rgba(74,168,255,.01)'}]}}}]
+        });
+        trendIdx++;
+      });
+    }
+    // ② 仓位环形图
+    if(document.getElementById('posPie')){
+      const hs = (REPORT.holdings||[]).filter(h=>h.weight_pct);
+      if(hs.length){
+        const c = echarts.init(document.getElementById('posPie'), null, {renderer:'canvas'});
+        c.setOption({
+          backgroundColor:'transparent',
+          tooltip:{trigger:'item',formatter:'{b}: {c}% ({d}%)'},
+          legend:{show:true,bottom:0,textStyle:{color:DARK.mut,fontSize:10},type:'scroll'},
+          series:[{type:'pie',radius:['42%','70%'],center:['50%','46%'],
+            data:hs.map(h=>({name:h.name,value:h.weight_pct})),
+            label:{color:DARK.tx,fontSize:11,formatter:'{b}\n{c}%'},
+            itemStyle:{borderColor:'#0e1117',borderWidth:2},
+            color:['#4aa8ff','#f5564d','#26c281','#d9a441','#a78bfa','#f472b6','#22d3ee','#fb923c','#94a3b8']
+          }]
+        });
+      }
+    }
+    // ③ 情绪趋势折线图（近10日，替代原仪表盘）
+    if(document.getElementById('sentTrend')){
+      const st = (REPORT.sentiment||{}).semiconductor_trend;
+      const trend_dates = (st||{}).dates || [];
+      const trend_vals = (st||{}).values || [];
+      const current = (REPORT.sentiment||{}).semiconductor;
+      if(trend_dates.length){
+        const ct = echarts.init(document.getElementById('sentTrend'), null, {renderer:'canvas'});
+        ct.setOption({
+          backgroundColor:'transparent',
+          grid:{left:40,right:16,top:10,bottom:20},
+          tooltip:{trigger:'axis',formatter:'{b}<br/>情绪分: {c}'},
+          xAxis:{type:'category',data:trend_dates,axisLabel:{color:DARK.mut,fontSize:9},axisLine:{lineStyle:{color:'#2a3340'}}},
+          yAxis:{type:'value',min:0,max:100,axisLabel:{color:DARK.mut,fontSize:9},splitLine:{lineStyle:{color:'#222b36'}}},
+          series:[{type:'line',data:trend_vals,smooth:true,
+            lineStyle:{color:DARK.acc,width:2},itemStyle:{color:DARK.acc},
+            areaStyle:{color:{type:'linear',x:0,y:0,x2:0,y2:1,
+              colorStops:[{offset:0,color:'rgba(74,168,255,.3)'},{offset:1,color:'rgba(74,168,255,.02)'}]}},
+            markLine:{silent:true,symbol:'none',
+              data:[{yAxis:20,label:{formatter:'恐惧 20',color:DARK.down,fontSize:9},lineStyle:{color:DARK.down,type:'dashed'}},
+                    {yAxis:80,label:{formatter:'贪婪 80',color:DARK.up,fontSize:9},lineStyle:{color:DARK.up,type:'dashed'}}]}
+          }]
+        });
+        // 底部5日Δ标签
+        if(trend_vals.length>=5){
+          const d5 = trend_vals[trend_vals.length-1] - trend_vals[trend_vals.length-5];
+          const el = document.querySelector('.gauge-cap');
+          if(el){ el.innerHTML = '半导体情绪 近10日趋势 · 5日Δ=<span style="color:'+(d5<0?DARK.down:DARK.up)+';font-weight:700">'+(d5>0?'+':'')+d5.toFixed(0)+'</span>'+(d5<-10?'⚠️ 加速恐慌':(d5>10?' 🔥 情绪过热':'')); }
+        }
+      }
+    }
+    // ④ 日K线 + 月K线（技术面，每个持仓关联指数）
+    if(REPORT.tech && REPORT.tech.length){
+      REPORT.tech.forEach(t => {
+        const kline = t.kline;
+        if(!kline || !kline.dates || !kline.ohlc || !kline.dates.length) return;
+        const cid = (t.index||"").replace(/[^a-zA-Z0-9]/g, '_');
+        const dates = kline.dates;
+        const ohlc = kline.ohlc;
+        
+        // 日K（最近60日）+ MA20/MA60 overlay
+        const dEl = document.getElementById('kx_'+cid);
+        if(dEl){
+          const dDates = dates.slice(-60);
+          const dOhlc = ohlc.slice(-60);
+          const ma20 = (kline.ma20||[]).slice(-60);
+          const ma60 = (kline.ma60||[]).slice(-60);
+          const c = echarts.init(dEl, null, {renderer:'canvas'});
+          const series = [{type:'candlestick',name:'日K',data:dOhlc,
+            itemStyle:{color:DARK.up,color0:DARK.down,borderColor:DARK.up,borderColor0:DARK.down}}];
+          if(ma20.length) series.push({type:'line',name:'MA20',data:ma20,smooth:false,
+            lineStyle:{color:'#d9a441',width:1},symbol:'none'});
+          if(ma60.length) series.push({type:'line',name:'MA60',data:ma60,smooth:false,
+            lineStyle:{color:'#4aa8ff',width:1},symbol:'none'});
+          c.setOption({
+            backgroundColor:'transparent',
+            grid:{left:48,right:16,top:10,bottom:24},
+            tooltip:{trigger:'axis',axisPointer:{type:'cross'},
+              formatter:function(p){const d=p[0];if(!d)return'';const o=d.data;return d.name+'<br/>开:'+o[0]+' 收:'+o[1]+'<br/>低:'+o[2]+' 高:'+o[3];}},
+            legend:{show:true,top:0,textStyle:{color:DARK.mut,fontSize:9}},
+            xAxis:{type:'category',data:dDates,axisLabel:{color:DARK.mut,fontSize:8},axisLine:{lineStyle:{color:'#2a3340'}}},
+            yAxis:{type:'value',scale:true,axisLabel:{color:DARK.mut,fontSize:9},splitLine:{lineStyle:{color:'#222b36'}}},
+            series:series
+          });
+        }
+        
+        // 月K聚合（从全部日K数据按月份分组）
+        const months={};
+        dates.forEach((d,i)=>{
+          const m=d.substring(0,7);
+          const c=ohlc[i];
+          if(!months[m]){months[m]={open:c[0],close:c[1],low:c[2],high:c[3]};}
+          else{months[m].close=c[1];months[m].low=Math.min(months[m].low,c[2]);months[m].high=Math.max(months[m].high,c[3]);}
+        });
+        const mKeys=Object.keys(months).sort();
+        const mDates=mKeys.slice(-12);
+        const mData=mDates.map(m=>[months[m].open,months[m].close,months[m].low,months[m].high]);
+        
+        const mEl = document.getElementById('km_'+cid);
+        if(mEl){
+          const c = echarts.init(mEl, null, {renderer:'canvas'});
+          c.setOption({
+            backgroundColor:'transparent',
+            grid:{left:48,right:16,top:10,bottom:24},
+            tooltip:{trigger:'axis',axisPointer:{type:'cross'},
+              formatter:function(p){const d=p[0];if(!d)return'';const o=d.data;return d.name+'<br/>开:'+o[0].toFixed(2)+' 收:'+o[1].toFixed(2)+'<br/>低:'+o[2].toFixed(2)+' 高:'+o[3].toFixed(2);}},
+            xAxis:{type:'category',data:mDates,axisLabel:{color:DARK.mut,fontSize:8},axisLine:{lineStyle:{color:'#2a3340'}}},
+            yAxis:{type:'value',scale:true,axisLabel:{color:DARK.mut,fontSize:9},splitLine:{lineStyle:{color:'#222b36'}}},
+            series:[{type:'candlestick',name:'月K',data:mData,
+              itemStyle:{color:DARK.up,color0:DARK.down,borderColor:DARK.up,borderColor0:DARK.down}}]
+          });
+        }
+      });
+    }
+  }catch(e){ console.error('chart error', e); }
+}
+window.addEventListener('load', initCharts);
+</script>
+</body>
+</html>
