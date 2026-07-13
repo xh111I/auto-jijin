@@ -595,6 +595,137 @@ def render_plan_html(wl, date):
                       '<div class="sub">基于当前持仓策略配置 · 生成 __DATE__ · 阶梯止盈锁本 + 三元调仓框架 · 仅供参考不构成投资建议</div>'))
     return head + intro + body + SCRIPT.replace("__DATA__", "{}")
 
+# ============================================================
+# v2 新渲染函数：3秒决策 + 10秒执行 + 次日预案
+# ============================================================
+
+def render_decision_header(instr):
+    """首屏决策核心区 — 3栏卡片：今日场景 / 唯一主动操作 / 风控红线"""
+    if not instr:
+        return ""
+    scene = instr.get("tail_scenario") or "—"
+    scene_detail = instr.get("scene_detail") or ""
+    active = instr.get("active_action") or "（无主动操作）"
+    active_detail = instr.get("active_detail") or ""
+    risks = instr.get("risk_rules") or []
+    risk_items = "".join('<li>🚫 %s</li>' % esc(r) for r in risks[:3])
+    scene_cls = "green" if "偏多" in scene else ("red" if "减仓" in active or "跳水" in scene else "orange")
+    return f'''
+<section id="dechead" class="decision-header">
+  <div class="panel-box de-scene">
+    <div class="de-label">今日场景</div>
+    <div class="de-scene-tag {scene_cls}">{tip(scene)}</div>
+    <div class="de-detail">{tip(scene_detail)}</div>
+  </div>
+  <div class="panel-box de-action">
+    <div class="de-label">唯一主动操作</div>
+    <div class="de-action-main">{tip(active)}</div>
+    <div class="de-detail">{tip(active_detail)}</div>
+  </div>
+  <div class="panel-box de-risk">
+    <div class="de-label">核心风控红线</div>
+    <ul>{risk_items}</ul>
+  </div>
+</section>'''
+
+def render_index_scroll(kpis):
+    """核心指数速览 — 横向滚动标签"""
+    if not kpis:
+        return ""
+    items = ""
+    for k in kpis:
+        name = esc(k.get("label", ""))
+        val = esc(k.get("value", ""))
+        cls = k.get("cls", "neu")
+        items += '<div class="ix-item"><div class="ix-name">%s</div><div class="ix-val %s">%s</div></div>' % (name, cls, val)
+    return f'''
+<section id="indices" class="card">
+  <div class="ix-head"><h2>📈 核心指数速览</h2><span class="badge">尾盘收盘前 10 秒定操作</span></div>
+  <div class="ix-scroll">{items}</div>
+</section>'''
+
+def render_holdings_table(hs):
+    """持仓操作总表 — 极简 4 列，点击展开详情"""
+    if not hs:
+        return ""
+    rows = ""
+    hs_sorted = sorted(hs, key=lambda h: -(num(h.get("weight_pct")) or 0))
+    idx = 0
+    for h in hs_sorted:
+        name = tip(h.get("name", ""))
+        w = num(h.get("weight_pct"))
+        w_html = ("%.2f%%" % w) if w is not None else "—"
+        ret = num(h.get("hold_return_pct"))
+        ret_cls = pcls(ret) if ret is not None else "neu"
+        ret_html = ("%+.2f%%" % ret) if ret is not None else "—"
+        instr = h.get("instruction") or "HOLD"
+        ocls = op_cls(instr)
+        ow = h.get("overweight")
+        detail = h.get("logic") or ""
+        if w and w >= 2.0:
+            # 主基金：点击行展开详情
+            # 收集详情数据
+            ts = h.get("tech_score") or {}
+            comp = ts.get("composite")
+            tlevel = ts.get("level") or "—"
+            comp_html = ("%s <span class='%s'>%s</span>" % (esc(comp), tech_cls(tlevel), esc(tlevel))) if comp else "—"
+            mf = h.get("main_force") or {}
+            mf_q = mf.get("qualitative") or "—"
+            mf_qcls = mf_cls(mf_q)
+            mf_net = mf.get("net_inflow")
+            mf_net_html = ("%s亿" % esc(mf_net)) if mf_net is not None else "—"
+            stop = num(h.get("stop_loss_pct"))
+            buf_html = "—"
+            if ret is not None and stop is not None:
+                buf = ret - stop
+                buf_html = "距 -8%% 还有 <b>%.2f%%</b>" % buf
+                if buf < 3:
+                    buf_html = '<span style="color:var(--neu);font-weight:700">⚠ 距止损仅 <b>%.2f%%</b></span>' % buf
+            logic = tip(detail)
+            rows += ('<tr class="ht-main" onclick="toggleHtDetail(%d)" data-idx="%d">'
+                     '<td class="ht-name">%s</td>'
+                     '<td class="ht-w%s">%s</td>'
+                     '<td class="ht-ret %s">%s</td>'
+                     '<td><span class="op-tag %s">%s</span><span class="ht-expand">▼</span></td></tr>'
+                     '<tr class="ht-detail" id="htd_%d" style="display:none">'
+                     '<td colspan="4"><div class="htd-grid">'
+                     '<div class="htd-col"><div class="htd-h">五维评分</div><div class="htd-v">%s</div></div>'
+                     '<div class="htd-col"><div class="htd-h">主力研判</div><div class="htd-v">%s · %s</div></div>'
+                     '<div class="htd-col"><div class="htd-h">距止损</div><div class="htd-v">%s</div></div>'
+                     '</div><div class="htd-logic">%s</div></td></tr>') % (
+                idx, idx, name, (" ow" if ow else ""), w_html, ret_cls, ret_html,
+                ocls, tip(instr), idx,
+                comp_html, esc(mf_q), mf_net_html, buf_html, logic)
+            idx += 1
+        else:
+            rows += '<tr class="ht-minor"><td colspan="4" class="ht-minor-td">%s · %.2f%% · %s</td></tr>' % (name, w, instr)
+    return f'''
+<section id="holdings" class="card">
+  <h2>📋 今日持仓操作指令 <span class="badge">点击展开详情</span></h2>
+  <table class="ht">
+    <thead><tr><th>基金名称</th><th>仓位</th><th>持有收益</th><th>今日指令</th></tr></thead>
+    <tbody>{rows}</tbody>
+  </table>
+</section>'''
+
+def render_outlook(data):
+    """次日观察预案 — 小板块，形成闭环"""
+    outlook = (data.get("instruction") or {}).get("next_day") or {}
+    if not outlook:
+        return ""
+    points = outlook.get("watch_points") or []
+    pts = "".join('<li>%s</li>' % tip(p) for p in points)
+    plans = outlook.get("plans") or []
+    pls = "".join('<li>%s</li>' % tip(p) for p in plans)
+    return f'''
+<details id="outlook" class="card">
+  <summary>📅 次日观察预案 <span class="badge">闭环：预案→执行→验证</span></summary>
+  <div class="ol-body">
+    <div class="ol-section"><b>次日核心观察点：</b><ul>{pts}</ul></div>
+    <div class="ol-section"><b>预案：</b><ul>{pls}</ul></div>
+  </div>
+</details>'''
+
 # ---------- 静态 HEAD（深色配色板，与早报/午报/晚报/大盘研判统一） ----------
 HEAD = """<!DOCTYPE html>
 <html lang="zh-CN">
@@ -786,6 +917,61 @@ details.card[open] summary{margin-bottom:10px;border-bottom:1px solid var(--line
   details.card:not([open]){display:block}details.card summary{margin-bottom:8px}
   *{color:#111!important;border-color:#ccc!important}
 }
+/* === v2 优化：决策三栏 + 指数滚动 + 简化持仓表 === */
+html{scroll-padding-top:72px}
+body{padding-top:4px}
+.decision-header{display:grid;grid-template-columns:1fr 1.2fr 1fr;gap:10px;margin-bottom:12px}
+.panel-box{padding:14px;border-radius:10px;background:var(--card);border:1px solid var(--line)}
+.de-label{font-size:12px;color:var(--mut);margin-bottom:6px;font-weight:600;text-transform:uppercase;letter-spacing:.5px}
+.de-scene-tag{display:inline-block;padding:4px 12px;border-radius:20px;font-weight:700;font-size:14px;margin-bottom:6px}
+.de-scene-tag.red{background:rgba(245,86,77,.18);color:var(--up)}
+.de-scene-tag.orange{background:rgba(217,164,65,.18);color:var(--neu)}
+.de-scene-tag.green{background:rgba(38,194,129,.16);color:var(--down)}
+.de-action-main{font-size:17px;font-weight:800;color:var(--neu);margin:4px 0;line-height:1.4}
+.de-detail{font-size:12.5px;color:var(--mut);line-height:1.5;margin-top:2px}
+.de-risk ul{list-style:none;padding:0;margin:4px 0 0;font-size:13px;line-height:1.8;color:var(--mut)}
+.de-risk ul li:first-child{color:var(--up);font-weight:700}
+.de-action{border-left:3px solid var(--neu)}
+.de-scene{border-left:3px solid var(--up)}
+.de-risk{border-left:3px solid #f5564d}
+/* 指数横向滚动 */
+.ix-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.ix-scroll{display:flex;gap:10px;overflow-x:auto;padding-bottom:4px;scrollbar-width:none}
+.ix-scroll::-webkit-scrollbar{display:none}
+.ix-item{flex-shrink:0;background:var(--bg2);padding:8px 14px;border-radius:8px;min-width:80px;text-align:center;border:1px solid var(--line)}
+.ix-name{font-size:11.5px;color:var(--mut);margin-bottom:2px}
+.ix-val{font-size:17px;font-weight:800}
+/* 持仓简化表 */
+.ht{width:100%;border-collapse:collapse;font-size:13.5px}
+.ht th,.ht td{padding:8px 6px;text-align:left;border-bottom:1px solid var(--line)}
+.ht th{color:var(--mut);font-weight:400;font-size:12px}
+.ht-name{font-weight:600}
+.ht-w{color:var(--acc);font-weight:700}
+.ht-w.ow{color:var(--up);font-weight:800}
+.ht-ret{font-weight:600}
+.ht .op-tag{font-size:11px;padding:2px 10px;border-radius:12px;font-weight:700}
+.ht-detail{font-size:11px;color:var(--mut);margin-top:2px;line-height:1.4}
+.ht-minor td{font-size:12px;color:var(--mut);padding:4px 6px}
+.ht-minor-td{opacity:.7}
+/* 持仓表行展开详情 */
+.ht-main{cursor:pointer}.ht-main:hover{background:rgba(74,168,255,.06)}
+.ht-expand{margin-left:6px;font-size:10px;color:var(--mut);transition:transform .2s}
+.ht-detail td{padding:10px 12px;background:var(--bg2);border-bottom:2px solid var(--line)}
+.htd-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:8px}
+.htd-col{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:8px 10px}
+.htd-h{font-size:11px;color:var(--mut);margin-bottom:4px;font-weight:700}
+.htd-v{font-size:12.5px;line-height:1.5}.htd-v b{color:var(--neu)}
+.htd-logic{font-size:12px;color:#aab4c0;line-height:1.5;padding:8px 10px;background:rgba(0,0,0,.15);border-radius:8px}
+/* 次日预案 */
+.ol-body{padding:0 4px}
+.ol-section{margin:8px 0}
+.ol-section ul{margin:4px 0;padding-left:18px;font-size:12.5px;line-height:1.6;color:#cdd7e2}
+.ol-section li{margin:3px 0}
+@media (max-width:680px){
+  .decision-header{grid-template-columns:1fr}
+  .ix-item{min-width:64px;padding:6px 10px}.ix-val{font-size:15px}
+  .ht{font-size:12px}.ht th,.ht td{padding:5px 4px}
+}
 </style>
 </head>
 <body>
@@ -870,6 +1056,16 @@ function initKlines(){
   }catch(e){ console.error('kline error', e); }
 }
 window.addEventListener('load', initKlines);
+// 持仓表行展开
+function toggleHtDetail(idx){
+  var row=document.getElementById('htd_'+idx);
+  var trigger=document.querySelector('.ht-main[data-idx="'+idx+'"] .ht-expand');
+  if(!row||!trigger)return;
+  var vis=row.style.display;
+  row.style.display=vis==='none'?'':'none';
+  trigger.textContent=vis==='none'?'▲':'▼';
+  trigger.style.color=vis==='none'?'var(--acc)':'var(--mut)';
+}
 </script>
 </body>
 </html>
@@ -909,17 +1105,25 @@ def main():
     prev = yesterdate(date)
     wl = load_wl()
 
-    body = (render_cmd_bar(data.get("instruction"), date) +
-            render_tail_window(wl, data) +
-            render_core_kpis((data.get("position") or {}).get("index_kpis")) +
-            render_holdings((data.get("position") or {}).get("holdings")) +
+    body = (
+            # === 首屏：3秒定调 ===
+            render_decision_header(data.get("instruction")) +
+            # === 第二屏：10秒执行 ===
+            render_index_scroll((data.get("position") or {}).get("index_kpis")) +
+            render_holdings_table((data.get("position") or {}).get("holdings")) +
+            render_cmd_bar(data.get("instruction"), date) +
+            # === 第三屏：1分钟依据（折叠） ===
             render_sector(data.get("sector")) +
             render_risk_stop(data.get("risk")) +
+            render_outlook(data) +
+            # === 底部全折叠：非即时必需内容 ===
+            render_tail_window(wl, data) +
             render_profit_lock(wl) +
             render_rebalance(wl) +
             render_sentiment(data.get("sentiment")) +
             render_logic(data.get("logic")) +
-            render_sources(data.get("sources"), data.get("disclaimer")))
+            render_sources(data.get("sources"), data.get("disclaimer"))
+        )
 
     head = (HEAD.replace("__DATE__", esc(date))
              .replace("__UPD__", esc(updated))

@@ -188,12 +188,94 @@ details.card[open] summary{margin-bottom:10px;border-bottom:1px solid var(--line
   details.card:not([open]){display:block}details.card summary{margin-bottom:8px}
   *{color:#111!important;border-color:#ccc!important}
 }
+/* === v2 优化：决策三栏 + 指数滚动 + 简化持仓表 === */
+html{scroll-padding-top:72px}
+body{padding-top:4px}
+.decision-header{display:grid;grid-template-columns:1fr 1.2fr 1fr;gap:10px;margin-bottom:12px}
+.panel-box{padding:14px;border-radius:10px;background:var(--card);border:1px solid var(--line)}
+.de-label{font-size:12px;color:var(--mut);margin-bottom:6px;font-weight:600;text-transform:uppercase;letter-spacing:.5px}
+.de-scene-tag{display:inline-block;padding:4px 12px;border-radius:20px;font-weight:700;font-size:14px;margin-bottom:6px}
+.de-scene-tag.red{background:rgba(245,86,77,.18);color:var(--up)}
+.de-scene-tag.orange{background:rgba(217,164,65,.18);color:var(--neu)}
+.de-scene-tag.green{background:rgba(38,194,129,.16);color:var(--down)}
+.de-action-main{font-size:17px;font-weight:800;color:var(--neu);margin:4px 0;line-height:1.4}
+.de-detail{font-size:12.5px;color:var(--mut);line-height:1.5;margin-top:2px}
+.de-risk ul{list-style:none;padding:0;margin:4px 0 0;font-size:13px;line-height:1.8;color:var(--mut)}
+.de-risk ul li:first-child{color:var(--up);font-weight:700}
+.de-action{border-left:3px solid var(--neu)}
+.de-scene{border-left:3px solid var(--up)}
+.de-risk{border-left:3px solid #f5564d}
+/* 指数横向滚动 */
+.ix-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.ix-scroll{display:flex;gap:10px;overflow-x:auto;padding-bottom:4px;scrollbar-width:none}
+.ix-scroll::-webkit-scrollbar{display:none}
+.ix-item{flex-shrink:0;background:var(--bg2);padding:8px 14px;border-radius:8px;min-width:80px;text-align:center;border:1px solid var(--line)}
+.ix-name{font-size:11.5px;color:var(--mut);margin-bottom:2px}
+.ix-val{font-size:17px;font-weight:800}
+/* 持仓简化表 */
+.ht{width:100%;border-collapse:collapse;font-size:13.5px}
+.ht th,.ht td{padding:8px 6px;text-align:left;border-bottom:1px solid var(--line)}
+.ht th{color:var(--mut);font-weight:400;font-size:12px}
+.ht-name{font-weight:600}
+.ht-w{color:var(--acc);font-weight:700}
+.ht-w.ow{color:var(--up);font-weight:800}
+.ht-ret{font-weight:600}
+.ht .op-tag{font-size:11px;padding:2px 10px;border-radius:12px;font-weight:700}
+.ht-detail{font-size:11px;color:var(--mut);margin-top:2px;line-height:1.4}
+.ht-minor td{font-size:12px;color:var(--mut);padding:4px 6px}
+.ht-minor-td{opacity:.7}
+/* 持仓表行展开详情 */
+.ht-main{cursor:pointer}.ht-main:hover{background:rgba(74,168,255,.06)}
+.ht-expand{margin-left:6px;font-size:10px;color:var(--mut);transition:transform .2s}
+.ht-detail td{padding:10px 12px;background:var(--bg2);border-bottom:2px solid var(--line)}
+.htd-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:8px}
+.htd-col{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:8px 10px}
+.htd-h{font-size:11px;color:var(--mut);margin-bottom:4px;font-weight:700}
+.htd-v{font-size:12.5px;line-height:1.5}.htd-v b{color:var(--neu)}
+.htd-logic{font-size:12px;color:#aab4c0;line-height:1.5;padding:8px 10px;background:rgba(0,0,0,.15);border-radius:8px}
+/* 次日预案 */
+.ol-body{padding:0 4px}
+.ol-section{margin:8px 0}
+.ol-section ul{margin:4px 0;padding-left:18px;font-size:12.5px;line-height:1.6;color:#cdd7e2}
+.ol-section li{margin:3px 0}
+@media (max-width:680px){
+  .decision-header{grid-template-columns:1fr}
+  .ix-item{min-width:64px;padding:6px 10px}.ix-val{font-size:15px}
+  .ht{font-size:12px}.ht th,.ht td{padding:5px 4px}
+}
 </style>
 </head>
 <body>
 <h1>🎯 尾盘决策</h1>
 <div class="sub">数据截止 2026-07-10 尾盘 · 更新 2026-07-10 收盘 15:00 · 数据源 T2（neodata/westock）· 收盘前操作预案 · 仅供参考不构成投资建议</div>
 
+<section id="dechead" class="decision-header">
+  <div class="panel-box de-scene">
+    <div class="de-label">今日场景</div>
+    <div class="de-scene-tag red">放量跳水</div>
+    <div class="de-detail"></div>
+  </div>
+  <div class="panel-box de-action">
+    <div class="de-label">唯一主动操作</div>
+    <div class="de-action-main">择机减东方阿尔法至≤22%(降#1仓+半导体集群减仓); 东方AI剩2/3持有锁本; 永赢/港药持有不动</div>
+    <div class="de-detail"></div>
+  </div>
+  <div class="panel-box de-risk">
+    <div class="de-label">核心风控红线</div>
+    <ul></ul>
+  </div>
+</section>
+<section id="indices" class="card">
+  <div class="ix-head"><h2>📈 核心指数速览</h2><span class="badge">尾盘收盘前 10 秒定操作</span></div>
+  <div class="ix-scroll"><div class="ix-item"><div class="ix-name">上证</div><div class="ix-val down">-1.00%</div></div><div class="ix-item"><div class="ix-name">深证</div><div class="ix-val down">-2.29%</div></div><div class="ix-item"><div class="ix-name">创业板</div><div class="ix-val down">-4.37%</div></div><div class="ix-item"><div class="ix-name">沪深300</div><div class="ix-val down">-1.96%</div></div><div class="ix-item"><div class="ix-name">科创50</div><div class="ix-val down">-5.53%</div></div><div class="ix-item"><div class="ix-name">半导体材料设备</div><div class="ix-val down">-6.84%</div></div><div class="ix-item"><div class="ix-name">CPO光模块</div><div class="ix-val down">-2.43%</div></div><div class="ix-item"><div class="ix-name">港股创新药</div><div class="ix-val up">+3.25%</div></div><div class="ix-item"><div class="ix-name">成交额</div><div class="ix-val neu">≈3.3万亿</div></div></div>
+</section>
+<section id="holdings" class="card">
+  <h2>📋 今日持仓操作指令 <span class="badge">点击展开详情</span></h2>
+  <table class="ht">
+    <thead><tr><th>基金名称</th><th>仓位</th><th>持有收益</th><th>今日指令</th></tr></thead>
+    <tbody><tr class="ht-main" onclick="toggleHtDetail(0)" data-idx="0"><td class="ht-name">东方阿尔法科技优选混合C</td><td class="ht-w ow">25.61%</td><td class="ht-ret up">+11.93%</td><td><span class="op-tag op-sell">减仓</span><span class="ht-expand">▼</span></td></tr><tr class="ht-detail" id="htd_0" style="display:none"><td colspan="4"><div class="htd-grid"><div class="htd-col"><div class="htd-h">五维评分</div><div class="htd-v">28 <span class='down'>偏空</span></div></div><div class="htd-col"><div class="htd-h">主力研判</div><div class="htd-v">高位放量派发(模型研判) · —</div></div><div class="htd-col"><div class="htd-h">距止损</div><div class="htd-v">距 -8% 还有 <b>19.93%</b></div></div></div><div class="htd-logic">新第一大仓(25.61%)逼近30%上限; 板块-6.84%触发集群减仓→优先减此基降#1仓至≤22%(约减800元), 同步触发profit_lock立即赎30%收回本金</div></td></tr><tr class="ht-main" onclick="toggleHtDetail(1)" data-idx="1"><td class="ht-name">东方人工智能主题混合C</td><td class="ht-w">24.21%</td><td class="ht-ret up">+13.63%</td><td><span class="op-tag op-hold">HOLD</span><span class="ht-expand">▼</span></td></tr><tr class="ht-detail" id="htd_1" style="display:none"><td colspan="4"><div class="htd-grid"><div class="htd-col"><div class="htd-h">五维评分</div><div class="htd-v">30 <span class='down'>偏空</span></div></div><div class="htd-col"><div class="htd-h">主力研判</div><div class="htd-v">出货/派发偏空 · —</div></div><div class="htd-col"><div class="htd-h">距止损</div><div class="htd-v">距 -8% 还有 <b>21.63%</b></div></div></div><div class="htd-logic">已卖1/3解除超限(24.21%); 剩2/3持有锁本不追加; profit_lock: 涨至20%赎剩余50%收本金/回撤&gt;5%赎50%/回撤至收益仅2%全清</div></td></tr><tr class="ht-main" onclick="toggleHtDetail(2)" data-idx="2"><td class="ht-name">永赢先锋半导体智选混合C</td><td class="ht-w">14.12%</td><td class="ht-ret down">-0.94%</td><td><span class="op-tag op-hold">HOLD</span><span class="ht-expand">▼</span></td></tr><tr class="ht-detail" id="htd_2" style="display:none"><td colspan="4"><div class="htd-grid"><div class="htd-col"><div class="htd-h">五维评分</div><div class="htd-v">33 <span class='down'>偏空</span></div></div><div class="htd-col"><div class="htd-h">主力研判</div><div class="htd-v">洗盘偏空 · —</div></div><div class="htd-col"><div class="htd-h">距止损</div><div class="htd-v">距 -8% 还有 <b>7.06%</b></div></div></div><div class="htd-logic">翻倍后绝对敞口1856, 每1%波动±18.5元; 今日板块-6.84%≈回撤-127元; 距-8%硬止损尚有空间(-0.94%未触-2%止损线), 持有观察不恐慌割肉</div></td></tr><tr class="ht-main" onclick="toggleHtDetail(3)" data-idx="3"><td class="ht-name">广发港股创新药ETF联接(QDII)C</td><td class="ht-w">10.58%</td><td class="ht-ret down">-3.75%</td><td><span class="op-tag op-hold">HOLD</span><span class="ht-expand">▼</span></td></tr><tr class="ht-detail" id="htd_3" style="display:none"><td colspan="4"><div class="htd-grid"><div class="htd-col"><div class="htd-h">五维评分</div><div class="htd-v">55 <span class='up'>偏多</span></div></div><div class="htd-col"><div class="htd-h">主力研判</div><div class="htd-v">逆势吸筹偏多 · —</div></div><div class="htd-col"><div class="htd-h">距止损</div><div class="htd-v">距 -8% 还有 <b>4.25%</b></div></div></div><div class="htd-logic">今日关联港股创新药+3.25%逆势反弹(主力抢筹); 市场先生逆向不割肉; profit_lock: 回撤至-5%减仓50%/回升至-1%内减仓1/3</div></td></tr><tr class="ht-main" onclick="toggleHtDetail(4)" data-idx="4"><td class="ht-name">鹏华丰诚债券C</td><td class="ht-w">9.62%</td><td class="ht-ret neu">-0.04%</td><td><span class="op-tag op-hold">HOLD</span><span class="ht-expand">▼</span></td></tr><tr class="ht-detail" id="htd_4" style="display:none"><td colspan="4"><div class="htd-grid"><div class="htd-col"><div class="htd-h">五维评分</div><div class="htd-v">50 <span class='neu'>中性</span></div></div><div class="htd-col"><div class="htd-h">主力研判</div><div class="htd-v">— · —</div></div><div class="htd-col"><div class="htd-h">距止损</div><div class="htd-v">距 -8% 还有 <b>7.96%</b></div></div></div><div class="htd-logic">唯一防御仓位, 市场暴跌时是稳定器, 持有</div></td></tr><tr class="ht-minor"><td colspan="4" class="ht-minor-td">财通集成电路产业股票C · 1.47% · HOLD</td></tr><tr class="ht-minor"><td colspan="4" class="ht-minor-td">财通成长优选混合C · 1.47% · HOLD</td></tr><tr class="ht-minor"><td colspan="4" class="ht-minor-td">广发纳斯达克100ETF联接(QDII)C · 0.68% · HOLD</td></tr><tr class="ht-minor"><td colspan="4" class="ht-minor-td">天弘中证全指通信设备指数C · 0.08% · HOLD</td></tr><tr class="ht-minor"><td colspan="4" class="ht-minor-td">富国中证煤炭指数C · 0.04% · HOLD</td></tr><tr class="ht-minor"><td colspan="4" class="ht-minor-td">嘉实中证主要消费ETF发起联接C · 0.03% · HOLD</td></tr></tbody>
+  </table>
+</section>
 <div class="cmdbar core-watch">
   <div class="cmd-main">
     <div class="cmd-core"><span class="dot"></span>放量跳水·半导体单日-6.84%触发集群减仓, 优先减东方阿尔法降第一大仓</div>
@@ -206,441 +288,6 @@ details.card[open] summary{margin-bottom:10px;border-bottom:1px solid var(--line
   </div>
   <div class="cmd-disc">半导体集中度占总资产65.5%/占持仓74.5%; 今日半导体材料设备-6.84%(振幅10.2%放量)触发集群减仓; 东方阿尔法25.61%新第一大仓逼近30%上限; 防御仅债基9.62%+现金12.11%(弹药); ⚠ 14:37账户+3.75%快照早于尾盘跳水, EOD实际收益或显著低于此值; 14:55后禁止新建仓位</div>
 </div>
-<section id="twin" class="card">
-  <h2>🕒 尾盘时间窗口与监控框架 <span class="badge">14:30监控→14:55决策→截止</span></h2>
-  <div class="tw-today">🎯 今日尾盘场景：<b>放量跳水</b></div>
-  <div class="tw-phases"><div class="tw-phase"><b>① 实时监控期</b><span>14:30-14:50 实时监控期：持续跟踪核心指标，记录量价异动信号</span></div><div class="tw-phase"><b>② 决策执行期</b><span>14:50-14:55 决策执行期：汇总全天+尾盘信号、生成最终决策、完成限价委托挂单</span></div><div class="tw-phase"><b>③ 截止铁律</b><span>14:55之后：仅允许已有持仓的止盈止损被动委托，不新建任何仓位，规避最后几分钟脉冲式诱多/诱空陷阱</span></div></div>
-  <div class="tw-mon-box"><div class="tw-mon"><b>broad_market：</b>沪深300/创业板指/科创50分时涨跌幅 / 量比(≥1.2增量资金入场,≥3警惕异动诱盘) / 分时均线支撑/压力 / 北向资金尾盘10分钟净流入额</div><div class="tw-mon"><b>sector_rotation：</b>全市场一级行业指数涨幅排名 / 成交额增幅(识别当日资金主攻/出逃方向)</div><div class="tw-mon"><b>holdings：</b>持仓基金对应底层指数/ETF实时估值涨跌幅 / 量价配合度</div></div>
-  <div class="tw-sc-title">尾盘场景分类（命中今日高亮）</div>
-  <div class="tw-scs"><div class="tw-sc"><div class="tw-sc-name">尾盘放量拉升</div><div class="tw-sc-cond">判定：指数涨幅&gt;1%,量比&gt;1.2,站稳分时均线</div><div class="tw-sc-act">动作：持仓盈利标的持有不动；不追高加仓，仅保留底仓</div></div><div class="tw-sc tw-sc-on"><div class="tw-sc-name">尾盘放量跳水</div><div class="tw-sc-cond">判定：指数跌幅&gt;1%,量比&gt;3,跌破分时均线</div><div class="tw-sc-act">动作：高仓位/高盈利标的减仓1/3锁定利润；弱势标的止损降仓</div></div><div class="tw-sc"><div class="tw-sc-name">缩量横盘震荡</div><div class="tw-sc-cond">判定：高低点价差&lt;1%,成交量较日内均值萎缩50%</div><div class="tw-sc-act">动作：维持原有仓位，不做操作，等待次日方向选择</div></div><div class="tw-sc"><div class="tw-sc-name">板块分化轮动</div><div class="tw-sc-cond">判定：科技指数下跌，但宽基/消费/红利上涨</div><div class="tw-sc-act">动作：不盲目减仓科技，观察持续性，次日再执行调仓</div></div></div>
-</section>
-<section id="core" class="card">
-  <h2>📈 核心指标速览 <span class="badge">收盘前 10 秒定操作</span></h2>
-  <div class="kpi-row"><div class="kpi"><div class="kpi-l">上证</div><div class="kpi-v down">-1.00%</div></div><div class="kpi"><div class="kpi-l">深证</div><div class="kpi-v down">-2.29%</div></div><div class="kpi"><div class="kpi-l">创业板<span class="kpi-tag">领跌·光脚</span></div><div class="kpi-v down">-4.37%</div></div><div class="kpi"><div class="kpi-l">沪深300</div><div class="kpi-v down">-1.96%</div></div><div class="kpi"><div class="kpi-l">科创50<span class="kpi-tag">光脚</span></div><div class="kpi-v down">-5.53%</div></div><div class="kpi"><div class="kpi-l">半导体材料设备<span class="kpi-tag">领跌板块·放量</span></div><div class="kpi-v down">-6.84%</div></div><div class="kpi"><div class="kpi-l">CPO光模块<span class="kpi-tag">主力净流出165亿</span></div><div class="kpi-v down">-2.43%</div></div><div class="kpi"><div class="kpi-l">港股创新药<span class="kpi-tag">逆势涨</span></div><div class="kpi-v up">+3.25%</div></div><div class="kpi"><div class="kpi-l">成交额<span class="kpi-tag">放量</span></div><div class="kpi-v neu">≈3.3万亿</div></div></div>
-  <div class="legend">涨跌配色 <b class="up">红=涨</b>/<b class="down">绿=跌</b>（A股惯例）· 尾盘决策以实时快照为准，收盘后以官方净值复核</div>
-</section>
-<section id="hold" class="card">
-  <h2>📦 持仓明细 · 日K+主力+指令 <span class="badge">按仓位降序 · 重仓展开</span></h2>
-  <div class="hcards">
-<details class="hcard open" open>
-  <summary class="hsum">
-    <span class="hname">东方阿尔法科技优选混合C</span>
-    <span class="hsector">半导体材料设备/科技优选</span>
-    <span class="hweight">仓 25.61%</span>
-    <span class="hret"><span class="up b">+11.93%</span></span>
-    <span class="op-tag op-sell">减仓</span>
-    <span class="ow-badge">⚠ 单仓超限</span>
-  </summary>
-  <div class="hbody">
-    <div class="hkline"><div class="kline-text">关联半导体材料设备今日-6.84%(振幅10.2%)</div></div>
-    <div class="hright">
-      <div class="hcol">
-        <div class="hcol-h">主力行为研判</div>
-        <div class="kv"><span>净流入</span><span class="down"><span class="mut">⚠ 数据源未返回</span></span></div>
-        <div class="kv"><span>超大单占比</span><span><span class="mut">⚠ 数据源未返回</span></span></div>
-        <div class="kv"><span>定性</span><span class="mf mf-neu">高位放量派发(模型研判)</span></div>
-        <div class="hcol-note">半导体材料设备-6.84%振幅10.2%量比1.2, 获利盘兑现⚠待验证主力净额</div>
-      </div>
-      <div class="hcol">
-        <div class="hcol-h">五维技术评分</div>
-        <div class="tech-comp"><span class="down">28</span><span class="tech-lvl down">偏空</span></div>
-        <div class="kv"><span>趋势</span><span>收盘破MA20(光脚阴)</span></div>
-        <div class="kv"><span>量价</span><span>放量下跌</span></div>
-        <div class="kv"><span>形态</span><span>长阴破位</span></div>
-      </div>
-      <div class="hcol">
-        <div class="hcol-h">操作指令区</div>
-        <div class="op-big op-sell">减仓</div>
-        <div class="kv"><span>硬止损</span><span class="down">-8.0%</span></div>
-        <div class="kv"><span>持有收益</span><span><span class="up b">+11.93%</span></span></div>
-        <div class="kv"><span>缓冲</span><span>距 -8% 还有 <b>19.93%</b></span></div>
-        <div class="kv"><span>关联指数</span><span>半导体材料设备 <span class="down b">-6.84%</span></span></div>
-        <div class="hcol-note ">新第一大仓(25.61%)逼近30%上限; 板块-6.84%触发集群减仓→优先减此基降#1仓至≤22%(约减800元), 同步触发profit_lock立即赎30%收回本金</div>
-      </div>
-    </div>
-  </div>
-</details>
-<details class="hcard open" open>
-  <summary class="hsum">
-    <span class="hname">东方人工智能主题混合C</span>
-    <span class="hsector">半导体材料设备/AI</span>
-    <span class="hweight">仓 24.21%</span>
-    <span class="hret"><span class="up b">+13.63%</span></span>
-    <span class="op-tag op-hold">HOLD</span>
-    
-  </summary>
-  <div class="hbody">
-    <div class="hkline"><div class="kline-text">关联半导体材料设备今日-6.84%</div></div>
-    <div class="hright">
-      <div class="hcol">
-        <div class="hcol-h">主力行为研判</div>
-        <div class="kv"><span>净流入</span><span class="down"><span class="mut">⚠ 数据源未返回</span></span></div>
-        <div class="kv"><span>超大单占比</span><span><span class="mut">⚠ 数据源未返回</span></span></div>
-        <div class="kv"><span>定性</span><span class="mf mf-down">出货/派发偏空</span></div>
-        <div class="hcol-note">半导体主力净流出, 前期获利盘兑现⚠待验证</div>
-      </div>
-      <div class="hcol">
-        <div class="hcol-h">五维技术评分</div>
-        <div class="tech-comp"><span class="down">30</span><span class="tech-lvl down">偏空</span></div>
-        <div class="kv"><span>趋势</span><span>收盘破MA20</span></div>
-        <div class="kv"><span>量价</span><span>价跌量增放量</span></div>
-        <div class="kv"><span>形态</span><span>长阴破位</span></div>
-      </div>
-      <div class="hcol">
-        <div class="hcol-h">操作指令区</div>
-        <div class="op-big op-hold">HOLD</div>
-        <div class="kv"><span>硬止损</span><span class="down">-8.0%</span></div>
-        <div class="kv"><span>持有收益</span><span><span class="up b">+13.63%</span></span></div>
-        <div class="kv"><span>缓冲</span><span>距 -8% 还有 <b>21.63%</b></span></div>
-        <div class="kv"><span>关联指数</span><span>半导体材料设备 <span class="down b">-6.84%</span></span></div>
-        <div class="hcol-note ">已卖1/3解除超限(24.21%); 剩2/3持有锁本不追加; profit_lock: 涨至20%赎剩余50%收本金/回撤&gt;5%赎50%/回撤至收益仅2%全清</div>
-      </div>
-    </div>
-  </div>
-</details>
-<details class="hcard open" open>
-  <summary class="hsum">
-    <span class="hname">永赢先锋半导体智选混合C</span>
-    <span class="hsector">半导体材料设备</span>
-    <span class="hweight">仓 14.12%</span>
-    <span class="hret"><span class="down">-0.94%</span></span>
-    <span class="op-tag op-hold">HOLD</span>
-    
-  </summary>
-  <div class="hbody">
-    <div class="hkline"><div class="kline-text">关联半导体材料设备今日-6.84%</div></div>
-    <div class="hright">
-      <div class="hcol">
-        <div class="hcol-h">主力行为研判</div>
-        <div class="kv"><span>净流入</span><span class="down"><span class="mut">⚠ 数据源未返回</span></span></div>
-        <div class="kv"><span>超大单占比</span><span><span class="mut">⚠ 数据源未返回</span></span></div>
-        <div class="kv"><span>定性</span><span class="mf mf-neu">洗盘偏空</span></div>
-        <div class="hcol-note">半导体整体净流出⚠待验证净额</div>
-      </div>
-      <div class="hcol">
-        <div class="hcol-h">五维技术评分</div>
-        <div class="tech-comp"><span class="down">33</span><span class="tech-lvl down">偏空</span></div>
-        <div class="kv"><span>趋势</span><span>偏空</span></div>
-        <div class="kv"><span>量价</span><span>价跌量增</span></div>
-        <div class="kv"><span>形态</span><span>破位</span></div>
-      </div>
-      <div class="hcol">
-        <div class="hcol-h">操作指令区</div>
-        <div class="op-big op-hold">HOLD</div>
-        <div class="kv"><span>硬止损</span><span class="down">-8.0%</span></div>
-        <div class="kv"><span>持有收益</span><span><span class="down">-0.94%</span></span></div>
-        <div class="kv"><span>缓冲</span><span>距 -8% 还有 <b>7.06%</b></span></div>
-        <div class="kv"><span>关联指数</span><span>半导体材料设备 <span class="down b">-6.84%</span></span></div>
-        <div class="hcol-note ">翻倍后绝对敞口1856, 每1%波动±18.5元; 今日板块-6.84%≈回撤-127元; 距-8%硬止损尚有空间(-0.94%未触-2%止损线), 持有观察不恐慌割肉</div>
-      </div>
-    </div>
-  </div>
-</details>
-<details class="hcard open" open>
-  <summary class="hsum">
-    <span class="hname">广发港股创新药ETF联接(QDII)C</span>
-    <span class="hsector">创新药/港股创新药</span>
-    <span class="hweight">仓 10.58%</span>
-    <span class="hret"><span class="down b">-3.75%</span></span>
-    <span class="op-tag op-hold">HOLD</span>
-    
-  </summary>
-  <div class="hbody">
-    <div class="hkline"><div class="kline-text">关联港股创新药今日+3.25%(逆势)</div></div>
-    <div class="hright">
-      <div class="hcol">
-        <div class="hcol-h">主力行为研判</div>
-        <div class="kv"><span>净流入</span><span class="down"><span class="mut">⚠ 数据源未返回</span></span></div>
-        <div class="kv"><span>超大单占比</span><span><span class="mut">⚠ 数据源未返回</span></span></div>
-        <div class="kv"><span>定性</span><span class="mf mf-neu">逆势吸筹偏多</span></div>
-        <div class="hcol-note">港股创新药+3.25%领涨⚠待验证主力净额</div>
-      </div>
-      <div class="hcol">
-        <div class="hcol-h">五维技术评分</div>
-        <div class="tech-comp"><span class="up">55</span><span class="tech-lvl up">偏多</span></div>
-        <div class="kv"><span>趋势</span><span>逆势走强</span></div>
-        <div class="kv"><span>量价</span><span>缩量反弹</span></div>
-        <div class="kv"><span>形态</span><span>阳线</span></div>
-      </div>
-      <div class="hcol">
-        <div class="hcol-h">操作指令区</div>
-        <div class="op-big op-hold">HOLD</div>
-        <div class="kv"><span>硬止损</span><span class="down">-8.0%</span></div>
-        <div class="kv"><span>持有收益</span><span><span class="down b">-3.75%</span></span></div>
-        <div class="kv"><span>缓冲</span><span>距 -8% 还有 <b>4.25%</b></span></div>
-        <div class="kv"><span>关联指数</span><span>港股创新药 <span class="up b">+3.25%</span></span></div>
-        <div class="hcol-note ">今日关联港股创新药+3.25%逆势反弹(主力抢筹); 市场先生逆向不割肉; profit_lock: 回撤至-5%减仓50%/回升至-1%内减仓1/3</div>
-      </div>
-    </div>
-  </div>
-</details>
-<details class="hcard " >
-  <summary class="hsum">
-    <span class="hname">鹏华丰诚债券C</span>
-    <span class="hsector">纯债安全垫(无权益板块)</span>
-    <span class="hweight">仓 9.62%</span>
-    <span class="hret"><span class="neu">-0.04%</span></span>
-    <span class="op-tag op-hold">HOLD</span>
-    
-  </summary>
-  <div class="hbody">
-    <div class="hkline"><div class="kline-text">纯债, 近乎0波动</div></div>
-    <div class="hright">
-      <div class="hcol">
-        <div class="hcol-h">主力行为研判</div>
-        <div class="kv"><span>净流入</span><span class="down"><span class="mut">⚠ 数据源未返回</span></span></div>
-        <div class="kv"><span>超大单占比</span><span><span class="mut">⚠ 数据源未返回</span></span></div>
-        <div class="kv"><span>定性</span><span class="mf mf-neu">—</span></div>
-        <div class="hcol-note"></div>
-      </div>
-      <div class="hcol">
-        <div class="hcol-h">五维技术评分</div>
-        <div class="tech-comp"><span class="neu">50</span><span class="tech-lvl neu">中性</span></div>
-        <div class="kv"><span>趋势</span><span>平稳</span></div>
-        <div class="kv"><span>量价</span><span>近乎0波动</span></div>
-        <div class="kv"><span>形态</span><span>横盘</span></div>
-      </div>
-      <div class="hcol">
-        <div class="hcol-h">操作指令区</div>
-        <div class="op-big op-hold">HOLD</div>
-        <div class="kv"><span>硬止损</span><span class="down">-8.0%</span></div>
-        <div class="kv"><span>持有收益</span><span><span class="neu">-0.04%</span></span></div>
-        <div class="kv"><span>缓冲</span><span>距 -8% 还有 <b>7.96%</b></span></div>
-        <div class="kv"><span>关联指数</span><span>纯债 <span class="neu">0.00%</span></span></div>
-        <div class="hcol-note ">唯一防御仓位, 市场暴跌时是稳定器, 持有</div>
-      </div>
-    </div>
-  </div>
-</details>
-<details class="hcard " >
-  <summary class="hsum">
-    <span class="hname">财通集成电路产业股票C</span>
-    <span class="hsector">半导体/CPO</span>
-    <span class="hweight">仓 1.47%</span>
-    <span class="hret"><span class="up b">+2.65%</span></span>
-    <span class="op-tag op-hold">HOLD</span>
-    
-  </summary>
-  <div class="hbody">
-    <div class="hkline"><div class="kline-text">关联半导体材料设备-6.84%</div></div>
-    <div class="hright">
-      <div class="hcol">
-        <div class="hcol-h">主力行为研判</div>
-        <div class="kv"><span>净流入</span><span class="down"><span class="mut">⚠ 数据源未返回</span></span></div>
-        <div class="kv"><span>超大单占比</span><span><span class="mut">⚠ 数据源未返回</span></span></div>
-        <div class="kv"><span>定性</span><span class="mf mf-neu">—</span></div>
-        <div class="hcol-note"></div>
-      </div>
-      <div class="hcol">
-        <div class="hcol-h">五维技术评分</div>
-        <div class="tech-comp"><span class="down">38</span><span class="tech-lvl down">偏空</span></div>
-        <div class="kv"><span>趋势</span><span>偏空</span></div>
-        <div class="kv"><span>量价</span><span>量价齐跌</span></div>
-        <div class="kv"><span>形态</span><span>小阴</span></div>
-      </div>
-      <div class="hcol">
-        <div class="hcol-h">操作指令区</div>
-        <div class="op-big op-hold">HOLD</div>
-        <div class="kv"><span>硬止损</span><span class="down">-8.0%</span></div>
-        <div class="kv"><span>持有收益</span><span><span class="up b">+2.65%</span></span></div>
-        <div class="kv"><span>缓冲</span><span>距 -8% 还有 <b>10.65%</b></span></div>
-        <div class="kv"><span>关联指数</span><span>半导体/CPO <span class="down b">-6.84%</span></span></div>
-        <div class="hcol-note ">观察仓小比例, 板块回撤持有; profit_lock: 收益达10%止盈一半</div>
-      </div>
-    </div>
-  </div>
-</details>
-<details class="hcard " >
-  <summary class="hsum">
-    <span class="hname">财通成长优选混合C</span>
-    <span class="hsector">沪深300成长/混合</span>
-    <span class="hweight">仓 1.47%</span>
-    <span class="hret"><span class="up b">+2.62%</span></span>
-    <span class="op-tag op-hold">HOLD</span>
-    
-  </summary>
-  <div class="hbody">
-    <div class="hkline"><div class="kline-text">关联沪深300成长-1.96%</div></div>
-    <div class="hright">
-      <div class="hcol">
-        <div class="hcol-h">主力行为研判</div>
-        <div class="kv"><span>净流入</span><span class="down"><span class="mut">⚠ 数据源未返回</span></span></div>
-        <div class="kv"><span>超大单占比</span><span><span class="mut">⚠ 数据源未返回</span></span></div>
-        <div class="kv"><span>定性</span><span class="mf mf-neu">—</span></div>
-        <div class="hcol-note"></div>
-      </div>
-      <div class="hcol">
-        <div class="hcol-h">五维技术评分</div>
-        <div class="tech-comp"><span class="down">42</span><span class="tech-lvl down">偏空</span></div>
-        <div class="kv"><span>趋势</span><span>偏空</span></div>
-        <div class="kv"><span>量价</span><span>量价齐跌</span></div>
-        <div class="kv"><span>形态</span><span>小阴</span></div>
-      </div>
-      <div class="hcol">
-        <div class="hcol-h">操作指令区</div>
-        <div class="op-big op-hold">HOLD</div>
-        <div class="kv"><span>硬止损</span><span class="down">-8.0%</span></div>
-        <div class="kv"><span>持有收益</span><span><span class="up b">+2.62%</span></span></div>
-        <div class="kv"><span>缓冲</span><span>距 -8% 还有 <b>10.62%</b></span></div>
-        <div class="kv"><span>关联指数</span><span>沪深300成长 <span class="down">-1.96%</span></span></div>
-        <div class="hcol-note ">观察仓小比例, 关联沪深300成长-1.96%回撤持有; profit_lock: 收益达10%止盈一半</div>
-      </div>
-    </div>
-  </div>
-</details>
-<details class="hcard " >
-  <summary class="hsum">
-    <span class="hname">广发纳斯达克100ETF联接(QDII)C</span>
-    <span class="hsector">纳斯达克100(美股QDII)</span>
-    <span class="hweight">仓 0.68%</span>
-    <span class="hret"><span class="down">-1.35%</span></span>
-    <span class="op-tag op-hold">HOLD</span>
-    
-  </summary>
-  <div class="hbody">
-    <div class="hkline"><div class="kline-text">美股QDII T+1</div></div>
-    <div class="hright">
-      <div class="hcol">
-        <div class="hcol-h">主力行为研判</div>
-        <div class="kv"><span>净流入</span><span class="down"><span class="mut">⚠ 数据源未返回</span></span></div>
-        <div class="kv"><span>超大单占比</span><span><span class="mut">⚠ 数据源未返回</span></span></div>
-        <div class="kv"><span>定性</span><span class="mf mf-neu">—</span></div>
-        <div class="hcol-note"></div>
-      </div>
-      <div class="hcol">
-        <div class="hcol-h">五维技术评分</div>
-        <div class="tech-comp"><span class="neu">50</span><span class="tech-lvl neu">中性</span></div>
-        <div class="kv"><span>趋势</span><span>中性</span></div>
-        <div class="kv"><span>量价</span><span>—</span></div>
-        <div class="kv"><span>形态</span><span>—</span></div>
-      </div>
-      <div class="hcol">
-        <div class="hcol-h">操作指令区</div>
-        <div class="op-big op-hold">HOLD</div>
-        <div class="kv"><span>硬止损</span><span class="down">-8.0%</span></div>
-        <div class="kv"><span>持有收益</span><span><span class="down">-1.35%</span></span></div>
-        <div class="kv"><span>缓冲</span><span>距 -8% 还有 <b>6.65%</b></span></div>
-        <div class="kv"><span>关联指数</span><span>纳斯达克100 <span class="mut">⚠ 数据源未返回</span></span></div>
-        <div class="hcol-note ">美股QDII T+1, 小比例防御底仓持有</div>
-      </div>
-    </div>
-  </div>
-</details>
-<details class="hcard " >
-  <summary class="hsum">
-    <span class="hname">天弘中证全指通信设备指数C</span>
-    <span class="hsector">通信设备/CPO</span>
-    <span class="hweight">仓 0.08%</span>
-    <span class="hret"><span class="up b">+5.91%</span></span>
-    <span class="op-tag op-hold">HOLD</span>
-    
-  </summary>
-  <div class="hbody">
-    <div class="hkline"><div class="kline-text">关联CPO -2.43%</div></div>
-    <div class="hright">
-      <div class="hcol">
-        <div class="hcol-h">主力行为研判</div>
-        <div class="kv"><span>净流入</span><span class="down"><span class="mut">⚠ 数据源未返回</span></span></div>
-        <div class="kv"><span>超大单占比</span><span><span class="mut">⚠ 数据源未返回</span></span></div>
-        <div class="kv"><span>定性</span><span class="mf mf-neu">—</span></div>
-        <div class="hcol-note"></div>
-      </div>
-      <div class="hcol">
-        <div class="hcol-h">五维技术评分</div>
-        <div class="tech-comp"><span class="down">40</span><span class="tech-lvl down">偏空</span></div>
-        <div class="kv"><span>趋势</span><span>偏弱</span></div>
-        <div class="kv"><span>量价</span><span>小跌</span></div>
-        <div class="kv"><span>形态</span><span>—</span></div>
-      </div>
-      <div class="hcol">
-        <div class="hcol-h">操作指令区</div>
-        <div class="op-big op-hold">HOLD</div>
-        <div class="kv"><span>硬止损</span><span class="down">-8.0%</span></div>
-        <div class="kv"><span>持有收益</span><span><span class="up b">+5.91%</span></span></div>
-        <div class="kv"><span>缓冲</span><span>距 -8% 还有 <b>13.91%</b></span></div>
-        <div class="kv"><span>关联指数</span><span>通信设备CPO <span class="down b">-2.43%</span></span></div>
-        <div class="hcol-note ">迷你仓, 关联CPO -2.43%; profit_lock: 收益达10%止盈一半</div>
-      </div>
-    </div>
-  </div>
-</details>
-<details class="hcard " >
-  <summary class="hsum">
-    <span class="hname">富国中证煤炭指数C</span>
-    <span class="hsector">煤炭开采</span>
-    <span class="hweight">仓 0.04%</span>
-    <span class="hret"><span class="neu">0.00%</span></span>
-    <span class="op-tag op-hold">HOLD</span>
-    
-  </summary>
-  <div class="hbody">
-    <div class="hkline"><div class="kline-text">已清仓≈0%</div></div>
-    <div class="hright">
-      <div class="hcol">
-        <div class="hcol-h">主力行为研判</div>
-        <div class="kv"><span>净流入</span><span class="down"><span class="mut">⚠ 数据源未返回</span></span></div>
-        <div class="kv"><span>超大单占比</span><span><span class="mut">⚠ 数据源未返回</span></span></div>
-        <div class="kv"><span>定性</span><span class="mf mf-neu">—</span></div>
-        <div class="hcol-note"></div>
-      </div>
-      <div class="hcol">
-        <div class="hcol-h">五维技术评分</div>
-        <div class="tech-comp"><span class="neu">50</span><span class="tech-lvl neu">中性</span></div>
-        <div class="kv"><span>趋势</span><span>—</span></div>
-        <div class="kv"><span>量价</span><span>—</span></div>
-        <div class="kv"><span>形态</span><span>—</span></div>
-      </div>
-      <div class="hcol">
-        <div class="hcol-h">操作指令区</div>
-        <div class="op-big op-hold">HOLD</div>
-        <div class="kv"><span>硬止损</span><span class="down">-8.0%</span></div>
-        <div class="kv"><span>持有收益</span><span><span class="neu">0.00%</span></span></div>
-        <div class="kv"><span>缓冲</span><span>距 -8% 还有 <b>8.00%</b></span></div>
-        <div class="kv"><span>关联指数</span><span>煤炭 <span class="mut">⚠ 数据源未返回</span></span></div>
-        <div class="hcol-note ">已清仓≈0%</div>
-      </div>
-    </div>
-  </div>
-</details>
-<details class="hcard " >
-  <summary class="hsum">
-    <span class="hname">嘉实中证主要消费ETF发起联接C</span>
-    <span class="hsector">食品饮料/主要消费</span>
-    <span class="hweight">仓 0.03%</span>
-    <span class="hret"><span class="neu">0.00%</span></span>
-    <span class="op-tag op-hold">HOLD</span>
-    
-  </summary>
-  <div class="hbody">
-    <div class="hkline"><div class="kline-text">已清仓≈0%</div></div>
-    <div class="hright">
-      <div class="hcol">
-        <div class="hcol-h">主力行为研判</div>
-        <div class="kv"><span>净流入</span><span class="down"><span class="mut">⚠ 数据源未返回</span></span></div>
-        <div class="kv"><span>超大单占比</span><span><span class="mut">⚠ 数据源未返回</span></span></div>
-        <div class="kv"><span>定性</span><span class="mf mf-neu">—</span></div>
-        <div class="hcol-note"></div>
-      </div>
-      <div class="hcol">
-        <div class="hcol-h">五维技术评分</div>
-        <div class="tech-comp"><span class="neu">50</span><span class="tech-lvl neu">中性</span></div>
-        <div class="kv"><span>趋势</span><span>—</span></div>
-        <div class="kv"><span>量价</span><span>—</span></div>
-        <div class="kv"><span>形态</span><span>—</span></div>
-      </div>
-      <div class="hcol">
-        <div class="hcol-h">操作指令区</div>
-        <div class="op-big op-hold">HOLD</div>
-        <div class="kv"><span>硬止损</span><span class="down">-8.0%</span></div>
-        <div class="kv"><span>持有收益</span><span><span class="neu">0.00%</span></span></div>
-        <div class="kv"><span>缓冲</span><span>距 -8% 还有 <b>8.00%</b></span></div>
-        <div class="kv"><span>关联指数</span><span>主要消费 <span class="mut">⚠ 数据源未返回</span></span></div>
-        <div class="hcol-note ">已清仓≈0%</div>
-      </div>
-    </div>
-  </div>
-</details></div>
-</section>
 <section id="sector" class="card">
   <h2>📊 板块日K量化信号 <span class="badge">五维 · 持仓强关联高亮</span></h2>
   <div class="sbars"><div class="sbar-row linked"><div class="sbar-name">半导体材料设备</div><div class="sbar-track"><div class="sbar-fill down" style="width:28%"></div><span class="sbar-score">28.0</span></div><div class="sbar-ten down">偏空</div><div class="sbar-flow"><span class="mut">⚠ 数据源未返回</span></div></div><div class="sbar-row linked"><div class="sbar-name">共封装光模块CPO</div><div class="sbar-track"><div class="sbar-fill down" style="width:38%"></div><span class="sbar-score">38.0</span></div><div class="sbar-ten down">偏空</div><div class="sbar-flow"><span class="down b">-165.00%</span>亿</div></div><div class="sbar-row linked"><div class="sbar-name">通信设备</div><div class="sbar-track"><div class="sbar-fill down" style="width:40%"></div><span class="sbar-score">40.0</span></div><div class="sbar-ten down">偏空</div><div class="sbar-flow"><span class="mut">⚠ 数据源未返回</span></div></div><div class="sbar-row linked"><div class="sbar-name">港股创新药</div><div class="sbar-track"><div class="sbar-fill up" style="width:55%"></div><span class="sbar-score">55.0</span></div><div class="sbar-ten up">偏多</div><div class="sbar-flow"><span class="mut">⚠ 数据源未返回</span></div></div></div>
@@ -652,6 +299,14 @@ details.card[open] summary{margin-bottom:10px;border-bottom:1px solid var(--line
   <div class="stops"><div class="stop-row"><div class="stop-name">永赢先锋半导体</div><div class="stop-track"><div class="stop-fill" style="width:11.8%"></div></div><div class="stop-pct">-0.94%</div></div><div class="stop-row"><div class="stop-name">东方AI(剩2/3)</div><div class="stop-track"><div class="stop-fill" style="width:0.0%"></div></div><div class="stop-pct"><span class="mut">⚠ 数据源未返回</span></div></div><div class="stop-row"><div class="stop-name">东方阿尔法</div><div class="stop-track"><div class="stop-fill" style="width:0.0%"></div></div><div class="stop-pct"><span class="mut">⚠ 数据源未返回</span></div></div></div>
   <div class="stop-floor">🛡️ 半导体65.5%集中度为最大风险源; 今日材料设备-6.84%触发集群减仓; 单基-8%硬止损全程有效</div>
   <div class="alerts"><div class="alert-item red"><b>半导体材料设备单日-6.84%(振幅10.2%)触发集群减仓信号(&gt;3%)</b> — 建议至少减1只半导体(优先东方阿尔法降#1仓至≤22%)</div><div class="alert-item red"><b>东方阿尔法25.61%为第一大仓, 逼近30%上限</b> — 需择机降至≤22-30%区间</div><div class="alert-item orange"><b>永赢半导大敞口1856, 每1%波动±18.5元</b> — 今日板块-6.84%≈回撤-127元</div><div class="alert-item orange"><b>港药持续亏损-3.75%</b> — 但今日关联+3.25%反弹, 不割肉</div><div class="alert-item orange"><b>防御仅债基9.62%</b> — 现金12.11%(1589元)为尾盘/次日低吸弹药, 勿闲置</div><div class="alert-item orange"><b>⚠ 14:37账户+3.75%快照早于尾盘跳水</b> — 收盘半导体-6.84%或令EOD实际收益显著低于+3.75%</div></div>
+</section>
+<section id="twin" class="card">
+  <h2>🕒 尾盘时间窗口与监控框架 <span class="badge">14:30监控→14:55决策→截止</span></h2>
+  <div class="tw-today">🎯 今日尾盘场景：<b>放量跳水</b></div>
+  <div class="tw-phases"><div class="tw-phase"><b>① 实时监控期</b><span>14:30-14:50 实时监控期：持续跟踪核心指标，记录量价异动信号</span></div><div class="tw-phase"><b>② 决策执行期</b><span>14:50-14:55 决策执行期：汇总全天+尾盘信号、生成最终决策、完成限价委托挂单</span></div><div class="tw-phase"><b>③ 截止铁律</b><span>14:55之后：仅允许已有持仓的止盈止损被动委托，不新建任何仓位，规避最后几分钟脉冲式诱多/诱空陷阱</span></div></div>
+  <div class="tw-mon-box"><div class="tw-mon"><b>broad_market：</b>沪深300/创业板指/科创50分时涨跌幅 / 量比(≥1.2增量资金入场,≥3警惕异动诱盘) / 分时均线支撑/压力 / 北向资金尾盘10分钟净流入额</div><div class="tw-mon"><b>sector_rotation：</b>全市场一级行业指数涨幅排名 / 成交额增幅(识别当日资金主攻/出逃方向)</div><div class="tw-mon"><b>holdings：</b>持仓基金对应底层指数/ETF实时估值涨跌幅 / 量价配合度</div></div>
+  <div class="tw-sc-title">尾盘场景分类（命中今日高亮）</div>
+  <div class="tw-scs"><div class="tw-sc"><div class="tw-sc-name">尾盘放量拉升</div><div class="tw-sc-cond">判定：指数涨幅&gt;1%,量比&gt;1.2,站稳分时均线</div><div class="tw-sc-act">动作：持仓盈利标的持有不动；不追高加仓，仅保留底仓</div></div><div class="tw-sc tw-sc-on"><div class="tw-sc-name">尾盘放量跳水</div><div class="tw-sc-cond">判定：指数跌幅&gt;1%,量比&gt;3,跌破分时均线</div><div class="tw-sc-act">动作：高仓位/高盈利标的减仓1/3锁定利润；弱势标的止损降仓</div></div><div class="tw-sc"><div class="tw-sc-name">缩量横盘震荡</div><div class="tw-sc-cond">判定：高低点价差&lt;1%,成交量较日内均值萎缩50%</div><div class="tw-sc-act">动作：维持原有仓位，不做操作，等待次日方向选择</div></div><div class="tw-sc"><div class="tw-sc-name">板块分化轮动</div><div class="tw-sc-cond">判定：科技指数下跌，但宽基/消费/红利上涨</div><div class="tw-sc-act">动作：不盲目减仓科技，观察持续性，次日再执行调仓</div></div></div>
 </section>
 <section id="pl" class="card">
   <h2>🔒 阶梯止盈锁本参数表 <span class="badge">按持仓 · 分批收回本金</span></h2>
@@ -772,6 +427,16 @@ function initKlines(){
   }catch(e){ console.error('kline error', e); }
 }
 window.addEventListener('load', initKlines);
+// 持仓表行展开
+function toggleHtDetail(idx){
+  var row=document.getElementById('htd_'+idx);
+  var trigger=document.querySelector('.ht-main[data-idx="'+idx+'"] .ht-expand');
+  if(!row||!trigger)return;
+  var vis=row.style.display;
+  row.style.display=vis==='none'?'':'none';
+  trigger.textContent=vis==='none'?'▲':'▼';
+  trigger.style.color=vis==='none'?'var(--acc)':'var(--mut)';
+}
 </script>
 </body>
 </html>

@@ -68,10 +68,10 @@ def pbold(v, thr=2.0):
     v = num(v)
     return v is not None and abs(v) >= thr
 def chg_cell(v, thr=2.0, suffix="%"):
-    """涨跌幅单元格：红涨绿跌，±thr% 加粗。None → 灰字⚠ 数据源未返回。"""
+    """涨跌幅单元格：红涨绿跌，±thr% 加粗。None → 灰字"--" + 淡灰小字(盘后更新)。"""
     v = num(v)
     if v is None:
-        return '<td class="mut">⚠ 数据源未返回</td>'
+        return '<td class="mut" style="opacity:.5">--<span style="font-size:10px;margin-left:4px">(盘后更新)</span></td>'
     cls = pcls(v)
     b = " b" if pbold(v, thr) else ""
     sign = "+" if v > 0 else ""
@@ -79,16 +79,16 @@ def chg_cell(v, thr=2.0, suffix="%"):
 def chg_span(v, thr=2.0, suffix="%"):
     v = num(v)
     if v is None:
-        return '<span class="mut">⚠ 未返回</span>'
+        return '<span class="mut" style="opacity:.5">--<span style="font-size:10px;margin-left:2px">(盘后)</span></span>'
     cls = pcls(v)
     b = " b" if pbold(v, thr) else ""
     sign = "+" if v > 0 else ""
     return '<span class="%s%s">%s%.2f%s</span>' % (cls, b, sign, v, suffix)
 def chg_inline(v, thr=2.0, suffix="%"):
-    """涨跌幅行内 span（用于对齐表单元格内，不生成 <td>）。None → 灰字⚠。"""
+    """涨跌幅行内 span（用于对齐表单元格内，不生成 <td>）。None → "--" + 淡灰小字。"""
     v = num(v)
     if v is None:
-        return '<span class="mut">⚠ 数据源未返回</span>'
+        return '<span class="mut" style="opacity:.5">--<span style="font-size:10px;margin-left:2px">(T+1)</span></span>'
     cls = pcls(v)
     b = " b" if pbold(v, thr) else ""
     sign = "+" if v > 0 else ""
@@ -103,12 +103,12 @@ def conf_tag(c):
     m = {"高": "conf-high", "中": "conf-mid", "低": "conf-low"}
     return m.get(c, "conf-low"), c
 def miss(v):
-    """缺失值标准化：未连接 / N/A / 数据源未返回 / None → 灰字⚠。"""
+    """缺失值标准化：优雅灰字，不写"数据源未返回"。"""
     if v is None:
-        return '<span class="mut">⚠ 数据源未返回</span>'
+        return '<span class="mut" style="opacity:.4">--</span>'
     s = str(v).strip()
     if s in ("未连接", "N/A", "数据源未返回", "—", ""):
-        return '<span class="mut">⚠ %s</span>' % s
+        return '<span class="mut" style="opacity:.4">--<span style="font-size:10px;margin-left:2px">待更新</span></span>'
     return esc(s)
 def yesterdate(d):
     dt = datetime.date.fromisoformat(d)
@@ -150,13 +150,15 @@ def render_alignment(rows, note):
             badge = ' <span class="core-badge">核心持仓</span>'
         elif rc == "reduce":
             hl = " hl-reduce"
+        elif rc == "minor":
+            hl = " hl-minor"
         # 关联ETF午盘列：ETF名(小字) + 涨跌色（内联 span，不生成 td）
         etf_name = esc(r.get("etf") or "—")
         etf_cell = ('<div class="cell-sub">%s</div>%s') % (etf_name, chg_inline(r.get("etf_chg")))
         # 申万行业列：行业名 + 涨跌色（缺失标准化）
         sw_name = r.get("sw_sector")
         if not sw_name:
-            sw_cell = '<div class="cell-sub mut">⚠ 数据源未返回</div>'
+            sw_cell = '<div class="cell-sub mut" style="opacity:.5">--<span style="font-size:10px;margin-left:2px">待更新</span></div></div>'
         else:
             sw_cell = ('<div class="cell-sub">%s</div>%s') % (esc(sw_name), chg_inline(r.get("sw_chg")))
         # 成因 → 关键词标签
@@ -172,7 +174,10 @@ def render_alignment(rows, note):
     note_html = ('<div class="note">%s</div>' % tip(note)) if note else ""
     return f'''
 <section id="align" class="card">
-  <h2>① 板块↔基金对齐表 <span class="badge">交叉验证 · 核心</span></h2>
+  <div class="align-head">
+    <h2>① 板块↔基金对齐表 <span class="badge">交叉验证 · 核心</span></h2>
+    <button class="align-toggle" onclick="toggleMinor()">🏷️ 仅看核心</button>
+  </div>
   <div class="tbl-scroll">
   <table>
     <tr><th>基金名称</th><th>关联ETF午盘</th><th>申万行业</th><th>操作信号 / 成因</th></tr>
@@ -238,10 +243,26 @@ def render_tail(tail):
         items += ('<div class="tl-track"><span class="tl-tag">%s</span>'
                   '<span class="tl-body">%s</span></div>') % (
             esc(t.get("title", "")), tip(t.get("body", "")))
+    # 可能包含 tail 级的 trigger_distance（缺省用 core.trigger_distance）
+    td = tail.get("trigger_distance")
+    trig_html = ""
+    if td is not None:
+        td = max(0, min(100, int(td)))
+        bar_cls = "tf-warn" if td >= 70 else ("tf-mid" if td >= 40 else "tf-safe")
+        trig_html = ('<div class="trig-bar" style="margin-top:8px">'
+                     '<span class="trig-label">整体触发进度</span>'
+                     '<div class="trig-track"><div class="trig-fill %s" style="width:%d%%"></div></div>'
+                     '<span class="trig-pct %s">%d%%</span></div>') % (bar_cls, td, bar_cls, td)
+    floors = tail.get("floor_rules") or []
+    floor_html = ""
+    if floors:
+        floor_html = '<div class="note" style="margin-top:8px;opacity:.6">%s</div>' % " · ".join(esc(f) for f in floors)
     return f'''
 <section id="tail" class="card">
-  <h2>④ 尾盘操作前瞻 <span class="badge">赛道要点</span></h2>
+  <h2>④ 尾盘操作前瞻 <span class="badge">赛道要点 · 触发进度</span></h2>
   <div class="tracks">{items}</div>
+  {trig_html}
+  {floor_html}
 </section>'''
 
 def render_validation(val):
@@ -283,6 +304,77 @@ def render_sources(src, disclaimer):
   <div class="src-box">{items}</div>
   {disc}
 </details>'''
+
+# ============================================================
+# v2 新渲染函数：首屏三栏 + 早盘预期校验
+# ============================================================
+
+def render_mid_header(core):
+    """首屏三栏卡片：市场定性 / 核心矛盾 / 下午操作总纲"""
+    if not core:
+        return ""
+    one = tip(core.get("one_liner", ""))
+    conflict = tip(core.get("core_conflict", ""))
+    guide = tip(core.get("action_guide", ""))
+    tail_trig = core.get("tail_trigger") or ""
+    trig_dist = core.get("trigger_distance")
+    # 触发进度条
+    trig_html = ""
+    if trig_dist is not None:
+        td = max(0, min(100, int(trig_dist)))
+        bar_cls = "tf-warn" if td >= 70 else ("tf-mid" if td >= 40 else "tf-safe")
+        trig_html = '<div class="trig-bar"><span class="trig-label">距减仓触发</span><div class="trig-track"><div class="trig-fill %s" style="width:%d%%"></div></div><span class="trig-pct %s">%d%%</span><span class="trig-note">%s</span></div>' % (bar_cls, td, bar_cls, td, esc(tail_trig[:60]))
+    kpis = ""
+    for k in (core.get("kpis") or []):
+        kpis += '<div class="kpi %s"><div class="kpi-v %s">%s</div><div class="kpi-l">%s</div></div>' % (
+            k.get("cls", "neu"), k.get("cls", "neu"), esc(k.get("value", "")), esc(k.get("label", "")))
+    return f'''
+<section id="midhead" class="mid-header">
+  <div class="mid-cols">
+    <div class="mid-card mid-market">
+      <div class="mid-label">市场定性</div>
+      <div class="mid-value">{one}</div>
+    </div>
+    <div class="mid-card mid-conflict">
+      <div class="mid-label">核心矛盾</div>
+      <div class="mid-value">{conflict}</div>
+    </div>
+    <div class="mid-card mid-guide">
+      <div class="mid-label">下午操作总纲</div>
+      <div class="mid-value">{guide}</div>
+    </div>
+  </div>
+  <div class="mid-kpis">{kpis}</div>
+  {trig_html}
+</section>'''
+
+def render_check(check):
+    """早盘预期校验 — 符合/超预期/不及预期 三栏"""
+    if not check:
+        return ""
+    expect = tip(check.get("morning_expectation", ""))
+    def col(items, kind):
+        icons = {"pass": "✅ 符合预期", "great": "⚡ 超预期", "warn": "⚠️ 不及预期"}
+        colors = {"pass": "check-pass", "great": "check-great", "warn": "check-warn"}
+        title = icons.get(kind, kind)
+        cls = colors.get(kind, "")
+        if not items:
+            return '<div class="ch-col %s"><div class="ch-title">%s</div><div class="ch-none">无</div></div>' % (cls, title)
+        items_html = ""
+        for it in items:
+            items_html += '<div class="ch-item"><div class="ch-name">%s</div><div class="ch-detail">%s</div></div>' % (
+                tip(it.get("item", "")), tip(it.get("detail", "")))
+        return '<div class="ch-col %s"><div class="ch-title">%s</div>%s</div>' % (cls, title, items_html)
+    return f'''
+<section id="check" class="card check-card">
+  <div class="check-head"><h2>📌 早盘预期校验</h2><span class="badge">核心价值</span></div>
+  <div class="check-expect">早盘观点：{expect}</div>
+  <div class="check-grid">
+    {col(check.get("hit"), "pass")}
+    {col(check.get("over_expected"), "great")}
+    {col(check.get("under_expected"), "warn")}
+  </div>
+</section>'''
 
 # ---------- 静态 HEAD（深色配色板，与早报/晚报/大盘研判统一） ----------
 HEAD = """<!DOCTYPE html>
@@ -398,6 +490,54 @@ details.card[open] summary{margin-bottom:10px;border-bottom:1px solid var(--line
   details.card summary{margin-bottom:8px}
   *{color:#111!important;border-color:#ccc!important}
 }
+/* === v2 新增样式：三栏定调 + 早盘校验 + 触发进度条 === */
+html{scroll-padding-top:64px}
+/* 首屏三栏 */
+.mid-header{background:linear-gradient(135deg,#16202c,#111a24);border:1px solid #2b4a6a;border-radius:14px;padding:16px;margin-bottom:12px}
+.mid-cols{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:10px}
+.mid-card{background:var(--bg2);border-radius:10px;padding:12px;border-left:3px solid var(--acc)}
+.mid-market{border-color:var(--acc)}.mid-conflict{border-color:var(--neu)}.mid-guide{border-color:var(--down)}
+.mid-label{font-size:11px;color:var(--mut);font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px}
+.mid-value{font-size:13.5px;line-height:1.6;color:var(--tx)}
+.mid-kpis{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+.mid-kpis .kpi{flex:1;min-width:100px;background:var(--bg2);padding:8px 10px;text-align:center;border-radius:8px;border:1px solid var(--line)}
+.mid-kpis .kpi-v{font-size:18px;font-weight:800}
+.mid-kpis .kpi-l{font-size:10.5px;color:var(--mut);margin-top:2px}
+/* 触发进度条 */
+.trig-bar{display:flex;align-items:center;gap:8px;margin-top:8px;padding:8px 10px;background:var(--bg2);border-radius:8px;border:1px solid var(--line);font-size:12px}
+.trig-label{flex:0 0 auto;color:var(--mut);font-weight:600;white-space:nowrap}
+.trig-track{flex:1;height:8px;background:rgba(0,0,0,.3);border-radius:4px;overflow:hidden}
+.trig-fill{height:100%;border-radius:4px;transition:width .5s}
+.trig-fill.tf-safe{background:var(--down)}.trig-fill.tf-mid{background:var(--neu)}.trig-fill.tf-warn{background:var(--up)}
+.trig-pct{flex:0 0 auto;font-weight:800;font-size:14px}
+.trig-pct.tf-safe{color:var(--down)}.trig-pct.tf-mid{color:var(--neu)}.trig-pct.tf-warn{color:var(--up)}
+.trig-note{flex:1;color:var(--mut);font-size:11.5px;text-align:right}
+/* 早盘预期校验三栏 */
+.check-card{border:1px solid var(--acc)}
+.check-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.check-head h2{margin:0;border:none;padding:0;font-size:15px}
+.check-expect{font-size:12.5px;color:var(--mut);margin-bottom:10px;padding:6px 8px;background:var(--bg2);border-radius:6px}
+.check-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+.ch-col{padding:10px;border-radius:10px;background:var(--bg2);border-top:3px solid var(--line)}
+.ch-col.check-pass{border-top-color:var(--down)}.ch-col.check-great{border-top-color:var(--neu)}.ch-col.check-warn{border-top-color:var(--up)}
+.ch-title{font-weight:700;font-size:14px;margin-bottom:6px}.check-pass .ch-title{color:var(--down)}.check-great .ch-title{color:var(--neu)}.check-warn .ch-title{color:var(--up)}
+.ch-none{color:var(--mut);font-size:12px}
+.ch-item{border-top:1px solid var(--line);padding:6px 0}.ch-item:first-child{border:none}
+.ch-name{font-weight:600;font-size:12.5px;margin-bottom:2px}.ch-detail{font-size:11.5px;color:var(--mut);line-height:1.5}
+/* 尾盘进度条塞进卡片 */
+.tl-track .trig-inline{font-size:11px;color:var(--mut);display:block;margin-top:4px}
+/* 迷你仓置灰 */
+tr.hl-minor td{opacity:.5;font-size:11.5px}
+/* 对齐表头 + 核心切换按钮 */
+.align-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;border-bottom:1px solid var(--line);padding-bottom:8px}
+.align-head h2{margin:0;border:none;padding:0}
+.align-toggle{background:var(--bg2);border:1px solid var(--line);color:var(--mut);padding:3px 10px;border-radius:6px;cursor:pointer;font-size:11.5px;white-space:nowrap;transition:all .15s}
+.align-toggle:hover{background:var(--card);color:var(--tx);border-color:var(--acc)}
+.align-toggle.active{background:rgba(74,168,255,.15);color:var(--acc);border-color:var(--acc)}
+@media (max-width:680px){
+  .mid-cols{grid-template-columns:1fr}.check-grid{grid-template-columns:1fr}
+  .flow-wrap{grid-template-columns:1fr}.pgrid{grid-template-columns:1fr}.topnav{font-size:11px}.tl-tag{min-width:90px}
+}
 </style>
 </head>
 <body>
@@ -444,6 +584,14 @@ function initCharts(){
   }catch(e){ console.error('chart error', e); }
 }
 window.addEventListener('load', initCharts);
+// 仅看核心持仓切换
+function toggleMinor(){
+  var btn=document.querySelector('.align-toggle');
+  var rows=document.querySelectorAll('tr.hl-minor');
+  var active=btn.classList.toggle('active');
+  btn.textContent=active?'🏷️ 全部持仓':'🏷️ 仅看核心';
+  rows.forEach(function(r){ r.style.display=active?'none':''; });
+}
 </script>
 </body>
 </html>
@@ -481,7 +629,8 @@ def main():
             '<a href="../%s/晚间复盘-%s.html">🌙前日晚间</a>'
             '<a href="../../index.html">📱收件箱</a></span></nav>') % (date, prev, prev)
 
-    body = (render_core(data.get("core")) +
+    body = (render_mid_header(data.get("core")) +
+            render_check(data.get("check_result")) +
             render_alignment(data.get("alignment"), data.get("align_note")) +
             render_flow(data.get("capital_flow")) +
             render_predict(data.get("predict")) +
