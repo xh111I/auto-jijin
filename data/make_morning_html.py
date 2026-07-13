@@ -519,6 +519,99 @@ def render_cred(cred, disclaimer):
   {disc}
 </section>'''
 
+# ============================================================
+# 新板块渲染：头条速览 / 重点事件解读 / 中国动态 / 今日前瞻 / 风险提示
+# ============================================================
+
+def render_headlines(headlines):
+    """1. 头条速览 — 首屏 1 行 3 条，每条 ≤50 字"""
+    if not headlines:
+        return ""
+    items = ""
+    for h in headlines[:3]:
+        title = tip(h.get("title", ""))
+        impact = tip(h.get("impact", ""))
+        items += '<div class="hl-item"><span class="hl-title">%s</span><span class="hl-impact">%s</span></div>' % (title, impact)
+    return '''
+<section id="headlines" class="card hl-card">
+  <div class="hl-grid">
+    %s
+  </div>
+</section>''' % items
+
+def render_key_events(key_events):
+    """3. 重点事件解读 — 3~5 条，每条(类别→事件概述→关键细节→影响解读)"""
+    if not key_events:
+        return ""
+    items = ""
+    for e in key_events:
+        cat = esc(e.get("category", "宏观"))
+        summary = tip(e.get("event", ""))
+        detail = tip(e.get("details", ""))
+        impact = tip(e.get("impact", ""))
+        items += '''
+<div class="ke-item">
+  <div class="ke-cat">%s</div>
+  <div class="ke-summary"><b>事件：</b>%s</div>
+  <details class="ke-detail">
+    <summary>关键细节 &amp; 影响解读 <span class="sc">点击展开</span></summary>
+    <div class="ke-body"><b>关键细节：</b>%s</div>
+    <div class="ke-impact"><b>影响解读：</b>%s</div>
+  </details>
+</div>''' % (cat, summary, detail, impact)
+    return '''
+<section id="keyevents" class="card">
+  <h2>③ 重点事件解读 <span class="badge">事件→细节→影响</span></h2>
+  %s
+</section>''' % items
+
+def render_china(china):
+    """4. 中国相关动态 — 单独板块"""
+    if not china:
+        return ""
+    items = ""
+    for c in china:
+        title = tip(c.get("title", ""))
+        detail = tip(c.get("detail", ""))
+        impact = tip(c.get("impact", ""))
+        items += '<div class="cn-item"><div class="cn-title">%s</div><div class="cn-detail">%s</div><div class="cn-imp">影响：%s</div></div>' % (title, detail, impact)
+    return '''
+<section id="china" class="card">
+  <h2>④ 中国相关动态 <span class="badge">中概·政策·中国资产</span></h2>
+  %s
+</section>''' % items
+
+def render_outlook(outlook):
+    """5. 今日前瞻 — 时间+事件+预期"""
+    if not outlook:
+        return ""
+    items = ""
+    for o in outlook:
+        t = esc(o.get("time", ""))
+        ev = tip(o.get("event", ""))
+        exp = tip(o.get("expectation", ""))
+        items += '<div class="ol-item"><span class="ol-time">%s</span><span class="ol-ev">%s</span><span class="ol-exp">%s</span></div>' % (t, ev, exp)
+    return '''
+<section id="outlook" class="card">
+  <h2>⑤ 今日前瞻 <span class="badge">数据发布·财经事件</span></h2>
+  <div class="ol-list">%s</div>
+</section>''' % items
+
+def render_risk_tips(risks):
+    """6. 风险提示 — 底部 1~2 条"""
+    if not risks:
+        return ""
+    items = ""
+    for r in risks:
+        risk_text = tip(r.get("risk", ""))
+        assess = tip(r.get("assessment", ""))
+        items += '<div class="rt-item"><span class="rt-icon">⚠️</span><span class="rt-text">%s</span><span class="rt-assess">%s</span></div>' % (risk_text, assess)
+    return '''
+<section id="risktips" class="card rt-card">
+  <h2>⑥ 风险提示 <span class="badge">客观审慎</span></h2>
+  %s
+</section>''' % items
+
 # ---------- 静态 HEAD（含全部 CSS，深色配色板与收盘/大盘研判统一） ----------
 HEAD = """<!DOCTYPE html>
 <html lang="zh-CN">
@@ -530,7 +623,8 @@ HEAD = """<!DOCTYPE html>
 <style>
 :root{--up:#f5564d;--down:#26c281;--neu:#d9a441;--acc:#4aa8ff;--bg:#0e1117;--bg2:#161b24;--card:#1c232e;--line:#2a3340;--tx:#e6edf3;--mut:#8b98a9}
 *{box-sizing:border-box;margin:0;padding:0}
-body{background:var(--bg);color:var(--tx);font:14px/1.6 -apple-system,"PingFang SC","Microsoft YaHei",sans-serif;padding:12px;max-width:1080px;margin:0 auto}
+html{scroll-padding-top:64px}
+body{background:var(--bg);color:var(--tx);font:14px/1.6 -apple-system,"PingFang SC","Microsoft YaHei",sans-serif;padding:12px;max-width:1080px;margin:0 auto;padding-top:56px}
 .up{color:var(--up)} .down{color:var(--down)} .neu{color:var(--neu)} .acc{color:var(--acc)} .mut{color:var(--mut)}
 .b{font-weight:700} .r{text-align:right}
 h1{font-size:19px;margin-bottom:2px} .sub{color:var(--mut);font-size:12px;margin-bottom:10px}
@@ -554,14 +648,13 @@ tr.hl-row{background:rgba(74,168,255,.07)}
 .bar i{display:block;height:100%;border-radius:3px;background:var(--lc)}
 .note{color:var(--mut);font-size:11.5px;margin-top:8px;line-height:1.5}
 .legend{color:var(--mut);font-size:11px;margin-top:8px;line-height:1.6;border-top:1px dashed var(--line);padding-top:8px}
-/* 信号等级（多空语义，与 make_market 统一） */
+/* 信号等级（多空语义） */
 .lv-strong-up{background:rgba(38,194,129,.30);color:#2ee07a;--lc:#2ee07a}
 .lv-up{background:rgba(38,194,129,.16);color:#26c281;--lc:#26c281}
 .lv-neu-up{background:rgba(38,194,129,.08);color:#7fd1a8;--lc:#7fd1a8}
 .lv-neu-down{background:rgba(245,86,77,.08);color:#e08a85;--lc:#e08a85}
 .lv-down{background:rgba(245,86,77,.16);color:#f5564d;--lc:#f5564d}
 .lv-strong-down{background:rgba(245,86,77,.30);color:#ff6b61;--lc:#ff6b61}
-.lv-up-text{color:#26c281} .lv-down-text{color:#f5564d}
 /* 强度/操作/风险 标签 */
 .str{display:inline-block;font-size:11px;font-weight:700;padding:1px 7px;border-radius:6px;margin-right:4px}
 .s-strong{background:#f5564d;color:#fff} .s-mid{background:#d9a441;color:#1a1205} .s-weak{background:#5b6675;color:#e6edf3}
@@ -570,13 +663,49 @@ tr.hl-row{background:rgba(74,168,255,.07)}
 .tag.a-warn{background:rgba(217,164,65,.16);color:#d9a441}
 .tag.a-watch{background:rgba(74,168,255,.16);color:#4aa8ff}
 .rk-high{color:#ff6b61;font-weight:700} .rk-mid{color:#d9a441;font-weight:600} .rk-low{color:#e8c33a}
-/* === P0 视觉微调 === */
-/* 高仓位占比(>25%)自动加粗+放大+底色微红 */
 td .wt-over{font-weight:700;font-size:15px;background:rgba(245,86,77,.08);padding:2px 6px;border-radius:4px}
-/* 涨跌幅列字号提升 */
 td.up,td.down{font-size:14px}
-/* === 紧急警示浮动条 === */
-.emergency-banner{position:sticky;top:0;z-index:40;background:linear-gradient(90deg,#7f1d1d,#991b1b);color:#fecaca;padding:10px 16px;border-radius:10px;margin-bottom:12px;display:flex;align-items:center;gap:10px;font-size:13.5px;font-weight:700;box-shadow:0 2px 12px rgba(127,29,29,.5);animation:pulse 2s infinite}
+/* ========== 1. 头条速览 ========== */
+.hl-card{background:linear-gradient(135deg,#1b2a3a,#15202e);border-color:#2b4a6a;padding:10px 12px}
+.hl-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.hl-item{background:rgba(0,0,0,.25);border-radius:8px;padding:8px 10px;border-left:3px solid var(--acc)}
+.hl-title{display:block;font-weight:700;font-size:14px;color:#e6edf3;margin-bottom:2px;line-height:1.3}
+.hl-impact{display:block;font-size:12px;color:var(--mut);line-height:1.4}
+/* ========== 3. 重点事件解读 ========== */
+.ke-item{margin-bottom:12px;padding:10px 12px;background:var(--bg2);border-radius:10px}
+.ke-cat{display:inline-block;font-size:11px;padding:1px 7px;border-radius:6px;background:rgba(74,168,255,.16);color:var(--acc);margin-bottom:6px;font-weight:600}
+.ke-summary{font-size:13px;line-height:1.6;margin-bottom:6px}
+.ke-detail summary{font-size:12.5px;color:var(--acc);cursor:pointer;padding:4px 0}
+.ke-body,.ke-impact{font-size:12.5px;color:#cdd7e2;line-height:1.65;padding:6px 0}
+.ke-body b,.ke-impact b{color:var(--mut);font-weight:400}
+/* ========== 4. 中国相关动态 ========== */
+.cn-item{background:var(--bg2);border-radius:10px;padding:10px 12px;margin-bottom:8px;border-left:3px solid var(--acc)}
+.cn-title{font-weight:700;font-size:13.5px;margin-bottom:3px}
+.cn-detail{font-size:12.5px;color:#cdd7e2;line-height:1.5}
+.cn-imp{font-size:12px;color:var(--mut);margin-top:4px}
+/* ========== 5. 今日前瞻 ========== */
+.ol-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:8px}
+.ol-item{background:var(--bg2);border-radius:10px;padding:10px 12px;display:flex;flex-direction:column;gap:3px}
+.ol-time{font-size:12px;color:var(--acc);font-weight:700}
+.ol-ev{font-size:13px;line-height:1.5}
+.ol-exp{font-size:12px;color:var(--mut)}
+/* ========== 6. 风险提示 ========== */
+.rt-card{border-left:3px solid var(--up)}
+.rt-item{display:flex;align-items:flex-start;gap:10px;padding:8px 0;border-bottom:1px solid var(--line)}
+.rt-item:last-child{border-bottom:none}
+.rt-icon{flex-shrink:0;font-size:16px;margin-top:1px}
+.rt-text{flex:1;font-size:13px;line-height:1.5}
+.rt-assess{flex:0 0 auto;font-size:12px;color:var(--mut);padding:2px 8px;background:rgba(217,164,65,.12);border-radius:6px}
+/* === 固定悬浮目录 === */
+.topnav{position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(14,17,23,.96);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);padding:6px 12px;display:flex;gap:4px;flex-wrap:wrap;align-items:center;font-size:12px;min-height:44px;max-width:1080px;margin:0 auto;left:50%;transform:translateX(-50%)}
+.topnav a{color:var(--mut);text-decoration:none;padding:3px 8px;border-radius:6px;transition:all .15s}
+.topnav a:hover{background:var(--bg2);color:var(--tx)}
+.topnav a.active{background:var(--acc);color:#fff;font-weight:600}
+.nav-actions{margin-left:auto;display:flex;gap:4px}
+.nav-actions button{background:var(--bg2);border:1px solid var(--line);color:var(--mut);padding:3px 8px;border-radius:6px;cursor:pointer;font-size:11px;white-space:nowrap}
+.nav-actions button:hover{background:var(--card);color:var(--tx)}
+/* === 紧急警示 === */
+.emergency-banner{position:sticky;top:56px;z-index:40;background:linear-gradient(90deg,#7f1d1d,#991b1b);color:#fecaca;padding:10px 16px;border-radius:10px;margin-bottom:12px;display:flex;align-items:center;gap:10px;font-size:13.5px;font-weight:700;box-shadow:0 2px 12px rgba(127,29,29,.5);animation:pulse 2s infinite}
 .emergency-banner.orange{background:linear-gradient(90deg,#78350f,#92400e)}
 .emergency-banner .eb-icon{font-size:20px;flex-shrink:0}
 .emergency-banner .eb-close{flex-shrink:0;margin-left:auto;cursor:pointer;color:#fca5a5;font-size:16px;font-weight:400;padding:2px 8px;border-radius:4px}
@@ -591,9 +720,7 @@ td.up,td.down{font-size:14px}
 .risk-score .rs-num{font-size:42px;font-weight:800;line-height:1}
 .risk-score .rs-label{font-size:12px;color:var(--mut);margin-top:2px}
 .risk-score-block .rs-desc{flex:1;font-size:13.5px;line-height:1.7;color:#cdd7e2}
-/* === 今日指令 === */
 .today-instruction{background:rgba(74,168,255,.08);border:1px solid rgba(74,168,255,.25);border-radius:8px;padding:10px 14px;margin-bottom:10px;font-size:14px;font-weight:700;color:#93c5fd}
-/* 盘前核心定调卡 */
 .core-card{background:linear-gradient(135deg,#16202c,#111a24);border:1px solid #2b4a6a;border-radius:14px;padding:16px;margin-bottom:12px}
 .core-head{font-size:17px;font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:6px}
 .mood-bars{display:flex;flex-direction:column;gap:8px;margin-bottom:12px}
@@ -625,19 +752,13 @@ td.up,td.down{font-size:14px}
 .bb-item{font-size:12.5px;line-height:1.55}
 .bb-txt{color:var(--tx)}
 .bb-meta{color:var(--mut);font-size:11.5px;margin-top:2px}
-/* 持仓环形图 */
 .chart-wrap{margin:8px 0;background:rgba(0,0,0,.15);border-radius:10px;padding:6px;height:260px}
-.chart-wrap.sm{height:200px}
-.chart-wrap.lg{height:450px}
-.chart-wrap.trend{height:240px}
-/* 分时图 */
+.chart-wrap.sm{height:200px}.chart-wrap.lg{height:450px}.chart-wrap.trend{height:240px}
 .trend-mini{display:flex;gap:8px;flex-wrap:wrap;margin:6px 0}
 .trend-item{flex:1;min-width:280px;background:rgba(0,0,0,.12);border-radius:8px;padding:4px;height:220px}
 .trend-title{font-size:11px;color:var(--mut);padding:4px 8px;text-align:center}
 .trend-item canvas{width:100%;height:190px}
-/* 约束条 */
 .constraint-bar{background:rgba(245,86,77,.12);border-left:4px solid #f5564d;border-radius:8px;padding:10px 12px;margin-top:10px;font-size:12.5px;color:#ffb0a8}
-/* 技术面折叠 */
 details{border-top:1px solid var(--line);padding:8px 0}
 summary{cursor:pointer;font-weight:600;font-size:13.5px;display:flex;justify-content:space-between;align-items:center}
 summary .sc{font-size:12px;color:var(--mut)}
@@ -646,28 +767,30 @@ summary .sc{font-size:12px;color:var(--mut)}
 .dim{display:flex;gap:8px;font-size:12px}
 .dim b{color:var(--mut);font-weight:400;flex:0 0 48px}
 .tech-interp{font-size:12.5px;color:#cdd7e2;margin-top:6px;line-height:1.6}
-/* 事件时间线 */
 .timeline{position:relative;padding-left:14px;margin-top:6px;border-left:2px solid var(--line)}
 .tl-item{position:relative;padding:7px 0}
 .tl-item::before{content:"";position:absolute;left:-19px;top:12px;width:9px;height:9px;border-radius:50%;background:var(--acc);border:2px solid var(--bg)}
 .tl-time{font-size:12px;color:var(--acc);font-weight:700}
 .tl-event{font-size:13px;color:var(--tx);margin:2px 0}
 .tl-impact{font-size:12px;color:var(--mut);line-height:1.5}
-/* 数据来源 */
 .src-box{font-size:12.5px;line-height:1.7;background:rgba(74,168,255,.05);border-radius:8px;padding:10px 12px}
 .kv{display:flex;justify-content:space-between;gap:8px;padding:4px 0;border-bottom:1px solid var(--line)}
 .kv .ok{color:#26c281} .kv .warn{color:var(--neu)} .kv .q{color:var(--mut)}
 .tip{border-bottom:1px dotted var(--acc);cursor:help}
 .tip:hover{position:relative}
 .tip:hover::after{content:attr(data-tip);position:absolute;left:0;top:130%;z-index:50;background:#0b0f15;border:1px solid var(--line);color:var(--tx);font-size:11.5px;line-height:1.4;padding:6px 8px;border-radius:8px;width:260px;box-shadow:0 4px 14px rgba(0,0,0,.5);font-weight:400}
-/* 顶部导航 */
-.topnav{position:sticky;top:0;z-index:30;background:rgba(14,17,23,.95);backdrop-filter:blur(6px);border:1px solid var(--line);border-radius:10px;padding:6px 8px;margin-bottom:12px;display:flex;gap:4px;flex-wrap:wrap;align-items:center;font-size:12px}
-.topnav a{color:var(--mut);text-decoration:none;padding:3px 7px;border-radius:6px}
-.topnav a:hover{background:var(--bg2);color:var(--tx)}
-.nav-hist{margin-left:auto;display:flex;gap:4px}
-@media (max-width:680px){.two-col{grid-template-columns:1fr}.topnav{font-size:11px}.tech-grid,.tech-fold{grid-template-columns:1fr}}
+/* 涨跌色说明（表格顶部固定） */
+.color-legend{font-size:11px;color:var(--mut);padding:4px 0;margin-bottom:6px;display:flex;gap:10px;flex-wrap:wrap}
+.color-legend span{display:inline-flex;align-items:center;gap:4px}
+@media (max-width:680px){
+  .two-col{grid-template-columns:1fr}
+  .topnav{font-size:10px;padding:4px 6px}
+  .hl-grid{grid-template-columns:1fr}
+  .ol-list{grid-template-columns:1fr}
+  .tech-grid,.tech-fold{grid-template-columns:1fr}
+}
 @media print{
-  body{background:#fff;color:#111;max-width:100%}
+  body{background:#fff;color:#111;max-width:100%;padding-top:0}
   .topnav{display:none}.card{break-inside:avoid;box-shadow:none}
   .chart-wrap{height:200px}
   .tip:hover::after{display:none}
@@ -913,6 +1036,21 @@ function initCharts(){
   }catch(e){ console.error('chart error', e); }
 }
 window.addEventListener('load', initCharts);
+// 导航滚动高亮（Intersection Observer）
+try{
+  const navLinks = document.querySelectorAll('#topnav a[href^="#"]');
+  const sections = Array.from(navLinks).map(a=>document.getElementById(a.getAttribute('href').slice(1))).filter(Boolean);
+  const io = new IntersectionObserver(entries=>{
+    let activeId = '';
+    entries.forEach(e=>{if(e.isIntersecting)activeId=e.target.id;});
+    if(activeId) navLinks.forEach(a=>{a.classList.toggle('active',a.getAttribute('href')==='#'+activeId);});
+  },{rootMargin:'-80px 0px -60% 0px'});
+  sections.forEach(s=>io.observe(s));
+}catch(e){console.error('nav scroll err',e);}
+// 打印页面
+document.querySelectorAll('.nav-actions button').forEach(b=>{
+  b.addEventListener('click',()=>window.print());
+});
 </script>
 </body>
 </html>
@@ -943,22 +1081,51 @@ def main():
     updated = data.get("updated_at") or (date + " 09:00")
     prev = yesterdate(date)
 
-    nav = ('<nav class="topnav"><a href="#core">定调</a>'
-            '<a href="#global">全球</a><a href="#conflict">风险</a>'
-            '<a href="#bullbear">利好利空</a><a href="#hold">持仓</a>'
-            '<a href="#earn">财报</a><a href="#tech">技术</a>'
-            '<a href="#event">事件</a><a href="#cred">来源</a>'
-            '<span class="nav-hist"><a href="早间全球分析-%s.html">←昨日</a>'
-            '<a href="../../index.html">收件箱</a></span></nav>') % prev
+    # 是否有头条速览/今日前瞻/风险提示等新板块
+    has_headlines = bool(data.get("headlines"))
+    has_keyevents = bool(data.get("key_events"))
+    has_china = bool(data.get("china_dynamics"))
+    has_outlook = bool(data.get("today_outlook"))
+    has_risk = bool(data.get("risk_warnings"))
 
-    body = (render_core(data.get("core"), data.get("sentiment")) +
+    # 动态导航：根据数据有无决定是否显示
+    nav_links = []
+    def nav_a(href, label, always=True):
+        if always or (not always and data.get(href.replace("#",""))):
+            nav_links.append('<a href="%s">%s</a>' % (href, label))
+    nav_a("#headlines","速览", has_headlines)
+    nav_a("#core","定调")
+    nav_a("#global","全球")
+    nav_a("#keyevents","事件", has_keyevents)
+    nav_a("#conflict","风险")
+    nav_a("#bullbear","多空")
+    nav_a("#hold","持仓")
+    nav_a("#china","中国", has_china)
+    nav_a("#outlook","前瞻", has_outlook)
+    nav_a("#tech","技术")
+    nav_a("#risktips","提示", has_risk)
+    nav_a("#cred","来源")
+
+    nav = ('<nav class="topnav" id="topnav">%s'
+            '<span class="nav-actions">'
+            '<a href="早间全球分析-%s.html" title="昨日报告">←昨日</a>'
+            '<a href="../../index.html" title="收件箱">🏠</a>'
+            '<button onclick="window.print()" title="导出 PDF">🖨️ PDF</button>'
+            '</span></nav>') % (' '.join(nav_links), prev)
+
+    body = (render_headlines(data.get("headlines")) +
+            render_core(data.get("core"), data.get("sentiment")) +
             render_global(data.get("global")) +
+            render_key_events(data.get("key_events")) +
             render_conflicts(data.get("conflicts")) +
             render_bullbear(data.get("bulls"), data.get("bears")) +
             render_holdings(data.get("holdings"), data.get("holdings_constraint")) +
             render_earnings(data.get("earnings")) +
+            render_china(data.get("china_dynamics")) +
+            render_outlook(data.get("today_outlook")) +
             render_tech(data.get("tech")) +
             render_events(data.get("events")) +
+            render_risk_tips(data.get("risk_warnings")) +
             render_cred(data.get("credibility"), data.get("disclaimer")))
 
     head = (HEAD.replace("__DATE__", esc(date))
