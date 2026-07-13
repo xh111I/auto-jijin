@@ -103,27 +103,35 @@ canvas{width:100%!important;height:100%!important}
 .s-中{background:rgba(139,152,169,.16);color:var(--mut)}
 .s-弱{background:rgba(139,152,169,.08);color:#6b7686}
 @media (max-width:560px){.kx-card{flex-direction:column}.kx-left{flex:none;width:100%}}
+/* v2 新样式：三栏定调 + 简化表 + 催化表 */
+html{scroll-padding-top:56px}
+.mh-card{background:linear-gradient(135deg,#16202c,#111a24);border:1px solid #2b4a6a;border-radius:14px;padding:14px;margin-bottom:12px}
+.mh-grid{display:grid;grid-template-columns:1fr 1fr 1.2fr;gap:10px}
+.mh-item{background:var(--bg2);border-radius:10px;padding:10px 12px;border-left:3px solid var(--acc)}
+.mh-act{border-left-color:var(--neu)}
+.mh-label{font-size:11px;color:var(--mut);font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px}
+.mh-val{font-size:13px;line-height:1.6;color:var(--tx)}
+.mh-list{list-style:none;padding:0;margin:0;font-size:13px;line-height:1.8}
+.mh-list li{padding:1px 0}
+.cat-table{width:100%;border-collapse:collapse;font-size:12.5px}
+.cat-table th,.cat-table td{padding:7px 6px;border-bottom:1px solid var(--line);text-align:left}
+.cat-table th{color:var(--mut);font-weight:600;background:var(--bg2)}
+.cat-lvl{font-size:10.5px;padding:1px 7px;border-radius:10px;font-weight:700}
+.cat-high{background:rgba(245,86,77,.16);color:var(--up)}.cat-mid{background:rgba(217,164,65,.16);color:var(--neu)}.cat-low{background:rgba(139,152,169,.16);color:var(--mut)}
+@media (max-width:560px){.mh-grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
 <h1>📡 大盘·板块·日K研判</h1>
 <div class="sub">2026-07-10 · 2026-07-10 15:30 收盘 · 数据源 neodata(T2) · 方法论 四因子+板块五维+情绪8因子</div>
-<nav class="topnav"><a href="#core">核心</a><a href="#cred">可信度</a><a href="#pano">大盘</a><a href="#sent">情绪</a><a href="#sec">板块</a><a href="#skline">板块日K</a><a href="#hold">持仓</a><a href="#pred">预判</a><a href="#kline">日K</a><a href="#risk">风险</a><span class="nav-hist"><a href="market-index-2026-07-09.html">←昨日</a><a href="../../index.html">收件箱</a></span></nav>
-<section id="core" class="core-card">
-  <div class="core-head">🎯 今日核心研判 <span class="badge">决策优先</span></div>
-  <div class="core-line"><span class="cl-k">市场定性</span><span class="cl-v">全市场放量回调，昨日半导体/AI主线今日重挫(-6.26%)，资金高低切至军工/医药/消费；科创50单日-5.53%高位巨阴<span class="tip" data-tip="单日大实体阴线，高位获利盘集中兑现，空头动能释放">巨阴线</span></span></div>
-  <div class="core-line"><span class="cl-k">主线总结</span><span class="cl-v">军工(航天+10.2%/航海+4%)、医疗服务、港股创新药(+3.25%)、消费接力；半导体/CPO/证券获利回吐</span></div>
-  <div class="core-line"><span class="cl-k">操作总纲</span><span class="cl-v act">持仓以锁利为主：半导体重仓逢高分批止盈、不追跌；港药/消费转强可持有；严守-8%硬止损，现金12%待急跌低吸</span></div>
-  <div class="metrics">
-    <div class="metric"><div class="m-k">全市场成交额</div><div class="m-v">33000 亿</div></div>
-    <div class="metric"><div class="m-k">恐惧贪婪指数</div><div class="m-v lv-neu-up">50</div></div>
-    <div class="metric"><div class="m-k">涨跌家数比</div><div class="m-v">—</div></div>
+<nav class="topnav"><a href="#mh">核心</a><a href="#pano">大盘</a><a href="#sent">情绪</a><a href="#sec">板块</a><a href="#hold">持仓</a><a href="#pred">预判</a><span class="nav-hist"><a href="market-index-2026-07-09.html">←昨日</a><a href="../../index.html">收件箱</a></span></nav>
+<section id="mh" class="mh-card">
+  <div class="mh-grid">
+    <div class="mh-item"><div class="mh-label">市场定性</div><div class="mh-val">全市场放量回调，昨日半导体/AI主线今日重挫(-6.26%)，资金高低切至军工/医药/消费；科创50单日-5.53%高位巨阴<span class="tip" data-tip="单日大实体阴线，高位获利盘集中兑现，空头动能释放">巨阴线</span></div></div>
+    <div class="mh-item"><div class="mh-label">主线总结</div><div class="mh-val">军工(航天+10.2%/航海+4%)、医疗服务、港股创新药(+3.25%)、消费接力；半导体/CPO/证券获利回吐</div></div>
+    <div class="mh-item mh-act"><div class="mh-label">操作总纲</div><div class="mh-val"><ul class="mh-list">持仓以锁利为主：半导体重仓逢高分批止盈、不追跌；港药/消费转强可持有；严守-8%硬止损，现金12%待急跌低吸</ul></div></div>
   </div>
 </section>
-<div class="card">
-  <h2>① 数据可信度 <span class="badge">T2</span></h2>
-  <div class="kv"><span>指数快照/涨跌幅</span><span class="ok">✅ neodata实时(收盘)</span></div><div class="kv"><span>MA/技术面</span><span class="ok">✅ 技术面接口(T2)</span></div><div class="kv"><span>主力净流入</span><span class="warn">⚠️ 资金流向为估算值(T2)，中证500/北证50/恒科缺失</span></div><div class="kv"><span>情绪8因子</span><span class="warn">⚠️ 广度/涨跌停/北向/融资/VIX缺失→中性计</span></div><div class="kv"><span>250日OHLC日K</span><span class="warn">⚠️ neodata历史序列截断，蜡烛图降级为迷你走势</span></div><div class="kv"><span>更新时间</span><span class="ok">✅ 2026-07-10 15:30 收盘</span></div>
-</div>
 <div class="card">
   <h2>② 大盘全景速览 <span class="badge">9 指数</span></h2>
   <div class="chart-wrap"><canvas id="chgBar"></canvas></div>
@@ -514,6 +522,10 @@ canvas{width:100%!important;height:100%!important}
   
   <div class="chart-wrap sm"><canvas id="mini8"></canvas></div>
 </details>
+</div>
+<div class="card">
+  <h2>① 数据可信度 <span class="badge">T2</span></h2>
+  <div class="kv"><span>指数快照/涨跌幅</span><span class="ok">✅ neodata实时(收盘)</span></div><div class="kv"><span>MA/技术面</span><span class="ok">✅ 技术面接口(T2)</span></div><div class="kv"><span>主力净流入</span><span class="warn">⚠️ 资金流向为估算值(T2)，中证500/北证50/恒科缺失</span></div><div class="kv"><span>情绪8因子</span><span class="warn">⚠️ 广度/涨跌停/北向/融资/VIX缺失→中性计</span></div><div class="kv"><span>250日OHLC日K</span><span class="warn">⚠️ neodata历史序列截断，蜡烛图降级为迷你走势</span></div><div class="kv"><span>更新时间</span><span class="ok">✅ 2026-07-10 15:30 收盘</span></div>
 </div>
 <div class="card">
   <h2>⑧ 风险提示与免责</h2>

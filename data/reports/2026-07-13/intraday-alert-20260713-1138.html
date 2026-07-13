@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>盘中预警 — 2026-07-13 11:38</title>
+<style>
+body { font-family: -apple-system, 'Microsoft YaHei', sans-serif; margin: 0; padding: 20px; background: #f5f6fa; color: #333; }
+.container { max-width: 960px; margin: 0 auto; }
+.header { background: linear-gradient(135deg, #ff9800, #f57c00); color: white; padding: 20px; border-radius: 12px; margin-bottom: 20px; }
+.header h1 { margin: 0; font-size: 22px; }
+.header .sub { opacity: 0.9; font-size: 13px; margin-top: 6px; }
+.badge { display: inline-block; padding: 3px 10px; border-radius: 4px; font-weight: 700; font-size: 13px; margin-right: 6px; }
+.badge-red { background: #f5564d; color: #fff; }
+.badge-orange { background: #ff9800; color: #fff; }
+.badge-blue { background: #2196f3; color: #fff; }
+.section { background: #fff; border-radius: 10px; padding: 16px; margin-bottom: 16px; box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
+.section h2 { font-size: 16px; margin: 0 0 12px 0; padding-bottom: 8px; border-bottom: 1px solid #eee; }
+.alert-item { padding: 10px; margin-bottom: 8px; border-radius: 8px; border-left: 4px solid #ddd; }
+.alert-warning { border-left-color: #ff9800; background: #fff8e1; }
+.alert-safe { border-left-color: #4caf50; background: #e8f5e9; }
+.alert-info { border-left-color: #2196f3; background: #e3f2fd; }
+.alert-item .level { font-weight: 700; font-size: 14px; }
+.alert-item .detail { font-size: 13px; margin-top: 4px; color: #555; }
+.alert-item .action { font-size: 12px; margin-top: 6px; padding: 4px 8px; background: rgba(0,0,0,0.04); border-radius: 4px; color: #666; }
+.data-grid { font-size: 13px; }
+.data-grid table { width: 100%; border-collapse: collapse; }
+.data-grid th, .data-grid td { padding: 6px 8px; text-align: right; border-bottom: 1px solid #f0f0f0; }
+.data-grid th { background: #fafafa; font-weight: 600; text-align: center; }
+.data-grid td:first-child, .data-grid th:first-child { text-align: left; }
+.up { color: #f5564d; }
+.down { color: #26c281; }
+.fund-row { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #f5f5f5; font-size: 13px; }
+.fund-row:last-child { border-bottom: none; }
+.fund-name { font-weight: 600; }
+.fund-dist { font-size: 12px; color: #888; }
+.stop-loss-progress { height: 6px; background: #e0e0e0; border-radius: 3px; margin: 4px 0; overflow: hidden; }
+.stop-loss-progress .bar { height: 100%; border-radius: 3px; transition: width 0.3s; }
+.bar-danger { background: #f5564d; }
+.bar-warning { background: #ff9800; }
+.bar-safe { background: #26c281; }
+.tag { display: inline-block; padding: 2px 6px; border-radius: 3px; font-size: 11px; font-weight: 600; }
+.tag-event { background: #fff3e0; color: #e65100; }
+.tag-risk { background: #fbe9e7; color: #c62828; }
+.tag-info { background: #e3f2fd; color: #1565c0; }
+.footer { text-align: center; font-size: 11px; color: #999; margin-top: 20px; padding: 12px 0; border-top: 1px solid #eee; }
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="header">
+  <h1>🟠 盘中预警 — 2026-07-13 11:38</h1>
+  <div class="sub">数据截至 2026/07/13 11:39 · 午间休市快照 · 数据源: NeoData T2</div>
+</div>
+
+<div class="section">
+  <h2>📊 告警判定总览</h2>
+  <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px;">
+    <span><span class="badge badge-red">🔴 紧急</span> 未触发</span>
+    <span><span class="badge badge-orange">🟠 警告</span> <strong>2项触发</strong></span>
+    <span><span class="badge badge-blue">🔵 提示</span> 未触发</span>
+  </div>
+
+  <div class="alert-item alert-warning">
+    <div class="level"><span class="tag tag-risk">🟠 警告</span> 大盘下挫超1%</div>
+    <div class="detail">上证指数收 3,934.74，当日涨跌幅 <span class="down">−1.54%</span>，幅度 > 1%；深证成指 <span class="down">−2.61%</span>，创业板指 <span class="down">−2.38%</span>。</div>
+    <div class="action">⚠️ 建议：暂停买入操作，观望尾盘是否反弹；关注银行/能源逆势板块持续性。</div>
+  </div>
+
+  <div class="alert-item alert-warning">
+    <div class="level"><span class="tag tag-risk">🟠 警告</span> 永赢半导距止损仅3.26%</div>
+    <div class="detail">永赢先锋半导体智选混合C 当前持有收益 <span class="down">−4.74%</span>，距策略硬止损(−8%)仅 <strong>3.26%</strong>（≤5%阈值）。关联板块半导体材料设备 <span class="down">−2.88%</span>。</div>
+    <div class="action">⚠️ 建议：若半导体材料设备下午持续走弱跌破 −4%（对应持有收益约−6.5%），考虑触发该基金自身 −2% 止损失控信号并执行减仓 50%。</div>
+  </div>
+</div>
+
+<div class="section">
+  <h2>📈 核心指数实时行情</h2>
+  <div class="data-grid">
+    <table>
+      <tr><th>指数</th><th>最新价</th><th>涨跌幅</th><th>量比</th><th>振幅</th></tr>
+      <tr><td>上证指数</td><td>3,934.74</td><td class="down">−1.54%</td><td>1.35</td><td>1.36%</td></tr>
+      <tr><td>深证成指</td><td>14,654.49</td><td class="down">−2.61%</td><td>1.33</td><td>2.44%</td></tr>
+      <tr><td>创业板指</td><td>3,751.33</td><td class="down">−2.38%</td><td>1.37</td><td>2.92%</td></tr>
+      <tr><td>科创50</td><td>2,026.96</td><td class="down">−1.84%</td><td>1.28</td><td>4.07%</td></tr>
+      <tr><td>恒生指数</td><td>24,126.51</td><td class="down">−0.20%</td><td>0.95</td><td>1.46%</td></tr>
+    </table>
+  </div>
+</div>
+
+<div class="section">
+  <h2>📦 关联板块实时行情</h2>
+  <div class="data-grid">
+    <table>
+      <tr><th>板块/指数</th><th>最新价</th><th>涨跌幅</th><th>量比</th><th>5日涨跌</th><th>20日涨跌</th></tr>
+      <tr><td>半导体材料设备</td><td>11,831.72</td><td class="down">−2.88%</td><td>1.23</td><td class="up">+2.55%</td><td class="up">+33.01%</td></tr>
+      <tr><td>中证煤炭</td><td>2,124.24</td><td class="down">−0.28%</td><td>1.20</td><td class="down">−3.92%</td><td class="down">−16.07%</td></tr>
+    </table>
+    <p style="font-size:12px;color:#999;margin-top:6px;">港股创新药/恒生医疗保健实时行情数据暂不可得（NeoData未返回结构化数据）</p>
+  </div>
+</div>
+
+<div class="section">
+  <h2>💰 持仓距止损进度</h2>
+  <div style="font-size:13px;margin-bottom:8px;color:#666;">距策略硬止损(−8%)进度。距止损越近（红色条越长）越需关注。</div>
+
+  <div class="fund-row">
+    <div>
+      <div class="fund-name">永赢先锋半导体智选混合C</div>
+      <div class="fund-dist">关联: 半导体材料设备 <span class="down">−2.88%</span></div>
+    </div>
+    <div style="text-align:right;min-width:160px;">
+      <div style="font-weight:700;color:#f5564d;">距止损 3.26% 🟠</div>
+      <div>持有收益 <span class="down">−4.74%</span></div>
+    </div>
+  </div>
+  <div class="stop-loss-progress">
+    <div class="bar bar-warning" style="width:59%"></div>
+  </div>
+
+  <div class="fund-row">
+    <div>
+      <div class="fund-name">广发港股创新药ETF联接(QDII)C</div>
+      <div class="fund-dist">关联: 恒生医疗保健 | 自身止损−5%</div>
+    </div>
+    <div style="text-align:right;min-width:160px;">
+      <div style="font-weight:700;color:#26c281;">距止损 7.12% ✅</div>
+      <div>持有收益 <span class="down">−0.88%</span></div>
+    </div>
+  </div>
+  <div class="stop-loss-progress">
+    <div class="bar bar-safe" style="width:11%"></div>
+  </div>
+
+  <div class="fund-row">
+    <div>
+      <div class="fund-name">鹏华丰诚债券C（防御底仓）</div>
+      <div class="fund-dist">纯债资产，波动极低</div>
+    </div>
+    <div style="text-align:right;min-width:160px;">
+      <div style="font-weight:700;color:#26c281;">安全</div>
+      <div>持有收益 −0.04%</div>
+    </div>
+  </div>
+
+  <div class="fund-row">
+    <div>
+      <div class="fund-name">东方人工智能主题混合C（已部分赎回）</div>
+      <div class="fund-dist">7/13赎回368.6份，剩余约3成仓位</div>
+    </div>
+    <div style="text-align:right;min-width:160px;">
+      <div style="font-weight:700;color:#26c281;">盈利 +4.15% ✅</div>
+      <div>关联板块 −2.88%</div>
+    </div>
+  </div>
+
+  <div class="fund-row">
+    <div>
+      <div class="fund-name">东方阿尔法科技优选混合C</div>
+      <div class="fund-dist">第一大仓(25.05%)</div>
+    </div>
+    <div style="text-align:right;min-width:160px;">
+      <div style="font-weight:700;color:#26c281;">盈利 +6.03% ✅</div>
+      <div>关联板块 −2.88%</div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <h2>🌍 盘面重大事件</h2>
+  <ul style="font-size:13px;padding-left:18px;line-height:1.8;">
+    <li><strong>外围冲击</strong>：日韩暴跌（KOSPI跌6%、SK海力士跌10.7%），韩国启动SIDECAR机制</li>
+    <li><strong>A股</strong>：超4500股飘绿，银行/中药/燃气逆势走强</li>
+    <li><strong>地缘政治</strong>：伊朗关闭霍尔木兹海峡，布伦特原油涨超4%，能源板块逆市走强</li>
+    <li><strong>半导体</strong>：半导体材料设备早盘高开（一度冲高至12,475），后回落至−2.88%，振幅5.30%</li>
+    <li><strong>医药</strong>：四大公募南下举牌创新药，新版基药目录发布利好（09:31新闻）</li>
+  </ul>
+</div>
+
+<div class="section">
+  <h2>🎯 建议动作</h2>
+  <ol style="font-size:13px;line-height:1.8;padding-left:18px;">
+    <li><strong>暂停新增买入</strong>：大盘跌幅>1%，外部风险事件叠加，暂不加仓/补仓</li>
+    <li><strong>关注永赢半导</strong>：距策略硬止损仅3.26%，若下午持续走弱至−6.5%以下，执行自身−2%止损失控信号减仓50%</li>
+    <li><strong>港药暂持</strong>：恒指仅−0.20%，港药自身−0.88%接近持平，距止损充裕；若有恒生医疗保健指数实时数据确认跌幅可控则维持</li>
+    <li><strong>尾盘14:50确认</strong>：观察上证是否跌破3,900（日线支撑），若跌破则触发更强风控信号</li>
+    <li><strong>现金管理</strong>：当前现金24.11%（约3062元），有足够弹药，不需恐慌减仓</li>
+  </ol>
+</div>
+
+<div class="footer">
+  ⚠️ 本报告仅供参考，不构成投资建议。数据来源：NeoData Financial Search (T2)，标记 🚫 存疑/⚠ 待验证 的数据请勿用于操作决策。
+</div>
+
+</div>
+</body>
+</html>

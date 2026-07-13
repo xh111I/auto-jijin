@@ -536,6 +536,41 @@ def render_risk(risks, disclaimer):
 </div>'''
 
 
+# ======================== v2 新增：三栏定调 + 休市催化 ========================
+def render_market_header(c):
+    """首屏三栏卡：市场定性 / 主线总结 / 操作总纲"""
+    if not c:
+        return ""
+    qual = tip(c.get("market_qual", ""))
+    line = tip(c.get("main_line", ""))
+    act = tip(c.get("action_guideline", ""))
+    return f'''
+<section id="mh" class="mh-card">
+  <div class="mh-grid">
+    <div class="mh-item"><div class="mh-label">市场定性</div><div class="mh-val">{qual}</div></div>
+    <div class="mh-item"><div class="mh-label">主线总结</div><div class="mh-val">{line}</div></div>
+    <div class="mh-item mh-act"><div class="mh-label">操作总纲</div><div class="mh-val"><ul class="mh-list">{act}</ul></div></div>
+  </div>
+</section>'''
+
+
+def render_catalyst(data):
+    """休市版：周末催化表格"""
+    cats = data.get("catalysts") or []
+    if not cats:
+        return ""
+    rows = ""
+    for c in cats:
+        lvl = c.get("level", "中")
+        lvl_cls = {"高": "cat-high", "中": "cat-mid", "低": "cat-low"}.get(lvl, "cat-mid")
+        rows += f'<tr><td><b>{esc(c.get("cat",""))}</b></td><td>{tip(c.get("event",""))}</td><td>{tip(c.get("impact",""))}</td><td><span class="cat-lvl {lvl_cls}">{lvl}</span></td></tr>'
+    return f'''
+<section id="catalyst" class="card">
+  <h2>③ 周末全球事件催化 <span class="badge">休市特刊专属</span></h2>
+  <table class="cat-table"><tr><th>类别</th><th>核心内容</th><th>影响</th><th>等级</th></tr>{rows}</table>
+</section>'''
+
+
 # ---------- 静态 HEAD（含全部 CSS） ----------
 HEAD = """<!DOCTYPE html>
 <html lang="zh-CN">
@@ -642,6 +677,22 @@ canvas{width:100%!important;height:100%!important}
 .s-中{background:rgba(139,152,169,.16);color:var(--mut)}
 .s-弱{background:rgba(139,152,169,.08);color:#6b7686}
 @media (max-width:560px){.kx-card{flex-direction:column}.kx-left{flex:none;width:100%}}
+/* v2 新样式：三栏定调 + 简化表 + 催化表 */
+html{scroll-padding-top:56px}
+.mh-card{background:linear-gradient(135deg,#16202c,#111a24);border:1px solid #2b4a6a;border-radius:14px;padding:14px;margin-bottom:12px}
+.mh-grid{display:grid;grid-template-columns:1fr 1fr 1.2fr;gap:10px}
+.mh-item{background:var(--bg2);border-radius:10px;padding:10px 12px;border-left:3px solid var(--acc)}
+.mh-act{border-left-color:var(--neu)}
+.mh-label{font-size:11px;color:var(--mut);font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px}
+.mh-val{font-size:13px;line-height:1.6;color:var(--tx)}
+.mh-list{list-style:none;padding:0;margin:0;font-size:13px;line-height:1.8}
+.mh-list li{padding:1px 0}
+.cat-table{width:100%;border-collapse:collapse;font-size:12.5px}
+.cat-table th,.cat-table td{padding:7px 6px;border-bottom:1px solid var(--line);text-align:left}
+.cat-table th{color:var(--mut);font-weight:600;background:var(--bg2)}
+.cat-lvl{font-size:10.5px;padding:1px 7px;border-radius:10px;font-weight:700}
+.cat-high{background:rgba(245,86,77,.16);color:var(--up)}.cat-mid{background:rgba(217,164,65,.16);color:var(--neu)}.cat-low{background:rgba(139,152,169,.16);color:var(--mut)}
+@media (max-width:560px){.mh-grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -881,22 +932,22 @@ def main():
     updated = data.get("updated_at") or (date + " 收盘")
     prev = yesterdate(date)
 
-    nav = ('<nav class="topnav"><a href="#core">核心</a><a href="#cred">可信度</a>'
-            '<a href="#pano">大盘</a><a href="#sent">情绪</a><a href="#sec">板块</a><a href="#skline">板块日K</a>'
-            '<a href="#hold">持仓</a><a href="#pred">预判</a><a href="#kline">日K</a>'
-            '<a href="#risk">风险</a>'
+    nav = ('<nav class="topnav"><a href="#mh">核心</a><a href="#pano">大盘</a>'
+            '<a href="#sent">情绪</a><a href="#sec">板块</a>'
+            '<a href="#hold">持仓</a><a href="#pred">预判</a>'
             '<span class="nav-hist"><a href="market-index-%s.html">←昨日</a>'
             '<a href="../../index.html">收件箱</a></span></nav>') % prev
 
-    body = (render_core(data.get("core")) +
-            render_cred(data.get("credibility")) +
+    body = (render_market_header(data.get("core")) +
             render_panorama(data.get("indices")) +
             render_sentiment(data.get("sentiment")) +
+            render_catalyst(data) +
             render_sectors(data.get("sectors")) +
             render_sector_kline(sector_cards) +
             render_holdings(data.get("holdings")) +
             render_predict(data.get("predictions"), data.get("watch_levels")) +
             render_kline(data.get("indices")) +
+            render_cred(data.get("credibility")) +
             render_risk(data.get("risks"), data.get("disclaimer")))
 
     head = (HEAD.replace("__DATE__", esc(date))

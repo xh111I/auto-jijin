@@ -123,7 +123,28 @@ ul.news li{margin:5px 0}
 .scn-pess{background:#3a1717;color:#ffb0a8;border:1px solid #6b2b2b}
 .badge.pend{background:#16242e;color:#7fc8ff;border:1px solid #244a5c}
 .hit-note{font-size:12.5px;color:var(--mut);margin:6px 0}
-</style></head>
+/* v2 新样式：四栏结论卡 + 催化表格 + 结构化决策 + 三情景 + 待办表 */
+.ev-summary{display:grid;grid-template-columns:1fr 1fr 1fr 1.2fr;gap:10px;margin:14px 0}
+.ev-card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:13px 15px;border-left:4px solid var(--line)}
+.ev-card.ev-action{border-left-color:var(--acc);background:rgba(74,168,255,.06)}
+.ev-label{color:var(--mut);font-size:11.5px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
+.ev-card-num{font-size:24px;font-weight:800;margin:2px 0}.ev-desc{font-size:11.5px;color:var(--mut)}
+.ev-list{list-style:none;padding:0;margin:0;font-size:13px;line-height:1.7}.ev-act{list-style:none;padding:0;margin:0;font-size:13px;line-height:1.9}
+.cat-badge{background:rgba(74,168,255,.12);color:#4aa8ff;font-size:10px;margin-left:4px}
+.cat-lvl{font-size:11px;padding:1px 8px;border-radius:12px;font-weight:700}
+.cat-high{background:rgba(245,86,77,.16);color:var(--up)}.cat-mid{background:rgba(217,164,65,.16);color:var(--neu)}.cat-low{background:rgba(139,152,169,.16);color:var(--mut)}
+.cat-conclusion{font-size:13px;color:#cfe2f5;margin-top:10px;padding:9px 12px;background:rgba(74,168,255,.08);border:1px solid rgba(74,168,255,.25);border-radius:8px}
+.dec-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:8px 0}
+.dec-col{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:10px 12px}
+.dec-col-hl{font-size:13px;display:block;margin-bottom:6px;border-bottom:1px solid var(--line);padding-bottom:4px}
+.dec-col ul{list-style:none;padding:0;margin:0;font-size:12.5px;line-height:1.6}
+.dec-item{padding:4px 0;border-bottom:1px dashed rgba(42,51,64,.5)}.dec-item:last-child{border:none}
+.dec-item.hit{color:var(--down)}.dec-item.miss{color:var(--up)}.dec-item.root{color:var(--neu)}.dec-item.impr{color:#7fc8ff}
+.scn-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin:8px 0}
+.scn-trig{font-size:12px;color:#aab4c0;display:block;margin:4px 0}.scn-act{font-size:12.5px;color:#fff;display:block;margin:4px 0}
+.todo-table-head{display:grid;grid-template-columns:72px 1fr 1.5fr;gap:8px;padding:6px 10px;color:var(--mut);font-size:12px;font-weight:700;background:var(--bg2);border-radius:8px;margin-bottom:4px}
+.pr-高 .pbadge{background:#3a1d1d;color:#ff7a72}.pr-中 .pbadge{background:#2a2415;color:var(--neu)}.pr-低 .pbadge{background:#16242e;color:#7fc8ff}
+@media(max-width:680px){.ev-summary{grid-template-columns:1fr 1fr}.dec-grid{grid-template-columns:1fr}.scn-grid{grid-template-columns:1fr}.kpi-grid{grid-template-columns:repeat(2,1fr)}.cards,.acct,.kcards{flex-direction:column}h1{font-size:21px}}
 <body>
 <nav class="nav"><span class="brand">📊 复盘</span>
 <a href="#summary">摘要</a><a href="#overview">概览</a><a href="#flow">资金流</a><a href="#alpha">α基本面</a>
@@ -133,36 +154,24 @@ ul.news li{margin:5px 0}
 <div class="wrap">
 
 <h1>📊 每日基金晚间复盘</h1>
-<div class="meta">日期 <b>2026-07-12</b> · 数据截止：最近交易日收盘 + 周末扫描 · 生成 2026-07-12 22:29 · 数据源 <b>neodata-financial-search</b> · 仅供参考，不构成投资建议</div>
+<div class="meta">日期 <b>2026-07-12</b> · 数据截止：最近交易日收盘 + 周末扫描 · 生成 2026-07-13 10:26 · 数据源 <b>neodata-financial-search</b> · 仅供参考，不构成投资建议</div>
 
-<div class="holiday">📴 <b>休市特刊</b> · 2026-07-12 周日·A股休市，无实盘交易。本复盘为「周末特刊·周日版」：以最近交易日(2026-07-10 周五)真实收盘为基底，叠加周末全球强催化(SK海力士上市大涨/英伟达破5万亿/地缘缓和/人民币走强)推演下周一(2026-07-13)预案。不编造任何当日行情；账户状态=07-10 收盘快照。距下一交易日仅 1 天。</div>
 
-<section class="sec" id="summary">
-  <div class="summary">
-    <h2>🎯 今日核心结论</h2>
-    <div class="hl">账户估算日收益 <b class='down'>-4.29%</b>（约 -495.07 元）；综合预测命中率 <b>23.8%</b>（0/0 命中）；收盘恐惧贪婪指数 <b>50</b>（中性）。</div>
-    <div class="hl">核心问题：半导体/科技类暴露约 <b>65.4%</b>、前二持仓合计 <b>56.6%</b> 偏高集中；多数看多预测因大盘回调落空。</div>
-    <div class="hl">核心动作：维持防御、严守单基 -8% 硬止损；将高集中度半导体仓位向债券/消费再平衡，待确认转换后于次日复盘更新结构。</div>
-    <div class="kpi-grid">
-  <div class="kpi-card down"><div class="klbl">账户估算日收益</div>
-    <div class="kbig down">-4.29%</div>
-    <div class="kstat warn">预警 · ≈-495元</div></div>
-  <div class="kpi-card"><div class="klbl">综合预测命中率</div>
-    <div class="kbig">23.8%</div>
-    <div class="kstat bad">异常 · 10/42累计命中</div></div>
-  <div class="kpi-card"><div class="klbl">收盘恐惧贪婪</div>
-    <div class="kbig neu">50</div>
-    <div class="kstat neu">中性</div></div>
-  <div class="kpi-card "><div class="klbl">半导体/科技暴露</div>
-    <div class="kbig ">65.4%</div>
-    <div class="kstat warn">预警 · 前二56.6%</div></div>
-</div>
-    <div class="anomaly"><b style="color:#ff9a92">⚠ 异常 / 待关注</b><ul><li>⚠ 半导体暴露 65.4% 超 60% 阈值</li><li>⚠ 前二持仓集中 56.6%</li><li>⚠ 高风险标记：永赢先锋半导体智选混合C，广发港股创新药ETF联接(QDII)C，天弘中证全指通信设备指数C</li><li>⚠ 5/8 情绪因子源未返回（按中性50计入，指数偏中性）</li></ul></div>
+<div class="ev-summary">
+  <div class="ev-card"><div class="ev-label">当日账户收益</div><div class="ev-card-num down">-4.29%</div><div class="ev-desc">约 -495.07 元（板块代理）</div></div>
+  <div class="ev-card"><div class="ev-label">核心问题</div><ul class="ev-list"><li>半导体暴露 65.4% 超阈值</li><li>前二持仓集中度 56.6%</li></ul></div>
+  <div class="ev-card"><div class="ev-label">周末催化影响</div><span class="mut">待周末扫描确认</span></div>
+  <div class="ev-card ev-action"><div class="ev-label">下日总策略</div>
+    <ul class="ev-act">
+      <li class="down">🔴 反弹锁利降半导体集中度</li>
+      <li class="up">🟢 新主线纳入观察名单</li>
+      <li class="neu">⚪ 严守 -8% 硬止损</li>
+    </ul>
   </div>
-</section>
+</div>
 
 <section class="sec" id="overview">
-  <h2>一、账户与大盘概览 <span class="tg">▾</span></h2>
+  <h2>① 当日行情与资金复盘 <span class="tg">▾</span></h2>
   <div class="sec-body">
   <div class="cards"><div class="card sm"><div class="lbl">上证指数</div>
       <div class="big down">3,996.16</div>
@@ -310,7 +319,7 @@ ul.news li{margin:5px 0}
   <div class="cap">补救：①订阅航天/政策/存储快讯做盘中异动提醒；②半导体单日巨阴后不硬扛不动，用止盈回款小仓（≤总仓15%）试建新主线验证持续性；③命中率仅约24%，方向预测价值低，风险管理(止损/再平衡)才是胜负手；④周末外部催化(SK海力士/英伟达)需纳入周一开盘策略，但不改变超买回落的中期纪律。</div></div></section>
 
 <section class="sec" id="flow">
-  <h2>二、资金流（资金面） <span class="tg">▾</span></h2>
+  <h2>② 资金流（资金面） <span class="tg">▾</span></h2>
   <div class="sec-body">
   <div class="card" style="margin:10px 0">
     <div style="font-weight:700;margin-bottom:6px">行业主力资金</div>
@@ -321,8 +330,22 @@ ul.news li{margin:5px 0}
   </div>
 </section>
 
-<section class="sec" id="alpha">
-  <h2>三、α 与基本面（最近可得官方净值） <span class="tg">▾</span></h2>
+
+
+<section class="sec" id="nextday">
+  <h2>⑥ 下交易日（2026-07-13（周一））操作预案 <span class="tg">▾</span></h2>
+  <div class="sec-body">
+  <div class="sub" style="margin-bottom:6px">核心观察阈值：< · l · i · > · 上 · 证 ·   · 3 · 9 · 9 · 6 · . · 1 · 6 · （ · 4 · 0 · 0 · 0 · 关 · 口 · 下 · 沿 · ， · 守 · 则 · 不 · 破 · 位 · ） · < · / · l · i · > · < · l · i · > · 半 · 导 · 体 · / · 科 · 创 · 5 · 0 · ： · 0 · 7 · - · 1 · 0 ·   · 巨 · 阴 · 后 · 能 · 否 · 缩 · 量 · 企 · 稳 · （ · 科 · 创 · 5 · 0 ·   · 2 · 0 · 6 · 4 · . · 9 · 8 · ； · 半 · 导 · 体 · 防 · 再 · 破 · 位 · 下 · 破 · M · A · 2 · 0 · ） · < · / · l · i · > · < · l · i · > · 商 · 业 · 航 · 天 · ： · 周 · 一 · 是 · 否 · 高 · 开 · 不 · 回 · 落 · （ · 验 · 证 · 主 · 线 · 持 · 续 · 性 · ， · 经 · 周 · 末 · 冷 · 却 · 后 · 关 · 键 · ） · < · / · l · i · > · < · l · i · > · 账 · 户 · 硬 · 止 · 损 · 线 · ： · 单 · 基 ·   · - · 8 · % · ； · 现 · 金 ·   · 1 · 2 · . · 1 · 1 · % ·   · 为 · 低 · 吸 · 弹 · 药 · < · / · l · i · ></div>
+  <div class="scn-grid">
+    <div class="scn scn-opt"><b>🟢 乐观</b><br><span class="scn-trig">触发：存储催化带动半导体高开冲高 + 商业航天延续 → 趁高开锁利降半导体敞口至≤60%，用回款小仓加 航天ETF/创新药ETF；账户修复。切忌高开追加。</span><br><span class="scn-act">操作：</span></div>
+    <div class="scn scn-base"><b>🟡 基准</b><br><span class="scn-trig">触发：半导体高开后震荡回落/窄幅整理(-2%~+1%) → 不追不减、严守-8%止损，观望新主线与资金沉淀；现金待命。</span><br><span class="scn-act">操作：</span></div>
+    <div class="scn scn-pess"><b>🔴 悲观</b><br><span class="scn-trig">触发：半导体低开放量下破MA20(再跌>3%) → 触发减仓/止损，现金增至20%+全面防守；新主线暂不加，等企稳。</span><br><span class="scn-act">操作：</span></div>
+  </div>
+  </div>
+</section>
+
+<section class="sec" id="rebalance">
+  <h2>⑦ 调仓与风控待办清单 <span class="tg">▾</span></h2>
   <div class="sec-body">
   <div class="sub" style="margin-bottom:6px">α = 基金实际日收益 − 关联基准收益（越大越好）。排名/重仓为 neodata 返回，缺失标注 —。</div>
   <table>
@@ -451,17 +474,18 @@ ul.news li{margin:5px 0}
   </div>
 </section>
 
+
 <section class="sec" id="nextday">
-  <h2>🗓 五、次日预案（下个交易日 2026-07-13（周一）） <span class="tg">▾</span></h2>
+  <h2>⑥ 下交易日（2026-07-13（周一））操作预案 <span class="tg">▾</span></h2>
   <div class="sec-body">
-  <div class="sub" style="margin-bottom:4px">关键价位 / 事件</div>
-  <ul class="news"><li>上证 3996.16（4000关口下沿，守则不破位）</li><li>半导体/科创50：07-10 巨阴后能否缩量企稳（科创50 2064.98；半导体防再破位下破MA20）</li><li>商业航天：周一是否高开不回落（验证主线持续性，经周末冷却后关键）</li><li>账户硬止损线：单基 -8%；现金 12.11% 为低吸弹药</li></ul>
-  <div class="sub" style="margin:8px 0 2px">情景推演</div>
-  <div class="scn scn-opt"><b>乐观：</b>存储催化带动半导体高开冲高 + 商业航天延续 → 趁高开锁利降半导体敞口至≤60%，用回款小仓加 航天ETF/创新药ETF；账户修复。切忌高开追加。</div>
-  <div class="scn scn-base"><b>基准：</b>半导体高开后震荡回落/窄幅整理(-2%~+1%) → 不追不减、严守-8%止损，观望新主线与资金沉淀；现金待命。</div>
-  <div class="scn scn-pess"><b>悲观：</b>半导体低开放量下破MA20(再跌>3%) → 触发减仓/止损，现金增至20%+全面防守；新主线暂不加，等企稳。</div>
-  <div class="cap">事件面：<li>周末催化映射：SK海力士上市大涨/英伟达破5万亿 → 周一半导体高开概率上升</li><li>07-13 早盘半导体开盘价与量能（高开冲高=锁利良机 / 低开放量=减仓信号）</li><li>商业航天周一延续性（脉冲兑现 or 趋势启动）</li><li>港股创新药/消费修复延续性；离岸人民币走强利好外资偏好</li><li>中报预告密集披露期(超220家/近九成预喜)，关注半导体设备重仓股预告</li></div>
-  </div></section>
+  <div class="sub" style="margin-bottom:6px">核心观察阈值：< · l · i · > · 上 · 证 ·   · 3 · 9 · 9 · 6 · . · 1 · 6 · （ · 4 · 0 · 0 · 0 · 关 · 口 · 下 · 沿 · ， · 守 · 则 · 不 · 破 · 位 · ） · < · / · l · i · > · < · l · i · > · 半 · 导 · 体 · / · 科 · 创 · 5 · 0 · ： · 0 · 7 · - · 1 · 0 ·   · 巨 · 阴 · 后 · 能 · 否 · 缩 · 量 · 企 · 稳 · （ · 科 · 创 · 5 · 0 ·   · 2 · 0 · 6 · 4 · . · 9 · 8 · ； · 半 · 导 · 体 · 防 · 再 · 破 · 位 · 下 · 破 · M · A · 2 · 0 · ） · < · / · l · i · > · < · l · i · > · 商 · 业 · 航 · 天 · ： · 周 · 一 · 是 · 否 · 高 · 开 · 不 · 回 · 落 · （ · 验 · 证 · 主 · 线 · 持 · 续 · 性 · ， · 经 · 周 · 末 · 冷 · 却 · 后 · 关 · 键 · ） · < · / · l · i · > · < · l · i · > · 账 · 户 · 硬 · 止 · 损 · 线 · ： · 单 · 基 ·   · - · 8 · % · ； · 现 · 金 ·   · 1 · 2 · . · 1 · 1 · % ·   · 为 · 低 · 吸 · 弹 · 药 · < · / · l · i · ></div>
+  <div class="scn-grid">
+    <div class="scn scn-opt"><b>🟢 乐观</b><br><span class="scn-trig">触发：存储催化带动半导体高开冲高 + 商业航天延续 → 趁高开锁利降半导体敞口至≤60%，用回款小仓加 航天ETF/创新药ETF；账户修复。切忌高开追加。</span><br><span class="scn-act">操作：</span></div>
+    <div class="scn scn-base"><b>🟡 基准</b><br><span class="scn-trig">触发：半导体高开后震荡回落/窄幅整理(-2%~+1%) → 不追不减、严守-8%止损，观望新主线与资金沉淀；现金待命。</span><br><span class="scn-act">操作：</span></div>
+    <div class="scn scn-pess"><b>🔴 悲观</b><br><span class="scn-trig">触发：半导体低开放量下破MA20(再跌>3%) → 触发减仓/止损，现金增至20%+全面防守；新主线暂不加，等企稳。</span><br><span class="scn-act">操作：</span></div>
+  </div>
+  </div>
+</section>
 
 <section class="sec" id="hit">
   <h2>五、预测命中率（问题归因） <span class="tg">▾</span></h2>

@@ -329,6 +329,108 @@ if risks: anomalies.append(f"高风险标记：{'，'.join(risks)}")
 if missing: anomalies.append(f"{len(missing)}/{len(fg)} 情绪因子源未返回（按中性50计入，指数偏中性）")
 anomaly_html = "".join(f"<li>⚠ {a}</li>" for a in anomalies) or "<li>暂无显著异常</li>"
 
+# ==================== v2 首屏四栏核心卡 ====================
+acct_label = f"{pct(acct_ret)}" if acct_ret is not None else "—"
+acct_cls = cls(acct_ret) if acct_ret is not None else "neu"
+card_ret = f'<div class="ev-card-num {acct_cls}">{acct_label}</div><div class="ev-desc">约 {fnum(acct_pnl,2)} 元（板块代理）</div>'
+
+card_issue = f'<ul class="ev-list"><li>半导体暴露 {semic}% 超阈值</li><li>前二持仓集中度 {top2}%</li></ul>' if semic else "—"
+
+weekend_cat = C.get("weekend_catalysts") or CALC.get("weekend_catalysts")
+if weekend_cat:
+    card_cat = "<ul class='ev-list'>"
+    for wc in weekend_cat[:3]:
+        card_cat += f"<li>{wc.get('event','')} — {wc.get('impact','')}</li>"
+    card_cat += "</ul>"
+else:
+    card_cat = '<span class="mut">待周末扫描确认</span>'
+
+ev_summary = f'''
+<div class="ev-summary">
+  <div class="ev-card"><div class="ev-label">当日账户收益</div>{card_ret}</div>
+  <div class="ev-card"><div class="ev-label">核心问题</div>{card_issue}</div>
+  <div class="ev-card"><div class="ev-label">周末催化影响</div>{card_cat}</div>
+  <div class="ev-card ev-action"><div class="ev-label">下日总策略</div>
+    <ul class="ev-act">
+      <li class="down">🔴 反弹锁利降半导体集中度</li>
+      <li class="up">🟢 新主线纳入观察名单</li>
+      <li class="neu">⚪ 严守 -8% 硬止损</li>
+    </ul>
+  </div>
+</div>'''
+
+# ==================== 周末催化表格 ====================
+catalyst_html = ""
+if weekend_cat:
+    cat_rows = ""
+    for wc in weekend_cat:
+        lvl = wc.get("level", "中")
+        lvl_cls = {"高":"cat-high","中":"cat-mid","低":"cat-low"}.get(lvl, "cat-mid")
+        cat_rows += f'<tr><td><b>{wc.get("event","")}</b></td><td>{wc.get("detail","")}</td><td>{wc.get("impact","")}</td><td><span class="cat-lvl {lvl_cls}">{lvl}</span></td></tr>'
+    cat_conclusion = weekend_cat[0].get("conclusion") or ""
+    catalyst_html = f'''
+<section class="sec" id="catalyst">
+  <h2>⑤ 周末全球催化更新 <span class="badge cat-badge">非实盘·周末新增</span> <span class="tg">▾</span></h2>
+  <div class="sec-body">
+  <div class="cap" style="margin-bottom:6px">以下为周末新产生的市场信息，非实盘行情，影响等级用于评估周一开盘情绪。</div>
+  <table><tr><th>事件</th><th>核心内容</th><th>对持仓影响</th><th>影响等级</th></tr>{cat_rows}</table>
+  {('<div class="cat-conclusion">📌 核心结论：'+cat_conclusion+'</div>') if cat_conclusion else ""}
+  </div>
+</section>'''
+
+# ==================== 结构化决策链路 ====================
+dc = CALC.get("decision_chain", {})
+dec_html = ""
+if dc:
+    hits_items = dc.get("hits") or []
+    misses_items = dc.get("misses") or []
+    root_causes = dc.get("root_causes") or []
+    improvements = dc.get("improvements") or []
+    def blist(items, tag):
+        if not items:
+            return '<div class="mut">无</div>'
+        return "".join(f'<li class="dec-item dec-{tag}">{i}</li>' for i in items)
+    dec_html = f'''
+<section class="sec" id="decision">
+  <h2>④ 决策链路回溯 <span class="badge" style="background:rgba(74,168,255,.15);color:#4aa8ff">复盘迭代</span> <span class="tg">▾</span></h2>
+  <div class="sec-body">
+    <div class="dec-grid">
+      <div class="dec-col dec-hit"><b class="dec-col-hl down">✅ 命中与应对得当</b><ul>{blist(hits_items, "hit")}</ul></div>
+      <div class="dec-col dec-miss"><b class="dec-col-hl up">❌ 失误与偏差</b><ul>{blist(misses_items, "miss")}</ul></div>
+      <div class="dec-col dec-root"><b class="dec-col-hl neu">🔍 根因分析</b><ul>{blist(root_causes, "root")}</ul></div>
+      <div class="dec-col dec-impr"><b class="dec-col-hl acc">🛠️ 改进措施</b><ul>{blist(improvements, "impr")}</ul></div>
+    </div>
+    {f'<div class="dec-bias"><b>最大偏差归因：</b>{dc.get("bias","")}</div>' if dc.get("bias") else ""}
+    {f'<div class="cap">{dc.get("lesson","")}</div>' if dc.get("lesson") else ""}
+  </div>
+</section>'''
+
+# ==================== 结构化三情景预案 ====================
+nd = CALC.get("next_day_plan", {})
+nextday_html = ""
+if nd:
+    sc = nd.get("scenarios", {})
+    kl = "".join(f"<li>{k}</li>" for k in nd.get("key_levels", []))
+    # 三情景触发式
+    trig_opt = sc.get("trigger_optimistic") or sc.get("optimistic","")
+    trig_base = sc.get("trigger_base") or sc.get("base","")
+    trig_pess = sc.get("trigger_pessimistic") or sc.get("pessimistic","")
+    act_opt = sc.get("action_optimistic") or ""
+    act_base = sc.get("action_base") or ""
+    act_pess = sc.get("action_pessimistic") or ""
+    nextday_html = f'''
+<section class="sec" id="nextday">
+  <h2>⑥ 下交易日（{nd.get("next_trading_day","周一")}）操作预案 <span class="tg">▾</span></h2>
+  <div class="sec-body">
+  <div class="sub" style="margin-bottom:6px">核心观察阈值：{" · ".join(kl) if kl else "—"}</div>
+  <div class="scn-grid">
+    <div class="scn scn-opt"><b>🟢 乐观</b><br><span class="scn-trig">触发：{trig_opt}</span><br><span class="scn-act">操作：{act_opt}</span></div>
+    <div class="scn scn-base"><b>🟡 基准</b><br><span class="scn-trig">触发：{trig_base}</span><br><span class="scn-act">操作：{act_base}</span></div>
+    <div class="scn scn-pess"><b>🔴 悲观</b><br><span class="scn-trig">触发：{trig_pess}</span><br><span class="scn-act">操作：{act_pess}</span></div>
+  </div>
+  </div>
+</section>'''
+
 # ---------------- 底部行动闭环 ----------------
 action_items = ""
 for title, desc, sug in CALC.get("rebalance", []):
@@ -484,7 +586,28 @@ ul.news li{margin:5px 0}
 .scn-pess{background:#3a1717;color:#ffb0a8;border:1px solid #6b2b2b}
 .badge.pend{background:#16242e;color:#7fc8ff;border:1px solid #244a5c}
 .hit-note{font-size:12.5px;color:var(--mut);margin:6px 0}
-</style></head>
+/* v2 新样式：四栏结论卡 + 催化表格 + 结构化决策 + 三情景 + 待办表 */
+.ev-summary{display:grid;grid-template-columns:1fr 1fr 1fr 1.2fr;gap:10px;margin:14px 0}
+.ev-card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:13px 15px;border-left:4px solid var(--line)}
+.ev-card.ev-action{border-left-color:var(--acc);background:rgba(74,168,255,.06)}
+.ev-label{color:var(--mut);font-size:11.5px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
+.ev-card-num{font-size:24px;font-weight:800;margin:2px 0}.ev-desc{font-size:11.5px;color:var(--mut)}
+.ev-list{list-style:none;padding:0;margin:0;font-size:13px;line-height:1.7}.ev-act{list-style:none;padding:0;margin:0;font-size:13px;line-height:1.9}
+.cat-badge{background:rgba(74,168,255,.12);color:#4aa8ff;font-size:10px;margin-left:4px}
+.cat-lvl{font-size:11px;padding:1px 8px;border-radius:12px;font-weight:700}
+.cat-high{background:rgba(245,86,77,.16);color:var(--up)}.cat-mid{background:rgba(217,164,65,.16);color:var(--neu)}.cat-low{background:rgba(139,152,169,.16);color:var(--mut)}
+.cat-conclusion{font-size:13px;color:#cfe2f5;margin-top:10px;padding:9px 12px;background:rgba(74,168,255,.08);border:1px solid rgba(74,168,255,.25);border-radius:8px}
+.dec-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:8px 0}
+.dec-col{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:10px 12px}
+.dec-col-hl{font-size:13px;display:block;margin-bottom:6px;border-bottom:1px solid var(--line);padding-bottom:4px}
+.dec-col ul{list-style:none;padding:0;margin:0;font-size:12.5px;line-height:1.6}
+.dec-item{padding:4px 0;border-bottom:1px dashed rgba(42,51,64,.5)}.dec-item:last-child{border:none}
+.dec-item.hit{color:var(--down)}.dec-item.miss{color:var(--up)}.dec-item.root{color:var(--neu)}.dec-item.impr{color:#7fc8ff}
+.scn-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin:8px 0}
+.scn-trig{font-size:12px;color:#aab4c0;display:block;margin:4px 0}.scn-act{font-size:12.5px;color:#fff;display:block;margin:4px 0}
+.todo-table-head{display:grid;grid-template-columns:72px 1fr 1.5fr;gap:8px;padding:6px 10px;color:var(--mut);font-size:12px;font-weight:700;background:var(--bg2);border-radius:8px;margin-bottom:4px}
+.pr-高 .pbadge{background:#3a1d1d;color:#ff7a72}.pr-中 .pbadge{background:#2a2415;color:var(--neu)}.pr-低 .pbadge{background:#16242e;color:#7fc8ff}
+@media(max-width:680px){.ev-summary{grid-template-columns:1fr 1fr}.dec-grid{grid-template-columns:1fr}.scn-grid{grid-template-columns:1fr}.kpi-grid{grid-template-columns:repeat(2,1fr)}.cards,.acct,.kcards{flex-direction:column}h1{font-size:21px}}
 <body>
 <nav class="nav"><span class="brand">📊 复盘</span>
 <a href="#summary">摘要</a><a href="#overview">概览</a><a href="#flow">资金流</a><a href="#alpha">α基本面</a>
@@ -499,21 +622,10 @@ BODY = f'''
 <h1>📊 每日基金晚间复盘</h1>
 <div class="meta">日期 <b>{DATE}</b> · 数据截止：最近交易日收盘 + 周末扫描 · 生成 {GEN_TIME} · 数据源 <b>neodata-financial-search</b> · 仅供参考，不构成投资建议</div>
 
-{holiday_banner}
-
-<section class="sec" id="summary">
-  <div class="summary">
-    <h2>🎯 今日核心结论</h2>
-    <div class="hl">{headline}</div>
-    <div class="hl">{headline2}</div>
-    <div class="hl">{headline3}</div>
-    <div class="kpi-grid">{kpi_cards}</div>
-    <div class="anomaly"><b style="color:#ff9a92">⚠ 异常 / 待关注</b><ul>{anomaly_html}</ul></div>
-  </div>
-</section>
+{ev_summary}
 
 <section class="sec" id="overview">
-  <h2>一、账户与大盘概览 <span class="tg">▾</span></h2>
+  <h2>① 当日行情与资金复盘 <span class="tg">▾</span></h2>
   <div class="sec-body">
   <div class="cards">{idx_html}</div>
   <div class="acct">
@@ -537,7 +649,7 @@ BODY = f'''
 {decision_html}
 
 <section class="sec" id="flow">
-  <h2>二、资金流（资金面） <span class="tg">▾</span></h2>
+  <h2>② 资金流（资金面） <span class="tg">▾</span></h2>
   <div class="sec-body">
   <div class="card" style="margin:10px 0">
     <div style="font-weight:700;margin-bottom:6px">行业主力资金</div>
@@ -548,8 +660,11 @@ BODY = f'''
   </div>
 </section>
 
-<section class="sec" id="alpha">
-  <h2>三、α 与基本面（最近可得官方净值） <span class="tg">▾</span></h2>
+{catalyst_html}
+{nextday_html}
+
+<section class="sec" id="rebalance">
+  <h2>⑦ 调仓与风控待办清单 <span class="tg">▾</span></h2>
   <div class="sec-body">
   <div class="sub" style="margin-bottom:6px">α = 基金实际日收益 − 关联基准收益（越大越好）。排名/重仓为 neodata 返回，缺失标注 —。</div>
   <table>
