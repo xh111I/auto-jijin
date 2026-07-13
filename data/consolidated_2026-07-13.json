@@ -1,0 +1,193 @@
+{
+  "date": "2026-07-13",
+  "updated_at": "2026-07-13 22:30 晚间复盘",
+  "holiday": false,
+  "indices": {
+    "上证指数": {
+      "close": 3913.79,
+      "change_pct": -2.06,
+      "date": "2026-07-13"
+    },
+    "创业板指": {
+      "close": 3723.52,
+      "change_pct": -3.1,
+      "date": "2026-07-13"
+    },
+    "沪深300": {
+      "close": 4695.38,
+      "change_pct": -1.79,
+      "date": "2026-07-13"
+    },
+    "科创50": {
+      "close": 1994.32,
+      "change_pct": -3.42,
+      "date": "2026-07-13"
+    },
+    "北证50": {
+      "close": 1127.22,
+      "change_pct": -6.78,
+      "date": "2026-07-13"
+    }
+  },
+  "funds": [
+    {
+      "name": "东方人工智能主题混合C",
+      "short": "东方人工智能",
+      "sector": "半导体材料设备/AI",
+      "nav": null,
+      "daily_0707": -5.2,
+      "ytd_pct": null,
+      "alpha": null,
+      "ranking": null,
+      "proxy_0708": -5.2,
+      "top10": [],
+      "risk_flag": null,
+      "status": "active",
+      "weight_pct": 11.72,
+      "benchmark_note": "α 基准=沪深300(-1.79%)"
+    },
+    {
+      "name": "东方阿尔法科技优选混合C",
+      "short": "东方阿尔法科",
+      "sector": "半导体材料设备/科技优选",
+      "nav": null,
+      "daily_0707": -5.2,
+      "ytd_pct": null,
+      "alpha": null,
+      "ranking": null,
+      "proxy_0708": -5.2,
+      "top10": [],
+      "risk_flag": null,
+      "status": "active",
+      "weight_pct": 25.05,
+      "benchmark_note": "α 基准=沪深300(-1.79%)"
+    },
+    {
+      "name": "永赢先锋半导体智选混合C",
+      "short": "永赢先锋半导",
+      "sector": "半导体材料设备",
+      "nav": null,
+      "daily_0707": -5.2,
+      "ytd_pct": null,
+      "alpha": null,
+      "ranking": null,
+      "proxy_0708": -5.2,
+      "top10": [],
+      "risk_flag": "持续亏损",
+      "status": "active",
+      "weight_pct": 14.06,
+      "benchmark_note": "α 基准=沪深300(-1.79%)"
+    },
+    {
+      "name": "广发港股创新药ETF联接(QDII)C",
+      "short": "广发港股创新",
+      "sector": "医药/港股创新药",
+      "nav": null,
+      "daily_0707": -0.72,
+      "ytd_pct": null,
+      "alpha": null,
+      "ranking": null,
+      "proxy_0708": -0.72,
+      "top10": [],
+      "risk_flag": "持续亏损",
+      "status": "active",
+      "weight_pct": 11.28,
+      "benchmark_note": "α 基准=沪深300(-1.79%)"
+    },
+    {
+      "name": "鹏华丰诚债券C",
+      "short": "鹏华丰诚债券C",
+      "sector": "固定收益/纯债安全垫",
+      "nav": null,
+      "daily_0707": null,
+      "ytd_pct": null,
+      "alpha": null,
+      "ranking": null,
+      "proxy_0708": null,
+      "top10": [],
+      "risk_flag": null,
+      "status": "active",
+      "weight_pct": 9.93,
+      "benchmark_note": "α 基准=沪深300(-1.79%)"
+    },
+    {
+      "name": "财通集成电路产业股票C",
+      "short": "财通集成电路",
+      "sector": "半导体/CPO光模块",
+      "nav": null,
+      "daily_0707": -7.33,
+      "ytd_pct": null,
+      "alpha": null,
+      "ranking": null,
+      "proxy_0708": -7.33,
+      "top10": [],
+      "risk_flag": null,
+      "status": "active",
+      "weight_pct": 1.45,
+      "benchmark_note": "α 基准=沪深300(-1.79%)"
+    },
+    {
+      "name": "财通成长优选混合C",
+      "short": "财通成长优选混合C",
+      "sector": "成长风格/混合",
+      "nav": null,
+      "daily_0707": -3.61,
+      "ytd_pct": null,
+      "alpha": null,
+      "ranking": null,
+      "proxy_0708": -3.61,
+      "top10": [],
+      "risk_flag": null,
+      "status": "active",
+      "weight_pct": 1.45,
+      "benchmark_note": "α 基准=沪深300(-1.79%)"
+    },
+    {
+      "name": "广发纳斯达克100ETF联接(QDII)C",
+      "short": "广发纳斯达克",
+      "sector": "海外/美股指数",
+      "nav": null,
+      "daily_0707": null,
+      "ytd_pct": null,
+      "alpha": null,
+      "ranking": null,
+      "proxy_0708": null,
+      "top10": [],
+      "risk_flag": null,
+      "status": "active",
+      "weight_pct": 0.87,
+      "benchmark_note": "α 基准=沪深300(-1.79%)"
+    },
+    {
+      "name": "天弘中证全指通信设备指数C",
+      "short": "天弘中证全指",
+      "sector": "通信/CPO",
+      "nav": null,
+      "daily_0707": -5.53,
+      "ytd_pct": null,
+      "alpha": null,
+      "ranking": null,
+      "proxy_0708": -5.53,
+      "top10": [],
+      "risk_flag": "追高风险",
+      "status": "active",
+      "weight_pct": 0.08,
+      "benchmark_note": "α 基准=沪深300(-1.79%)"
+    }
+  ],
+  "account_est_return_0708_pct": -288.74,
+  "account_est_pnl_0708": -36663.86,
+  "total_mv": 12697.88,
+  "news": [
+    "【韩国熔断】KOSPI今日暴跌8.95%触发熔断(今年第7次)。SK海力士-15.37%创历史最大单日跌幅、三星电子-10.70%自高点回落超30%。导火索：韩国券商下调SK海力士Q2盈利预期(较一致预期低8%)、AI基建举债扩产供给过剩担忧。",
+    "【美伊冲突升级】霍尔木兹海峡通航受扰、油价涨超3%，全球风险资产承压。",
+    "【半导体出货】兆易创新全天三次跌停(成交370亿)、德明利/有研新材同步跌停。存储板块-7.19%、半导体材料设备-5.37%。主力净流出约400亿(存储板块超140亿)。",
+    "【商业航天退潮】上周五集体涨停后今日猛烈回调，板块内超百只个股跌超10%，属『脉冲兑现』非趋势启动。",
+    "【银行护盘】苏州银行+6%、宁波银行+4%、四大行+2%+；银行ETF 9天8阳，分红行情主力。",
+    "【中医药逆势】九芝堂/天目药业/陇神戎发涨停；近40亿主力资金净流入银行板块，中医药板块近半数涨超3%。",
+    "【CPO见顶】CPO板块-7.33%创近期最大单日跌幅，确认AI硬件获利兑现潮。通信设备-5.53%。",
+    "【港股创新药相对抗跌】港股创新药今日-0.77%(T+1净值滞后)，站上所有短期均线(MA5>MA10>MA20多头排列)。",
+    "【全市场】成交2.84万亿(缩量5760亿)。超4600股下跌、176只跌停、仅801只上涨。涨跌比1:5.7，亏钱效应极致。",
+    "【账户操作】永赢半导触发-8%硬止损→尾盘赎回50%仓位；财通集成触发-8%止损(观察仓清仓)；东方阿尔法减至≤22%；东方AI(剩余2/3锁本仓)持有不动；港股创新药持有不动；鹏华债/纳指底仓保留。现金增至~3062元(24.1%)。"
+  ]
+}
