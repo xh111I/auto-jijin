@@ -1,0 +1,28 @@
+{
+  "date": "2026-07-14",
+  "captured_at": "14:30",
+  "indices": {
+    "创业板指": {
+      "chg_pct": 2.42,
+      "vol_ratio": 0.94,
+      "main_net_inflow": 2012963617
+    },
+    "科创50": {
+      "chg_pct": -0.75,
+      "vol_ratio": 0.92,
+      "main_net_inflow": -4277654082
+    },
+    "沪深300": {
+      "chg_pct": 1.47,
+      "vol_ratio": 1.06,
+      "main_net_inflow": 12813725404
+    }
+  },
+  "northbound_tail10m_net_inflow": null,
+  "broad_market": {
+    "up_count": null,
+    "down_count": null,
+    "turnover": 2387400000000
+  },
+  "remark": "北向尾盘10分钟数据实时不可得; 涨跌家数实时数据暂不可得(昨日收盘:涨801/跌4683/平46); 两市成交额=上证11193亿+深证12681亿(14:26)"
+}

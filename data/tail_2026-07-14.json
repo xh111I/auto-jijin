@@ -1,0 +1,103 @@
+{
+  "meta": {
+    "date": "2026-07-14",
+    "gen_time": "2026-07-14T14:42:30+08:00",
+    "type": "tail_decision",
+    "version": "3.0",
+    "market_status": "trading",
+    "note": "尾盘决策基线 @14:40实时快照",
+    "discipline": "⚠️ 仅供参考,不构成投资建议"
+  },
+  "market_snapshot": {
+    "index_spot": {
+      "上证指数": {"price": 3959.81, "change_pct": 1.18, "amplitude": 2.33},
+      "深证成指": {"price": 14901.70, "change_pct": 2.61, "amplitude": 3.88},
+      "创业板指": {"price": 3847.93, "change_pct": 3.34, "amplitude": 4.86},
+      "科创50": {"price": 2010.99, "change_pct": 0.84, "amplitude": 6.56},
+      "沪深300": {"price": 4788.26, "change_pct": 1.98, "amplitude": 2.98},
+      "上证50": {"price": 2948.48, "change_pct": 1.21, "amplitude": 2.57},
+      "中证500": {"price": 8263.61, "change_pct": 1.54, "amplitude": 3.93}
+    },
+    "sector_spot": {
+      "半导体": {"price": 12500.04, "change_pct": 1.26, "amplitude": 7.21, "pe_ttm": 141.30, "main_force_net": -132.3, "20d_chg": 15.55, "ytd_chg": 79.85},
+      "CPO": {"price": 9150.52, "change_pct": 3.00, "amplitude": 6.30, "pe_ttm": 73.80, "main_force_net": 151.4, "20d_chg": -8.75, "ytd_chg": 77.07},
+      "人工智能": {"price": 3786.81, "change_pct": 0.53, "amplitude": 2.69, "pe_ttm": 46.14, "main_force_net": -146.3, "20d_chg": -7.70, "ytd_chg": -12.25},
+      "创新药": {"price": 1089.95, "change_pct": 2.44, "amplitude": 3.84, "pe_ttm": 48.58, "main_force_net": 17.4, "20d_chg": 9.22, "ytd_chg": -2.97},
+      "通信设备": {"price": 11661.58, "change_pct": 6.02, "amplitude": 7.58, "pe_ttm": 80.24, "main_force_net": 84.6, "20d_chg": -6.22, "ytd_chg": 68.81},
+      "煤炭": {"price": 3769.62, "change_pct": 3.63, "amplitude": 3.48, "pe_ttm": 23.49, "main_force_net": null, "20d_chg": -8.57, "ytd_chg": 2.73}
+    },
+    "index_ohlc": {
+      "中证半导931865": {"price": 10259.44, "change_pct": 0.36, "60d_chg": 40.71, "60d_amplitude": 69.86},
+      "沪深300PE_百分位": "92.99%",
+      "上证PE_TTM": 17.58,
+      "深证PE_TTM": 48.34
+    },
+    "sentiment": {
+      "fear_greed": 90,
+      "level": "极度贪婪",
+      "source": "akshare指数估算(精度受限)",
+      "note": "实际情绪应为中性偏多(反弹修复日)"
+    },
+    "news_summary": "A股7/14午后急拉，创业板涨超3%科技领涨。国务院发布扩消费十五五规划。2026世界AI大会7/17-20。韩国KOSPI深V翻红。美伊冲突推高油价+9%。煤炭/油气/医药商业走强。半导体材料/光模块内部仍分化。"
+  },
+  "portfolio_snapshot": {
+    "total_asset": 12697.88,
+    "cash": 3061.79,
+    "cash_pct": 24.11,
+    "active_market_value": 9636.09,
+    "total_position_pct": 75.89,
+    "holdings": [
+      {"name": "东方人工智能", "market_value": 1487.56, "weight_pct": 11.72, "hold_return_pct": 4.15, "sector": "半导体/AI", "role": "锁本仓"},
+      {"name": "东方阿尔法科技", "market_value": 3180.92, "weight_pct": 25.05, "hold_return_pct": 6.03, "sector": "半导体材料设备", "role": "#1仓"},
+      {"name": "永赢半导体", "market_value": 1785.04, "weight_pct": 14.06, "hold_return_pct": -4.74, "sector": "半导体材料设备", "risk": "亏损中"},
+      {"name": "广发港股创新药", "market_value": 1432.42, "weight_pct": 11.28, "hold_return_pct": -0.88, "sector": "港股创新药", "risk": "微亏"},
+      {"name": "鹏华丰诚债", "market_value": 1261.09, "weight_pct": 9.93, "sector": "固定收益", "role": "防御底仓"},
+      {"name": "财通集成", "market_value": 184.46, "weight_pct": 1.45, "hold_return_pct": -1.84, "sector": "半导体/CPO", "role": "观察仓"},
+      {"name": "财通成长", "market_value": 184.22, "weight_pct": 1.45, "hold_return_pct": -1.97, "sector": "成长", "role": "观察仓"},
+      {"name": "广发纳斯达克", "market_value": 110.11, "weight_pct": 0.87, "hold_return_pct": 0.12, "sector": "美股", "role": "防御底仓"},
+      {"name": "天弘通信设备", "market_value": 10.27, "weight_pct": 0.08, "hold_return_pct": 2.68, "sector": "通信/CPO", "role": "观察仓"}
+    ],
+    "semiconductor_exposure_pct": 52.36,
+    "risk_flags": ["永赢半导体亏损-4.74%(-8%硬止损有效)", "港药-0.88%仍微亏", "东方阿尔法25.05%逼近30%上限"],
+    "snapshot_date": "2026-07-13T10:47",
+    "key_moves_0713": "赎回东方AI 368.6份→现金+1472.68; 东方阿尔法6.03%盈利; 永赢-4.74%"
+  },
+  "constraint_check": {
+    "total_position_75.89pct_lt_90": "✅ 未超限",
+    "dfa_weight_25.05pct_lt_30": "✅ 未超限(逼近, 第一大仓)",
+    "dfaic_weight_11.72pct_lt_30": "✅ 未超限",
+    "semic_concentration_52.36pct_lt_60": "✅ 未超限",
+    "stop_loss_8pct_active": "⚠️ 全程有效(永赢-4.74%/港药-0.88%均未触)",
+    "overall": "✅ 所有硬约束均满足，无强制减仓触发"
+  },
+  "four_factor_analysis": {
+    "composite_score": 52.5,
+    "bias": "中性偏谨慎",
+    "detail": "【趋势】反弹日宽基修复(创业板+3.34%)半导体+1.26%弱于大盘振幅7.21%分歧大, 短期转多但科技价量背离 | 【量价】半导体-132亿/AI-146亿流出(高位派发), CPO+151亿/通信+84.6亿流入, 总量放量结构分化 | 【情绪】FG=90极度贪婪(高估), 实际中性偏多, 券商定性技术性反弹 | 【结构】资金从半导体/AI流向煤炭/医药/通信, 高低切换明显"
+  },
+  "tail_scenario": {
+    "window": "14:30-14:55",
+    "scenario_type": "反弹修复日·局部强势",
+    "assessment": "全市场大幅修复(创业板+3.34%/深证+2.61%)但半导体/AI主力净流出超百亿，资金从科技核心流向低位板块(煤炭/医药/通信)，属于修复+高低切换，非系统风险",
+    "broad_classify": "结构性轮动反弹"
+  },
+  "active_action": "HOLD为主，全场不买不卖",
+  "active_detail": "7/13大跌后反弹修复日，全普涨但科技核心反弹乏力主力持续流出。仓位75.89%<90%无强制约束。东方阿尔法25.05%(+6.03%)持有。永赢-4.74%未触-8%止损。港药-0.88%持有。现金24.11%充裕但不建新仓，等方向明确。",
+  "risk_rules": [
+    "硬止损-8%全程有效(永赢/财通双基/港药)",
+    "东方阿尔法25.05%逼近30%上限，反弹日不急于减仓",
+    "半导体+1.26%主力净流出-132亿，警惕冲高回落",
+    "现金24.11%充裕，非急跌不进场",
+    "14:55截止铁律：之后仅止损/止盈被动委托"
+  ],
+  "next_day": {
+    "key_levels": "上证年线~3850, 创业板~3674(今日低点), 沪深300~4649",
+    "watch_items": ["半导体是否持续净流出", "CPO/通信能否持续放量", "创新药反弹持续性", "美伊冲突对油价传导"],
+    "premarket_note": "关注今晚美股开盘; 7/17世界AI大会催化"
+  },
+  "publish": {
+    "rebuild_index": true,
+    "publish_git": true,
+    "push_wechat": false
+  }
+}
