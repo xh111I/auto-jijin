@@ -239,46 +239,33 @@ def render_holdings(holdings):
 </section>'''
 
 def render_sector(sector):
-    """P1 板块日K量化信号横向条形图 + 可展开详解。"""
+    """6列标准表: 板块名称|状态定性|信号进度条|量化得分|多空结论|数据状态"""
     if not sector:
         return ""
     bars = sector.get("bars") or []
     rows = ""
     for b in bars:
         score = num(b.get("score")) or 0
-        ten = b.get("tendency") or "—"
-        ten_cls = tech_cls(ten)
-        linked = b.get("linked")
-        flow = num(b.get("net_inflow"))
-        flow_html = ("%s亿" % chg_span(flow)) if flow is not None else miss(None)
-        tag = b.get("tag")
-        tag_html = ('<span class="sbar-tag">%s</span>' % esc(tag)) if tag else ""
-        cls = "sbar-row" + (" linked" if linked else "")
-        rows += ('<div class="%s"><div class="sbar-name">%s%s</div>'
-                 '<div class="sbar-track"><div class="sbar-fill %s" style="width:%.0f%%"></div>'
-                 '<span class="sbar-score">%s</span></div>'
-                 '<div class="sbar-ten %s">%s</div>'
-                 '<div class="sbar-flow">%s</div></div>') % (
-            cls, esc(b.get("name", "")), tag_html, ten_cls, score, esc(score),
-            ten_cls, esc(ten), flow_html)
-    detail = sector.get("detail")
-    bottom = sector.get("bottom_signals")
-    top = sector.get("top_signals")
-    close = sector.get("close_special")
-    extra = ""
-    if detail or bottom or top or close:
-        extra = ('<div class="sbar-extra">%s%s%s%s</div>') % (
-            ("<div><b>主力行为详解</b>：%s</div>" % tip(detail)) if detail else "",
-            ("<div class='up'>🟢 止跌信号：%s</div>" % esc(bottom)) if bottom else "",
-            ("<div class='down'>🔴 见顶信号：%s</div>" % esc(top)) if top else "",
-            ("<div>⚡ 收盘暗号：%s</div>" % esc(close)) if close else "")
-    return f'''
-<section id="sector" class="card">
-  <h2>📊 板块日K量化信号 <span class="badge">五维 · 持仓强关联高亮</span></h2>
-  <div class="sbars">{rows}</div>
-  {extra}
-  <div class="legend">评分 = 趋势40%+量价30%+形态15%+主力15%；≥65偏多 / 35-64中性 / ≤34偏空。进度条长度=多空评分。</div>
-</section>'''
+        name = b.get("name", "")
+        qual = "偏多" if score >= 65 else ("偏空" if score <= 34 else "中性")
+        qual_cls = "up" if score >= 65 else ("down" if score <= 34 else "neu")
+        if score >= 80: status = "强势"
+        elif score >= 60: status = "偏强"
+        elif score >= 40: status = "震荡"
+        elif score >= 20: status = "偏弱"
+        else: status = "极弱"
+        data_ok = "正常" if b.get("score") is not None else "数据待返回"
+        bar_cls = "down" if score <= 34 else ("neu" if score <= 64 else "up")
+        bar_part = '<div class="bar" style="display:inline-block;width:80px;vertical-align:middle"><i class="%s" style="width:%.0f%%"></i></div>' % (bar_cls, score)
+        rows += '<tr><td class="lname">%s</td><td style="font-size:12px">%s</td><td>%s</td><td class="r"><b>%.0f</b></td><td class="%s"><b>%s</b></td><td style="font-size:11px;color:var(--mut)">%s</td></tr>' % (esc(name), status, bar_part, score, qual_cls, qual, data_ok)
+    return '''<section id="sector" class="card">
+  <h3>板块日K量化信号</h3>
+  <p style="font-size:12px;color:var(--mut);margin:0 0 8px 0">评分=趋势40%%+量价30%%+形态15%%+主力15%% / >=65偏多 / 35-64中性 / <=34偏空</p>
+  <table style="width:100%%;border-collapse:collapse;font-size:13px">
+    <thead><tr><th style="text-align:left;padding:6px 8px;background:var(--bg2)">板块名称</th><th style="text-align:left;padding:6px 8px;background:var(--bg2)">状态定性</th><th style="text-align:left;padding:6px 8px;background:var(--bg2)">信号进度条</th><th style="text-align:left;padding:6px 8px;background:var(--bg2)">量化得分</th><th style="text-align:left;padding:6px 8px;background:var(--bg2)">多空结论</th><th style="text-align:left;padding:6px 8px;background:var(--bg2)">数据状态</th></tr></thead>
+    <tbody>%s</tbody>
+  </table>
+</section>''' % rows
 
 def render_risk_stop(risk):
     """P1 硬止损风险监控红色进度条 + 底部铁律。"""
@@ -291,18 +278,25 @@ def render_risk_stop(risk):
         name = esc(it.get("name", ""))
         cur = num(it.get("cur_loss_pct"))
         stop = num(it.get("stop_loss_pct")) or -8
-        ratio = 0
-        if cur is not None and stop:
-            ratio = min(100, abs(cur) / abs(stop) * 100)
-        cur_html = ("%s%%" % cur) if cur is not None else miss(None)
-        warn = it.get("warn")
-        warn_label = it.get("warn_label") or "盯盘"
-        warn_badge = ('<span class="stop-warn">%s</span>' % esc(warn_label)) if warn else ""
-        cls = "stop-fill warn" if warn else "stop-fill"
-        rows += ('<div class="stop-row"><div class="stop-name">%s</div>'
-                 '<div class="stop-track"><div class="%s" style="width:%.1f%%"></div></div>'
-                 '<div class="stop-pct">%s</div>%s</div>') % (
-            name, cls, ratio, cur_html, warn_badge)
+        ratio = min(100, abs(cur) / abs(stop) * 100) if cur is not None and stop else 0
+        cur_html = "%.2f%%" % cur if cur is not None else "---"
+        
+        # 四级配色
+        if cur is not None and stop and cur <= stop:
+            level_cls, level_label = "rk-high", "止损触发"
+            bar_color = "#f5564d"
+        elif ratio >= 60:
+            level_cls, level_label = "rk-mid", "盯盘"
+            bar_color = "#d9a441"
+        elif ratio >= 30:
+            level_cls, level_label = "", "关注"
+            bar_color = "#e8c33a"
+        else:
+            level_cls, level_label = "rk-low", "安全"
+            bar_color = "#26c281"
+        
+        bar_html = '<div class="bar" style="display:inline-block;width:80px;vertical-align:middle;background:var(--bg2);border-radius:4px;height:8px"><i style="display:block;height:8px;border-radius:4px;width:%.0f%%;background:%s"></i></div>' % (ratio, bar_color)
+        rows += '<tr><td>%s</td><td class="r" style="font-weight:700">%s</td><td>%s <span style="font-size:11px">%.0f%%%%</span></td><td><span class="tag %s">%s</span></td></tr>' % (name, cur_html, bar_html, ratio, level_cls, level_label)
     floor = hs.get("floor_text") or "当前无标的触发强制卖出"
     alerts = risk.get("alerts") or []
     alert_html = ""
@@ -313,13 +307,16 @@ def render_risk_stop(risk):
             a += ('<div class="alert-item %s"><b>%s</b> — %s</div>') % (
                 lvl, esc(al.get("text", "")), esc(al.get("detail", "")))
         alert_html = '<div class="alerts">%s</div>' % a
-    return f'''
-<section id="stop" class="card">
-  <h2>🔻 硬止损风险监控 <span class="badge">当前亏损 / -8% 进度</span></h2>
-  <div class="stops">{rows}</div>
-  <div class="stop-floor">🛡️ {esc(floor)}</div>
-  {alert_html}
-</section>'''
+    return '''<section id="stop" class="card">
+  <h3>硬止损风险监控</h3>
+  <p style="font-size:12px;color:var(--mut);margin:0 0 8px 0">基准线: 单基累计亏损-8%%触发硬止损 | 四级配色: 红触发/橙盯盘/黄关注/绿安全</p>
+  <table style="width:100%%;border-collapse:collapse;font-size:13px">
+    <thead><tr><th style="text-align:left;padding:6px 8px;background:var(--bg2)">基金名称</th><th style="text-align:left;padding:6px 8px;background:var(--bg2)">当前累计亏损</th><th style="text-align:left;padding:6px 8px;background:var(--bg2)">止损进度条</th><th style="text-align:left;padding:6px 8px;background:var(--bg2)">状态标签</th></tr></thead>
+    <tbody>%s</tbody>
+  </table>
+  <div style="margin-top:8px;font-size:12px">%s</div>
+  %s
+</section>''' % (rows, esc(floor), alert_html)
 
 def render_sentiment(sent):
     """P1 情绪指数结论前置 + 8 分项折叠。"""
@@ -343,18 +340,18 @@ def render_sentiment(sent):
             esc(f.get("name", "")), esc(f.get("raw", "")),
             sc_cls, esc(score if score is not None else "—"),
             esc(f.get("weight", "")), esc(f.get("src", "")))
-    return f'''
-<section id="sent" class="card">
-  <h2>🌡️ 市场情绪 · 结论前置 <span class="badge">恐惧贪婪指数</span></h2>
-  <div class="fg-big">F&amp;G <b>{idx_html}</b> / 100 · <span class="{lvl_cls}">{esc(level)}</span></div>
-  {div_html}
-  {action_html}
-  <details class="fg-detail">
-    <summary>📋 8 因子分项（点击展开）</summary>
-    <table><tr><th>因子</th><th>原始值</th><th>评分</th><th>加权</th><th>来源</th></tr>{frows}</table>
+    return '''<section id="sent" class="card collapse">
+  <details>
+    <summary>市场情绪与因子 - F&amp;G <b>%s</b> / 100 - <span class="%s">%s</span></summary>
+    <p style="font-size:12px;color:var(--mut);margin:4px 0">情绪信号不覆盖-8%%硬止损铁律, 仅影响加仓/止盈的弹性决策</p>
+    %s
+    %s
+    <table style="width:100%%;border-collapse:collapse;font-size:12px;margin-top:6px">
+      <thead><tr style="background:var(--bg2)"><th style="padding:4px 6px;text-align:left">因子</th><th style="padding:4px 6px;text-align:right">原始值</th><th style="padding:4px 6px;text-align:right">评分</th><th style="padding:4px 6px;text-align:right">权重</th><th style="padding:4px 6px;text-align:left">数据来源</th></tr></thead>
+      <tbody>%s</tbody>
+    </table>
   </details>
-  <div class="note">情绪信号不覆盖 -8% 硬止损铁律，仅影响加仓/止盈的弹性决策。</div>
-</section>'''
+</section>''' % (idx_html, lvl_cls, esc(level), div_html, action_html, frows)
 
 def render_logic(logic):
     """P2 操作逻辑引擎（默认折叠）。"""
@@ -1474,6 +1471,52 @@ def render_outlook(data):
 # ================================================================
 #  方法论模块5: 因子回测输出表（读 factor_backtest.py 产物）
 # ================================================================
+#  需求方向4: 尾盘时间窗口模块（新）
+# ================================================================
+def render_tail_window_new(data):
+    """尾盘时间窗口与监控框架 — 3节点+4场景分类"""
+    inst = data.get("instruction") or {}
+    scenario = inst.get("tail_scenario", "")
+    
+    scenarios_data = [
+        ("放量拉升", "指数涨幅>1%, 量比>1.2, 站稳分时均线", "盈利标的持有, 不追高加仓"),
+        ("放量跳水", "指数跌幅>1%, 量比>3, 跌破分时均线", "高盈利标的减仓1/3锁利; 弱势标的止损"),
+        ("缩量横盘震荡", "高低点价差<1%, 量能较日内均值萎缩50%", "维持原仓位, 等次日方向"),
+        ("板块分化轮动", "科技下跌, 宽基/消费/红利上涨", "不盲目减仓科技, 观察持续性"),
+    ]
+    
+    scenario_rows = ""
+    for sname, condition, action in scenarios_data:
+        matched = sname in scenario
+        row_style = 'style="background:rgba(74,168,255,.1);font-weight:700"' if matched else ""
+        scenario_rows += '<tr %s><td>%s</td><td>%s</td><td>%s</td></tr>' % (row_style, sname, condition, action)
+    
+    esc_scenario = esc(scenario)
+    return '''<section id="timewindow" class="card">
+  <h3>尾盘时间窗口与监控框架</h3>
+  <p style="font-size:12px;color:var(--mut);margin:0 0 8px 0">今日尾盘场景: <b style="color:var(--acc)">%s</b></p>
+  <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:12px">
+    <div style="flex:1;min-width:180px;background:var(--bg2);padding:8px 10px;border-radius:8px;border-left:3px solid var(--acc)">
+      <b style="color:var(--acc)">实时监控期 14:30-14:50</b><br>
+      <span style="font-size:12px">宽基指数分时涨跌幅/量比, 行业涨幅排行, 持仓ETF实时估值</span>
+    </div>
+    <div style="flex:1;min-width:180px;background:var(--bg2);padding:8px 10px;border-radius:8px;border-left:3px solid var(--neu)">
+      <b style="color:var(--neu)">决策执行期 14:50-14:55</b><br>
+      <span style="font-size:12px">汇总全天信号, 生成最终决策, 完成限价委托挂单</span>
+    </div>
+    <div style="flex:1;min-width:180px;background:var(--bg2);padding:8px 10px;border-radius:8px;border-left:3px solid var(--up)">
+      <b style="color:var(--up)">截止铁律 14:55之后</b><br>
+      <span style="font-size:12px">仅允许止盈止损被动委托, 不新建任何仓位</span>
+    </div>
+  </div>
+  <table style="width:100%%;border-collapse:collapse;font-size:12px">
+    <thead><tr style="background:var(--bg2)"><th style="padding:4px 6px;text-align:left">场景</th><th style="padding:4px 6px;text-align:left">判定标准</th><th style="padding:4px 6px;text-align:left">对应动作</th></tr></thead>
+    <tbody>%s</tbody>
+  </table>
+</section>''' % (esc_scenario, scenario_rows)
+
+
+# ================================================================
 def render_factor_backtest(data, date):
     """方向5: 因子回测追踪 — 前日决策回测 + 因子权重表 + 权重调整说明"""
     import os
@@ -1631,12 +1674,15 @@ def main():
             # ── 模块3: 涨跌多维度归因 ──
             render_attribution(data) +
             render_sector(data.get("sector")) +
-            # ── 模块4: 次日行情预判与情景预案 ──
+            # ── 模块4: 尾盘时间窗口（新） ──
+            render_tail_window_new(data) +
+            # ── 模块5: 次日行情预判与情景预案 ──
             render_outlook(data) +
-            # ── 模块5: 每日回测与因子迭代 ──
+            # ── 模块6: 硬止损风险监控 ──
+            render_risk_stop(data.get("risk")) +
+            # ── 模块7: 每日回测与因子迭代 ──
             render_factor_backtest(data, date) +
             # ── 底部折叠区: 详细数据 ──
-            render_risk_stop(data.get("risk")) +
             render_sentiment(data.get("sentiment")) +
             render_tail_window(wl, data) +
             render_profit_lock(wl) +
