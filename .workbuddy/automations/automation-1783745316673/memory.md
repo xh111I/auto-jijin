@@ -29,3 +29,12 @@
 - **备注**: 周一(07-13)全线暴跌，三个指数跌逾3%。中证半导回踩MA20(9990)后收10222，仍在均线上方。人工智能跌破MA20。创业板已双均线下方。
 - **CSI代码** 需使用 `cs` 前缀(cs931865/cs931071)而非 `sh`
 
+## 2026-07-14 10:51 (数据刷新流水线)
+- **状态**: 完成
+- **脚本**: `data/refresh_db.py all`
+- **数据源刷新**:
+  - `akshare → index_spot`: 7条指数写入 ✅ (上证/深证/创业板/上证50/沪深300/中证500/科创50)
+  - `db_calc → sentiment`: FG=50 · 中性 ✅
+- **market.db 数据库状态**: 共11张表，2张有数据(index_spot 7条, sentiment 1条)，其余表(capital_flow/fund_nav/global_market/index_ohlc/market_breadth/northbound/sector_spot)为空—需要MCP连接器补充
+- **备注**: 全天候刷新流水线(08:55+每15分钟)，供下游所有任务读取
+
