@@ -47,6 +47,54 @@
         "max_drawdown_improve": 0,
         "sample_count": 0
       }
+    },
+    {
+      "date": "2026-07-14",
+      "factors": {
+        "外围": 50,
+        "资金": 50,
+        "技术": 50,
+        "情绪": 50,
+        "基本面": 60
+      },
+      "semic_concentration": null,
+      "generated_at": "",
+      "combined_score": 51.0,
+      "weights": {
+        "外围": 0.3,
+        "资金": 0.35,
+        "技术": 0.25,
+        "情绪": 0.05,
+        "基本面": 0.05
+      },
+      "ic": {
+        "外围": {
+          "ic": 0.0,
+          "icir": 0.0
+        },
+        "资金": {
+          "ic": 0.0,
+          "icir": 0.0
+        },
+        "技术": {
+          "ic": 0.0,
+          "icir": 0.0
+        },
+        "情绪": {
+          "ic": 0.0,
+          "icir": 0.0
+        },
+        "基本面": {
+          "ic": 0.0,
+          "icir": 0.0
+        }
+      },
+      "operation_stats": {
+        "stop_loss_3d_avg": 0,
+        "reduce_3d_avg": 0,
+        "max_drawdown_improve": 0,
+        "sample_count": 0
+      }
     }
   ]
 }
