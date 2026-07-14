@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>盘中预警 2026-07-14 12:15</title>
+<style>
+:root {
+  --up: #f5564d;
+  --down: #26c281;
+  --neu: #d9a441;
+  --bg: #1a1a2e;
+  --card: #16213e;
+  --text: #e8e8e8;
+  --dim: #8899aa;
+  --red-bg: rgba(245,86,77,0.12);
+  --orange-bg: rgba(217,164,65,0.12);
+  --green-bg: rgba(38,194,129,0.12);
+}
+body { font-family: -apple-system, 'Segoe UI', Roboto, sans-serif; background: var(--bg); color: var(--text); margin: 0; padding: 16px; }
+.header { background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); padding: 16px; border-radius: 12px; margin-bottom: 12px; border-left: 4px solid var(--neu); }
+.header h1 { margin: 0; font-size: 18px; font-weight: 600; }
+.header .time { font-size: 13px; color: var(--dim); margin-top: 4px; }
+.level-badge { display: inline-block; padding: 2px 10px; border-radius: 12px; font-size: 13px; font-weight: 600; margin: 4px 2px; }
+.level-red { background: var(--red-bg); color: var(--up); border: 1px solid var(--up); }
+.level-orange { background: var(--orange-bg); color: var(--neu); border: 1px solid var(--neu); }
+.level-blue { background: var(--green-bg); color: var(--down); border: 1px solid var(--down); }
+.card { background: var(--card); border-radius: 10px; padding: 14px; margin-bottom: 10px; }
+.card h2 { font-size: 15px; margin: 0 0 10px 0; display: flex; align-items: center; gap: 6px; }
+table { width: 100%; border-collapse: collapse; font-size: 13px; }
+th, td { padding: 6px 8px; text-align: left; border-bottom: 1px solid rgba(255,255,255,0.06); }
+th { color: var(--dim); font-weight: 500; font-size: 12px; text-transform: uppercase; }
+.up { color: var(--up); }
+.down { color: var(--down); }
+.neutral { color: var(--neu); }
+.progress-bar { height: 6px; border-radius: 3px; background: rgba(255,255,255,0.08); margin-top: 4px; overflow: hidden; }
+.progress-fill { height: 100%; border-radius: 3px; }
+.progress-warning { background: linear-gradient(90deg, var(--neu), var(--up)); width: 59%; }
+.progress-close { background: linear-gradient(90deg, var(--up), #ff2222); width: 78%; }
+.warn-item { padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.06); }
+.warn-item:last-child { border-bottom: none; }
+.warn-trigger { background: var(--orange-bg); border-radius: 6px; padding: 8px 10px; margin-bottom: 6px; border-left: 3px solid var(--neu); }
+.warn-red { background: var(--red-bg); border-radius: 6px; padding: 8px 10px; margin-bottom: 6px; border-left: 3px solid var(--up); }
+.warn-none { color: var(--dim); font-size: 13px; }
+.suggestion { font-size: 13px; line-height: 1.6; color: #ccc; padding: 8px; background: rgba(255,255,255,0.03); border-radius: 6px; }
+.footer { font-size: 11px; color: var(--dim); text-align: center; margin-top: 16px; padding: 8px; border-top: 1px solid rgba(255,255,255,0.06); }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>🟠 盘中预警报告 · 午间快照</h1>
+  <div class="time">2026-07-14 12:15 · 数据时间: 12:05 · T2级(neodata) · 午休时段(11:30-13:00)</div>
+  <div>
+    <span class="level-badge level-red">🔴 0项</span>
+    <span class="level-badge level-orange">🟠 3项</span>
+    <span class="level-badge level-blue">🔵 0项</span>
+  </div>
+</div>
+
+<!-- 🟠 告警详情 -->
+<div class="card">
+  <h2>⚠️ 🟠 警告项 (3项)</h2>
+
+  <div class="warn-trigger">
+    <div><strong>① 板块暴跌预警</strong> — 半导体材料设备 -4.65% (阈值: >3%)</div>
+    <div style="font-size:12px;color:var(--dim);margin-top:4px;">
+      较11:15的-4.23%继续扩大0.42%，盘中最低探至10,910.61点，振幅8.17%<br>
+      科创50同步下跌-3.45% (>3%)，人工智能-1.50% 未破3%
+    </div>
+  </div>
+
+  <div class="warn-trigger">
+    <div><strong>② 指数暴跌预警</strong> — 科创50 -3.45% (阈值: >3%)</div>
+    <div style="font-size:12px;color:var(--dim);margin-top:4px;">
+      振幅5.63%高波动，午后关注能否收回3%以内
+    </div>
+  </div>
+
+  <div class="warn-trigger">
+    <div><strong>③ 距止损线预警</strong> — 永赢先锋半导体距-8%止损仅 3.26% (阈值: ≤5%)</div>
+    <div style="font-size:12px;color:var(--dim);margin-top:4px;">
+      hold_return -4.74%，已消耗止损幅度 59.3%，绝对敞口 ~1785元<br>
+      半导体材料设备若午后继续下探至-6%，永赢距止损将逼近2%🔴红线
+    </div>
+    <div class="progress-bar"><div class="progress-fill progress-warning"></div></div>
+  </div>
+</div>
+
+<!-- 🔴 紧急项（未触发） -->
+<div class="card">
+  <h2>✅ 🔴 紧急项检查 (均未触发)</h2>
+  <div class="warn-none">
+    • 单基金距-8%止损≤2%：永赢距3.26% → ❌<br>
+    • 持仓板块暴跌>5%：半导体-4.65% < 5% → ❌ (但盘中最低探至10,910.61，距-6%仅一步之遥)<br>
+    • 大盘跳水>2%：上证-0.66% → ❌<br>
+    • 极端情绪(≤20/≥80)：盘中数据不可得 → ❌
+  </div>
+</div>
+
+<!-- 持仓距止损总览 -->
+<div class="card">
+  <h2>📊 持仓距止损总览</h2>
+  <table>
+    <tr><th>基金</th><th>持有收益</th><th>全局-8%距离</th><th>自身止损</th><th>状态</th></tr>
+    <tr>
+      <td>东方人工智能</td>
+      <td class="up">+4.15%</td>
+      <td>12.15%</td>
+      <td style="font-size:12px;color:var(--dim)">动态止盈</td>
+      <td style="color:var(--down)">安全</td>
+    </tr>
+    <tr>
+      <td>东方阿尔法</td>
+      <td class="up">+6.03%</td>
+      <td>14.03%</td>
+      <td style="font-size:12px;color:var(--dim)">动态止盈</td>
+      <td style="color:var(--down)">安全</td>
+    </tr>
+    <tr style="background:var(--orange-bg)">
+      <td><strong>永赢半导</strong></td>
+      <td class="down"><strong>-4.74%</strong></td>
+      <td class="neutral"><strong>3.26% ⚠️</strong></td>
+      <td style="font-size:12px;color:var(--up)">自身-2%已破</td>
+      <td style="color:var(--neu)"><strong>警惕</strong></td>
+    </tr>
+    <tr>
+      <td>港股创新药</td>
+      <td class="down">-0.88%</td>
+      <td>7.12%</td>
+      <td style="font-size:12px;color:var(--dim)">自身-5%距4.12%</td>
+      <td style="color:var(--down)">安全</td>
+    </tr>
+    <tr>
+      <td>财通集成电路</td>
+      <td class="down">-1.84%</td>
+      <td>6.16%</td>
+      <td style="font-size:12px;color:var(--dim)">观察仓</td>
+      <td style="color:var(--down)">安全</td>
+    </tr>
+    <tr>
+      <td>财通成长优选</td>
+      <td class="down">-1.97%</td>
+      <td>6.03%</td>
+      <td style="font-size:12px;color:var(--dim)">观察仓</td>
+      <td style="color:var(--down)">安全</td>
+    </tr>
+  </table>
+</div>
+
+<!-- 板块实时行情 -->
+<div class="card">
+  <h2>📈 板块实时行情 (对比11:15变化)</h2>
+  <table>
+    <tr><th>板块/指数</th><th>最新价</th><th>涨跌幅</th><th>量比</th><th>较11:15变化</th></tr>
+    <tr><td>上证指数</td><td>3,887.92</td><td class="down">-0.66%</td><td>1.24</td><td style="color:var(--dim)">-0.73→-0.66% 略回升</td></tr>
+    <tr><td>深证成指</td><td>14,461.20</td><td class="down">-0.42%</td><td>1.14</td><td style="color:var(--dim)">-0.59→-0.42% 回升</td></tr>
+    <tr><td>创业板指</td><td>3,712.74</td><td class="down">-0.29%</td><td>1.13</td><td style="color:var(--dim)">-0.53→-0.29% 回升</td></tr>
+    <tr><td>科创50</td><td>1,925.43</td><td class="down"><strong>-3.45% ⚠️</strong></td><td>1.11</td><td style="color:var(--down)">-3.83→-3.45% 略收窄</td></tr>
+    <tr><td>沪深300</td><td>4,677.31</td><td class="down">-0.38%</td><td>1.18</td><td style="color:var(--dim)">-0.49→-0.38% 回升</td></tr>
+    <tr><td>恒生指数</td><td>24,099.89</td><td class="down">-0.47%</td><td>1.00</td><td style="color:var(--dim)">-0.78→-0.47% 回升</td></tr>
+    <tr style="background:var(--red-bg)"><td><strong>半导体材料设备</strong></td><td>11,058.96</td><td class="up"><strong>-4.65% ⚠️</strong></td><td>1.13</td><td style="color:var(--up)">-4.23→-4.65% <strong>继续恶化</strong></td></tr>
+    <tr><td>中证人工智能</td><td>3,710.10</td><td class="down">-1.50%</td><td>1.16</td><td style="color:var(--down)">-3.04→-1.50% 大幅收窄</td></tr>
+    <tr><td>通信设备</td><td>11,164.78</td><td class="up">+1.50%</td><td>1.23</td><td style="color:var(--up)">-0.17→+1.50% 转涨</td></tr>
+    <tr><td>中证煤炭</td><td>2,207.64</td><td class="up"><strong>+3.63%</strong></td><td>1.61</td><td style="color:var(--dim)">+3.56→+3.63% 维持</td></tr>
+  </table>
+</div>
+
+<!-- 今日热点 -->
+<div class="card">
+  <h2>🔥 行业涨幅前5</h2>
+  <table>
+    <tr><th>行业</th><th>涨跌幅</th><th>主力净流入</th><th>量比</th></tr>
+    <tr><td>油服工程</td><td class="up">+4.47%</td><td>—</td><td>2.03</td></tr>
+    <tr><td>元件</td><td class="up">+3.80%</td><td class="up">+5.7亿</td><td>1.25</td></tr>
+    <tr><td>医药商业</td><td class="up">+3.70%</td><td>—</td><td>2.37</td></tr>
+    <tr><td>煤炭开采</td><td class="up">+3.50%</td><td>—</td><td>1.67</td></tr>
+    <tr><td>焦炭</td><td class="up">+2.94%</td><td>—</td><td>1.74</td></tr>
+  </table>
+  <div style="font-size:12px;color:var(--dim);margin-top:6px;">驱动力：美伊冲突 → 国际油价大涨 → 油气/化工/煤炭联动；通信设备逆势+1.50%领涨科技</div>
+  <div style="font-size:12px;color:var(--dim);margin-top:4px;">主力净流入：元件+5.7亿 / 工业金属+1.0亿 / 通信设备+0.76亿</div>
+</div>
+
+<!-- 建议动作 -->
+<div class="card">
+  <h2>📋 风控建议</h2>
+  <div class="suggestion">
+    <strong>🟠 核心关注 (永赢半导 + 半导体板块)：</strong><br>
+    • 半导体材料设备-4.65%，盘中振幅8.17% (高10,910.61↔低11,858.13)，多空分歧极大<br>
+    • 午后若继续下探→距-5% → 永赢距-8%止损将逼近2%🔴红线<br>
+    • 持有收益率 -4.74%，自身-2%止损已触发（建议止损50%仓位）<br>
+    • 当前绝对敞口约1785元，占仓位14.06%<br><br>
+    <strong>📌 板块分化观察：</strong><br>
+    • 通信设备 +1.50% 逆势转涨，CPO/光模块方向企稳<br>
+    • 人工智能 -1.50% 较11:15的-3.04%大幅收窄，午后可能进一步修复<br>
+    • 煤炭+3.63% 维持强势（油价驱动），已清仓品种<br><br>
+    <strong>📌 其他：</strong><br>
+    • 大盘(上证-0.66%)未破1%跌幅，整体可控<br>
+    • 北向资金实时数据不可得<br>
+    • 宽基指数(沪深300/创业板)跌幅均不足0.5%，风格极致分化<br><br>
+    <strong>⚠️ 本监控仅供参考，不构成投资建议。</strong>
+  </div>
+</div>
+
+<div class="footer">
+  数据来源: NeoData Financial Search (T2级) · 生成时间: 2026-07-14 12:15 GMT+8<br>
+  ⚠️ 自动生成，仅供参考，不构成投资建议
+</div>
+
+</body>
+</html>

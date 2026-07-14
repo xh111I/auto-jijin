@@ -51,5 +51,6 @@
 - 核心警报(红色)：永赢半导(昨日-4.74%+今日中证半导-5.16%≈-9~-10%)已触发/逼近-8%硬止损⚠️
 - 东方阿尔法利润缓冲≈1~2%(昨日+6.03%→今日将大幅回吐)
 - 信号结论(核心5只)：永赢半导紧急停损(core,danger,已破-8%)；东方阿尔法减仓观察(core)；东方AI减仓观察(core,剩3成)；港药持有(core)；鹏华债持有
-- 落盘：data/midday_2026-07-14.json(79.8KB)；渲染→午盘收盘-2026-07-14.html(41.4KB)
-- rebuild_index成功(今日3 reports含盘中监控x2)；publish推送origin因认证失败，待兜底
+- 落盘：data/midday_2026-07-14.json(80.2KB)；渲染→午盘收盘-2026-07-14.html(41.8KB)
+- rebuild_index成功(今日3 reports含盘中监控x2)；publish推送origin后台运行中
+- 11:37 用户补充资金流向图片(westock zjlx) → 精确化 capital_flow 字段 → 5日-65.0亿/20日-175.3亿/成交326亿/流出率5.5% → HTML再渲染→rebuild_index(2 reports)→publish推送中
