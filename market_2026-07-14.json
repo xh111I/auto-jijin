@@ -1,0 +1,535 @@
+{
+ "date": "2026-07-14",
+ "updated_at": "2026-07-14 15:30 收盘",
+ "data_tier": "T2",
+ "core": {
+  "market_qual": "A股收盘：上证指数+1.36%/中性60 上证50+1.45%/中性60 沪深300+2.15%/偏多70 科创50+0.77%/中性60 中证500+1.69%/中性60 深证成指+2.77%/偏多70 创业板指+3.43%/偏多70 ",
+  "main_line": "今日7指数行情：上证指数+1.36%/中性 上证50+1.45%/中性 沪深300+2.15%/偏多 科创50+0.77%/中性 中证500+1.69%/中性 深证成指+2.77%/偏多 创业板指+3.43%/偏多 ",
+  "action_guideline": "根据综合研判结果调整仓位。仅供参考，不构成投资建议。",
+  "metrics": {
+   "indices_count": 7,
+   "sectors_count": 1,
+   "fg_index": 90,
+   "up_sectors": 1,
+   "down_sectors": 0
+  },
+  "chain": "领跌："
+ },
+ "credibility": [
+  {
+   "item": "指数行情(akshare)",
+   "status": "✅",
+   "note": "7条"
+  },
+  {
+   "item": "板块行情(akshare/sector_spot)",
+   "status": "✅",
+   "note": "1条"
+  },
+  {
+   "item": "情绪因子(DB)",
+   "status": "✅",
+   "note": "FG=90"
+  },
+  {
+   "item": "市场广度(DB)",
+   "status": "⚠",
+   "note": "无"
+  },
+  {
+   "item": "北向资金(DB)",
+   "status": "⚠",
+   "note": "无"
+  },
+  {
+   "item": "主力资金流向(DB)",
+   "status": "⚠",
+   "note": "0条"
+  },
+  {
+   "item": "板块OHLC(cs:westock缓存+QQ今日)",
+   "status": "⚠",
+   "note": "cs板块07-10缓存+今日QQ单点"
+  }
+ ],
+ "indices": [
+  {
+   "name": "上证指数",
+   "code": "sh000001",
+   "close": 3967.1262,
+   "chg_pct": 1.363,
+   "amount_yi": 12717.97,
+   "main_flow_yi": 0,
+   "score": 60,
+   "tendency": "中性",
+   "kline": {
+    "trend": {
+     "label": "中性",
+     "score": 60,
+     "detail": "收盘3967.1262，温和上涨"
+    },
+    "volprice": {
+     "label": "放量上涨",
+     "score": 80,
+     "detail": "放量上涨+1.36%"
+    },
+    "shape": {
+     "label": "小阳线",
+     "score": 60,
+     "detail": "小阳线,震荡偏多"
+    },
+    "mainforce": {
+     "label": "净流出",
+     "score": 30,
+     "detail": "主力流向中性"
+    },
+    "close_signal": {
+     "label": "收盘偏强",
+     "detail": "小阳线,收盘偏强"
+    }
+   },
+   "warn": "上证指数收盘3967.1262涨跌+1.36%",
+   "series": [
+    3967.1262
+   ]
+  },
+  {
+   "name": "上证50",
+   "code": "sh000016",
+   "close": 2955.5528,
+   "chg_pct": 1.454,
+   "amount_yi": 2607.13,
+   "main_flow_yi": 0,
+   "score": 60,
+   "tendency": "中性",
+   "kline": {
+    "trend": {
+     "label": "中性",
+     "score": 60,
+     "detail": "收盘2955.5528，温和上涨"
+    },
+    "volprice": {
+     "label": "放量上涨",
+     "score": 80,
+     "detail": "放量上涨+1.45%"
+    },
+    "shape": {
+     "label": "小阳线",
+     "score": 60,
+     "detail": "小阳线,震荡偏多"
+    },
+    "mainforce": {
+     "label": "净流出",
+     "score": 30,
+     "detail": "主力流向中性"
+    },
+    "close_signal": {
+     "label": "收盘偏强",
+     "detail": "小阳线,收盘偏强"
+    }
+   },
+   "warn": "上证50收盘2955.5528涨跌+1.45%",
+   "series": [
+    2955.5528
+   ]
+  },
+  {
+   "name": "沪深300",
+   "code": "sh000300",
+   "close": 4796.502,
+   "chg_pct": 2.154,
+   "amount_yi": 9240.97,
+   "main_flow_yi": 0,
+   "score": 70,
+   "tendency": "偏多",
+   "kline": {
+    "trend": {
+     "label": "偏多",
+     "score": 75,
+     "detail": "收盘4796.502，强势突破"
+    },
+    "volprice": {
+     "label": "放量上涨",
+     "score": 80,
+     "detail": "放量上涨+2.15%"
+    },
+    "shape": {
+     "label": "中阳线",
+     "score": 70,
+     "detail": "中阳线,上涨延续"
+    },
+    "mainforce": {
+     "label": "净流出",
+     "score": 30,
+     "detail": "主力流向中性"
+    },
+    "close_signal": {
+     "label": "收盘偏强",
+     "detail": "中阳线,收盘偏强"
+    }
+   },
+   "warn": "沪深300收盘4796.502涨跌+2.15%",
+   "series": [
+    4796.502
+   ]
+  },
+  {
+   "name": "科创50",
+   "code": "sh000688",
+   "close": 2009.7296,
+   "chg_pct": 0.773,
+   "amount_yi": 2020.6,
+   "main_flow_yi": 0,
+   "score": 60,
+   "tendency": "中性",
+   "kline": {
+    "trend": {
+     "label": "中性",
+     "score": 60,
+     "detail": "收盘2009.7296，温和上涨"
+    },
+    "volprice": {
+     "label": "放量上涨",
+     "score": 50,
+     "detail": "放量上涨+0.77%"
+    },
+    "shape": {
+     "label": "小阳线",
+     "score": 60,
+     "detail": "小阳线,震荡偏多"
+    },
+    "mainforce": {
+     "label": "净流出",
+     "score": 30,
+     "detail": "主力流向中性"
+    },
+    "close_signal": {
+     "label": "收盘平稳",
+     "detail": "小阳线,收盘平稳"
+    }
+   },
+   "warn": "科创50收盘2009.7296涨跌+0.77%",
+   "series": [
+    2009.7296
+   ]
+  },
+  {
+   "name": "中证500",
+   "code": "sh000905",
+   "close": 8275.9388,
+   "chg_pct": 1.693,
+   "amount_yi": 5629.43,
+   "main_flow_yi": 0,
+   "score": 60,
+   "tendency": "中性",
+   "kline": {
+    "trend": {
+     "label": "中性",
+     "score": 60,
+     "detail": "收盘8275.9388，温和上涨"
+    },
+    "volprice": {
+     "label": "放量上涨",
+     "score": 80,
+     "detail": "放量上涨+1.69%"
+    },
+    "shape": {
+     "label": "中阳线",
+     "score": 70,
+     "detail": "中阳线,上涨延续"
+    },
+    "mainforce": {
+     "label": "净流出",
+     "score": 30,
+     "detail": "主力流向中性"
+    },
+    "close_signal": {
+     "label": "收盘偏强",
+     "detail": "中阳线,收盘偏强"
+    }
+   },
+   "warn": "中证500收盘8275.9388涨跌+1.69%",
+   "series": [
+    8275.9388
+   ]
+  },
+  {
+   "name": "深证成指",
+   "code": "sz399001",
+   "close": 14924.868,
+   "chg_pct": 2.768,
+   "amount_yi": 14321.68,
+   "main_flow_yi": 0,
+   "score": 70,
+   "tendency": "偏多",
+   "kline": {
+    "trend": {
+     "label": "偏多",
+     "score": 75,
+     "detail": "收盘14924.868，强势突破"
+    },
+    "volprice": {
+     "label": "放量上涨",
+     "score": 80,
+     "detail": "放量上涨+2.77%"
+    },
+    "shape": {
+     "label": "中阳线",
+     "score": 70,
+     "detail": "中阳线,上涨延续"
+    },
+    "mainforce": {
+     "label": "净流出",
+     "score": 30,
+     "detail": "主力流向中性"
+    },
+    "close_signal": {
+     "label": "收盘偏强",
+     "detail": "中阳线,收盘偏强"
+    }
+   },
+   "warn": "深证成指收盘14924.868涨跌+2.77%",
+   "series": [
+    14924.868
+   ]
+  },
+  {
+   "name": "创业板指",
+   "code": "sz399006",
+   "close": 3851.137,
+   "chg_pct": 3.427,
+   "amount_yi": 6532.7,
+   "main_flow_yi": 0,
+   "score": 70,
+   "tendency": "偏多",
+   "kline": {
+    "trend": {
+     "label": "偏多",
+     "score": 75,
+     "detail": "收盘3851.137，强势突破"
+    },
+    "volprice": {
+     "label": "放量上涨",
+     "score": 80,
+     "detail": "放量上涨+3.43%"
+    },
+    "shape": {
+     "label": "大阳线",
+     "score": 80,
+     "detail": "大阳线,强势上攻"
+    },
+    "mainforce": {
+     "label": "净流出",
+     "score": 30,
+     "detail": "主力流向中性"
+    },
+    "close_signal": {
+     "label": "收盘偏强",
+     "detail": "大阳线,收盘偏强"
+    }
+   },
+   "warn": "创业板指收盘3851.137涨跌+3.43%",
+   "series": [
+    3851.137
+   ]
+  }
+ ],
+ "sentiment": {
+  "fear_greed": 90,
+  "factors": {
+   "breadth": 50,
+   "limit_up_down": 50,
+   "main_flow": 50,
+   "northbound": 50,
+   "margin": 50,
+   "volume": 50,
+   "vix": 50,
+   "erp": 50
+  },
+  "note": "从7个指数涨跌幅自动估算"
+ },
+ "sectors": {
+  "strong": [],
+  "rising": [
+   "半导体(估算)"
+  ],
+  "weak": [],
+  "rotation": [],
+  "chain": []
+ },
+ "holdings": [
+  {
+   "name": "东方人工智能主题混合C",
+   "related": "半导体材料设备",
+   "signal": "持有观察",
+   "level": "中",
+   "support": "",
+   "pressure": "",
+   "risk_dist_pct": 0
+  },
+  {
+   "name": "东方阿尔法科技优选混合C",
+   "related": "半导体材料设备",
+   "signal": "持有观察",
+   "level": "中",
+   "support": "",
+   "pressure": "",
+   "risk_dist_pct": 0
+  },
+  {
+   "name": "永赢先锋半导体智选混合C",
+   "related": "半导体材料设备",
+   "signal": "持有观察",
+   "level": "中",
+   "support": "",
+   "pressure": "",
+   "risk_dist_pct": 0
+  },
+  {
+   "name": "广发港股创新药ETF联接(QDII)C",
+   "related": "恒生医疗保健",
+   "signal": "持有观察",
+   "level": "中",
+   "support": "",
+   "pressure": "",
+   "risk_dist_pct": 0
+  },
+  {
+   "name": "鹏华丰诚债券C",
+   "related": "中债综合财富指数",
+   "signal": "持有观察",
+   "level": "中",
+   "support": "",
+   "pressure": "",
+   "risk_dist_pct": 0
+  },
+  {
+   "name": "财通集成电路产业股票C",
+   "related": "半导体",
+   "signal": "持有观察",
+   "level": "中",
+   "support": "",
+   "pressure": "",
+   "risk_dist_pct": 0
+  },
+  {
+   "name": "财通成长优选混合C",
+   "related": "沪深300成长",
+   "signal": "持有观察",
+   "level": "中",
+   "support": "",
+   "pressure": "",
+   "risk_dist_pct": 0
+  },
+  {
+   "name": "广发纳斯达克100ETF联接(QDII)C",
+   "related": "纳斯达克100",
+   "signal": "持有观察",
+   "level": "中",
+   "support": "",
+   "pressure": "",
+   "risk_dist_pct": 0
+  },
+  {
+   "name": "天弘中证全指通信设备指数C",
+   "related": "中证全指通信设备",
+   "signal": "持有观察",
+   "level": "中",
+   "support": "",
+   "pressure": "",
+   "risk_dist_pct": 0
+  },
+  {
+   "name": "富国中证煤炭指数C",
+   "related": "中证煤炭",
+   "signal": "持有观察",
+   "level": "中",
+   "support": "",
+   "pressure": "",
+   "risk_dist_pct": 0
+  },
+  {
+   "name": "嘉实中证主要消费ETF发起联接C",
+   "related": "中证主要消费指数",
+   "signal": "持有观察",
+   "level": "中",
+   "support": "",
+   "pressure": "",
+   "risk_dist_pct": 0
+  }
+ ],
+ "predictions": [
+  {
+   "target": "上证指数",
+   "d1": "震荡+0~1%(动能衰减)",
+   "d2": "待确认",
+   "d3": "待确认",
+   "conf": "中",
+   "trigger": ""
+  },
+  {
+   "target": "上证50",
+   "d1": "震荡+0~1%(动能衰减)",
+   "d2": "待确认",
+   "d3": "待确认",
+   "conf": "中",
+   "trigger": ""
+  },
+  {
+   "target": "沪深300",
+   "d1": "震荡偏多+0.5~1.5%(强势延续)",
+   "d2": "待确认",
+   "d3": "待确认",
+   "conf": "中",
+   "trigger": ""
+  },
+  {
+   "target": "科创50",
+   "d1": "震荡+0~1%(动能衰减)",
+   "d2": "待确认",
+   "d3": "待确认",
+   "conf": "中",
+   "trigger": ""
+  },
+  {
+   "target": "中证500",
+   "d1": "震荡+0~1%(动能衰减)",
+   "d2": "待确认",
+   "d3": "待确认",
+   "conf": "中",
+   "trigger": ""
+  },
+  {
+   "target": "深证成指",
+   "d1": "震荡偏多+0.5~1.5%(强势延续)",
+   "d2": "待确认",
+   "d3": "待确认",
+   "conf": "中",
+   "trigger": ""
+  },
+  {
+   "target": "创业板指",
+   "d1": "震荡偏多+0.5~1.5%(强势延续)",
+   "d2": "待确认",
+   "d3": "待确认",
+   "conf": "中",
+   "trigger": ""
+  }
+ ],
+ "watch_levels": [
+  {
+   "type": "关键点位",
+   "text": "上证关注3967附近多空博弈"
+  },
+  {
+   "type": "量能观察",
+   "text": "全市场成交额需维持万亿以上"
+  },
+  {
+   "type": "情绪观察",
+   "text": "恐惧贪婪指数90，偏贪婪"
+  }
+ ],
+ "risks": [],
+ "disclaimer": "⚠ 本分析仅供参考,预测为模型研判,历史不代表未来。数据含T2估算与AI模型推断,不构成投资建议。涨红跌绿按A股惯例。板块cs数据(半导体/CPO/港股创新药/人工智能)截至07-10缓存+今日QQ单点非实时。"
+}
