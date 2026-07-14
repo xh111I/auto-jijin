@@ -3,7 +3,7 @@
  "updated_at": "2026-07-14 15:30 收盘",
  "data_tier": "T2",
  "core": {
-  "market_qual": "A股收盘：上证指数+1.36%/中性60 上证50+1.45%/中性60 沪深300+2.15%/偏多70 科创50+0.77%/中性60 中证500+1.69%/中性60 深证成指+2.77%/偏多70 创业板指+3.43%/偏多70 ",
+  "market_qual": "A股收盘：上证指数+1.36%/中性(主力+35亿) 上证50+1.45%/中性(主力+28亿) 沪深300+2.15%/偏多(主力+41亿) 科创50+0.77%/中性(主力+10亿) 中证500+1.69%/中性(主力+61亿) 深证成指+2.77%/偏多(主力+111亿) 创业板指+3.43%/偏多(主力+23亿)",
   "main_line": "今日指数：上证指数+1.36%/中性 上证50+1.45%/中性 沪深300+2.15%/偏多 科创50+0.77%/中性 中证500+1.69%/中性 深证成指+2.77%/偏多 创业板指+3.43%/偏多 ",
   "action_guideline": "根据综合研判结果调整。仅供参考，不构成投资建议。",
   "chain": "领涨：医疗服务/北证50 领跌：人工智能(应用端)/军工(航天装备/航海装备)/半导体",
@@ -59,7 +59,7 @@
    "close": 3967.1262,
    "chg_pct": 1.363,
    "amount_yi": 12717.97,
-   "main_flow_yi": 0,
+   "main_flow_yi": 35.37,
    "score": 60,
    "tendency": "中性",
    "kline": {
@@ -79,9 +79,9 @@
      "detail": "小阳线,震荡偏多"
     },
     "mainforce": {
-     "label": "净流出",
-     "score": 30,
-     "detail": "主力流向中性"
+     "label": "净流入",
+     "score": 50,
+     "detail": "主力净流入约35亿"
     },
     "close_signal": {
      "label": "收盘偏强",
@@ -99,7 +99,7 @@
    "close": 2955.5528,
    "chg_pct": 1.454,
    "amount_yi": 2607.13,
-   "main_flow_yi": 0,
+   "main_flow_yi": 27.72,
    "score": 60,
    "tendency": "中性",
    "kline": {
@@ -119,9 +119,9 @@
      "detail": "小阳线,震荡偏多"
     },
     "mainforce": {
-     "label": "净流出",
-     "score": 30,
-     "detail": "主力流向中性"
+     "label": "净流入",
+     "score": 50,
+     "detail": "主力净流入约28亿"
     },
     "close_signal": {
      "label": "收盘偏强",
@@ -139,7 +139,7 @@
    "close": 4796.502,
    "chg_pct": 2.154,
    "amount_yi": 9240.97,
-   "main_flow_yi": 0,
+   "main_flow_yi": 40.95,
    "score": 70,
    "tendency": "偏多",
    "kline": {
@@ -159,9 +159,9 @@
      "detail": "中阳线,上涨延续"
     },
     "mainforce": {
-     "label": "净流出",
-     "score": 30,
-     "detail": "主力流向中性"
+     "label": "净流入",
+     "score": 50,
+     "detail": "主力净流入约41亿"
     },
     "close_signal": {
      "label": "收盘偏强",
@@ -179,7 +179,7 @@
    "close": 2009.7296,
    "chg_pct": 0.773,
    "amount_yi": 2020.6,
-   "main_flow_yi": 0,
+   "main_flow_yi": 10.02,
    "score": 60,
    "tendency": "中性",
    "kline": {
@@ -199,9 +199,9 @@
      "detail": "小阳线,震荡偏多"
     },
     "mainforce": {
-     "label": "净流出",
-     "score": 30,
-     "detail": "主力流向中性"
+     "label": "净流入",
+     "score": 50,
+     "detail": "主力净流入约10亿"
     },
     "close_signal": {
      "label": "收盘平稳",
@@ -219,7 +219,7 @@
    "close": 8275.9388,
    "chg_pct": 1.693,
    "amount_yi": 5629.43,
-   "main_flow_yi": 0,
+   "main_flow_yi": 61.12,
    "score": 60,
    "tendency": "中性",
    "kline": {
@@ -239,9 +239,9 @@
      "detail": "中阳线,上涨延续"
     },
     "mainforce": {
-     "label": "净流出",
-     "score": 30,
-     "detail": "主力流向中性"
+     "label": "净流入",
+     "score": 70,
+     "detail": "主力净流入约61亿"
     },
     "close_signal": {
      "label": "收盘偏强",
@@ -259,7 +259,7 @@
    "close": 14924.868,
    "chg_pct": 2.768,
    "amount_yi": 14321.68,
-   "main_flow_yi": 0,
+   "main_flow_yi": 110.53,
    "score": 70,
    "tendency": "偏多",
    "kline": {
@@ -279,9 +279,9 @@
      "detail": "中阳线,上涨延续"
     },
     "mainforce": {
-     "label": "净流出",
-     "score": 30,
-     "detail": "主力流向中性"
+     "label": "净流入",
+     "score": 70,
+     "detail": "主力净流入约111亿"
     },
     "close_signal": {
      "label": "收盘偏强",
@@ -299,7 +299,7 @@
    "close": 3851.137,
    "chg_pct": 3.427,
    "amount_yi": 6532.7,
-   "main_flow_yi": 0,
+   "main_flow_yi": 23.17,
    "score": 70,
    "tendency": "偏多",
    "kline": {
@@ -319,9 +319,9 @@
      "detail": "大阳线,强势上攻"
     },
     "mainforce": {
-     "label": "净流出",
-     "score": 30,
-     "detail": "主力流向中性"
+     "label": "净流入",
+     "score": 50,
+     "detail": "主力净流入约23亿"
     },
     "close_signal": {
      "label": "收盘偏强",
@@ -364,7 +364,7 @@
    "军工(航天装备/航海装备)",
    "半导体"
   ],
-  "rotation": [],
+  "rotation": "强势板块：医疗服务, 北证50；温和走强：半导体(估算), 食品饮料/大消费, 证券/大金融, 港股创新药；弱势承压：人工智能(应用端), 军工(航天装备/航海装备), 半导体",
   "chain": [
    "领涨：医疗服务/北证50",
    "领跌：人工智能(应用端)/军工(航天装备/航海装备)/半导体"
