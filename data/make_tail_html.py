@@ -31,54 +31,18 @@ import glob
 import re
 import datetime
 
+from render_utils import (
+    esc, tip, num, pcls, pbold, chg_span, bar, level_info,
+    calc_risk_score, calc_stop_loss_dist, calc_semic_concentration,
+    check_alerts, r2, missing_val, yesterdate, RULES,
+)
+
 BASE = os.path.dirname(os.path.abspath(__file__))
 REPORTS = os.path.join(BASE, "reports")
 CRED_TIER = "T2"
 
-# ---------- 工具函数（与 make_midday_html.py 保持一致） ----------
-def esc(s):
-    if s is None:
-        return ""
-    return (str(s).replace("&", "&amp;").replace("<", "&lt;")
-            .replace(">", "&gt;").replace('"', "&quot;"))
-def tip(s):
-    """把 [[术语|解释]] 转为带悬停提示的 span。先转义 HTML 再替换。"""
-    s = esc(s)
-    def repl(m):
-        term = m.group(1)
-        exp = m.group(2).replace('"', "&quot;")
-        return '<span class="tip" data-tip="%s">%s</span>' % (exp, term)
-    return re.sub(r"\[\[([^\]|]+)\|([^\]]+)\]\]", repl, s)
-def num(v):
-    if v is None:
-        return None
-    try:
-        return float(v)
-    except Exception:
-        return None
-def pcls(v):
-    v = num(v)
-    if v is None:
-        return "neu"
-    if v > 0.05:
-        return "up"
-    if v < -0.05:
-        return "down"
-    return "neu"
-def pbold(v, thr=2.0):
-    v = num(v)
-    return v is not None and abs(v) >= thr
-def chg_span(v, thr=2.0, suffix="%"):
-    """行内涨跌幅 span（红涨绿跌，±thr% 加粗）。None → 灰字⚠。"""
-    v = num(v)
-    if v is None:
-        return '<span class="mut">⚠ 数据源未返回</span>'
-    cls = pcls(v)
-    b = " b" if pbold(v, thr) else ""
-    sign = "+" if v > 0 else ""
-    return '<span class="%s%s">%s%.2f%s</span>' % (cls, b, sign, v, suffix)
 def miss(v):
-    """缺失值标准化：未连接 / N/A / 数据源未返回 / None → 灰字⚠。"""
+    """缺失值标准化（render_utils 补充：尾盘版用 ⚠ 数据源未返回）。"""
     if v is None:
         return '<span class="mut">⚠ 数据源未返回</span>'
     s = str(v).strip()
@@ -119,9 +83,6 @@ def core_cls(c):
     if "sell" in s or "卖出" in s or "减仓" in s:
         return "core-sell"
     return "core-watch"
-def yesterdate(d):
-    dt = datetime.date.fromisoformat(d)
-    return (dt - datetime.timedelta(days=1)).isoformat()
 
 # ---------- 各模块渲染 ----------
 def render_cmd_bar(instruction, date):
@@ -599,6 +560,202 @@ def render_plan_html(wl, date):
 # v2 新渲染函数：3秒决策 + 10秒执行 + 次日预案
 # ============================================================
 
+def render_mandatory_ops(data):
+    """方向2: 操作三级分类 - 必执行/条件触发/持有不动"""
+    inst = data.get("instruction") or {}
+    pos = data.get("position") or {}
+    holdings = (pos.get("holdings") or [])
+    
+    mandatory = []   # 必执行
+    conditional = [] # 条件触发
+    hold = []        # 持有不动
+    
+    for h in holdings:
+        instr = (h.get("instruction") or "").upper()
+        name = h.get("name", "")
+        wp = num(h.get("weight_pct"))
+        if "减仓" in instr or "SELL" in instr or "卖出" in instr:
+            mandatory.append((name, instr, wp))
+        elif "观察" in instr or "WATCH" in instr or "盯盘" in instr:
+            conditional.append((name, instr, wp))
+        else:
+            hold.append((name, instr, wp))
+    
+    # 隐藏仓位<5%的次要标的（方向1.3）
+    hold_core = [h for h in hold if (h[2] or 0) >= 5]
+    hold_minor = [h for h in hold if (h[2] or 0) < 5]
+    
+    def _list(items):
+        return "".join(f'<li><b>{esc(n)}</b> ({w:.1f}%) — {esc(i)}</li>' for n, i, w in items if w is not None)
+    
+    minor_html = ""
+    if hold_minor:
+        names = "、".join(esc(n) for n, _, w in hold_minor if w is not None)
+        minor_html = f'<details style="margin-top:4px"><summary style="font-size:12px;color:var(--mut)">仓位≤5%观察仓({len(hold_minor)}只): {names}</summary></details>'
+    
+    return f'''
+<section id="ops" class="card">
+  <h3 style="margin:0 0 8px 0">操作指令（三级分类）</h3>
+  {"<div style='border-left:3px solid var(--up);padding:6px 12px;margin-bottom:8px;background:rgba(245,86,77,.08)'><div style='font-weight:700;color:var(--up);font-size:13px'>🔴 必执行操作</div><ol style='margin:4px 0 0 0;padding-left:18px'>" + _list(mandatory) + "</ol></div>" if mandatory else ""}
+  {"<div style='border-left:3px solid var(--neu);padding:6px 12px;margin-bottom:8px;background:rgba(217,164,65,.08)'><div style='font-weight:700;color:var(--neu);font-size:13px'>🟡 条件触发操作</div><ol style='margin:4px 0 0 0;padding-left:18px'>" + _list(conditional) + "</ol></div>" if conditional else ""}
+  {"<div style='border-left:3px solid var(--down);padding:6px 12px;background:rgba(38,194,129,.08)'><div style='font-weight:700;color:var(--down);font-size:13px'>🟢 持有不动</div><ol style='margin:4px 0 0 0;padding-left:18px'>" + _list(hold_core) + "</ol>" + minor_html + "</div>" if hold_core else ""}
+</section>'''
+
+def render_logic_rules(data):
+    """方向2.4: 操作底层决策逻辑 — 预设规则 + 博主实战分析体系"""
+    inst = data.get("instruction") or {}
+    risk = data.get("risk") or {}
+    sector = data.get("sector") or {}
+    sent = data.get("sentiment") or {}
+    pos = data.get("position") or {}
+    rr = inst.get("risk_rules", [])
+    
+    # ── 原有4条风控规则 ──
+    rules = [
+        ("硬止损纪律", "单基累计亏损达-8%强制减仓50%，避免极端行情亏损失控，保留操作本金"),
+        ("集中度风控", "半导体赛道跌幅超3%触发集群减仓，降低赛道波动对账户净值的冲击"),
+        ("锁本保护机制", "已提前赎回部分仓位收回本金，剩余仓位为利润安全垫，回撤在阈值内不操作"),
+        ("分散对冲原则", "创新药、债券、纳指与科技赛道低相关，保留作为对冲底仓，平滑整体波动"),
+    ]
+    
+    hard = risk.get("hard_stop") or {}
+    triggered = []
+    for item in (hard.get("items") or []):
+        cur = num(item.get("cur_loss_pct"))
+        sl = num(item.get("stop_loss_pct"))
+        if cur is not None and sl is not None and cur <= sl:
+            triggered.append(f"⚠ {item.get('name','')}已触发-8%硬止损")
+    
+    rows = ""
+    for title, desc in rules:
+        flag = ""
+        if triggered and title == "硬止损纪律":
+            flag = '<span style="color:var(--up);font-weight:700;margin-left:8px">🔴 ' + " · ".join(esc(t) for t in triggered) + '</span>'
+        rows += f'<tr><td style="width:120px;font-weight:600;vertical-align:top;padding:4px 8px 4px 0">{title}</td><td style="padding:4px 0">{desc}{flag}</td></tr>'
+    
+    for r in rr:
+        rows += f'<tr><td style="width:120px;font-weight:600;vertical-align:top;padding:4px 8px 4px 0;color:var(--up)">⚠ 铁律</td><td style="padding:4px 0;color:var(--up)">{esc(r)}</td></tr>'
+    
+    # ── 博主实战分析体系（基于当日数据自动判定） ──
+    bars = sector.get("bars") or []
+    mb = sector.get("market_breadth") or {}
+    sent_note = sent.get("note", "")
+    fg = num(sent.get("fear_greed_index"))
+    holdings = (pos.get("holdings") or [])
+    
+    blogger_items = []
+    
+    # 1. 量能定性（量能第一性原理§1.1）— 从 market_breadth 和 emotional note 推断
+    breadth_note = mb.get("note", "")
+    # 成交量可参考 breadth_note 中的描述（无精确数字则用文本定性）
+    has_tianliang = "天量" in breadth_note or "万亿" in breadth_note
+    has_suoliang = "缩量" in breadth_note or "地量" in breadth_note
+    
+    if has_tianliang:
+        blogger_items.append(("量能定性", "量能维持高位，资金未离场（§1.1量能第一性原理），调整=结构性轮动，非系统性风险。"))
+    elif has_suoliang:
+        blogger_items.append(("量能定性", "量能持续萎缩，需警惕资金系统性离场风险（§1.1）。"))
+    else:
+        # 从 breadth_note 提取定性信息
+        blogger_items.append(("量能定性", f"市场广度：{esc(breadth_note[:80])}"))
+    
+    # 2. 盘面定性（盘面标准化四步法§2.1 + 两类下跌§2.2）
+    up_stocks = num(mb.get("total_up"))
+    down_stocks = num(mb.get("total_down"))
+    if up_stocks is not None and down_stocks is not None:
+        total = up_stocks + down_stocks
+        ratio = up_stocks / total if total > 0 else 0.5
+        if ratio > 0.6:
+            breadth_note_quant = f"涨{up_stocks:.0f}家 vs 跌{down_stocks:.0f}家，多数上涨"
+            scene_type = "结构性上涨"
+        elif ratio < 0.4:
+            breadth_note_quant = f"涨{up_stocks:.0f}家 vs 跌{down_stocks:.0f}家，多数下跌"
+            scene_type = "结构性轮动下跌" if has_tianliang else "系统性风险下跌"
+        else:
+            breadth_note_quant = f"涨{up_stocks:.0f}家 vs 跌{down_stocks:.0f}家，涨跌互现"
+            scene_type = "正常分化"
+        scene_action = "调结构不杀跌（§2.2）" if "结构性" in scene_type else "按规则执行"
+        blogger_items.append(("盘面定性", f"{breadth_note_quant}\n归因：{scene_type} → {scene_action}"))
+    else:
+        # 有文本描述就用文本
+        if breadth_note:
+            blogger_items.append(("盘面定性", esc(breadth_note[:100])))
+    # 3. 赛道三层归因（§3.1 外围→交易→逻辑证伪）
+    # 外围冲击层
+    outer_kw = ["原油", "美股", "美元", "外围", "地缘", "冲突", "通胀", "加息", "纳指", "KOSPI", "熔断", "存储"]
+    has_outer = any(kw in sent_note for kw in outer_kw)
+    outer_detail = ""
+    if has_outer:
+        outer_detail = "外围事件触发短期情绪冲击。\n性质：不改变产业内部逻辑（§3.1外围冲击层）。" if "熔断" in sent_note or "暴跌" in sent_note else "外围有扰动，但非主导因素。"
+    
+    # 交易兑现层
+    has_trade = "兑现" in sent_note or "还债" in sent_note or "获利" in sent_note or "抽血" in sent_note or "切换" in sent_note
+    trade_detail = ""
+    if has_trade:
+        trade_detail = '短期涨幅过大→获利盘集中出逃。\n性质：技术性回调即「还债」，正常交易行为（§3.1交易兑现层）。'
+    
+    # 逻辑证伪层
+    has_falsify = "证伪" in sent_note or "不及预期" in sent_note or "逻辑破坏" in sent_note or "基本面恶化" in sent_note
+    
+    # 综合归因输出
+    attribution_lines = []
+    if has_outer:
+        attribution_lines.append(f"🌐 外围冲击：{outer_detail}")
+    if has_trade:
+        attribution_lines.append(f"💹 交易兑现：{trade_detail}")
+    if has_falsify:
+        attribution_lines.append(f"❌ 逻辑证伪：产业逻辑受损，需果断离场（§3.1逻辑证伪层）")
+    else:
+        attribution_lines.append(f"✅ 逻辑验证：产业核心逻辑未破，调整=技术性（§1.3分离原则）")
+    if not has_outer and not has_trade:
+        attribution_lines = ["✅ 三层归因：外围无冲击+交易未兑现+产业逻辑未破，当前波动属正常市场行为（§3.1）"]
+    
+    for line in attribution_lines:
+        blogger_items.append(("赛道归因", line))
+    
+    # 4. 标的分层操作（§4.1）— 根据 instruction 自动归类
+    for h in holdings:
+        name = h.get("name", "")
+        wp = num(h.get("weight_pct"))
+        instr = h.get("instruction", "")
+        logic_txt = h.get("logic", "")
+        if wp is None:
+            continue
+        
+        logic_trim = logic_txt[:60] if "减仓" in instr or "止损" in instr or "持有" in instr else ""
+        
+        if "止损" in instr or "赎回" in instr:
+            blogger_items.append((f"标的分层·{name[:8]}", f"触发止损指令\n属性：核心业绩仓（仓位{wp:.1f}%）\n规则：硬止损触发→强制减仓，保留操作本金（§4.1核心业绩仓规则：急跌不盲目杀跌，但-8%硬止损必须执行）"))
+        elif "减仓" in instr:
+            blogger_items.append((f"标的分层·{name[:8]}", f"集中度减仓指令\n属性：核心业绩仓（仓位{wp:.1f}%）\n规则：赛道跌幅>3%触发集群减仓（§4.1核心业绩仓），但仍保留部分仓位等企稳"))
+        elif "持有不动" in instr or "不做操作" in instr or "保留" in instr:
+            layer = "核心业绩仓" if wp >= 10 else ("防御底仓" if "债券" in name or "纳斯达克" in name else "迷你观察仓")
+            rule = "(§4.1)" if wp >= 10 else "破位清仓不恋战"
+            blogger_items.append((f"标的分层·{name[:8]}", f"{layer}（仓位{wp:.1f}%）\n{logic_trim or '持有观察'}\n规则：{rule}"))
+        elif "清仓" in instr:
+            blogger_items.append((f"标的分层·{name[:8]}", f"迷你观察仓（仓位{wp:.1f}%）\n{logic_trim}\n规则：破位立刻清仓，亏损可控（§4.1迷你观察仓）"))
+    
+    # 渲染博主分析板块
+    blogger_html = ""
+    for tag, text in blogger_items[:12]:  # 最多12条
+        blogger_html += f'<tr><td style="width:120px;font-weight:600;vertical-align:top;padding:4px 8px 4px 0;font-size:12px;color:var(--acc)">{esc(tag)}</td><td style="padding:4px 0;font-size:12px;white-space:pre-line">{esc(text)}</td></tr>'
+    
+    return f'''
+<section id="logic" class="card">
+  <h3>操作底层决策逻辑</h3>
+  <p style="font-size:12px;color:var(--mut);margin:0 0 8px 0">所有操作基于预设规则自动触发，非主观判断</p>
+  <table style="width:100%;border-collapse:collapse;font-size:13px">
+    {rows}
+  </table>
+  {f'''
+  <details style="margin-top:8px">
+    <summary style="font-size:13px;font-weight:600;cursor:pointer;color:var(--acc)">📖 博主实战分析体系（当日盘面自动判定）</summary>
+    <p style="font-size:11px;color:var(--mut);margin:4px 0 8px 0">基于「量能为锚、业绩分层、轮动识别、纪律优先」框架（data/blogger-protocol.md）</p>
+    <table style="width:100%;border-collapse:collapse;font-size:13px">{blogger_html}</table>
+  </details>''' if blogger_html else ""}
+</section>'''
+
+
 def render_decision_header(instr):
     """首屏决策核心区 — 3栏卡片：今日场景 / 唯一主动操作 / 风控红线"""
     if not instr:
@@ -708,23 +865,6 @@ def render_holdings_table(hs):
   </table>
 </section>'''
 
-def render_outlook(data):
-    """次日观察预案 — 小板块，形成闭环"""
-    outlook = (data.get("instruction") or {}).get("next_day") or {}
-    if not outlook:
-        return ""
-    points = outlook.get("watch_points") or []
-    pts = "".join('<li>%s</li>' % tip(p) for p in points)
-    plans = outlook.get("plans") or []
-    pls = "".join('<li>%s</li>' % tip(p) for p in plans)
-    return f'''
-<details id="outlook" class="card">
-  <summary>📅 次日观察预案 <span class="badge">闭环：预案→执行→验证</span></summary>
-  <div class="ol-body">
-    <div class="ol-section"><b>次日核心观察点：</b><ul>{pts}</ul></div>
-    <div class="ol-section"><b>预案：</b><ul>{pls}</ul></div>
-  </div>
-</details>'''
 
 # ---------- 静态 HEAD（深色配色板，与早报/午报/晚报/大盘研判统一） ----------
 HEAD = """<!DOCTYPE html>
@@ -1081,6 +1221,377 @@ def load_data(date):
         date = os.path.basename(p)[5:-5]
     return json.load(open(p, encoding="utf-8")), date
 
+
+# ================================================================
+#  方法论模块1: 精简速览组件（首屏30秒决策）
+# ================================================================
+def render_lite_summary(data):
+    """方法论方向1+4: 精简推送组件，首屏仅保留定调+必做操作+风控红线三类。
+    
+    模板结构（适配消息推送，30秒决策）:
+    【日期 尾盘决策】
+    ▌当日场景：...
+    ▌必做操作：1. ... 2. ...
+    ▌风控红线：...
+    ▌次日预判：...，重点关注...
+    """
+    inst = data.get("instruction") or {}
+    risk = data.get("risk") or {}
+    sent = data.get("sentiment") or {}
+    pos = data.get("position") or {}
+    date = data.get("meta", {}).get("date", data.get("generated_at", "")[:10])
+    
+    # 当日场景定性
+    scenario = esc(inst.get("tail_scenario", ""))
+    scene_detail = esc(inst.get("scene_detail", ""))
+    
+    # 必做操作: 从active_action提取，最多2条
+    active_action = esc(inst.get("active_action", ""))
+    active_detail = esc(inst.get("active_detail", ""))
+    
+    # 从持有基金中检查是否触发止损
+    holdings = (pos.get("holdings") or [])[:10]
+    mandatory_ops = []
+    for h in holdings:
+        inst_text = esc(h.get("instruction", ""))
+        hname = esc(h.get("name", ""))
+        if "减仓" in inst_text or "卖出" in inst_text or "SELL" in inst_text:
+            mandatory_ops.append((hname, inst_text))
+    
+    ops_html = ""
+    if active_action:
+        ops_html += f'<li><strong>{active_action}</strong> · {active_detail}</li>'
+    for name, txt in mandatory_ops[:2]:
+        if name not in (active_action or ""):
+            ops_html += f'<li><strong>{name}</strong>：{txt}</li>'
+    if not ops_html:
+        ops_html = '<li>无必执行操作（全部持有观察）</li>'
+    
+    # 风控红线 (最多3条，从risk_rules和硬止损中提取)
+    risk_rules = inst.get("risk_rules", [])
+    risk_list = list(risk_rules)[:3]
+    # 追加硬止损红线
+    hard = risk.get("hard_stop") or {}
+    for item in (hard.get("items") or []):
+        cur = num(item.get("cur_loss_pct"))
+        sl = num(item.get("stop_loss_pct"))
+        if cur is not None and sl is not None and cur <= sl:
+            risk_list.append(f"-8%硬止损已触发: {item.get('name','')}")
+    risk_html = " · ".join(esc(r) for r in risk_list) if risk_list else "无"
+    
+    # 次日预判
+    nd = inst.get("next_day") or {}
+    watch_points = nd.get("watch_points") or []
+    plans = nd.get("plans") or []
+    # 从plans提取基准判断
+    baseline = ""
+    for p in plans[:2]:
+        baseline += p + "；"
+    baseline = esc(baseline[:120])
+    focus = esc(watch_points[0]) if watch_points else ""
+    
+    # 情绪速览
+    fg = num(sent.get("fear_greed_index"))
+    fg_str = f"F&G {int(round(fg))} · {esc(sent.get('level',''))}" if fg is not None else ""
+    
+    # 报告链接（收件箱）
+    link = f"../../reports/{date}/尾盘决策-{date}.html"
+    
+    return f'''
+<section id="lite" class="card lite-summary" style="background:var(--card);border-left:3px solid var(--acc);padding:12px 16px;margin-bottom:12px">
+  <div style="font-weight:700;font-size:13px;color:var(--acc);margin-bottom:6px">【{esc(date)} 尾盘决策】</div>
+  <table style="width:100%;border-collapse:collapse;font-size:13px">
+    <tr><td style="width:72px;vertical-align:top;color:var(--mut);padding:3px 8px 3px 0">▌当日场景</td><td style="padding:3px 0">{scenario} · {scene_detail} {fg_str}</td></tr>
+    <tr><td style="vertical-align:top;color:var(--mut);padding:3px 8px 3px 0">▌必做操作</td><td style="padding:3px 0"><ol style="margin:0;padding-left:18px">{ops_html}</ol></td></tr>
+    <tr><td style="vertical-align:top;color:var(--mut);padding:3px 8px 3px 0">▌风控红线</td><td style="padding:3px 0;color:var(--up)">{risk_html}</td></tr>
+    <tr><td style="vertical-align:top;color:var(--mut);padding:3px 8px 3px 0">▌次日预判</td><td style="padding:3px 0">{baseline}</td></tr>
+    <tr><td style="vertical-align:top;color:var(--mut);padding:3px 8px 3px 0">▌重点观察</td><td style="padding:3px 0">{focus}</td></tr>
+  </table>
+  <div style="margin-top:6px;font-size:11px;color:var(--mut)">
+    完整报告: <a href="{link}" target="_blank" style="color:var(--acc)">{link}</a>
+  </div>
+</section>'''
+
+
+# ================================================================
+#  方法论模块3: 多维度涨跌归因（事实→传导→影响）
+# ================================================================
+def render_attribution(data):
+    """
+    方向3: 结构化涨跌归因 — 固定5维度 × 三段式(事实→传导→影响)
+    下跌赛道 vs 抗跌赛道分开，无数据不展示。
+    """
+    sent = data.get("sentiment") or {}
+    sector = data.get("sector") or {}
+    bars = sector.get("bars") or []
+    risk = data.get("risk") or {}
+    pos = data.get("position") or {}
+    holdings = pos.get("holdings") or []
+    
+    sent_note = sent.get("note", "")
+    fg = num(sent.get("fear_greed_index"))
+    
+    # 判断主要下跌维度
+    dims = []
+    
+    # 1. 外围事件
+    outer_kw = ["原油", "美股", "美元", "外围", "地缘", "冲突", "通胀", "加息", "纳指", "KOSPI"]
+    outer_triggered = any(kw in sent_note for kw in outer_kw)
+    if outer_triggered:
+        dims.append(("外围事件", f"隔夜{esc(sent_note[:60])}" if sent_note else "外围市场波动", "传导至A股风险偏好", "对科技/创新药持仓形成估值压制"))
+    
+    # 2. 资金面
+    total_net = 0
+    outflow_names = []
+    inflow_names = []
+    for b in bars:
+        nf = num(b.get("net_inflow"))
+        if nf is not None:
+            total_net += nf
+            if nf < -10:
+                outflow_names.append(b.get("name",""))
+            elif nf > 10:
+                inflow_names.append(b.get("name",""))
+    if outflow_names:
+        dims.append(("资金面", f"主力净流出{abs(total_net):.0f}亿，{esc('、'.join(outflow_names[:3]))}出逃", "资金集体避险，踩踏式卖出", "半导体/科技持仓遭抽血"))
+    if inflow_names:
+        dims.append(("资金面", f"主力流入{esc('、'.join(inflow_names[:2]))}", "资金寻找抗跌品种", "债券/创新药等防御仓受益"))
+    
+    # 3. 情绪面
+    if fg is not None:
+        fg_label = sent.get("level", "")
+        if fg <= 40:
+            dims.append(("情绪面", f"恐惧贪婪指数{int(round(fg))} · {esc(fg_label)}", "恐慌情绪蔓延，非理性抛售", "极端情绪下不宜追杀，等待企稳"))
+        elif fg >= 60:
+            dims.append(("情绪面", f"恐惧贪婪指数{int(round(fg))} · {esc(fg_label)}", "市场偏热，需防情绪反转", "获利了结压力增大"))
+    
+    # 4. 技术面
+    for b in bars[:2]:
+        score = num(b.get("score"))
+        name = b.get("name", "")
+        if score is not None and score <= 40:
+            _, label = level_info(score)
+            dims.append(("技术面", f"{esc(name)} 技术评分{score} · {label}", "破位触发技术派止损盘", f"{esc(name)}持仓承压，需等企稳信号"))
+    
+    # 5. 基本面
+    hard = risk.get("hard_stop") or {}
+    for item in (hard.get("items") or [])[:1]:
+        cur = num(item.get("cur_loss_pct"))
+        sl = num(item.get("stop_loss_pct"))
+        if cur is not None:
+            dims.append(("基本面", f"当前亏损{cur:.2f}%", "基本面疲弱+触发风控阈值", "需执行硬止损纪律"))
+    
+    if not dims:
+        return ""
+    
+    table_rows = ""
+    for dim, fact, chain, impact in dims:
+        table_rows += f'<tr><td style="font-weight:600;min-width:70px">{dim}</td><td>{esc(fact)}</td><td>{esc(chain)}</td><td>{esc(impact)}</td></tr>'
+    
+    # 抗跌赛道支撑逻辑
+    defensives = []
+    for b in bars:
+        score = num(b.get("score"))
+        name = b.get("name", "")
+        nf = num(b.get("net_inflow"))
+        if score is not None and score >= 50:
+            defensives.append((name, score, nf))
+    def_html = ""
+    for name, score, nf in defensives[:3]:
+        nf_str = f"资金净流入{nf:.0f}亿" if nf and nf > 0 else ""
+        def_html += f'<li>{esc(name)} 技术评分{score} · {nf_str}</li>'
+    
+    return f'''
+<section id="attr" class="card">
+  <h3>当日涨跌多维度归因</h3>
+  <table style="width:100%;border-collapse:collapse;font-size:13px">
+    <thead><tr><th style="text-align:left;padding:6px 8px;background:var(--bg2)">分析维度</th><th style="text-align:left;padding:6px 8px;background:var(--bg2)">事实数据</th><th style="text-align:left;padding:6px 8px;background:var(--bg2)">传导逻辑</th><th style="text-align:left;padding:6px 8px;background:var(--bg2)">对持仓影响</th></tr></thead>
+    <tbody>{table_rows}</tbody>
+  </table>
+  {f'<div style="margin-top:8px"><h4 style="margin:0 0 4px 0;font-size:13px">🟢 抗跌赛道支撑逻辑</h4><ul style="margin:0;padding-left:18px;font-size:12px">{def_html}</ul></div>' if def_html else ""}
+</section>'''
+
+
+# ================================================================
+#  方法论模块4: 明日三分情景预判
+# ================================================================
+def render_outlook(data):
+    """方向4: 情景预判表格 — 三情景×量化判定×对应操作 + 核心观察指标"""
+    inst = data.get("instruction") or {}
+    nd = inst.get("next_day") or {}
+    
+    watch_points = nd.get("watch_points") or []
+    plans = nd.get("plans") or []
+    
+    # 基准判断
+    baseline = ""
+    for p in plans:
+        if "缩量企稳" not in p and "放量下跌" not in p and "超跌反弹" not in p:
+            baseline = p
+            break
+    if not baseline and plans:
+        baseline = plans[0]
+    
+    # 三情景表格
+    scenario_rows = ""
+    scenarios = [("缩量企稳", "🟢"), ("放量下跌", "🔴"), ("超跌反弹", "🟡")]
+    for sname, icon in scenarios:
+        matched = [p for p in plans if sname in p]
+        # 从plans中拆出判定条件和操作
+        text = matched[0] if matched else ""
+        # 尝试拆分为判定条件+操作（如果包含"则"或"，"）
+        condition, action = text, ""
+        for sep in ["，对应操作", ", 对应操作", "，则", ", 则"]:
+            if sep in text:
+                parts = text.split(sep, 1)
+                condition = parts[0].strip()
+                action = parts[1].strip() if len(parts) > 1 else ""
+                break
+        scenario_rows += f'<tr><td><b>{icon} {sname}</b></td><td>{esc(condition[:100])}</td><td>{esc(action[:80])}</td></tr>'
+    if not scenario_rows:
+        scenario_rows = '<tr><td colspan="3" style="text-align:center;color:var(--mut)">当日数据未提供情景判定</td></tr>'
+    
+    # 核心观察指标
+    watch_html = ""
+    for wp in watch_points[:5]:
+        watch_html += f'<li>{esc(wp)}</li>'
+    
+    return f'''
+<section id="outlook" class="card">
+  <h3>次日行情预判与情景预案</h3>
+  <p style="font-size:12px;color:var(--mut);margin:0 0 8px 0">不做绝对涨跌预测，给出各情景下的量化判定与对应操作</p>
+  <div style="border-left:3px solid var(--acc);padding:6px 12px;margin-bottom:8px;font-size:13px">
+    <b>基准判断</b>：{esc(baseline[:120]) if baseline else "等待数据"}
+  </div>
+  <table style="width:100%;border-collapse:collapse;font-size:13px">
+    <thead><tr><th style="text-align:left;padding:6px 8px;background:var(--bg2);width:120px">情景类型</th><th style="text-align:left;padding:6px 8px;background:var(--bg2)">量化判定标准</th><th style="text-align:left;padding:6px 8px;background:var(--bg2)">对应操作动作</th></tr></thead>
+    <tbody>{scenario_rows}</tbody>
+  </table>
+  {f'<div style="margin-top:8px"><h4 style="margin:0 0 4px 0;font-size:13px">🔍 次日核心观察指标</h4><ul style="margin:0;padding-left:18px;font-size:12px">{watch_html}</ul></div>' if watch_html else ""}
+</section>'''
+
+
+# ================================================================
+#  方法论模块5: 因子回测输出表（读 factor_backtest.py 产物）
+# ================================================================
+def render_factor_backtest(data, date):
+    """方向5: 因子回测追踪 — 前日决策回测 + 因子权重表 + 权重调整说明"""
+    import os
+    flog = os.path.join(BASE, "factor_log.json")
+    wf = os.path.join(BASE, "factor_weights.json")
+    
+    log_records = []
+    if os.path.exists(flog):
+        try:
+            log = json.load(open(flog, encoding="utf-8"))
+            log_records = log.get("records", [])
+        except Exception:
+            pass
+    
+    current_weights = {}
+    if os.path.exists(wf):
+        try:
+            current_weights = json.load(open(wf, encoding="utf-8"))
+        except Exception:
+            pass
+    
+    if not log_records and not current_weights:
+        return ""
+    
+    # 前日决策回测
+    backtest_html = ""
+    if len(log_records) >= 2:
+        prev = log_records[-2]
+        curr = log_records[-1]
+        prev_score = num(prev.get("combined_score"))
+        curr_score = num(curr.get("combined_score"))
+        # 如果两日综合分方向一致，视为符合预期
+        if prev_score is not None and curr_score is not None:
+            if abs(curr_score - prev_score) <= 5:
+                accuracy = "符合预期（综合分波动≤5）"
+            elif (curr_score > prev_score and prev_score < 50) or (curr_score < prev_score and prev_score >= 50):
+                accuracy = "方向正确（综合分向预期方向变化）"
+            else:
+                accuracy = "方向偏差（综合分反向变化）"
+        else:
+            accuracy = "数据不足"
+        
+        backtest_html = f'''
+    <div style="margin-bottom:12px">
+      <h4 style="margin:0 0 6px 0;font-size:13px">（一）前一日决策回测</h4>
+      <table style="width:100%;border-collapse:collapse;font-size:12px">
+        <tr><td style="padding:3px 8px 3px 0;width:110px;color:var(--mut)">预判准确率</td><td style="padding:3px 0">{accuracy}</td></tr>
+        <tr><td style="padding:3px 8px 3px 0;color:var(--mut)">综合分变化</td><td style="padding:3px 0">{prev_score if prev_score is not None else "—"} → {curr_score if curr_score is not None else "—"}</td></tr>
+        <tr><td style="padding:3px 8px 3px 0;color:var(--mut)">规则有效性</td><td style="padding:3px 0">硬止损/集中度风控规则持续运行中（需更多交易日验证）</td></tr>
+      </table>
+    </div>'''
+    
+    # 因子权重表
+    recent = [r for r in log_records if r.get("date") <= date][-10:]
+    if recent:
+        rows = ""
+        for r in recent:
+            rd = r.get("date", "")
+            factors = r.get("factors", {})
+            weights = r.get("weights", {})
+            ics = r.get("ic", {})
+            cells = f'<td>{rd}</td>'
+            for fn in ["外围", "资金", "技术", "情绪", "基本面"]:
+                fv = num(factors.get(fn))
+                wv = num(weights.get(fn))
+                icv = num(ics.get(fn)) if isinstance(ics, dict) else None
+                fcell = f'{fv:.1f}' if fv is not None else '-'
+                wcell = f'{wv*100:.0f}%' if wv is not None else '-'
+                iccell = f'{icv:.3f}' if icv is not None else '-'
+                cells += f'<td style="text-align:right;padding:2px 6px">{fcell}</td><td style="text-align:right;padding:2px 6px">{wcell}</td><td style="text-align:right;padding:2px 6px;font-size:11px">{iccell}</td>'
+            rows += '<tr>' + cells + '</tr>'
+        
+        # 权重调整说明
+        if current_weights:
+            # 与基准权重对比
+            adj_notes = []
+            base_wt = {"外围": 0.20, "资金": 0.25, "技术": 0.25, "情绪": 0.15, "基本面": 0.15}
+            for fn in ["外围", "资金", "技术", "情绪", "基本面"]:
+                cur = current_weights.get(fn)
+                base = base_wt.get(fn)
+                if cur is not None and base is not None:
+                    diff = (cur - base) * 100
+                    if abs(diff) >= 3:
+                        direction = "上调" if diff > 0 else "下调"
+                        adj_notes.append(f"{fn}因子{direction}{abs(diff):.0f}%")
+            adj_txt = "；".join(adj_notes) if adj_notes else "权重与基准一致，暂无调整"
+        
+        return f'''
+<section id="factor" class="card">
+  <h3>每日回测与因子迭代</h3>
+  {backtest_html}
+  <div>
+    <h4 style="margin:0 0 6px 0;font-size:13px">（二）当前因子权重表</h4>
+    <div style="overflow-x:auto">
+    <table style="width:100%;border-collapse:collapse;font-size:12px">
+      <thead><tr style="background:var(--bg2)"><th style="padding:4px 6px;text-align:left">日期</th>
+        <th colspan="3" style="padding:4px 6px;text-align:center">外围</th><th colspan="3" style="padding:4px 6px;text-align:center">资金</th>
+        <th colspan="3" style="padding:4px 6px;text-align:center">技术</th><th colspan="3" style="padding:4px 6px;text-align:center">情绪</th>
+        <th colspan="3" style="padding:4px 6px;text-align:center">基本面</th></tr>
+      <tr style="background:var(--bg2)"><th style="padding:2px 6px"></th>
+        <th style="padding:2px 6px">分</th><th style="padding:2px 6px">权</th><th style="padding:2px 6px;font-size:10px">IC</th>
+        <th style="padding:2px 6px">分</th><th style="padding:2px 6px">权</th><th style="padding:2px 6px;font-size:10px">IC</th>
+        <th style="padding:2px 6px">分</th><th style="padding:2px 6px">权</th><th style="padding:2px 6px;font-size:10px">IC</th>
+        <th style="padding:2px 6px">分</th><th style="padding:2px 6px">权</th><th style="padding:2px 6px;font-size:10px">IC</th>
+        <th style="padding:2px 6px">分</th><th style="padding:2px 6px">权</th><th style="padding:2px 6px;font-size:10px">IC</th>
+      </tr></thead>
+      <tbody>{rows}</tbody>
+    </table>
+    </div>
+  </div>
+  <div style="margin-top:8px;font-size:12px;color:var(--mut);border-top:1px solid var(--line);padding-top:8px">
+    <b>（三）本期权重调整说明</b>：{esc(adj_txt)}<br>
+    <span style="font-size:11px">ICIR前2因子+5%/后2-5%，归一化到[5%,50%]。数据来自 factor_log.json / factor_weights.json</span>
+  </div>
+</section>'''
+    return ""
+
+
 def main():
     args = sys.argv[1:]
     if "--plan" in args:
@@ -1106,22 +1617,30 @@ def main():
     wl = load_wl()
 
     body = (
-            # === 首屏：3秒定调 ===
+            # ── 模块1: 精简速览（首屏必看） ──
+            render_lite_summary(data) +
+            # ── 模块1续: 核心决策速览 ──
             render_decision_header(data.get("instruction")) +
-            # === 第二屏：10秒执行 ===
+            # ── 模块1续: 必执行操作+条件触发+持有不动 三级分类 ──
+            render_mandatory_ops(data) +
+            # ── 模块1续: 指数速览+持仓表（二级优先） ──
             render_index_scroll((data.get("position") or {}).get("index_kpis")) +
             render_holdings_table((data.get("position") or {}).get("holdings")) +
-            render_cmd_bar(data.get("instruction"), date) +
-            # === 第三屏：1分钟依据（折叠） ===
+            # ── 模块2: 操作底层决策逻辑 ──
+            render_logic_rules(data) +
+            # ── 模块3: 涨跌多维度归因 ──
+            render_attribution(data) +
             render_sector(data.get("sector")) +
-            render_risk_stop(data.get("risk")) +
+            # ── 模块4: 次日行情预判与情景预案 ──
             render_outlook(data) +
-            # === 底部全折叠：非即时必需内容 ===
+            # ── 模块5: 每日回测与因子迭代 ──
+            render_factor_backtest(data, date) +
+            # ── 底部折叠区: 详细数据 ──
+            render_risk_stop(data.get("risk")) +
+            render_sentiment(data.get("sentiment")) +
             render_tail_window(wl, data) +
             render_profit_lock(wl) +
             render_rebalance(wl) +
-            render_sentiment(data.get("sentiment")) +
-            render_logic(data.get("logic")) +
             render_sources(data.get("sources"), data.get("disclaimer"))
         )
 

@@ -1,0 +1,52 @@
+{
+  "records": [
+    {
+      "date": "2026-07-13",
+      "factors": {
+        "外围": 40,
+        "资金": 50,
+        "技术": 33.6,
+        "情绪": 32.0,
+        "基本面": 61.5
+      },
+      "semic_concentration": null,
+      "generated_at": "2026-07-13T14:45:00+08:00",
+      "combined_score": 42.9,
+      "weights": {
+        "外围": 0.25,
+        "资金": 0.3,
+        "技术": 0.25,
+        "情绪": 0.1,
+        "基本面": 0.1
+      },
+      "ic": {
+        "外围": {
+          "ic": 0.0,
+          "icir": 0.0
+        },
+        "资金": {
+          "ic": 0.0,
+          "icir": 0.0
+        },
+        "技术": {
+          "ic": 0.0,
+          "icir": 0.0
+        },
+        "情绪": {
+          "ic": 0.0,
+          "icir": 0.0
+        },
+        "基本面": {
+          "ic": 0.0,
+          "icir": 0.0
+        }
+      },
+      "operation_stats": {
+        "stop_loss_3d_avg": 0,
+        "reduce_3d_avg": 0,
+        "max_drawdown_improve": 0,
+        "sample_count": 0
+      }
+    }
+  ]
+}

@@ -33,142 +33,17 @@ import glob
 import re
 import datetime
 
+# ── 共享工具库（方法论适配版） ──
+from render_utils import (
+    esc, tip, num, level_info, pcls, pbold, chg_cell, chg_span, bar,
+    str_tag, act_tag, risk_cls, wt_cell, ret_cell,
+    calc_risk_score, calc_stop_loss_dist, calc_semic_concentration,
+    check_alerts, r2, missing_val, risk_dist_html, yesterdate, RULES,
+)
+
 BASE = os.path.dirname(os.path.abspath(__file__))
 REPORTS = os.path.join(BASE, "reports")
 CRED_TIER = "T1"
-
-# ---------- 工具函数（与 make_market_html.py 保持一致） ----------
-def esc(s):
-    if s is None:
-        return ""
-    return (str(s).replace("&", "&amp;").replace("<", "&lt;")
-            .replace(">", "&gt;").replace('"', "&quot;"))
-
-def tip(s):
-    """把 [[术语|解释]] 转为带悬停提示的 span。先转义 HTML 再替换。"""
-    s = esc(s)
-    def repl(m):
-        term = m.group(1)
-        exp = m.group(2).replace('"', "&quot;")
-        return '<span class="tip" data-tip="%s">%s</span>' % (exp, term)
-    return re.sub(r"\[\[([^\]|]+)\|([^\]]+)\]\]", repl, s)
-
-def num(v):
-    if v is None:
-        return None
-    try:
-        return float(v)
-    except Exception:
-        return None
-
-def level_info(score, label=None):
-    """分数→(css类, 等级中文)。label 优先（与用户等级表一致）。"""
-    m = {"强多": "lv-strong-up", "偏多": "lv-up", "中性偏多": "lv-neu-up",
-          "中性偏空": "lv-neu-down", "偏空": "lv-down", "强空": "lv-strong-down"}
-    if label and label in m:
-        return m[label], label
-    s = num(score) or 0
-    if s >= 80:
-        return "lv-strong-up", "强多"
-    if s >= 60:
-        return "lv-up", "偏多"
-    if s >= 50:
-        return "lv-neu-up", "中性偏多"
-    if s >= 40:
-        return "lv-neu-down", "中性偏空"
-    if s >= 20:
-        return "lv-down", "偏空"
-    return "lv-strong-down", "强空"
-
-def pcls(v):
-    v = num(v)
-    if v is None:
-        return "neu"
-    if v > 0.05:
-        return "up"
-    if v < -0.05:
-        return "down"
-    return "neu"
-
-def pbold(v, thr=2.0):
-    v = num(v)
-    return v is not None and abs(v) >= thr
-
-def chg_cell(v, thr=2.0, suffix="%"):
-    """涨跌幅单元格：红涨绿跌，±thr% 加粗。"""
-    v = num(v)
-    if v is None:
-        return '<td class="neu">—</td>'
-    cls = pcls(v)
-    b = " b" if pbold(v, thr) else ""
-    sign = "+" if v > 0 else ""
-    return '<td class="%s%s">%s%.2f%s</td>' % (cls, b, sign, v, suffix)
-
-def chg_span(v, thr=2.0, suffix="%"):
-    """涨跌幅行内 span（非单元格，用于折叠 summary 等）。"""
-    v = num(v)
-    if v is None:
-        return '<span class="neu">—</span>'
-    cls = pcls(v)
-    b = " b" if pbold(v, thr) else ""
-    sign = "+" if v > 0 else ""
-    return '<span class="%s%s">%s%.2f%s</span>' % (cls, b, sign, v, suffix)
-
-def bar(score, cls):
-    s = num(score) or 0
-    s = max(0, min(100, int(round(s))))
-    return '<div class="bar"><i class="%s" style="width:%d%%"></i></div>' % (cls, s)
-
-def yesterdate(d):
-    dt = datetime.date.fromisoformat(d)
-    return (dt - datetime.timedelta(days=1)).isoformat()
-
-# ---------- 早报专用信号标签 ----------
-def str_tag(s):
-    """强度标签 强/中/弱 → (css, 文本)。强=红, 中=橙, 弱=灰（事件强度，非多空）。"""
-    m = {"强": "s-strong", "中": "s-mid", "弱": "s-weak"}
-    return m.get(s, "s-weak"), s
-
-def act_tag(a):
-    """操作标签 持有/减仓/警惕/观望 → (css, 文本)。"""
-    m = {"持有": "a-hold", "减仓": "a-reduce", "警惕": "a-warn", "观望": "a-watch"}
-    return m.get(a, "a-watch"), a
-
-def risk_cls(r):
-    """风险标签 高/中/低 → (css, 文本)。高=红, 中=橙, 低=黄。"""
-    m = {"高": "rk-high", "中": "rk-mid", "低": "rk-low"}
-    return m.get(r, "rk-mid"), r
-
-def wt_cell(v):
-    v = num(v)
-    if v is None:
-        return '<td class="neu">—</td>'
-    over = " wt-over" if v > 25 else ""
-    return '<td class="r%s">%.1f%%</td>' % (over, v)
-
-def ret_cell(v):
-    v = num(v)
-    if v is None:
-        return '<td class="neu">—</td>'
-    cls = pcls(v)
-    sign = "+" if v > 0 else ""
-    return '<td class="r %s">%s%.2f%%</td>' % (cls, sign, v)
-
-def risk_dist(rd):
-    """距 -8% 止损进度：rd 越大=越接近止损=风险越高。
-    阈值：≥70 高(红) / 40–70 中(橙) / <40 低(黄)，与收盘报告风险语义对齐。
-    返回 (文本, 文本css, 进度条色, 数值)。"""
-    rd = num(rd)
-    if rd is None:
-        return "—", "", "#3a4250", 0
-    rd = int(round(max(0, min(100, rd))))
-    if rd >= 70:
-        cls, col = "rk-high", "#ff6b61"
-    elif rd >= 40:
-        cls, col = "rk-mid", "#d9a441"
-    else:
-        cls, col = "rk-low", "#e8c33a"
-    return "%d%%" % rd, cls, col, rd
 
 # ---------- 各模块渲染 ----------
 def render_core(core, sentiment):
@@ -182,7 +57,7 @@ def render_core(core, sentiment):
         e_icon = emerg.get("icon", "🔴")
         e_text = tip(emerg.get("text", ""))
         emerg_html = f'''<div class="{ecls}"><span class="eb-icon">{e_icon}</span><span>{e_text}</span><span class="eb-close" onclick="this.parentElement.remove()">✕</span></div>'''
-    # === 风险加权综合评分 ===
+    # === 风险加权综合评分（方法论 · 四：数据缺失时自动计算） ===
     rs = core.get("risk_score")
     rs_html = ""
     if rs is not None:
@@ -373,7 +248,12 @@ def render_holdings(hs, constraint):
     for h in hs:
         act_cls, act_txt = act_tag(h.get("action_tag"))
         lvl_cls, lvl_txt = risk_cls(h.get("risk_level"))
-        rd_txt, rd_css, rd_col, rd_val = risk_dist(h.get("risk_dist"))
+        # 方法论 · 四：精确计算止损剩余空间（替代原"高/中/低"模糊描述）
+        sl = calc_stop_loss_dist(h.get("ret"))
+        sl_progress = sl["progress_pct"]
+        sl_color = sl["color"]
+        sl_cls = sl["level_cls"]
+        sl_txt = "%d%%" % sl_progress if sl["remaining_pct"] is not None else missing_val()
         pie.append({"name": h.get("name"), "value": num(h.get("weight_pct")) or 0})
         rows += ('<tr>'
                  '<td class="lname">%s</td>'
@@ -390,7 +270,7 @@ def render_holdings(hs, constraint):
             act_cls, tip(act_txt),
             tip(h.get("signal", "")),
             lvl_cls, lvl_txt,
-            rd_val, rd_col, rd_css, rd_txt)
+            sl_progress, sl_color, sl_cls, sl_txt)
     cons_html = ('<div class="constraint-bar">⚠️ 今日核心约束：%s</div>' % tip(constraint)) if constraint else ""
     # 持仓迷你趋势图
     mini_trends = '<div style="margin-top:8px"><div style="font-size:12px;color:var(--mut);margin-bottom:4px">📈 持仓关联指数近10日走势</div><div class="trend-mini" id="holdTrendBar">' \
@@ -1081,6 +961,46 @@ def main():
     updated = data.get("updated_at") or (date + " 09:00")
     prev = yesterdate(date)
 
+    # ========== 方法论 · 四：逻辑计算层 ==========
+    # 1. 半导体集中度自动计算
+    semic = calc_semic_concentration(data.get("holdings") or [])
+    if semic["over_thr60"]:
+        # 追加到 holdings_constraint 或 top_risk
+        sc_warn = "⚠️ 半导体赛道集中度%.1f%%（≥60%），极高集中度风险" % semic["total_pct"]
+        core = data.get("core") or {}
+        old_top = core.get("top_risk", "")
+        if sc_warn not in old_top:
+            core["top_risk"] = (old_top + " · " + sc_warn) if old_top else sc_warn
+
+    # 2. 风险评分自动兜底（agent 未提供时自动计算）
+    core = data.get("core") or {}
+    if core.get("risk_score") is None:
+        # 用情绪面和已有数据估算
+        sent = data.get("sentiment") or {}
+        sem_score = num(sent.get("semiconductor"))
+        if sem_score is not None:
+            computed = calc_risk_score({
+                "sentiment": sem_score,
+                "technical": 50,   # 默认中性
+                "event": 50,
+                "capital": 50,
+                "news": 50,
+            })
+            core["risk_score"] = computed["score"]
+            core["risk_score_note"] = "自动估算（情绪%.0f+默认值）" % sem_score
+
+    # 3. 自动预警检查
+    alerts = check_alerts(data.get("holdings") or [])
+    alert_banners = ""
+    for a in alerts:
+        lvl = a["level"]
+        icon = {"red": "🔴", "orange": "🟠"}.get(lvl, "🟡")
+        cls = "emergency-banner" + (" orange" if lvl == "orange" else "")
+        alert_banners += '<div class="%s"><span class="eb-icon">%s</span><span>%s</span></div>' % (cls, icon, esc(a["text"]))
+    # 把预警横幅注入到报告最顶部
+    alert_section = f'<section id="alerts">{alert_banners}</section>' if alert_banners else ""
+    # ========== 方法论结束 ==========
+
     # 是否有头条速览/今日前瞻/风险提示等新板块
     has_headlines = bool(data.get("headlines"))
     has_keyevents = bool(data.get("key_events"))
@@ -1113,7 +1033,8 @@ def main():
             '<button onclick="window.print()" title="导出 PDF">🖨️ PDF</button>'
             '</span></nav>') % (' '.join(nav_links), prev)
 
-    body = (render_headlines(data.get("headlines")) +
+    body = (alert_section +
+            render_headlines(data.get("headlines")) +
             render_core(data.get("core"), data.get("sentiment")) +
             render_global(data.get("global")) +
             render_key_events(data.get("key_events")) +
