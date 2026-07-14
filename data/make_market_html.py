@@ -237,6 +237,7 @@ def render_panorama(indices):
   </table>
   </div>
   {note}
+  <div class="chart-wrap"><canvas id="intradayChart" style="height:320px"></canvas></div>
   <div class="chart-wrap"><canvas id="flowBar"></canvas></div>
 </div>'''
 
@@ -740,6 +741,46 @@ function initCharts(){
         });
       }
     }
+    if(document.getElementById('intradayChart') && REPORT._intraday){
+      const idr = REPORT._intraday;
+      const codes = Object.keys(idr);
+      if(codes.length){
+        const c = echarts.init(document.getElementById('intradayChart'), null, {renderer:'canvas'});
+        // 用第一个指数的time作为x轴
+        const firstCode = codes[0];
+        const firstBars = idr[firstCode].bars || [];
+        const times = firstBars.map(b=>b.time);
+        // 为每个指数生成一条series，价格归一化到百分比（以开盘为基准）
+        const series = codes.map(code=>{
+          const rec = idr[code];
+          const bars = rec.bars || [];
+          if(bars.length < 2) return null;
+          const base = bars[0].open;
+          return {
+            name: rec.name,
+            type: 'line',
+            showSymbol: false,
+            smooth: true,
+            lineStyle: {width: code===firstCode ? 2 : 1.2},
+            data: bars.map(b=>+(((b.close - base) / base) * 100).toFixed(3))
+          };
+        }).filter(s=>s);
+        c.setOption({
+          backgroundColor:'transparent',
+          title:{text:'分时走势（归一化%，以开盘为基准）',left:'center',top:0,textStyle:{color:DARK.mut,fontSize:12}},
+          legend:{top:22,data:series.map(s=>s.name),textStyle:{color:DARK.tx,fontSize:10},itemWidth:12,itemHeight:8},
+          grid:{left:50,right:30,top:50,bottom:30},
+          tooltip:{trigger:'axis',formatter:function(p){
+            let s = p[0].axisValue + '<br/>';
+            p.forEach(item=>{ s += item.marker + item.seriesName + ': ' + item.value.toFixed(2) + '%<br/>'; });
+            return s;
+          }},
+          xAxis:{type:'category',data:times,axisLabel:{color:DARK.mut,fontSize:9,interval:Math.floor(times.length/8)},axisLine:{lineStyle:{color:'#2a3340'}}},
+          yAxis:{type:'value',axisLabel:{color:DARK.mut,fontSize:9,formatter:'{value}%'},splitLine:{lineStyle:{color:'#1d2530'}}},
+          series:series
+        });
+      }
+    }
     if(document.getElementById('sentRadar') && REPORT.sentiment){
       const f = REPORT.sentiment.factors||{};
       const keys = [['breadth','市场广度'],['limit_up_down','涨跌停'],['main_flow','主力净流入'],['northbound','北向资金'],['margin','融资余额'],['volume','量能亢奋'],['vix','VIX'],['erp','股债ERP']];
@@ -907,6 +948,16 @@ def main():
             raise SystemExit("用法: make_market_html.py <YYYY-MM-DD>")
         date = os.path.basename(fs[-1])[7:-5]
     data, date = load_data(date)
+
+    # 加载分时数据
+    intraday_path = os.path.join(BASE, "market_intraday_%s.json" % date)
+    if os.path.exists(intraday_path):
+        try:
+            with open(intraday_path, "r", encoding="utf-8") as f:
+                intraday = json.load(f)
+            data["_intraday"] = intraday.get("indices", {})
+        except Exception:
+            pass
 
     # 合并技术面增强产出的 market_tech_<DATE>.json（指数 by_code + 板块 by_sector）
     by_code, by_sector = load_tech(date)

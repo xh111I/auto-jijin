@@ -275,12 +275,120 @@ def build_tech(rec):
         price_text = "暂无明显支撑/压力位。"
 
     td = (rec.get("tendency") or "").replace("临界", "")
-    if "空" in td:
-        op_ref = "关联持仓警惕，破位减仓；年线下行则控仓。"
+    # 如果 raw 数据没有 tendency，从技术指标自动推导（评分制）
+    if not td:
+        ma_pat = ma_info.get("ma_pattern", "")
+        yr_slope = y.get("slope", "")
+        yr_status = y.get("status", "")
+        score = 0
+        if "多头" in ma_pat: score += 2
+        if "空头" in ma_pat: score -= 2
+        if "年线上方" in yr_status: score += 1
+        if "年线下方" in yr_status: score -= 1
+        if "向上" in yr_slope: score += 0.5
+        if "向下" in yr_slope: score -= 0.5
+        if macd == "金叉": score += 1
+        if macd == "死叉": score -= 1
+        if chg5 is not None and chg5 > 2: score += 1
+        if chg5 is not None and chg5 < -2: score -= 1
+        if chg20 is not None and chg20 > 5: score += 0.5
+        if chg20 is not None and chg20 < -5: score -= 0.5
+        if kdj == "超卖": score += 0.5
+        if kdj == "超买": score -= 0.5
+        # 量价信号
+        if pat1 in ("阳线", "大阳线"): score += 0.5
+        if pat1 in ("阴线", "大阴线"): score -= 0.5
+        if pat3 in ("两连阳", "阳包阴"): score += 0.5
+        if pat3 in ("两连阴", "阴包阳"): score -= 0.5
+        if vr is not None and vr > 1.05: score += 0.5
+        if vr is not None and vr < 0.95: score -= 0.5
+        if score >= 2: td = "偏多"
+        elif score <= -2: td = "偏空"
+        else: td = "中性"
+    # ===== 增强版 op_ref：四段式（趋势+入场+触底+反弹）=====
+    # 1. 趋势判断
+    ma_pat = ma_info.get("ma_pattern", "")
+    yr_slope = y.get("slope", "")
+    yr_status = y.get("status", "")
+    if "多" in td and "上行" in yr_slope:
+        trend_judge = "趋势偏多，均线多头排列且年线上行，中期方向向上。"
     elif "多" in td:
-        op_ref = "关联持仓可持有，回踩中期均线不破可分批加仓。"
+        trend_judge = "趋势偏多，均线结构改善，但年线仍需观察方向确认。"
+    elif "空" in td and "下行" in yr_slope:
+        trend_judge = "趋势偏空，均线承压且年线下行，中期方向向下。"
+    elif "空" in td:
+        trend_judge = "趋势偏空，均线空头排列，反弹需突破关键均线扭转。"
     else:
-        op_ref = "关联持仓持有观察，等方向确认。"
+        trend_judge = "趋势中性，均线纠缠，方向待选择。"
+
+    # 2. 入场时机
+    entry_parts = []
+    if macd == "金叉":
+        entry_parts.append("MACD金叉")
+    elif macd == "死叉":
+        entry_parts.append("MACD死叉")
+    if kdj == "超卖":
+        entry_parts.append("KDJ超卖")
+    elif kdj == "超买":
+        entry_parts.append("KDJ超买")
+    if near_sup and sup_pct is not None and sup_pct < 2:
+        entry_parts.append("贴近支撑%s(仅%s%%)" % (near_sup["type"], sup_pct))
+    if near_res and res_pct is not None and res_pct < 2:
+        entry_parts.append("逼近压力%s(仅%s%%)" % (near_res["type"], res_pct))
+
+    if "多" in td:
+        if "MACD金叉" in entry_parts or "KDJ超卖" in entry_parts:
+            entry_judge = "入场信号偏多（%s），可分批建仓。" % "、".join(entry_parts[:2])
+        elif "贴近支撑" in "、".join(entry_parts):
+            entry_judge = "回踩支撑区可试多，%s附近轻仓进场。" % near_sup["type"]
+        else:
+            entry_judge = "暂无明确入场信号，等回踩均线或MACD金叉确认。"
+    elif "空" in td:
+        if "MACD死叉" in entry_parts or "KDJ超买" in entry_parts:
+            entry_judge = "入场信号偏空（%s），不宜追高，等待企稳。" % "、".join(entry_parts[:2])
+        else:
+            entry_judge = "暂不宜入场，等趋势止跌企稳后再考虑。"
+    else:
+        entry_judge = "方向不明，建议观望，突破确认后再入场。"
+
+    # 3. 触底判断
+    bottom_signals = []
+    if "长下影" in pat1:
+        bottom_signals.append("长下影线")
+    if pat3 == "阳包阴":
+        bottom_signals.append("阳包阴")
+    if kdj == "超卖":
+        bottom_signals.append("KDJ超卖")
+    if vr is not None and vr < 0.8 and "空" in td:
+        bottom_signals.append("缩量止跌")
+    if macd == "金叉" and "空" not in td:
+        bottom_signals.append("MACD金叉")
+
+    if bottom_signals:
+        bottom_judge = "出现触底信号（%s），下跌空间或有限。" % "、".join(bottom_signals[:3])
+    elif "空" in td:
+        bottom_judge = "暂无明显触底信号，不宜抢反弹。"
+    else:
+        bottom_judge = "当前非底部区域，趋势延续为主。"
+
+    # 4. 反弹力度
+    if vr is not None and vr > 1.2:
+        vol_desc = "放量(%s)" % round(vr, 2)
+    elif vr is not None and vr < 0.8:
+        vol_desc = "缩量(%s)" % round(vr, 2)
+    else:
+        vol_desc = "平量"
+
+    if "多" in td and (vr or 0) > 1.05:
+        rebound_judge = "反弹有力，%s上涨，动能充足。" % vol_desc
+    elif "多" in td and (vr or 0) < 0.95:
+        rebound_judge = "反弹偏弱，%s上涨，动能不足需补量。" % vol_desc
+    elif "空" in td and (vr or 0) > 1.2:
+        rebound_judge = "抛压较大，%s下跌，反弹空间有限。" % vol_desc
+    else:
+        rebound_judge = "%s运行，反弹力度一般。" % vol_desc
+
+    op_ref = "%s %s %s %s" % (trend_judge, entry_judge, bottom_judge, rebound_judge)
 
     return {
         "code": code,

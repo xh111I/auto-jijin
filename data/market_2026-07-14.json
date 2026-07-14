@@ -361,10 +361,9 @@
   ],
   "weak": [
    "人工智能(应用端)",
-   "军工(航天装备/航海装备)",
-   "半导体"
+   "军工(航天装备/航海装备)"
   ],
-  "rotation": "强势板块：医疗服务, 北证50；温和走强：半导体(估算), 食品饮料/大消费, 证券/大金融, 港股创新药；弱势承压：人工智能(应用端), 军工(航天装备/航海装备), 半导体",
+  "rotation": "强势板块：医疗服务, 北证50；温和走强：半导体(估算), 食品饮料/大消费, 证券/大金融, 港股创新药；弱势承压：人工智能(应用端), 军工(航天装备/航海装备),",
   "chain": [
    "领涨：医疗服务/北证50",
    "领跌：人工智能(应用端)/军工(航天装备/航海装备)/半导体"
@@ -376,99 +375,99 @@
    "related": "半导体材料设备",
    "signal": "持有观察",
    "level": "中",
-   "support": "",
-   "pressure": "",
-   "risk_dist_pct": 0
+   "support": "箱体下沿支撑，观察方向选择",
+   "pressure": "箱体上沿压力，等待突破确认",
+   "risk_dist_pct": 6
   },
   {
    "name": "东方阿尔法科技优选混合C",
    "related": "半导体材料设备",
    "signal": "持有观察",
    "level": "中",
-   "support": "",
-   "pressure": "",
-   "risk_dist_pct": 0
+   "support": "箱体下沿支撑，观察方向选择",
+   "pressure": "箱体上沿压力，等待突破确认",
+   "risk_dist_pct": 6
   },
   {
    "name": "永赢先锋半导体智选混合C",
    "related": "半导体材料设备",
    "signal": "持有观察",
    "level": "中",
-   "support": "",
-   "pressure": "",
-   "risk_dist_pct": 0
+   "support": "箱体下沿支撑，观察方向选择",
+   "pressure": "箱体上沿压力，等待突破确认",
+   "risk_dist_pct": 6
   },
   {
    "name": "广发港股创新药ETF联接(QDII)C",
    "related": "恒生医疗保健",
    "signal": "持有观察",
    "level": "中",
-   "support": "",
-   "pressure": "",
-   "risk_dist_pct": 0
+   "support": "箱体下沿支撑，观察方向选择",
+   "pressure": "箱体上沿压力，等待突破确认",
+   "risk_dist_pct": 6
   },
   {
    "name": "鹏华丰诚债券C",
    "related": "中债综合财富指数",
    "signal": "持有观察",
    "level": "中",
-   "support": "",
-   "pressure": "",
-   "risk_dist_pct": 0
+   "support": "箱体下沿支撑，观察方向选择",
+   "pressure": "箱体上沿压力，等待突破确认",
+   "risk_dist_pct": 6
   },
   {
    "name": "财通集成电路产业股票C",
    "related": "半导体",
    "signal": "持有观察",
    "level": "中",
-   "support": "",
-   "pressure": "",
-   "risk_dist_pct": 0
+   "support": "箱体下沿支撑，观察方向选择",
+   "pressure": "箱体上沿压力，等待突破确认",
+   "risk_dist_pct": 6
   },
   {
    "name": "财通成长优选混合C",
    "related": "沪深300成长",
    "signal": "持有观察",
    "level": "中",
-   "support": "",
-   "pressure": "",
-   "risk_dist_pct": 0
+   "support": "箱体下沿支撑，观察方向选择",
+   "pressure": "箱体上沿压力，等待突破确认",
+   "risk_dist_pct": 6
   },
   {
    "name": "广发纳斯达克100ETF联接(QDII)C",
    "related": "纳斯达克100",
    "signal": "持有观察",
    "level": "中",
-   "support": "",
-   "pressure": "",
-   "risk_dist_pct": 0
+   "support": "箱体下沿支撑，观察方向选择",
+   "pressure": "箱体上沿压力，等待突破确认",
+   "risk_dist_pct": 6
   },
   {
    "name": "天弘中证全指通信设备指数C",
    "related": "中证全指通信设备",
    "signal": "持有观察",
    "level": "中",
-   "support": "",
-   "pressure": "",
-   "risk_dist_pct": 0
+   "support": "箱体下沿支撑，观察方向选择",
+   "pressure": "箱体上沿压力，等待突破确认",
+   "risk_dist_pct": 6
   },
   {
    "name": "富国中证煤炭指数C",
    "related": "中证煤炭",
    "signal": "持有观察",
    "level": "中",
-   "support": "",
-   "pressure": "",
-   "risk_dist_pct": 0
+   "support": "箱体下沿支撑，观察方向选择",
+   "pressure": "箱体上沿压力，等待突破确认",
+   "risk_dist_pct": 6
   },
   {
    "name": "嘉实中证主要消费ETF发起联接C",
    "related": "中证主要消费指数",
    "signal": "持有观察",
    "level": "中",
-   "support": "",
-   "pressure": "",
-   "risk_dist_pct": 0
+   "support": "箱体下沿支撑，观察方向选择",
+   "pressure": "箱体上沿压力，等待突破确认",
+   "risk_dist_pct": 6
   }
  ],
  "predictions": [
