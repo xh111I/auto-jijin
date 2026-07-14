@@ -1,0 +1,105 @@
+{
+  "watchlist": {
+    "account_total_asset": 12697.88,
+    "cash": 3061.79,
+    "cash_pct": 24.11,
+    "total_hold_return": 131.37,
+    "total_hold_return_pct": 1.3822,
+    "active_funds": 9,
+    "hard_constraints": {
+      "stop_loss_pct": -8,
+      "take_profit_pct": 15,
+      "max_single_position_pct": 30,
+      "target_total_position_pct": 90,
+      "principal": 15000
+    },
+    "top3_concentration_pct": 50.82,
+    "semiconductor_exposure_pct": 52.36,
+    "risk_alerts": [
+      "半导体集中度占总资产52.4% 仍偏高",
+      "东方阿尔法25.05%为第一大仓",
+      "永赢半导亏损-4.74%(绝对敞口1785)"
+    ],
+    "snapshot_date": "2026-07-13T10:47"
+  },
+  "strategy": {
+    "trading": {
+      "principal": 15000,
+      "style": "进攻型(已加入锁本与分散约束)",
+      "stop_loss_pct": -8,
+      "take_profit_pct": 15,
+      "max_single_position_pct": 30,
+      "target_total_position_pct": 90
+    },
+    "risk_controls": {
+      "semiconductor_cluster": {
+        "exposure_max_pct": 65,
+        "daily_drop_trigger_pct": -3,
+        "three_day_cumulative_trigger_pct": -5,
+        "action": "Reduce at least one semiconductor holding; force individual ≤30%"
+      },
+      "tail_cutoff_rule": "14:55后仅允许被动止盈止损委托,禁止新建仓位",
+      "max_daily_loss_account": -3
+    }
+  },
+  "sentiment_7d": {
+    "records": [
+      {
+        "date": "2026-07-08",
+        "fear_greed_index": 41.5,
+        "level": "中性"
+      },
+      {
+        "date": "2026-07-09",
+        "fear_greed_index": 51.8,
+        "level": "中性"
+      },
+      {
+        "date": "2026-07-10",
+        "fear_greed_index": 50,
+        "level": "中性"
+      }
+    ],
+    "latest_index": 50,
+    "latest_level": "中性",
+    "trend": [
+      41.5,
+      51.8,
+      50
+    ]
+  },
+  "index_baseline": {
+    "中证半导": {
+      "code": "cs931865",
+      "last_close": 10222.17,
+      "prev_close": 10613.29,
+      "change_pct": -3.69,
+      "MA20": 9990.86,
+      "MA60": 7979.03,
+      "above_MA20": true,
+      "above_MA60": true
+    },
+    "人工智能": {
+      "code": "cs931071",
+      "last_close": 3106.14,
+      "prev_close": 3211.93,
+      "change_pct": -3.29,
+      "MA20": 3183.56,
+      "MA60": 2955.49,
+      "above_MA20": false,
+      "above_MA60": true
+    },
+    "创业板指": {
+      "code": "sz399006",
+      "last_close": 3723.52,
+      "prev_close": 3842.73,
+      "change_pct": -3.1,
+      "MA20": 4103.65,
+      "MA60": 3940.54,
+      "above_MA20": false,
+      "above_MA60": false
+    }
+  },
+  "update_ts": "2026-07-14T08:36:23+08:00",
+  "data_as_of": "2026-07-13 close (last trading day)"
+}
