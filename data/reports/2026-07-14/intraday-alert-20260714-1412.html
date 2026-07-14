@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>盘中预警 · 2026-07-14 14:12</title>
+<style>
+:root{--bg:#1a1d23;--card:#22262e;--border:#2e333d;--up:#f5564d;--down:#26c281;--neu:#d9a441;--text:#e8eaed;--dim:#9aa0a6;--red:#f5564d;--orange:#f5a623;--blue:#4a90d9;--green:#26c281}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--text);padding:20px;max-width:900px;margin:0 auto}
+h1{font-size:1.4rem;margin-bottom:6px}
+.sub{color:var(--dim);font-size:0.85rem;margin-bottom:20px}
+.alert-card{background:var(--card);border-radius:10px;padding:16px;margin-bottom:16px;border:1px solid var(--border)}
+.alert-card.red{border-left:4px solid var(--red)}
+.alert-card.orange{border-left:4px solid var(--orange)}
+.alert-card.blue{border-left:4px solid var(--blue)}
+.level-badge{display:inline-block;padding:3px 10px;border-radius:4px;font-size:0.8rem;font-weight:600;margin-bottom:8px}
+.level-badge.red{background:#3d1f1f;color:var(--red)}
+.level-badge.orange{background:#3d2f14;color:var(--orange)}
+.level-badge.blue{background:#1a2a3d;color:var(--blue)}
+.alert-title{font-size:1rem;font-weight:600;margin-bottom:4px}
+.alert-detail{font-size:0.9rem;color:var(--dim);line-height:1.5}
+table{width:100%;border-collapse:collapse;font-size:0.85rem;margin-top:8px}
+th{text-align:left;padding:6px 8px;background:var(--border);color:var(--dim);font-weight:500}
+td{padding:6px 8px;border-bottom:1px solid var(--border)}
+.up{color:var(--up)}.down{color:var(--down)}.neu{color:var(--neu)}
+.tag{display:inline-block;padding:2px 6px;border-radius:3px;font-size:0.75rem;margin:2px}
+.tag.red{background:#3d1f1f;color:var(--red)}
+.tag.orange{background:#3d2f14;color:var(--orange)}
+.tag.green{background:#143d24;color:var(--green)}
+.section-title{font-size:1rem;font-weight:600;margin:20px 0 10px;padding-bottom:6px;border-bottom:1px solid var(--border)}
+.footer{color:var(--dim);font-size:0.75rem;margin-top:24px;padding-top:12px;border-top:1px solid var(--border);text-align:center}
+.progress-bar{height:6px;border-radius:3px;background:var(--border);margin:8px 0;overflow:hidden}
+.progress-fill{height:100%;border-radius:3px;transition:width .5s}
+.progress-fill.danger{background:var(--red)}
+.progress-fill.warning{background:var(--orange)}
+.progress-fill.safe{background:var(--green)}
+</style>
+</head>
+<body>
+
+<h1>&#128276; 盘中预警 · 2026-07-14 14:12</h1>
+<div class="sub">数据来源: akshare(新浪) + neodata T2 + westock | 仅供参考，不构成投资建议</div>
+
+<!-- 预警摘要 -->
+<div class="alert-card" style="border-left:4px solid var(--orange)">
+  <div class="level-badge orange">&#128992; 警告 · 1 项触发</div>
+  <div class="alert-title">永赢半导体距-8%止损仅 3.26% &le; 5% 阈值</div>
+  <div class="alert-detail">
+    hold_return -4.74% / 止损进度 59.3% / 半导体材料设备指数 -1.46%（日盘 V 反后再度回落）
+  </div>
+</div>
+
+<!-- 距止损进度 -->
+<div class="section-title">&#128211; 距止损进度</div>
+<div class="alert-card">
+  <table>
+    <tr><th>基金名称</th><th>持有收益率</th><th>距-8%止损</th><th>进度</th><th>状态</th></tr>
+    <tr>
+      <td>永赢先锋半导体智选C</td>
+      <td class="down">-4.74%</td>
+      <td>3.26%</td>
+      <td>
+        <div class="progress-bar"><div class="progress-fill warning" style="width:59.3%"></div></div>
+      </td>
+      <td><span class="tag orange">&#9888;&#65039; &le;5%</span></td>
+    </tr>
+    <tr>
+      <td>东方阿尔法科技优选C</td>
+      <td class="up">+6.03%</td>
+      <td>14.03%</td>
+      <td><div class="progress-bar"><div class="progress-fill safe" style="width:24.6%"></div></div></td>
+      <td><span class="tag green">安全</span></td>
+    </tr>
+    <tr>
+      <td>东方人工智能主题C</td>
+      <td class="up">+4.15%</td>
+      <td>12.15%</td>
+      <td><div class="progress-bar"><div class="progress-fill safe" style="width:18.1%"></div></div></td>
+      <td><span class="tag green">安全</span></td>
+    </tr>
+    <tr>
+      <td>广发港股创新药联接C</td>
+      <td class="down">-0.88%</td>
+      <td>7.12%</td>
+      <td><div class="progress-bar"><div class="progress-fill safe" style="width:39%"></div></div></td>
+      <td><span class="tag green">安全</span></td>
+    </tr>
+    <tr>
+      <td>财通集成电路产业C</td>
+      <td class="down">-1.84%</td>
+      <td>6.16%</td>
+      <td><div class="progress-bar"><div class="progress-fill safe" style="width:27%"></div></div></td>
+      <td><span class="tag green">安全</span></td>
+    </tr>
+    <tr>
+      <td>财通成长优选C</td>
+      <td class="down">-1.97%</td>
+      <td>6.03%</td>
+      <td><div class="progress-bar"><div class="progress-fill safe" style="width:25.4%"></div></div></td>
+      <td><span class="tag green">安全</span></td>
+    </tr>
+  </table>
+</div>
+
+<!-- 实时板块行情 -->
+<div class="section-title">&#128202; 实时板块行情（14:13）</div>
+<div class="alert-card">
+  <table>
+    <tr><th>板块/指数</th><th>最新价</th><th>涨跌幅</th><th>量比</th><th>对比前次(11:15)</th></tr>
+    <tr><td>上证指数</td><td>3,937.95</td><td class="up">+0.62%</td><td>-</td><td class="up">&#8593; 从-0.73%翻红</td></tr>
+    <tr><td>沪深300</td><td>4,763.74</td><td class="up">+1.46%</td><td>-</td><td class="up">&#8593; 回升</td></tr>
+    <tr><td>创业板指</td><td>3,823.27</td><td class="up">+2.68%</td><td>-</td><td class="up">&#8593; 从-0.53%翻红大涨</td></tr>
+    <tr><td>科创50</td><td>1,982.48</td><td class="down">-0.59%</td><td>-</td><td class="up">&#8593; 从-3.83%大幅收窄</td></tr>
+    <tr><td>深证成指</td><td>14,814.32</td><td class="up">+2.01%</td><td>-</td><td class="up">&#8593; 回升</td></tr>
+    <tr><td>半导体材料设备</td><td>11,428.36</td><td class="down">-1.46%</td><td>0.96</td><td class="up">&#8593; 从-4.23%大幅V反（仍浅绿）</td></tr>
+    <tr><td>通信设备</td><td>11,591.93</td><td class="up">+5.38%</td><td>1.07</td><td class="up">&#8593; 强势领涨</td></tr>
+    <tr><td>中证煤炭</td><td>2,220.55</td><td class="up">+4.24%</td><td>1.36</td><td class="up">&#8593; 继续走强</td></tr>
+    <tr><td>人工智能(931071)</td><td>3,128.91</td><td class="up">+0.73%</td><td>1.04</td><td class="up">&#8593; 翻红</td></tr>
+    <tr><td>A股医疗保健</td><td>11,614.57</td><td class="up">+1.47%</td><td>1.15</td><td>-</td></tr>
+    <tr><td>恒生指数</td><td>24,374.43</td><td class="up">+0.66%</td><td>-</td><td>-</td></tr>
+  </table>
+</div>
+
+<!-- 风控建议 -->
+<div class="section-title">&#128161; 风控建议</div>
+<div class="alert-card" style="border-left:4px solid var(--orange)">
+  <div style="margin-bottom:8px"><span class="level-badge orange">&#128992; 持续警示</span></div>
+  <div style="font-size:0.9rem;line-height:1.6">
+    <p>&#128284; <strong>永赢半导体</strong>：持有收益率 -4.74%，距-8%硬止损仅 3.26%。半导体材料设备指数午后V反至-1.46%，较午盘-4.23%大幅修复，但仍在浅绿区。若尾盘回落至-3%以上，距止损将逼近2%&#128308;区间。</p>
+    <p>&#128284; <strong>市场环境</strong>：大盘午后全面翻红（上证+0.62%、创业板+2.68%），通信设备+5.38%领涨、煤炭+4.24%受益地缘。半导体-1.46%是主要拖累板块。</p>
+    <p>&#128284; <strong>对比前次(13:13)</strong>：半导体从+0.03%(13:13)回落至-1.46%(14:12)，科创50从-0.12%小幅扩大至-0.59%。午后反弹力度有所减弱，尾盘需观察。</p>
+    <p style="color:var(--orange);margin-top:8px">&#9888;&#65039; 半导体现为全场唯一下跌重点板块，敞口集中风险持续。建议关注尾盘14:50前能否站稳半导体材料设备11,500以上。</p>
+  </div>
+</div>
+
+<div class="footer">
+  &#9888;&#65039; 本监控由 WorkBuddy 自动化生成，仅供参考，不构成投资建议。<br>
+  数据源：akshare(新浪) + neodata T2 + 腾讯自选股 · 生成时间 2026-07-14 14:12 GMT+8
+</div>
+
+</body>
+</html>
