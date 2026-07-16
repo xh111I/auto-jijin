@@ -1,0 +1,40 @@
+{
+  "date": "2026-07-16",
+  "captured_at": "14:30",
+  "note": "数据来源: neodata-financial-search(行情+资金流向)+tdx-connector(实时快照). 数据更新时间为2026-07-16 10:00左右(盘中), 涨跌家数API暂不可得, 成交额为主板+深市合计. 北向尾盘10min实时数据不可得, 展示累计净额.",
+  "indices": {
+    "创业板指": {
+      "code": "sz399006",
+      "price": 3767.59,
+      "chg_pct": -0.98,
+      "vol_ratio": 2.3,
+      "main_net_inflow": -4295746912,
+      "main_net_inflow_text": "-42.96亿"
+    },
+    "科创50": {
+      "code": "sh000688",
+      "price": 1929.19,
+      "chg_pct": 0.26,
+      "vol_ratio": 1.85,
+      "main_net_inflow": -1693300300,
+      "main_net_inflow_text": "-16.93亿"
+    },
+    "沪深300": {
+      "code": "sh000300",
+      "price": 4752.22,
+      "chg_pct": -0.72,
+      "vol_ratio": 2.12,
+      "main_net_inflow": -7718504594,
+      "main_net_inflow_text": "-77.19亿"
+    }
+  },
+  "northbound_tail10m_net_inflow": null,
+  "northbound_note": "北向尾盘10分钟净流入实时接口不可得. 当日累计: 沪股通-127.31亿, 深股通-95.22亿, 合计约-222.5亿(数据来源: neodata 沪/深股通资金流向)",
+  "broad_market": {
+    "up_count": null,
+    "down_count": null,
+    "up_down_note": "涨跌家数实时聚合接口暂不可得, 留空待后续补全",
+    "turnover": 813676780000,
+    "turnover_text": "约8,136亿(上证3,761亿+深证4,375亿)"
+  }
+}
