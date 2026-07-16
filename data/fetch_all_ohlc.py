@@ -9,7 +9,7 @@ QQ finance API: https://proxy.finance.qq.com/ifzqgtimg/appstock/app/newfqkline/g
 import json, os, ssl, sys, urllib.request, datetime
 
 BASE = os.path.dirname(os.path.abspath(__file__))
-TODAY = "2026-07-13"
+TODAY = "2026-07-16"
 CTX = ssl.create_default_context()
 CTX.check_hostname = False
 CTX.verify_mode = ssl.CERT_NONE
