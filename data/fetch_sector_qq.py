@@ -8,7 +8,7 @@ amount: QQ gives amount_wan -> *10000 to yuan
 import json, os, ssl, urllib.request
 
 BASE = os.path.dirname(os.path.abspath(__file__))
-TODAY = "2026-07-16"
+TODAY = "2026-07-17"
 CTX = ssl.create_default_context()
 CTX.check_hostname = False
 CTX.verify_mode = ssl.CERT_NONE
