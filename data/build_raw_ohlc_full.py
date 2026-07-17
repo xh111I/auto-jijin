@@ -10,8 +10,8 @@ vol_yi: 亿元 (QQ: amount_wan/1e4; westock: amount/1e8; index _raw: amount/1e8)
 import json, os, datetime, glob
 
 BASE = os.path.dirname(os.path.abspath(__file__))
-DATE = "2026-07-16"
-TODAY = datetime.date(2026, 7, 16)
+DATE = "2026-07-17"
+TODAY = datetime.date(2026, 7, 17)
 
 # Index code -> name (from QQ API _raw files)
 INDEX_NAMES = {
